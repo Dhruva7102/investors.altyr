@@ -27,12 +27,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: investor_site/package-lock.json
       
       - name: Install dependencies
-        run: npm ci
+        run: cd investor_site && npm ci
       
       - name: Build
-        run: npm run build
+        run: cd investor_site && npm run build
       
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -40,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist'
+          path: './investor_site/dist'
 
   deploy:
     environment:
