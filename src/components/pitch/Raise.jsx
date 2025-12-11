@@ -1,27 +1,36 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Layers, BarChart, Users as UsersIcon, Shield } from 'lucide-react';
+import PieChart from './PieChart';
 
 const useOfFunds = [
   {
     icon: Layers,
     title: "Finalize Core Platform",
-    description: "Complete UX, discovery, and payout infrastructure for seamless creator and fan experience."
+    description: "Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.",
+    value: 35, // 35% = $420k
+    color: "#AC0064"
   },
   {
     icon: BarChart,
     title: "Build Analytics, CRM & Gamification",
-    description: "Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine."
+    description: "Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine.",
+    value: 30, // 30% = $360k
+    color: "#9B4DCA"
   },
   {
     icon: UsersIcon,
     title: "Onboard Founding Creators",
-    description: "Deeply support an Inner Circle of founding creators and early agency partners with white-glove service."
+    description: "Deeply support an Inner Circle of founding creators and early agency partners with white-glove service.",
+    value: 20, // 20% = $240k
+    color: "#64109A"
   },
   {
     icon: Shield,
     title: "Payments, Compliance & Risk",
-    description: "Invest in robust payment infrastructure, compliance, and risk systems appropriate for the category."
+    description: "Invest in robust payment infrastructure, compliance, and risk systems appropriate for the category.",
+    value: 15, // 15% = $180k
+    color: "#7C3AED"
   }
 ];
 
@@ -62,7 +71,7 @@ export default function Raise() {
           <div className="relative inline-block mb-6">
             <h2 className="text-6xl md:text-7xl lg:text-8xl font-extralight text-white/90">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                $1,000,000
+                $1,200,000
               </span>
             </h2>
             {/* Glow effect */}
@@ -82,8 +91,11 @@ export default function Raise() {
               }}
             />
           </div>
-          <p className="text-2xl md:text-3xl text-white/60 font-extralight">
+          <p className="text-2xl md:text-3xl text-white/60 font-extralight mb-2">
             via SAFE
+          </p>
+          <p className="text-lg text-white/50 font-light">
+            at 20% discount
           </p>
         </motion.div>
 
@@ -98,37 +110,79 @@ export default function Raise() {
           Use of Funds
         </motion.h3>
 
-        {/* Use of funds grid */}
-        <div className="grid md:grid-cols-2 gap-6 mb-16">
-          {useOfFunds.map((item, index) => (
-            <motion.div
-              key={index}
-              className="relative group"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ 
-                duration: 0.8, 
-                delay: index * 0.1,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-            >
-              <div className="relative h-full p-6 md:p-8 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
-                {/* Icon */}
-                <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                  <item.icon className="w-6 h-6 text-[#AC0064]" />
-                </div>
-                
-                {/* Content */}
-                <h4 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                  {item.title}
-                </h4>
-                <p className="text-sm text-white/60 font-light leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+        {/* Pie Chart and Breakdown */}
+        <div className="grid lg:grid-cols-2 gap-12 mb-16 items-center">
+          {/* Pie Chart */}
+          <motion.div
+            className="flex justify-center lg:justify-end"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <PieChart data={useOfFunds} size={320} />
+          </motion.div>
+
+          {/* Breakdown List */}
+          <div className="space-y-4">
+            {useOfFunds.map((item, index) => {
+              const amount = (item.value / 100) * 1200000;
+              const formattedAmount = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                maximumFractionDigits: 0,
+              }).format(amount);
+              
+              return (
+                <motion.div
+                  key={index}
+                  className="relative group"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ 
+                    duration: 0.6, 
+                    delay: index * 0.1 + 0.4,
+                    ease: [0.25, 0.46, 0.45, 0.94]
+                  }}
+                >
+                  <div className="relative p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
+                    <div className="flex items-start gap-4">
+                      {/* Color indicator */}
+                      <div 
+                        className="w-1 h-full rounded-full flex-shrink-0 mt-1"
+                        style={{ backgroundColor: item.color }}
+                      />
+                      
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                              <item.icon className="w-4 h-4 text-[#AC0064]" />
+                            </div>
+                            <h4 className="text-base font-light text-white/90 tracking-wide">
+                              {item.title}
+                            </h4>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="text-xs text-white/50 font-light">
+                            {item.value}%
+                          </span>
+                          <span className="text-sm font-medium text-white/80">
+                            {formattedAmount}
+                          </span>
+                        </div>
+                        <p className="text-xs text-white/60 font-light leading-relaxed">
+                          {item.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
 
         {/* Bottom CTA feel */}

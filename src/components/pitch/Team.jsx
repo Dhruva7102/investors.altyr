@@ -14,9 +14,9 @@ const team = [
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies."
   },
   {
-    name: "Bib",
+    name: "Rahul",
     role: "Lead Developer",
-    bio: "Full-stack developer with significant Flutter/PWA experience, focused on fast, polished, mobile-first UX."
+    bio: "10+ years running high execution tech teams"
   }
 ];
 
