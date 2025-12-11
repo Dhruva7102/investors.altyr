@@ -4,7 +4,7 @@ import path from 'path'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/investors.altyr/',
+  base: '/', // Custom domain - no base path needed
   plugins: [react()],
   server: {
     allowedHosts: true,
