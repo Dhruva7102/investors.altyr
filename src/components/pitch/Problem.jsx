@@ -65,9 +65,9 @@ export default function Problem() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight leading-relaxed text-white/90 tracking-wide mb-4">
-            Current platforms have clear product-market fit,
+            The market is proven—billions in revenue, strong margins—
             <br />
-            <span className="text-white/60">but major gaps</span>
+            <span className="text-white/60">but the platforms are broken</span>
           </h2>
         </motion.div>
 
@@ -86,20 +86,44 @@ export default function Problem() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="h-full p-6 rounded-xl bg-white/[0.02] border border-red-500/20 backdrop-blur-sm hover:border-red-500/40 transition-all duration-500">
-                {/* Icon */}
-                <div className="mb-4 inline-flex p-3 rounded-lg bg-red-500/10 border border-red-500/20">
-                  <problem.icon className="w-5 h-5 text-red-400/80" />
-                </div>
+              <motion.div 
+                className="h-full p-6 rounded-xl bg-white/[0.02] border border-red-500/20 backdrop-blur-sm cursor-pointer"
+                whileHover={{ 
+                  scale: 1.02,
+                  borderColor: 'rgba(239, 68, 68, 0.4)',
+                  backgroundColor: 'rgba(255,255,255,0.03)',
+                }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                {/* Subtle hover glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-xl opacity-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 0%, rgba(239,68,68,0.08) 0%, transparent 50%)',
+                  }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
                 
-                {/* Content */}
-                <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                  {problem.title}
-                </h3>
-                <p className="text-sm text-white/50 font-light leading-relaxed">
-                  {problem.description}
-                </p>
-              </div>
+                <div className="relative">
+                  {/* Icon */}
+                  <motion.div 
+                    className="mb-4 inline-flex p-3 rounded-lg bg-red-500/10 border border-red-500/20"
+                    whileHover={{ scale: 1.05, rotate: -2 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <problem.icon className="w-5 h-5 text-red-400/80" />
+                  </motion.div>
+                  
+                  {/* Content */}
+                  <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide group-hover:text-white transition-colors duration-200">
+                    {problem.title}
+                  </h3>
+                  <p className="text-sm text-white/50 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-200">
+                    {problem.description}
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -115,7 +139,7 @@ export default function Problem() {
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/[0.1]">
             <div className="absolute top-6 left-6 text-6xl text-[#AC0064]/20 font-serif">"</div>
             <p className="text-xl md:text-2xl font-extralight text-white/80 leading-relaxed italic">
-              Creators are running real businesses on infrastructure that looks and behaves like a 2016 web app.
+              Despite generating billions in revenue, platforms like OnlyFans operate on infrastructure that looks and behaves like a 2016 web app—creating a massive opportunity for a modern alternative.
             </p>
             <div className="absolute bottom-6 right-6 text-6xl text-[#AC0064]/20 font-serif rotate-180">"</div>
           </div>

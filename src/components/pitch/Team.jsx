@@ -77,25 +77,49 @@ export default function Team() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
-                {/* Avatar placeholder */}
-                <div className="mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-[#AC0064]/30 to-[#64109A]/30 border-2 border-[#AC0064]/50 flex items-center justify-center mx-auto">
-                  <User className="w-10 h-10 text-[#AC0064]/80" />
-                </div>
+              <motion.div 
+                className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm cursor-pointer"
+                whileHover={{ 
+                  scale: 1.02,
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  borderColor: 'rgba(255,255,255,0.12)',
+                }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                {/* Subtle hover glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl opacity-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 0%, rgba(172,0,100,0.08) 0%, transparent 50%)',
+                  }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
                 
-                {/* Content */}
-                <div className="text-center">
-                  <h3 className="text-xl font-light text-white/90 mb-1 tracking-wide">
-                    {member.name}
-                  </h3>
-                  <p className="text-sm text-[#AC0064]/80 font-medium mb-4 uppercase tracking-wider">
-                    {member.role}
-                  </p>
-                  <p className="text-sm text-white/50 font-light leading-relaxed">
-                    {member.bio}
-                  </p>
+                <div className="relative">
+                  {/* Avatar placeholder */}
+                  <motion.div 
+                    className="mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-[#AC0064]/30 to-[#64109A]/30 border-2 border-[#AC0064]/50 flex items-center justify-center mx-auto"
+                    whileHover={{ scale: 1.05, rotate: 5 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <User className="w-10 h-10 text-[#AC0064]/80" />
+                  </motion.div>
+                  
+                  {/* Content */}
+                  <div className="text-center">
+                    <h3 className="text-xl font-light text-white/90 mb-1 tracking-wide group-hover:text-white transition-colors duration-200">
+                      {member.name}
+                    </h3>
+                    <p className="text-sm text-[#AC0064]/80 font-medium mb-4 uppercase tracking-wider group-hover:text-[#AC0064] transition-colors duration-200">
+                      {member.role}
+                    </p>
+                    <p className="text-sm text-white/50 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-200">
+                      {member.bio}
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>

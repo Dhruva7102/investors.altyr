@@ -59,11 +59,14 @@ export default function SideNav() {
         {sections.map((section, index) => {
           const isActive = activeSection === section.id;
           return (
-            <button
+            <motion.button
               key={section.id}
               onClick={() => handleClick(section.id)}
               className="group relative flex items-center justify-end"
               aria-label={`Navigate to ${section.label}`}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              transition={{ duration: 0.2 }}
             >
               {/* Label - always visible for active, appears on hover for others */}
               <motion.span
@@ -109,7 +112,7 @@ export default function SideNav() {
                   <div className="absolute top-full left-1/2 -translate-x-1/2 w-px h-4 bg-gradient-to-b from-white/20 to-transparent" />
                 )}
               </div>
-            </button>
+            </motion.button>
           );
         })}
       </div>

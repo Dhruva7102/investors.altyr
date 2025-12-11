@@ -18,7 +18,7 @@ export default function InvestorHome() {
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
       }}
     >
-      {/* Smooth scroll behavior */}
+      {/* Smooth scroll behavior and cursor styles */}
       <style>{`
         html {
           scroll-behavior: smooth;
@@ -27,6 +27,16 @@ export default function InvestorHome() {
         ::selection {
           background: rgba(172, 0, 100, 0.4);
           color: white;
+        }
+        
+        /* Subtle cursor pointer for interactive elements */
+        button, a, [role="button"] {
+          cursor: pointer;
+        }
+        
+        /* Smooth transitions for all interactive elements */
+        * {
+          transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }
       `}</style>
       

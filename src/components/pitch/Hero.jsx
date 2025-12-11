@@ -112,13 +112,20 @@ export default function Hero() {
 
         {/* SAFE callout */}
         <motion.div
-          className="inline-block px-8 py-4 rounded-full bg-white/[0.06] border border-white/[0.12] backdrop-blur-sm"
+          className="inline-block px-8 py-4 rounded-full bg-white/[0.06] border border-white/[0.12] backdrop-blur-sm cursor-pointer"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+          whileHover={{ 
+            scale: 1.02,
+            backgroundColor: 'rgba(255,255,255,0.08)',
+            borderColor: 'rgba(255,255,255,0.18)',
+            transition: { duration: 0.2 }
+          }}
         >
           <p className="text-white/80 text-lg font-light">
-            Raising <span className="text-white font-medium">$1,000,000</span> via SAFE
+            Raising <span className="text-white font-medium">$1,200,000</span> via SAFE
+            <span className="text-white/60 text-base ml-2">• Friends & Family Round</span>
           </p>
         </motion.div>
       </div>

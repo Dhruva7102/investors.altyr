@@ -90,8 +90,9 @@ export default function Market() {
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.2 }}
         >
-          Subscription and adult content make up a large, under-optimized niche. 
-          Platforms like OnlyFans have proven demand and willingness to pay at 20%+ commission—but have stalled on innovation.
+          Subscription and adult content represent a massive, high-margin market. 
+          OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure that frustrates both creators and fans. 
+          The gap between profitability and platform quality creates a clear opportunity.
         </motion.p>
 
         {/* Opportunity cards */}
@@ -109,20 +110,44 @@ export default function Market() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
-                {/* Icon */}
-                <div className="mb-6 inline-flex p-4 rounded-xl bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                  <item.icon className="w-6 h-6 text-[#AC0064]" />
-                </div>
+              <motion.div 
+                className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm cursor-pointer"
+                whileHover={{ 
+                  scale: 1.02,
+                  backgroundColor: 'rgba(255,255,255,0.05)',
+                  borderColor: 'rgba(255,255,255,0.12)',
+                }}
+                transition={{ duration: 0.2, ease: 'easeOut' }}
+              >
+                {/* Subtle hover glow */}
+                <motion.div
+                  className="absolute inset-0 rounded-2xl opacity-0 pointer-events-none"
+                  style={{
+                    background: 'radial-gradient(circle at 50% 0%, rgba(172,0,100,0.08) 0%, transparent 50%)',
+                  }}
+                  whileHover={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
                 
-                {/* Content */}
-                <h3 className="text-xl font-light text-white/90 mb-3 tracking-wide">
-                  {item.title}
-                </h3>
-                <p className="text-white/50 font-light leading-relaxed">
-                  {item.description}
-                </p>
-              </div>
+                <div className="relative">
+                  {/* Icon */}
+                  <motion.div 
+                    className="mb-6 inline-flex p-4 rounded-xl bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30"
+                    whileHover={{ scale: 1.08, rotate: 3 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <item.icon className="w-6 h-6 text-[#AC0064]" />
+                  </motion.div>
+                  
+                  {/* Content */}
+                  <h3 className="text-xl font-light text-white/90 mb-3 tracking-wide group-hover:text-white transition-colors duration-200">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/50 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-200">
+                    {item.description}
+                  </p>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </div>
@@ -136,7 +161,7 @@ export default function Market() {
           transition={{ duration: 1, delay: 0.5 }}
         >
           <p className="text-xl md:text-2xl text-white/70 font-extralight italic max-w-4xl mx-auto leading-relaxed">
-            Altyr aims to be the modern, creator-aligned alternative—turning a standard 20% commission into value that creators can feel.
+            Altyr captures the same proven economics—20% commission on a high-margin business—while delivering the modern platform experience creators and fans actually want.
           </p>
         </motion.div>
       </div>

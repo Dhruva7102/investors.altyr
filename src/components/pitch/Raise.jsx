@@ -1,36 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layers, BarChart, Users as UsersIcon, Shield } from 'lucide-react';
+import { Layers, BarChart, Users as UsersIcon, Shield, Target } from 'lucide-react';
 import PieChart from './PieChart';
 
 const useOfFunds = [
   {
-    icon: Layers,
-    title: "Finalize Core Platform",
-    description: "Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.",
-    value: 35, // 35% = $420k
+    icon: Target,
+    title: "Customer Acquisition Incentives",
+    description: "Incentives for users and creators to drive early growth and network effects.",
+    value: 30, // 30% = $360k
     color: "#AC0064"
+  },
+  {
+    icon: Shield,
+    title: "Payments, Compliance, Legal & Risk",
+    description: "Invest in robust payment infrastructure, compliance, legal, and risk systems appropriate for the category.",
+    value: 25, // 25% = $300k
+    color: "#9B4DCA"
   },
   {
     icon: BarChart,
     title: "Build Analytics, CRM & Gamification",
     description: "Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine.",
-    value: 30, // 30% = $360k
-    color: "#9B4DCA"
+    value: 15, // 15% = $180k
+    color: "#64109A"
   },
   {
     icon: UsersIcon,
     title: "Onboard Founding Creators",
     description: "Deeply support an Inner Circle of founding creators and early agency partners with white-glove service.",
-    value: 20, // 20% = $240k
-    color: "#64109A"
-  },
-  {
-    icon: Shield,
-    title: "Payments, Compliance & Risk",
-    description: "Invest in robust payment infrastructure, compliance, and risk systems appropriate for the category.",
     value: 15, // 15% = $180k
     color: "#7C3AED"
+  },
+  {
+    icon: Layers,
+    title: "Finalize Core Platform",
+    description: "Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.",
+    value: 15, // 15% = $180k
+    color: "#A855F7"
   }
 ];
 
@@ -146,21 +153,45 @@ export default function Raise() {
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
                 >
-                  <div className="relative p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
-                    <div className="flex items-start gap-4">
+                  <motion.div 
+                    className="relative p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm cursor-pointer"
+                    whileHover={{ 
+                      scale: 1.01,
+                      backgroundColor: 'rgba(255,255,255,0.05)',
+                      borderColor: 'rgba(255,255,255,0.12)',
+                    }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                  >
+                    {/* Subtle hover glow */}
+                    <motion.div
+                      className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 pointer-events-none"
+                      style={{
+                        background: `radial-gradient(circle at 50% 0%, ${item.color}15 0%, transparent 50%)`,
+                      }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    
+                    <div className="relative flex items-start gap-4">
                       {/* Color indicator */}
-                      <div 
+                      <motion.div 
                         className="w-1 h-full rounded-full flex-shrink-0 mt-1"
                         style={{ backgroundColor: item.color }}
+                        whileHover={{ scaleY: 1.1 }}
+                        transition={{ duration: 0.2 }}
                       />
                       
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center gap-3">
-                            <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                            <motion.div 
+                              className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30"
+                              whileHover={{ scale: 1.05, rotate: 2 }}
+                              transition={{ duration: 0.2 }}
+                            >
                               <item.icon className="w-4 h-4 text-[#AC0064]" />
-                            </div>
-                            <h4 className="text-base font-light text-white/90 tracking-wide">
+                            </motion.div>
+                            <h4 className="text-base font-light text-white/90 tracking-wide group-hover:text-white transition-colors duration-200">
                               {item.title}
                             </h4>
                           </div>
@@ -178,7 +209,7 @@ export default function Raise() {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
