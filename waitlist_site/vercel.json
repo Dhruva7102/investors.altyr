@@ -1,0 +1,14 @@
+{
+  "buildCommand": "cd waitlist_site && npm install && npm run build",
+  "outputDirectory": "waitlist_site/dist",
+  "devCommand": "cd waitlist_site && npm run dev",
+  "installCommand": "cd waitlist_site && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
+
