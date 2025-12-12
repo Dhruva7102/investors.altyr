@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2, Gift } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { storeWaitlistEmail } from '@/api/airtable';
 
 export default function FanGiftSignup() {
   const [email, setEmail] = useState('');
@@ -16,13 +17,28 @@ export default function FanGiftSignup() {
 
     setIsSubmitting(true);
 
-    await base44.entities.WaitlistEmail.create({
-      email,
-      type: 'fan'
-    });
-
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      // Store to Airtable
+      await storeWaitlistEmail(email, 'fan');
+      
+      // Also store to Base44 (if you want to keep both)
+      try {
+        await base44.entities.WaitlistEmail.create({
+          email,
+          type: 'fan'
+        });
+      } catch (base44Error) {
+        // Log but don't fail if Base44 fails
+        console.warn('Base44 storage failed:', base44Error);
+      }
+      
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Failed to store email:', error);
+      // You might want to show an error message to the user here
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

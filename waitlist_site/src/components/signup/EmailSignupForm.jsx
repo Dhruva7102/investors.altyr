@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { base44 } from '@/api/base44Client';
+import { storeWaitlistEmail } from '@/api/airtable';
 
 export default function EmailSignupForm({ 
   type = 'creator', 
@@ -36,17 +37,32 @@ export default function EmailSignupForm({
     setError('');
     setIsSubmitting(true);
     
-    await base44.entities.WaitlistEmail.create({
-      email: contact,
-      type
-    });
-    
-    if (onSubmit) {
-      await onSubmit(contact);
+    try {
+      // Store to Airtable
+      await storeWaitlistEmail(contact, type);
+      
+      // Also store to Base44 (if you want to keep both)
+      try {
+        await base44.entities.WaitlistEmail.create({
+          email: contact,
+          type
+        });
+      } catch (base44Error) {
+        // Log but don't fail if Base44 fails
+        console.warn('Base44 storage failed:', base44Error);
+      }
+      
+      if (onSubmit) {
+        await onSubmit(contact);
+      }
+      
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Failed to store email:', error);
+      setError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
   };
 
   return (
