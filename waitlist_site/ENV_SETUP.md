@@ -9,9 +9,6 @@ Add these to your Vercel project settings (Settings → Environment Variables):
 - **VITE_AIRTABLE_BASE_ID**: Your Airtable Base ID (starts with `app...`)
 - **VITE_AIRTABLE_TABLE_NAME**: `Emails` (optional, defaults to "Emails")
 
-### Base44 Configuration (Optional)
-- **VITE_BASE44_APP_ID**: `692eafcbaaa1898a7dd3af41`
-
 ## Airtable Table Structure
 
 Make sure your Airtable table "Emails" has these fields:

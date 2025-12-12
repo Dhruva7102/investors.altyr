@@ -3,7 +3,6 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2, Gift } from 'lucide-react';
-import { base44 } from '@/api/base44Client';
 import { storeWaitlistEmail } from '@/api/airtable';
 
 export default function FanGiftSignup() {
@@ -20,17 +19,6 @@ export default function FanGiftSignup() {
     try {
       // Store to Airtable
       await storeWaitlistEmail(email, 'fan');
-      
-      // Also store to Base44 (if you want to keep both)
-      try {
-        await base44.entities.WaitlistEmail.create({
-          email,
-          type: 'fan'
-        });
-      } catch (base44Error) {
-        // Log but don't fail if Base44 fails
-        console.warn('Base44 storage failed:', base44Error);
-      }
       
       setIsSubmitted(true);
     } catch (error) {

@@ -1,8 +1,6 @@
-# Base44 App
+# Altyr Waitlist Site
 
-
-This app was created automatically by Base44.
-It's a Vite+React app that communicates with the Base44 API.
+The official waitlist website for Altyr, a creator platform built with React and Vite.
 
 ## Running the app
 
@@ -17,4 +15,9 @@ npm run dev
 npm run build
 ```
 
-For more information and support, please contact Base44 support at app@base44.com.
+## Features
+
+- Email signup forms for creators and fans
+- Airtable integration for email storage
+- Modern, responsive design with dark theme
+- Built with React, Vite, Tailwind CSS, and Framer Motion
