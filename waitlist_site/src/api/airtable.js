@@ -68,25 +68,15 @@ export async function createAirtableRecord(fields) {
  * @returns {Promise<Object>} The created record
  */
 export async function storeWaitlistEmail(contact, type = 'waitlist') {
-  // Determine if it's an email or phone
-  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
-  const isPhone = /^[\d\s\-\+\(\)]{7,}$/.test(contact.replace(/\s/g, ''));
+  // Airtable table has "Creators" and "Fans" fields, not "Email" and "Type"
+  // Map the type to the correct field name
+  const fields = {};
   
-  const fields = {
-    Type: type,
-    Created: new Date().toISOString()
-  };
-  
-  // Add email or phone based on what was provided
-  if (isEmail) {
-    fields.Email = contact;
-  } else if (isPhone) {
-    fields.Phone = contact;
-    // Also store in Email field for compatibility (Airtable might require it)
-    fields.Email = contact;
+  if (type === 'creator' || type === 'Creators') {
+    fields.Creators = contact;
   } else {
-    // If neither, store as email anyway
-    fields.Email = contact;
+    // For 'fan', 'waitlist', or any other type, store in Fans field
+    fields.Fans = contact;
   }
   
   return createAirtableRecord(fields);
