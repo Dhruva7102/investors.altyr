@@ -12,8 +12,26 @@ const AIRTABLE_API_URL = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRT
  */
 export async function createAirtableRecord(fields) {
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    console.error('Airtable configuration missing:', {
+      hasApiKey: !!AIRTABLE_API_KEY,
+      hasBaseId: !!AIRTABLE_BASE_ID,
+      tableName: AIRTABLE_TABLE_NAME
+    });
     throw new Error('Airtable API credentials are not configured');
   }
+
+  // Clean up fields - remove undefined values and ensure proper structure
+  const cleanFields = Object.entries(fields).reduce((acc, [key, value]) => {
+    if (value !== undefined && value !== null) {
+      acc[key] = value;
+    }
+    return acc;
+  }, {});
+
+  console.log('Sending to Airtable:', {
+    url: AIRTABLE_API_URL,
+    fields: cleanFields
+  });
 
   const response = await fetch(AIRTABLE_API_URL, {
     method: 'POST',
@@ -22,33 +40,55 @@ export async function createAirtableRecord(fields) {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      fields: {
-        Email: fields.email || fields.Email,
-        Type: fields.type || fields.Type || 'waitlist',
-        ...fields
-      }
+      fields: cleanFields
     })
   });
 
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ error: 'Unknown error' }));
-    throw new Error(error.error?.message || `Airtable API error: ${response.status}`);
+    const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+    const errorMessage = errorData.error?.message || errorData.message || `Airtable API error: ${response.status}`;
+    console.error('Airtable API Error:', {
+      status: response.status,
+      statusText: response.statusText,
+      error: errorData,
+      url: AIRTABLE_API_URL
+    });
+    throw new Error(errorMessage);
   }
 
-  return await response.json();
+  const result = await response.json();
+  console.log('Airtable success:', result);
+  return result;
 }
 
 /**
- * Store waitlist email to Airtable
- * @param {string} email - The email address
+ * Store waitlist email/phone to Airtable
+ * @param {string} contact - The email address or phone number
  * @param {string} type - The type (creator, fan, etc.)
  * @returns {Promise<Object>} The created record
  */
-export async function storeWaitlistEmail(email, type = 'waitlist') {
-  return createAirtableRecord({
-    Email: email,
+export async function storeWaitlistEmail(contact, type = 'waitlist') {
+  // Determine if it's an email or phone
+  const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+  const isPhone = /^[\d\s\-\+\(\)]{7,}$/.test(contact.replace(/\s/g, ''));
+  
+  const fields = {
     Type: type,
     Created: new Date().toISOString()
-  });
+  };
+  
+  // Add email or phone based on what was provided
+  if (isEmail) {
+    fields.Email = contact;
+  } else if (isPhone) {
+    fields.Phone = contact;
+    // Also store in Email field for compatibility (Airtable might require it)
+    fields.Email = contact;
+  } else {
+    // If neither, store as email anyway
+    fields.Email = contact;
+  }
+  
+  return createAirtableRecord(fields);
 }
 

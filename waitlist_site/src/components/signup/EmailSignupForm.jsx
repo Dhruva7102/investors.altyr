@@ -47,7 +47,11 @@ export default function EmailSignupForm({
       setIsSubmitted(true);
     } catch (error) {
       console.error('Failed to store email:', error);
-      setError('Something went wrong. Please try again.');
+      // Show more specific error message if available
+      const errorMessage = error.message || 'Something went wrong. Please try again.';
+      setError(errorMessage.includes('not configured') 
+        ? 'Service is not configured. Please contact support.' 
+        : 'Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
