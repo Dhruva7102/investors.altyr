@@ -87,28 +87,38 @@ export default function Hero() {
 
         {/* Main headline */}
         <motion.h2
-          className="text-2xl md:text-3xl lg:text-4xl font-extralight tracking-tight leading-[1.3] mb-6"
+          className="text-2xl md:text-3xl lg:text-4xl font-extralight tracking-tight leading-[1.3] mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <span className="text-white/90">The Creator Platform</span>
+          <span className="text-white/90">Altyr, An Exclusive Content platform that finally feels</span>
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#AC0064] to-[#64109A]">
-            Built With Creators, Not Just For Them
+            …pleasurable
           </span>
         </motion.h2>
 
-        {/* Tagline */}
-        <motion.p
-          className="text-lg md:text-xl text-white/60 font-light tracking-wide mb-8 max-w-3xl mx-auto"
+        {/* Feature bullets */}
+        <motion.div
+          className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 mb-8 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          A next-generation platform combining modern UX, serious business tooling, 
-          and gamified fan experiences to systematically grow creator revenue.
-        </motion.p>
+          <div className="flex items-center gap-3 text-white/70 font-light">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
+            <span className="text-base md:text-lg">Modern and responsive UX</span>
+          </div>
+          <div className="flex items-center gap-3 text-white/70 font-light">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
+            <span className="text-base md:text-lg">Extensive Business tooling</span>
+          </div>
+          <div className="flex items-center gap-3 text-white/70 font-light">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
+            <span className="text-base md:text-lg">Rewarding, gamified fan experiences</span>
+          </div>
+        </motion.div>
 
         {/* SAFE callout */}
         <motion.div

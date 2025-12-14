@@ -48,16 +48,16 @@ export default function Market() {
 
         {/* Big stat */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1 }}
         >
           <div className="relative inline-block">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-extralight text-white/90 mb-6">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extralight text-white/90 mb-4">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                Hundreds of Billions
+                $50+ Billion
               </span>
             </h2>
             {/* Glow effect */}
@@ -77,23 +77,29 @@ export default function Market() {
               }}
             />
           </div>
-          <p className="text-2xl md:text-3xl text-white/60 font-extralight">
-            projected in the creator economy
+          <p className="text-xl md:text-2xl text-white/60 font-extralight">
+            combined market value of top 5 platforms
           </p>
         </motion.div>
 
-        {/* Context paragraph */}
-        <motion.p
-          className="text-center text-lg md:text-xl text-white/60 font-light max-w-4xl mx-auto mb-16 leading-relaxed"
+        {/* Context paragraphs */}
+        <motion.div
+          className="text-center text-lg md:text-xl text-white/60 font-light max-w-4xl mx-auto mb-16 leading-relaxed space-y-6"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.2 }}
         >
-          Subscription and adult content represent a massive, high-margin market. 
-          OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure that frustrates both creators and fans. 
-          The gap between profitability and platform quality creates a clear opportunity.
-        </motion.p>
+          <p>
+            Subscription and adult content represent a massive, high-margin market. 
+            OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure that frustrates both creators and fans. 
+            The gap between profitability and platform quality creates a clear opportunity.
+          </p>
+          <p>
+            We leverage data-driven insights and proven gamification techniques from gaming, social media, and e-commerce to drive <span className="text-white/80 font-medium">more spend on platform</span>. 
+            By incentivizing big spenders with progression systems, VIP tiers, and loss aversion mechanics, we don't just capture existing market share—we <span className="text-white/80 font-medium">expand the total addressable market</span> by making spending more engaging and rewarding.
+          </p>
+        </motion.div>
 
         {/* Opportunity cards */}
         <div className="grid md:grid-cols-3 gap-8">
