@@ -15,7 +15,9 @@
 7. [Animation & Motion](#animation--motion)
 8. [Spacing & Layout](#spacing--layout)
 9. [Component Patterns](#component-patterns)
-10. [Usage Guidelines](#usage-guidelines)
+10. [Waitlist Site Specifics](#waitlist-site-specifics)
+11. [Investor Site Specifics](#investor-site-specifics)
+12. [Usage Guidelines](#usage-guidelines)
 
 ---
 
@@ -66,10 +68,16 @@ Altyr is an exclusive content platform that finally feels pleasurable. We combin
 
 ### Tone Variations
 
-**Hero/Marketing Copy**
+**Hero/Marketing Copy (Investor Site)**
 - Bold, aspirational
 - Emphasize transformation and opportunity
 - Example: "an exclusive content platform that actually feels pleasurable"
+
+**Hero/Marketing Copy (Waitlist Site)**
+- Inviting, forward-looking
+- Emphasize next generation and exclusivity
+- Example: "The Next Generation of Exclusive Content"
+- Tagline: "Built for creators. Designed for fans."
 
 **Product Features**
 - Clear, benefit-focused
@@ -81,10 +89,22 @@ Altyr is an exclusive content platform that finally feels pleasurable. We combin
 - Focus on market opportunity and execution
 - Example: "Subscription and adult content represent a massive, high-margin market"
 
-**User-Facing**
+**User-Facing (Waitlist)**
 - Friendly, supportive
 - Clear instructions and feedback
 - Example: "You're on the list! We'll be in touch soon."
+- Example: "Join the Waitlist" or "Be the first to know when we launch."
+
+**Problem Statement (Waitlist)**
+- Direct, honest about industry issues
+- Emphasize what's wrong, then what's right
+- Example: "The industry leader stopped innovating."
+- Example: "Creators deserve modern tools, faster payouts, and real transparency."
+
+**Value Proposition (Waitlist)**
+- Emphasize premium quality and next generation
+- Example: "ALTYR is the premium platform built for the next generation."
+- Example: "Designed from the ground up with creators and fans at the center of everything."
 
 ### Do's and Don'ts
 
@@ -151,6 +171,24 @@ Altyr is an exclusive content platform that finally feels pleasurable. We combin
 - Usage: Gradient highlights, warm accents
 - Represents optimism, growth
 
+**Creator Orange**
+- Hex: `#B56A00`
+- RGB: `rgb(181, 106, 0)`
+- Usage: Creator-specific CTAs, buttons, accents
+- Represents creator empowerment, premium tier
+
+**Creator Light Orange**
+- Hex: `#FFAA34`
+- RGB: `rgb(255, 170, 52)`
+- Usage: Creator gradient highlights, hover states
+- Represents creator success, rewards
+
+**Creator Gradient Orange**
+- Hex: `#D4740C`
+- RGB: `rgb(212, 116, 12)`
+- Usage: Creator button gradients
+- Represents creator energy, growth
+
 ### Text Colors
 
 **Primary Text**
@@ -168,6 +206,9 @@ Altyr is an exclusive content platform that finally feels pleasurable. We combin
 **Gradients**
 - Primary gradient: `#AC0064` → `#64109A` (magenta to purple)
 - Logo gradient: `#9B4DCA` → `#E85A24` → `#FF8C42` (purple to orange)
+- Creator gradient: `#D4740C` → `#B56A00` (light orange to dark orange)
+- Creator accent gradient: `#FFAA34` → `#B56A00` (yellow-orange to dark orange)
+- Fan gradient: `#AC0064` → `#64109A` (magenta to purple)
 - Background gradients: Use low opacity (10-30%) for subtle effects
 
 **Opacity Levels**
@@ -478,19 +519,35 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 
 ### Buttons
 
-**Primary Button**
+**Primary Button (Fan/Magenta)**
 - Background: `bg-[#AC0064]`
-- Hover: `bg-[#C0007A]` or `bg-[#C97A00]` (creator)
+- Hover: `bg-[#C0007A]`
 - Shadow: `hover:shadow-[0_0_40px_rgba(172,0,100,0.3)]`
-- Padding: `px-8 py-4` or `h-14`
-- Border radius: `rounded-xl`
+- Padding: `px-8 py-4` or `h-14` or `px-7 py-5`
+- Border radius: `rounded-xl` or `rounded-full`
 - Text: `text-white font-medium`
+- Usage: Fan signups, general CTAs
 
-**Secondary Button**
+**Primary Button (Creator/Orange)**
+- Background: `bg-[#B56A00]` or gradient `from-[#D4740C] to-[#B56A00]`
+- Hover: `bg-[#C97A00]` or `from-[#E8840C] to-[#C97A00]`
+- Shadow: `hover:shadow-[0_0_40px_rgba(181,106,0,0.3)]` or `hover:shadow-[0_0_60px_rgba(212,116,12,0.4)]`
+- Padding: `px-8 py-4` or `h-14` or `px-7 py-5`
+- Border radius: `rounded-full`
+- Text: `text-white font-medium`
+- Usage: Creator signups, creator-focused CTAs
+- Icons: `Sparkles` icon for creator buttons
+
+**Secondary Button (Glass)**
 - Background: `bg-white/[0.06]`
 - Border: `border border-white/[0.12]`
-- Hover: `bg-white/[0.08]`
+- Hover: `bg-white/[0.08]` or `bg-white/[0.1]`
+- Hover border: `border-white/[0.2]`
+- Shadow: `hover:shadow-[0_0_40px_rgba(255,255,255,0.08)]`
 - Backdrop blur: `backdrop-blur-sm`
+- Border radius: `rounded-full`
+- Usage: Secondary CTAs, "For Fans" button
+- Icons: `Heart` icon for fan buttons
 
 ### Cards
 
@@ -502,10 +559,34 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 - Backdrop blur: `backdrop-blur-sm`
 - Hover: Scale `1.02`, increased opacity
 
-**Feature Card**
-- Same as standard card
-- Icon container with gradient
-- Hover glow effect from top
+**Feature Card (Waitlist)**
+- Background: `bg-white/[0.02]`
+- Border: `border border-white/[0.04]`
+- Padding: `p-7 md:p-8`
+- Border radius: `rounded-2xl`
+- Hover: `bg-white/[0.04]`, `border-white/[0.08]`
+- Shadow on hover: `shadow-[0_8px_40px_rgba(100,16,154,0.08)]`
+- Icon container: `bg-gradient-to-br from-[#64109A]/15 to-[#AC0064]/10`
+- Icon border: `border-[#64109A]/15` hover `border-[#64109A]/25`
+
+**Combined Audience Card (Waitlist)**
+- Background: `bg-white/[0.015]`
+- Border: `border border-white/[0.06]`
+- Border radius: `rounded-3xl`
+- Backdrop blur: `backdrop-blur-sm`
+- Corner accents: Radial gradients at corners
+- Center divider: Vertical gradient line (desktop only)
+- Padding: `p-10 md:p-14 lg:p-16`
+
+**Showcase Card (Waitlist)**
+- Width: `w-[280px] md:w-[360px]`
+- Height: `h-[380px] md:h-[460px]`
+- Border: `border-white/[0.06]` hover `border-white/[0.12]`
+- Border radius: `rounded-2xl md:rounded-3xl`
+- Shadow on hover: `shadow-[0_20px_60px_rgba(100,16,154,0.1)]`
+- Gradient background with glass overlay
+- Animated orb inside
+- Icon in center with gradient container
 
 ### Forms
 
@@ -517,10 +598,30 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 - Border radius: `rounded-xl`
 - Text: `text-white placeholder:text-white/30`
 
+**Form Containers (Creator)**
+- Background: `bg-gradient-to-br from-[#B56A00]/10 to-transparent`
+- Border: `border-[#B56A00]/20`
+- Glow: Radial gradient with `rgba(181,106,0,0.15)`
+- Border radius: `rounded-3xl`
+- Padding: `p-8 md:p-10`
+
+**Form Containers (Fan)**
+- Background: `bg-gradient-to-br from-[#AC0064]/10 to-transparent`
+- Border: `border-[#AC0064]/20`
+- Glow: Radial gradient with `rgba(172,0,100,0.15)`
+- Border radius: `rounded-3xl`
+- Padding: `p-8 md:p-10`
+
 **Error States**
 - Text: `text-red-400`
 - Size: `text-xs`
 - Margin: `mt-2`
+
+**Success States**
+- Icon: Check mark in rounded circle
+- Background: Creator `bg-[#B56A00]/20` or Fan `bg-[#AC0064]/20`
+- Icon color: Creator `text-[#FFAA34]` or Fan `text-[#AC0064]`
+- Message: "You're on the list!" or "Your gift is on the way!"
 
 ### Badges/Pills
 
@@ -530,6 +631,176 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 - Padding: `px-8 py-4`
 - Border radius: `rounded-full`
 - Backdrop blur: `backdrop-blur-sm`
+
+**Section Labels (Waitlist)**
+- Background: `bg-[#64109A]/10` or `bg-[#AC0064]/10`
+- Border: `border border-[#64109A]/20` or `border-[#AC0064]/20`
+- Padding: `px-4 py-2`
+- Border radius: `rounded-full`
+- Text: `text-xs tracking-widest uppercase font-medium`
+- Text color: `text-white/70`
+- Icons: Small icon (3.5px) with brand color
+- Examples: "Why ALTYR", "For Creators", "For Fans", "Who We Are"
+
+---
+
+## Waitlist Site Specifics
+
+### Hero Section
+
+**Layout**
+- Full viewport height: `min-h-screen`
+- Centered content: `max-w-4xl mx-auto`
+- Logo at top, headline, tagline, CTAs, social proof
+
+**Copy Structure**
+1. Logo: "ALTYR" (gradient wordmark)
+2. Headline: "The Next Generation of Exclusive Content"
+3. Tagline: "Built for creators. Designed for fans."
+4. CTA text: "Get started"
+5. Two buttons: "For Creators" (orange) and "For Fans" (glass)
+6. Social proof: "Join [number] creators & fans on the waitlist"
+
+**Button Styles**
+- Creator button: Orange gradient with Sparkles icon
+- Fan button: Glass effect with Heart icon
+- Both: `rounded-full`, hover scale and shadow
+
+### Why ALTYR Section
+
+**Structure**
+- Section label: "Why ALTYR" with decorative lines
+- Three statements with gradient accents
+- Each statement has main text, accent phrase, and subtitle
+
+**Statement Pattern**
+- Main text with gradient accent on key phrase
+- Subtitle explaining the statement
+- Centered, large text (2xl-4xl)
+- Staggered animations
+
+### Feature Cards Section
+
+**Header**
+- Title: "Core Advantages" with gradient on "Advantages"
+- Subtitle: "Every feature designed with precision, built for performance."
+
+**Card Grid**
+- 3 columns on desktop, 2 on tablet, 1 on mobile
+- 6 features total
+- Each card: Icon, title, description
+- Hover effects with glow
+
+### Audience Split Section
+
+**Header**
+- Title: "Built for Creators. Loved by Fans." with gradient on second half
+
+**Combined Card**
+- Split design: Creators on left, Fans on right
+- Each side: Label badge, benefit list, CTA button
+- Check marks with gradient backgrounds
+- Creator side: Orange/brown tones
+- Fan side: Magenta/purple tones
+
+### Experience Showcase Section
+
+**Header**
+- Title: "The ALTYR Experience" with gradient on "ALTYR"
+- Subtitle: "Every detail crafted for premium performance."
+
+**Horizontal Scroll**
+- Parallax scroll effect
+- 5 showcase items
+- Each item: Gradient background, glass overlay, animated orb, icon, title, description
+- Fade edges on left and right
+
+### Who We Are Section
+
+**Structure**
+- Label badge: "Who We Are"
+- Main statement with gradient accent
+- Supporting paragraph
+- Centered, max-width 3xl
+
+### Footer
+
+**Layout**
+- Logo on left
+- Links in center (Privacy, Terms)
+- Copyright on right
+- Border top: `border-white/[0.04]`
+
+---
+
+## Investor Site Specifics
+
+### Hero Section
+
+**Layout**
+- Full viewport height: `min-h-screen`
+- Centered content: `max-w-5xl mx-auto`
+- Logo, headline, feature bullets, SAFE callout
+
+**Copy Structure**
+1. Logo: "ALTYR" (gradient wordmark)
+2. Headline: "an exclusive content platform that **actually** feels pleasurable"
+3. Feature bullets: Three items with dots
+4. SAFE callout: "$1,200,000 via SAFE • Friends & Family Round"
+
+**Feature Bullets**
+- Vertical on mobile, horizontal on desktop
+- Small colored dots (`bg-[#AC0064]`)
+- Text: "Modern and responsive UX", "Extensive Business tooling", "Rewarding, gamified fan experiences"
+
+### Side Navigation
+
+**Design**
+- Fixed position on right side (desktop only)
+- Vertical dot navigation
+- Active section: Gradient dot with ring
+- Labels appear on hover/active
+- Smooth scroll on click
+
+### Section Structure
+
+**Standard Pattern**
+- Section label with decorative lines
+- Large heading (often with gradient)
+- Content paragraphs
+- Cards or lists
+- Bottom statement (optional)
+
+**Section Labels**
+- Small caps, wide tracking
+- Decorative gradient lines on sides
+- Example: "MARKET OPPORTUNITY", "THE ASK"
+
+### Market Opportunity Section
+
+**Big Stat**
+- Large number: "$50+ Billion"
+- Subtitle: "combined market value of top 5 platforms"
+- Gradient text with glow effect
+
+**Content**
+- Two paragraphs
+- First: Market context and OnlyFans
+- Second: Data-driven approach and gamification
+
+### Raise Section
+
+**Structure**
+- Amount: "$1,200,000" with gradient
+- Terms: "20% discount SAFE"
+- Use of funds breakdown with pie chart
+- Detailed breakdown cards
+
+**Pie Chart**
+- Custom SVG implementation
+- Animated segments
+- Color-coded categories
+- Percentage labels
 
 ---
 
@@ -611,12 +882,20 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 --brand-orange: #E85A24;
 --brand-light-orange: #FF8C42;
 
+/* Creator Colors */
+--creator-orange: #B56A00;
+--creator-light-orange: #FFAA34;
+--creator-gradient-start: #D4740C;
+--creator-gradient-end: #B56A00;
+
 /* Text Opacities */
 --text-primary: rgba(255, 255, 255, 0.9);
 --text-secondary: rgba(255, 255, 255, 0.8);
 --text-body: rgba(255, 255, 255, 0.7);
 --text-muted: rgba(255, 255, 255, 0.6);
 --text-subtle: rgba(255, 255, 255, 0.4);
+--text-very-subtle: rgba(255, 255, 255, 0.35);
+--text-minimal: rgba(255, 255, 255, 0.25);
 ```
 
 ### Typography Scale
@@ -691,23 +970,109 @@ whileHover={{
 
 ## Brand Voice Examples
 
-### Hero Copy
+### Hero Copy (Investor Site)
 > "an exclusive content platform that **actually** feels pleasurable"
 
-### Feature Description
+### Hero Copy (Waitlist Site)
+> "The Next Generation of Exclusive Content"
+> 
+> "Built for creators. Designed for fans."
+
+### Feature Description (Investor Site)
 > "Modern and responsive UX • Extensive Business tooling • Rewarding, gamified fan experiences"
 
-### Value Proposition
+### Feature Descriptions (Waitlist Site)
+> **Core Advantages:**
+> - "Lower Fees, Faster Payouts" - Keep more of what you earn with competitive rates and near-instant settlement.
+> - "Integrated Creator CRM" - Manage your audience, segment fans, track purchases, and automate outreach.
+> - "Premium Streaming Quality" - True HD playback with instant loading and buttery-smooth navigation.
+> - "Fan Loyalty System" - Build deeper connections with levels, rewards, streaks, and exclusive perks.
+> - "Optimized Upload Pipeline" - 2-3× faster transcoding with sharper quality and premium delivery.
+> - "Modern Messaging" - Real-time chat, scheduled drops, and seamless fan interactions.
+
+### Value Proposition (Investor Site)
 > "Subscription and adult content represent a massive, high-margin market. OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure that frustrates both creators and fans."
+
+### Problem Statements (Waitlist Site)
+> "The industry leader stopped innovating."
+> 
+> "Outdated features, slow payouts, and a platform that prioritizes profits over people."
+> 
+> "Creators deserve modern tools, faster payouts, and real transparency."
+> 
+> "No more waiting weeks for your earnings or dealing with clunky interfaces."
+
+### Value Proposition (Waitlist Site)
+> "ALTYR is the premium platform built for the next generation."
+> 
+> "Designed from the ground up with creators and fans at the center of everything."
+> 
+> "We're building the platform we always wished existed—one that treats creators like professionals and fans like VIPs."
+> 
+> "ALTYR is a team of designers, engineers, and creators who believe the future of exclusive content should be beautiful, fast, and fair. We're here to raise the bar."
+
+### Audience-Specific Messaging
+
+**For Creators:**
+> "Built for Creators"
+> 
+> Benefits:
+> - Industry-leading payout rates
+> - Full-featured fan CRM
+> - Automated messaging & scheduling
+> - 2-3× faster upload speeds
+> - Reliable, predictable payments
+> 
+> CTA: "Sign Up as a Creator" or "For Creators"
+
+**For Fans:**
+> "Loved by Fans"
+> 
+> Benefits:
+> - Beautifully redesigned interface
+> - True HD streaming quality
+> - Loyalty rewards & levels
+> - Exclusive early-access perks
+> 
+> CTA: "Sign Up as a Fan" or "For Fans"
 
 ### Call to Action
 > "Get Early Access" or "Join the Waitlist"
+> 
+> "Be the first to know when we launch."
+> 
+> "Sign Up as a Creator" / "Sign Up as a Fan"
 
-### Success Message
-> "You're on the list! We'll be in touch soon."
+### Social Proof
+> "Join [number] creators & fans on the waitlist"
+> 
+> Example: "Join 2,387 creators & fans on the waitlist"
 
-### Error Message
-> "Something went wrong. Please try again."
+### Form Messaging
+> **Title:** "Join the Waitlist" or "Apply for Founder Access"
+> 
+> **Subtitle:** "Be the first to know when we launch." or "Limited to 500 founding creators. Lock in lifetime benefits."
+> 
+> **Placeholder:** "Enter your email or phone"
+> 
+> **Button:** "Get Early Access"
+> 
+> **Success:** "You're on the list! We'll be in touch soon."
+> 
+> **Error:** "Something went wrong. Please try again." or "Please enter a valid email or phone number"
+> 
+> **Privacy:** "No spam. Unsubscribe anytime."
+
+### Section Headers (Waitlist Site)
+> "Why ALTYR"
+> 
+> "Core Advantages"
+> 
+> "Built for Creators. Loved by Fans."
+> 
+> "The ALTYR Experience"
+> 
+> "Who We Are"
 
 ---
 
