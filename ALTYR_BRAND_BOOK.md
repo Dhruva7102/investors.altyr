@@ -1,219 +1,40 @@
 # Altyr Brand Book
 
-**Version 1.0**  
-**Last Updated:** December 2024
+**Version 1.0** | Last Updated: December 2024
 
 ---
 
 ## Table of Contents
 
 1. [Brand Overview](#brand-overview)
-2. [Color Palette](#color-palette)
-3. [Typography](#typography)
-4. [Brand Voice & Tone](#brand-voice--tone)
+2. [Brand Voice & Tone](#brand-voice--tone)
+3. [Color Palette](#color-palette)
+4. [Typography](#typography)
 5. [Design Principles](#design-principles)
-6. [UI Components & Patterns](#ui-components--patterns)
-7. [Animations & Interactions](#animations--interactions)
-8. [Logo & Branding](#logo--branding)
-9. [Usage Guidelines](#usage-guidelines)
+6. [UI Patterns & Components](#ui-patterns--components)
+7. [Logo & Branding](#logo--branding)
+8. [Content Guidelines](#content-guidelines)
+9. [Animation & Motion](#animation--motion)
+10. [Implementation Examples](#implementation-examples)
 
 ---
 
 ## Brand Overview
 
 ### Mission
-Altyr is an exclusive content platform that finally feels pleasurable. We're building the platform creators always wished existed—one that treats creators like professionals and fans like VIPs.
-
-### Core Values
-- **Modern & Responsive UX** - Beautiful, fast, intuitive experiences
-- **Extensive Business Tooling** - Professional-grade analytics and tools
-- **Rewarding, Gamified Fan Experiences** - Engaging interactions that drive value
+Altyr is an exclusive content platform that finally feels pleasurable. We combine modern UX, extensive business tooling, and rewarding, gamified fan experiences to systematically grow creator revenue.
 
 ### Brand Positioning
-An exclusive content platform combining modern UX, serious business tooling, and gamified fan experiences to systematically grow creator revenue. We bring casino-grade and game-grade monetization design into the creator ecosystem.
+- **For Creators**: Built with creators, not just for them
+- **For Fans**: Rewarding, engaging, pleasurable experiences
+- **For Investors**: High-margin business with proven economics and modern platform quality
 
----
-
-## Color Palette
-
-### Primary Colors
-
-#### Dark Purple (Background)
-- **Hex:** `#18021A`
-- **RGB:** `rgb(24, 2, 26)`
-- **Usage:** Primary background color across all platforms
-- **Variations:**
-  - Darker: `#0d0110` (for gradients and depth)
-  - Lighter overlays: `rgba(24, 2, 26, 0.6)` with backdrop blur
-
-#### Primary Accent (Magenta/Pink)
-- **Hex:** `#AC0064`
-- **RGB:** `rgb(172, 0, 100)`
-- **Usage:** Primary CTA buttons, links, highlights, icons
-- **Hover State:** `#C0007A`
-- **Opacity Variations:**
-  - `#AC0064/80` - Text and icons
-  - `#AC0064/40` - Borders and subtle accents
-  - `#AC0064/20` - Background overlays
-  - `#AC0064/10` - Very subtle backgrounds
-
-#### Secondary Accent (Deep Purple)
-- **Hex:** `#64109A`
-- **RGB:** `rgb(100, 16, 154)`
-- **Usage:** Secondary accents, gradients, section dividers
-- **Opacity Variations:**
-  - `#64109A/50` - Borders and dividers
-  - `#64109A/20` - Background overlays
-  - `#64109A/10` - Subtle backgrounds
-
-### Creator-Specific Colors (Orange/Gold)
-
-#### Creator Primary
-- **Hex:** `#B56A00`
-- **RGB:** `rgb(181, 106, 0)`
-- **Usage:** Creator-focused CTAs, badges, highlights
-- **Hover State:** `#C97A00`
-
-#### Creator Accent
-- **Hex:** `#FFAA34`
-- **RGB:** `rgb(255, 170, 52)`
-- **Usage:** Creator icons, highlights, gradients
-- **Variation:** `#E8840C` (darker for gradients)
-
-### Gradient Palette
-
-#### Primary Brand Gradient
-- **From:** `#9B4DCA` (Purple)
-- **Via:** `#E85A24` (Orange)
-- **To:** `#FF8C42` (Light Orange)
-- **Usage:** Logo text, hero headlines, major CTAs
-- **Direction:** Horizontal (left to right)
-
-#### Accent Gradient (Magenta to Purple)
-- **From:** `#AC0064` (Magenta)
-- **To:** `#64109A` (Deep Purple)
-- **Usage:** Text highlights, section headers, card accents
-- **Direction:** Horizontal (left to right)
-
-#### Creator Gradient (Orange)
-- **From:** `#FFAA34` (Light Orange)
-- **To:** `#B56A00` (Dark Orange)
-- **Usage:** Creator-specific CTAs and highlights
-- **Direction:** Horizontal (left to right)
-
-### Neutral Colors
-
-#### Text Colors
-- **Primary Text:** `white` or `white/90` (90% opacity)
-- **Secondary Text:** `white/70` (70% opacity)
-- **Tertiary Text:** `white/50` (50% opacity)
-- **Muted Text:** `white/40` (40% opacity)
-- **Very Muted:** `white/25` (25% opacity)
-
-#### Border Colors
-- **Primary Border:** `white/10` (10% opacity)
-- **Accent Border:** `white/12` (12% opacity)
-- **Hover Border:** `white/20` (20% opacity)
-- **Accent Border (Magenta):** `#AC0064/30` or `#AC0064/40`
-
-#### Background Overlays
-- **Card Background:** `white/[0.02]` to `white/[0.05]`
-- **Hover Background:** `white/[0.05]` to `white/[0.08]`
-- **Gradient Overlays:** Various opacity levels (10-40%)
-
-### Color Usage Guidelines
-
-**Do:**
-- Use primary magenta (`#AC0064`) for primary CTAs and important actions
-- Use orange/gold palette for creator-specific features
-- Maintain high contrast for readability (minimum 4.5:1)
-- Use opacity variations for depth and hierarchy
-
-**Don't:**
-- Use pure white backgrounds (always use dark purple base)
-- Mix creator and fan color palettes inappropriately
-- Use colors at full opacity for large backgrounds (use opacity variations)
-- Use more than 2-3 accent colors in a single component
-
----
-
-## Typography
-
-### Font Stack
-```css
-font-family: 'system-ui', '-apple-system', 'BlinkMacSystemFont', 
-             '"Segoe UI"', 'sans-serif';
-```
-
-**Primary:** System fonts for performance and native feel
-
-### Font Weights
-
-#### Extralight (200)
-- **Usage:** Large headlines, hero text, major statements
-- **Example:** "an exclusive content platform that actually feels pleasurable"
-
-#### Light (300)
-- **Usage:** Body text, descriptions, secondary content
-- **Example:** Section descriptions, card content
-
-#### Medium (500)
-- **Usage:** CTAs, buttons, emphasized text
-- **Example:** Button labels, important callouts
-
-#### Regular (400)
-- **Usage:** Standard body text, form labels
-- **Example:** Form inputs, general content
-
-### Font Sizes
-
-#### Headlines
-- **Hero (Desktop):** `text-7xl` to `text-8xl` (4.5rem - 6rem)
-- **Hero (Mobile):** `text-5xl` to `text-6xl` (3rem - 3.75rem)
-- **Section Headers:** `text-5xl` to `text-7xl` (3rem - 4.5rem)
-- **Subsection Headers:** `text-2xl` to `text-4xl` (1.5rem - 2.25rem)
-
-#### Body Text
-- **Large:** `text-lg` to `text-xl` (1.125rem - 1.25rem)
-- **Standard:** `text-base` (1rem)
-- **Small:** `text-sm` (0.875rem)
-- **Extra Small:** `text-xs` (0.75rem)
-
-### Letter Spacing
-
-#### Wide Tracking
-- **Usage:** Uppercase labels, section headers
-- **Value:** `tracking-[0.35em]` to `tracking-[0.12em]`
-- **Example:** "MARKET OPPORTUNITY", "ALTYR" logo
-
-#### Standard Tracking
-- **Usage:** Body text, most content
-- **Value:** Default or `tracking-tight` for headlines
-
-### Text Styles
-
-#### Gradient Text
-- **Usage:** Headlines, brand name, key phrases
-- **Implementation:** `bg-gradient-to-r from-[#AC0064] to-[#64109A] bg-clip-text text-transparent`
-- **Alternative:** `from-[#9B4DCA] via-[#E85A24] to-[#FF8C42]` for logo
-
-#### Italic Text
-- **Usage:** Emphasis, quotes, subtle emphasis
-- **Example:** "actually" in hero headline
-
-### Typography Guidelines
-
-**Do:**
-- Use extralight/light weights for elegance and sophistication
-- Maintain generous line-height for readability (`leading-relaxed`)
-- Use gradient text sparingly for maximum impact
-- Ensure sufficient contrast (minimum 4.5:1)
-
-**Don't:**
-- Use heavy/bold weights (breaks elegant aesthetic)
-- Overuse gradient text (reserve for key moments)
-- Use more than 2-3 font sizes in a single section
-- Compromise readability for style
+### Core Values
+1. **Creator-First**: Everything we build prioritizes creator success and autonomy
+2. **Modern Excellence**: We reject outdated infrastructure in favor of cutting-edge UX
+3. **Gamification**: Proven techniques from gaming and social media to drive engagement
+4. **Data-Driven**: Leverage insights to expand the market, not just capture it
+5. **Pleasure-Focused**: Every interaction should feel delightful, not transactional
 
 ---
 
@@ -221,272 +42,353 @@ font-family: 'system-ui', '-apple-system', 'BlinkMacSystemFont',
 
 ### Voice Characteristics
 
-#### Professional yet Approachable
-- **Tone:** Confident, clear, and direct
-- **Avoid:** Corporate jargon, overly casual language
-- **Example:** "An exclusive content platform that actually feels pleasurable"
+**Modern & Sophisticated**
+- Use contemporary language that feels fresh, not corporate
+- Avoid jargon unless it adds clarity
+- Speak to creators as peers, not customers
 
-#### Creator-Focused
-- **Perspective:** Built with creators, not just for them
-- **Language:** Acknowledges creator expertise and needs
-- **Example:** "We're building the platform creators always wished existed"
+**Direct & Confident**
+- Be clear about what we do and why it matters
+- No hedging or apologetic language
+- Own our position in the market
 
-#### Data-Driven
-- **Evidence-Based:** Use concrete numbers and facts
-- **Transparent:** Clear about value proposition
-- **Example:** "$50+ Billion combined market value of top 5 platforms"
+**Creator-Focused**
+- Always center creators in our messaging
+- Acknowledge their expertise and agency
+- Build with them, not for them
 
-### Tone by Context
+**Pleasure-Oriented**
+- Emphasize experience over features
+- Use sensory, emotional language where appropriate
+- Make the platform feel desirable, not just functional
 
-#### Investor-Facing
-- **Tone:** Professional, data-driven, opportunity-focused
-- **Language:** Business terminology, market analysis, ROI focus
-- **Example:** "20%+ commission rates on high-margin business"
-
-#### Creator-Facing
-- **Tone:** Empowering, supportive, professional
-- **Language:** Acknowledges creator expertise, focuses on tools and growth
-- **Example:** "Extensive Business tooling" for serious earners
-
-#### Fan-Facing
-- **Tone:** Engaging, exciting, rewarding
-- **Language:** Emphasizes experience, gamification, rewards
-- **Example:** "Rewarding, gamified fan experiences"
-
-### Writing Guidelines
+### Tone Guidelines
 
 **Do:**
-- Use active voice
-- Be specific and concrete
-- Focus on benefits, not just features
-- Use "we" and "our" to show partnership
-- Keep sentences concise and clear
+- "An exclusive content platform that actually feels pleasurable"
+- "Built with creators, not just for them"
+- "Rewarding, gamified fan experiences"
+- "Modern and responsive UX"
+- "Extensive business tooling"
 
 **Don't:**
-- Use vague marketing speak
-- Overpromise or exaggerate
-- Use passive voice unnecessarily
-- Include unnecessary jargon
-- Write in third person about the company
+- Corporate speak ("leverage," "synergy," "optimize" without context)
+- Apologetic language ("we try to," "we hope to")
+- Feature lists without benefit ("we have X, Y, Z")
+- Generic platitudes ("the best platform," "revolutionary")
 
-### Key Messaging
+### Messaging Pillars
 
-#### Value Propositions
-1. **For Creators:** "Modern UX + Business Tooling + Gamified Experiences"
-2. **For Fans:** "Rewarding, engaging platform experience"
-3. **For Investors:** "High-margin business with proven economics"
+1. **Pleasure & Experience**: The platform should feel good to use
+2. **Creator Partnership**: We build with creators, not for them
+3. **Modern Infrastructure**: We reject outdated platforms
+4. **Gamification & Rewards**: Proven techniques to drive engagement
+5. **Business Intelligence**: Serious tooling for serious earners
 
-#### Taglines
-- "An exclusive content platform that actually feels pleasurable"
-- "Built With Creators, Not Just For Them"
-- "For Creators, Built Like a Game"
+---
+
+## Color Palette
+
+### Primary Colors
+
+#### Background
+- **Primary Background**: `#18021A` (Deep Purple-Black)
+  - Main background for all pages
+  - Creates depth and premium feel
+  - RGB: `rgb(24, 2, 26)`
+
+- **Secondary Background**: `#0d0110` (Darker Purple)
+  - Used for section transitions
+  - RGB: `rgb(13, 1, 16)`
+
+#### Brand Colors
+
+**Magenta/Pink** - Primary Brand Color
+- **Primary Magenta**: `#AC0064`
+  - Main brand accent
+  - Used for CTAs, highlights, icons
+  - RGB: `rgb(172, 0, 100)`
+  - Usage: Buttons, links, active states, brand elements
+
+**Purple** - Secondary Brand Color
+- **Deep Purple**: `#64109A`
+  - Secondary accent
+  - Used in gradients and complementary elements
+  - RGB: `rgb(100, 16, 154)`
+  - Usage: Gradients, borders, secondary highlights
+
+- **Light Purple**: `#9B4DCA`
+  - Tertiary accent
+  - Used in multi-color gradients
+  - RGB: `rgb(155, 77, 202)`
+  - Usage: Gradient transitions, logo effects
+
+#### Accent Colors
+
+**Orange/Amber** - Warm Accents
+- **Orange**: `#E85A24`
+  - Warm accent for variety
+  - RGB: `rgb(232, 90, 36)`
+  - Usage: Gradient transitions, special highlights
+
+- **Light Orange**: `#FF8C42`
+  - Lighter warm accent
+  - RGB: `rgb(255, 140, 66)`
+  - Usage: Gradient highlights
+
+- **Amber/Brown**: `#B56A00`
+  - Creator-focused accent
+  - RGB: `rgb(181, 106, 0)`
+  - Usage: Creator-specific CTAs, special sections
+
+### Text Colors
+
+**White Variations** (on dark background)
+- **Primary Text**: `white` or `white/90` (90% opacity)
+  - Main body text, headings
+  - RGB: `rgb(255, 255, 255)` with 90% opacity
+
+- **Secondary Text**: `white/60` (60% opacity)
+  - Supporting text, descriptions
+  - RGB: `rgb(255, 255, 255)` with 60% opacity
+
+- **Tertiary Text**: `white/40` (40% opacity)
+  - Subtle text, captions
+  - RGB: `rgb(255, 255, 255)` with 40% opacity
+
+- **Muted Text**: `white/25` (25% opacity)
+  - Footer text, disclaimers
+  - RGB: `rgb(255, 255, 255)` with 25% opacity
+
+### Glass Effects
+
+**Glassmorphism Colors**
+- **Card Background**: `rgba(255, 255, 255, 0.03)` to `rgba(255, 255, 255, 0.06)`
+  - Semi-transparent white for cards
+  - Creates depth with backdrop blur
+
+- **Card Borders**: `rgba(255, 255, 255, 0.08)` to `rgba(255, 255, 255, 0.12)`
+  - Subtle borders for definition
+  - Hover: `rgba(255, 255, 255, 0.18)`
+
+- **Hover States**: `rgba(255, 255, 255, 0.05)` to `rgba(255, 255, 255, 0.08)`
+  - Interactive feedback
+
+### Gradient Combinations
+
+**Primary Gradient** (Logo/Brand)
+```
+from-[#9B4DCA] via-[#E85A24] to-[#FF8C42]
+```
+- Used for: Logo text, major brand elements
+
+**Secondary Gradient** (Text Highlights)
+```
+from-[#AC0064] via-[#9B4DCA] to-[#64109A]
+```
+- Used for: Headlines, important text
+
+**Background Gradients** (Orbs/Glows)
+```
+radial-gradient(ellipse at center, rgba(100,16,154,0.25) 0%, rgba(172,0,100,0.12) 35%, transparent 65%)
+```
+- Used for: Background atmosphere, depth
+
+**Card Gradients** (Hover Effects)
+```
+radial-gradient(circle at 50% 0%, rgba(172,0,100,0.08) 0%, transparent 50%)
+```
+- Used for: Interactive elements, hover states
+
+### Color Usage Guidelines
+
+1. **Primary Background**: Always use `#18021A` as the base
+2. **Brand Accents**: Use `#AC0064` for primary actions and highlights
+3. **Gradients**: Use multi-color gradients for premium feel
+4. **Glass Effects**: Maintain subtle transparency (3-12% white)
+5. **Text Hierarchy**: Use opacity variations for visual hierarchy
+6. **Hover States**: Increase opacity/brightness by 20-30%
+
+---
+
+## Typography
+
+### Font Stack
+
+**Primary Font Family**
+```
+system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
+```
+
+- Native system fonts for performance and familiarity
+- Ensures consistent rendering across platforms
+- No external font loading required
+
+### Font Weights
+
+- **Extralight** (`font-extralight` / 200): Large headlines, hero text
+- **Light** (`font-light` / 300): Body text, descriptions
+- **Regular** (`font-normal` / 400): Default weight
+- **Medium** (`font-medium` / 500): Emphasis, CTAs
+- **Semibold** (`font-semibold` / 600): Strong emphasis, logos
+
+### Font Sizes
+
+**Headlines**
+- Hero: `text-5xl` to `text-8xl` (48px - 96px)
+- Section Headlines: `text-4xl` to `text-6xl` (36px - 60px)
+- Subheadings: `text-2xl` to `text-4xl` (24px - 36px)
+
+**Body Text**
+- Large Body: `text-lg` to `text-xl` (18px - 20px)
+- Body: `text-base` (16px)
+- Small: `text-sm` (14px)
+- Extra Small: `text-xs` (12px)
+
+### Letter Spacing
+
+- **Wide** (`tracking-wide`): Headlines, brand elements
+- **Extra Wide** (`tracking-[0.12em]`): Logo text (ALTYR)
+- **Normal**: Body text, descriptions
+
+### Line Height
+
+- **Tight** (`leading-tight`): Headlines (1.2-1.3)
+- **Relaxed** (`leading-relaxed`): Body text (1.5-1.6)
+- **Normal**: Default (1.5)
+
+### Text Styles
+
+**Gradient Text**
+```css
+text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]
+```
+- Used for: Important headlines, brand elements
+
+**Italic Text**
+- Use sparingly for emphasis
+- Example: "an exclusive content platform that *actually* feels pleasurable"
+
+**Uppercase**
+- Use for: Section labels, small text, navigation
+- Always with `tracking-wider` or `tracking-[0.35em]`
 
 ---
 
 ## Design Principles
 
 ### 1. Dark-First Design
-- Always use dark purple (`#18021A`) as base
-- Never use light backgrounds
-- Maintain dark aesthetic across all touchpoints
+- Always design for dark backgrounds
+- Use high contrast for readability
+- Leverage depth through layering
 
-### 2. Elegant Minimalism
-- Generous white space
-- Clean, uncluttered layouts
-- Focus on essential elements
+### 2. Glassmorphism
+- Semi-transparent cards with backdrop blur
+- Subtle borders for definition
+- Creates premium, modern feel
 
-### 3. Sophisticated Gradients
-- Use gradients for depth and visual interest
-- Apply subtle opacity variations
-- Create layered visual hierarchy
+### 3. Depth Through Layers
+- Multiple gradient orbs for atmosphere
+- Z-index layering for hierarchy
+- Subtle shadows and glows
 
-### 4. Glass Morphism
-- Subtle backdrop blur effects
-- Semi-transparent overlays
-- Depth through layering
+### 4. Microinteractions
+- Hover effects on all interactive elements
+- Smooth transitions (200-500ms)
+- Scale transforms (1.01-1.02x)
+- Color transitions on hover
 
-### 5. Micro-Interactions
-- Smooth, purposeful animations
-- Hover states on all interactive elements
-- Feedback for user actions
+### 5. Spacious Layouts
+- Generous padding and margins
+- Breathing room between elements
+- Focus on key content
 
-### 6. Responsive & Accessible
-- Mobile-first approach
-- Touch-friendly targets (minimum 44x44px)
-- High contrast for readability
-- Smooth scrolling and transitions
+### 6. Premium Aesthetics
+- Rounded corners (xl, 2xl, 3xl)
+- Smooth gradients
+- Subtle animations
+- High-quality visual effects
 
-### 7. Performance-Focused
-- System fonts for speed
-- Optimized animations
-- Lazy loading where appropriate
+### 7. Responsive & Mobile-First
+- Vertical layouts on mobile
+- Horizontal layouts on desktop
+- Touch-friendly interactions
+- Readable text at all sizes
 
 ---
 
-## UI Components & Patterns
-
-### Buttons
-
-#### Primary CTA (Magenta)
-```css
-background: #AC0064
-hover: #C0007A
-shadow: rgba(172,0,100,0.3)
-border-radius: 0.75rem to 1rem
-padding: 0.875rem to 1.25rem
-```
-
-#### Creator CTA (Orange)
-```css
-background: #B56A00
-hover: #C97A00
-shadow: rgba(181,106,0,0.3)
-```
-
-#### Secondary Button
-```css
-background: white/[0.06]
-border: white/[0.12]
-hover: white/[0.08]
-```
+## UI Patterns & Components
 
 ### Cards
 
-#### Standard Card
-- **Background:** `white/[0.02]` to `white/[0.05]`
-- **Border:** `white/[0.08]` to `white/[0.12]`
-- **Border Radius:** `rounded-xl` to `rounded-2xl` (0.75rem - 1rem)
-- **Padding:** `p-6` to `p-8` (1.5rem - 2rem)
-- **Hover:** Scale `1.02`, increased opacity, subtle glow
+**Standard Card**
+```css
+bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm rounded-2xl
+```
 
-#### Feature Card
-- **Icon Container:** Gradient background `from-[#AC0064]/20 to-[#64109A]/20`
-- **Border:** `border-[#AC0064]/30`
-- **Hover Effects:** Border color increase, background opacity increase
+**Hover State**
+```css
+hover:bg-white/[0.05] hover:border-white/[0.12] hover:scale-[1.02]
+```
 
-### Form Elements
+**With Glow Effect**
+```css
+radial-gradient(circle at 50% 0%, rgba(172,0,100,0.08) 0%, transparent 50%)
+```
 
-#### Input Fields
-- **Background:** `white/[0.03]`
-- **Border:** `white/10`
-- **Focus Border:** `white/20`
-- **Text Color:** `white` with placeholder `white/30`
-- **Border Radius:** `rounded-xl` (0.75rem)
-- **Padding:** `h-14 px-5` (3.5rem height, 1.25rem horizontal)
+### Buttons
 
-#### Labels
-- **Color:** `white/70` to `white/90`
-- **Font:** Light weight, small to base size
-- **Spacing:** `mb-2` below label
+**Primary Button (Creator)**
+```css
+bg-[#B56A00] hover:bg-[#C97A00] hover:shadow-[0_0_40px_rgba(181,106,0,0.3)]
+```
+
+**Primary Button (Fan/General)**
+```css
+bg-[#AC0064] hover:bg-[#C0007A] hover:shadow-[0_0_40px_rgba(172,0,100,0.3)]
+```
+
+**Button Characteristics**
+- Rounded: `rounded-xl`
+- Padding: `px-6 py-3` or `h-14`
+- Smooth transitions: `transition-all duration-500`
+- Scale on hover: `hover:scale-[1.01]`
+
+### Input Fields
+
+**Standard Input**
+```css
+bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20
+```
+
+**Characteristics**
+- Semi-transparent background
+- Subtle borders
+- Clear focus states
+- High contrast text
 
 ### Section Dividers
 
-#### Decorative Lines
-- **Style:** Horizontal lines with gradient fade
-- **Implementation:** `bg-gradient-to-r from-transparent to-[#64109A]/50`
-- **Width:** `w-16` (4rem)
-- **Height:** `h-px` (1px)
+**Label with Lines**
+```css
+flex items-center gap-6
+```
+- Left line: `bg-gradient-to-r from-transparent to-[#64109A]/50`
+- Label: `text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase`
+- Right line: `bg-gradient-to-l from-transparent to-[#64109A]/50`
 
-#### Section Labels
-- **Style:** Uppercase, wide tracking
-- **Color:** `#AC0064/80`
-- **Size:** `text-xs`
-- **Tracking:** `tracking-[0.35em]`
+### Gradient Orbs
 
-### Badges & Tags
-
-#### Status Badge
-- **Background:** `#AC0064/10` to `#AC0064/15`
-- **Border:** `border-[#AC0064]/20` to `border-[#AC0064]/25`
-- **Text:** Uppercase, `text-xs`, wide tracking
-- **Padding:** `px-4 py-2` to `px-5 py-2.5`
-- **Border Radius:** `rounded-full`
-
-### Navigation
-
-#### Side Navigation
-- **Position:** Fixed right side
-- **Indicators:** Dots with connecting lines
-- **Active State:** Gradient dot `from-[#AC0064] to-[#64109A]`
-- **Hover:** Scale `1.1`, label appears
-- **Label Background:** Gradient `from-[#AC0064]/20 to-[#64109A]/20`
-
----
-
-## Animations & Interactions
-
-### Animation Principles
-
-#### Smooth & Purposeful
-- **Duration:** 0.5s to 1s for major animations
-- **Easing:** `cubic-bezier(0.25, 0.46, 0.45, 0.94)` (custom ease-out)
-- **Purpose:** Every animation should have meaning
-
-#### Scroll-Triggered
-- **Trigger:** Intersection Observer API
-- **Effect:** Fade in + slide up
-- **Stagger:** 0.1s to 0.15s delay between items
-- **Viewport:** `margin: "-60px"` to `"-80px"` for early trigger
-
-### Common Animations
-
-#### Fade In
-```javascript
-initial={{ opacity: 0 }}
-animate={{ opacity: 1 }}
-transition={{ duration: 0.8 }}
+**Primary Orb**
+```css
+radial-gradient(ellipse at center, rgba(100,16,154,0.25) 0%, rgba(172,0,100,0.12) 35%, transparent 65%)
+filter: blur(100px)
 ```
 
-#### Slide Up
-```javascript
-initial={{ opacity: 0, y: 20 }}
-animate={{ opacity: 1, y: 0 }}
-transition={{ duration: 0.8 }}
-```
-
-#### Scale on Hover
-```javascript
-whileHover={{ scale: 1.02 }}
-transition={{ duration: 0.2 }}
-```
-
-#### Rotate on Hover
-```javascript
-whileHover={{ rotate: 3 }}
-transition={{ duration: 0.3 }}
-```
-
-### Background Animations
-
-#### Gradient Orbs
-- **Type:** Radial gradients with blur
-- **Animation:** Scale and opacity pulsing
-- **Duration:** 10s infinite loop
-- **Effect:** Subtle, ambient movement
-
-#### Glow Effects
-- **Type:** Box shadow or gradient overlay
-- **Animation:** Opacity pulsing
-- **Duration:** 4s infinite loop
-- **Effect:** Breathing, living feel
-
-### Interaction Patterns
-
-#### Hover States
-- **Buttons:** Scale, color change, shadow increase
-- **Cards:** Scale, border/background opacity increase, glow
-- **Links:** Color transition, underline (if applicable)
-- **Icons:** Scale, rotate, color change
-
-#### Loading States
-- **Spinner:** Rotating icon (Loader2 from lucide-react)
-- **Skeleton:** Subtle pulsing background
-- **Progress:** Smooth transitions
-
-#### Success States
-- **Check Icon:** Scale animation on appear
-- **Color:** Green or brand accent color
-- **Message:** Fade in with slight delay
+**Usage**
+- Background atmosphere
+- Animated (scale, opacity)
+- Multiple layers for depth
 
 ---
 
@@ -494,216 +396,268 @@ transition={{ duration: 0.3 }}
 
 ### Logo Treatment
 
-#### Wordmark
-- **Text:** "ALTYR"
-- **Style:** Uppercase, wide tracking (`tracking-[0.12em]`)
-- **Gradient:** `from-[#9B4DCA] via-[#E85A24] to-[#FF8C42]`
-- **Size:** Responsive, scales from `text-5xl` to `text-8xl`
+**Wordmark**
+- Text: "ALTYR"
+- Font: System sans-serif, semibold
+- Letter spacing: `tracking-[0.12em]`
+- Gradient: `from-[#9B4DCA] via-[#E85A24] to-[#FF8C42]`
 
-#### Favicon
-- **Style:** Liquid glass effect
-- **Colors:** Gradient from purple to orange
-- **Text:** Cursive "Altyr" centered
-- **Format:** SVG for scalability
+**Favicon**
+- Liquid glass effect
+- Cursive "Altyr" text
+- Centered, gradient background
+- SVG format for scalability
 
 ### Brand Name Usage
 
-#### Standard
-- **Format:** "Altyr" (capital A, lowercase rest)
-- **Context:** General usage, body text
+- **Always**: "Altyr" (capital A, lowercase rest)
+- **Logo**: "ALTYR" (all caps, wide tracking)
+- **Tagline**: "An exclusive content platform that actually feels pleasurable"
 
-#### Emphasized
-- **Format:** "ALTYR" (all caps)
-- **Context:** Headlines, logo, major statements
+### Brand Colors in Logo
 
-#### With Tagline
-- **Format:** "Altyr, An Exclusive Content platform..."
-- **Context:** Hero sections, major introductions
-
-### Color Variations
-
-#### Light Background (Rare)
-- Use dark purple logo on light backgrounds
-- Maintain gradient treatment
-- Ensure sufficient contrast
-
-#### Dark Background (Standard)
-- Gradient logo as standard
-- White/light text for contrast
-- Glow effects for emphasis
+- Primary gradient: Purple → Orange → Light Orange
+- Alternative: Magenta → Purple gradient
+- Always use gradients, never flat colors
 
 ---
 
-## Usage Guidelines
+## Content Guidelines
 
-### Do's ✅
+### Headlines
 
-1. **Maintain Dark Aesthetic**
-   - Always use `#18021A` as base background
-   - Use opacity variations for depth
-   - Never use pure white backgrounds
+**Hero Headlines**
+- Short, impactful
+- Focus on benefit/feeling
+- Use gradient text for emphasis
+- Example: "an exclusive content platform that actually feels pleasurable"
 
-2. **Use Brand Colors Consistently**
-   - Magenta (`#AC0064`) for primary actions
-   - Orange (`#B56A00`) for creator features
-   - Purple (`#64109A`) for secondary accents
+**Section Headlines**
+- Clear, descriptive
+- Can use gradient or solid color
+- Support with subheadings
 
-3. **Apply Gradients Strategically**
-   - Use for headlines and key moments
-   - Don't overuse (maintain impact)
-   - Ensure readability
+### Body Copy
 
-4. **Maintain Typography Hierarchy**
-   - Use extralight/light weights
-   - Generous spacing and line-height
-   - Clear size progression
+**Tone**
+- Direct and confident
+- Creator-focused language
+- Avoid corporate jargon
+- Emphasize experience over features
 
-5. **Animate Purposefully**
-   - Every animation should have meaning
-   - Keep durations smooth (0.5s-1s)
-   - Use scroll triggers for engagement
+**Structure**
+- Short paragraphs (2-3 sentences)
+- Clear hierarchy
+- Use bullets for lists
+- Generous spacing
 
-6. **Design for Mobile First**
-   - Touch-friendly targets
-   - Responsive typography
-   - Vertical layouts on mobile
+### CTAs (Call-to-Actions)
 
-### Don'ts ❌
+**Language**
+- Action-oriented: "Get Early Access," "Join the Waitlist"
+- Benefit-focused: "Claim Your Gift," "Start Creating"
+- Clear and direct
 
-1. **Don't Break the Dark Theme**
-   - No light backgrounds
-   - No high-contrast light elements
-   - Maintain consistent dark aesthetic
+**Placement**
+- Prominent but not overwhelming
+- Clear visual hierarchy
+- Smooth hover effects
 
-2. **Don't Overuse Gradients**
-   - Reserve for key moments
-   - Don't apply to all text
-   - Maintain readability
+### Feature Descriptions
 
-3. **Don't Use Heavy Font Weights**
-   - Avoid bold/black weights
-   - Breaks elegant aesthetic
-   - Stick to extralight/light/medium
+**Format**
+- Title: Clear, benefit-focused
+- Description: 1-2 sentences explaining value
+- Use icons for visual interest
 
-4. **Don't Clutter Interfaces**
-   - Maintain generous white space
-   - Focus on essential elements
-   - Avoid information overload
+**Example**
+- Title: "Modern and responsive UX"
+- Description: "An interface that feels as premium as the content"
 
-5. **Don't Ignore Performance**
-   - Optimize animations
-   - Use system fonts
-   - Lazy load where appropriate
+---
 
-6. **Don't Mix Color Palettes Inappropriately**
-   - Keep creator and fan colors separate
-   - Use magenta for general brand
-   - Use orange only for creator features
+## Animation & Motion
 
-### Accessibility
+### Principles
 
-#### Contrast Ratios
-- **Text on Background:** Minimum 4.5:1
-- **Large Text:** Minimum 3:1
-- **Interactive Elements:** Clear visual states
+1. **Smooth & Subtle**: Never jarring or distracting
+2. **Purposeful**: Every animation serves a function
+3. **Fast**: 200-500ms for interactions
+4. **Easing**: Use `cubic-bezier(0.25, 0.46, 0.45, 0.94)` for natural feel
 
-#### Touch Targets
-- **Minimum Size:** 44x44px
-- **Spacing:** Adequate padding between targets
-- **Mobile:** Larger targets for thumb zones
+### Common Animations
 
-#### Keyboard Navigation
-- **Focus States:** Clear visual indicators
-- **Tab Order:** Logical flow
-- **Skip Links:** Where appropriate
+**Fade In**
+```javascript
+initial={{ opacity: 0, y: 20 }}
+animate={{ opacity: 1, y: 0 }}
+transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+```
 
-### Responsive Breakpoints
+**Scale on Hover**
+```javascript
+whileHover={{ scale: 1.02 }}
+transition={{ duration: 0.2 }}
+```
 
-#### Mobile
-- **Max Width:** 640px (sm)
-- **Layout:** Single column, vertical stacking
-- **Typography:** Smaller sizes, adjusted spacing
+**Gradient Pulse**
+```javascript
+animate={{
+  opacity: [0.3, 0.5, 0.3],
+  scale: [1, 1.1, 1],
+}}
+transition={{
+  duration: 4,
+  repeat: Infinity,
+  ease: 'easeInOut',
+}}
+```
 
-#### Tablet
-- **Width:** 641px - 1024px (md)
-- **Layout:** 2-column grids, adjusted spacing
-- **Typography:** Medium sizes
+**Scroll Reveal**
+```javascript
+initial={{ opacity: 0, y: 40 }}
+whileInView={{ opacity: 1, y: 0 }}
+viewport={{ once: true, margin: "-80px" }}
+transition={{ duration: 0.8, delay: index * 0.15 }}
+```
 
-#### Desktop
-- **Min Width:** 1025px (lg+)
-- **Layout:** Multi-column, full width
-- **Typography:** Full sizes, generous spacing
+### Animation Timing
+
+- **Micro-interactions**: 200ms
+- **Hover effects**: 200-300ms
+- **Page transitions**: 500-800ms
+- **Background animations**: 4-10s (slow, continuous)
 
 ---
 
 ## Implementation Examples
 
-### Hero Section
+### Color Usage in Code
+
+**Tailwind Classes**
 ```jsx
 // Background
 bg-[#18021A]
 
-// Headline
-text-4xl md:text-6xl font-extralight
-bg-gradient-to-r from-[#AC0064] to-[#64109A] bg-clip-text
+// Brand colors
+bg-[#AC0064] text-[#AC0064] border-[#AC0064]/30
 
-// CTA Button
-bg-[#AC0064] hover:bg-[#C0007A]
-rounded-xl px-8 py-4
+// Gradients
+bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]
+
+// Text opacity
+text-white/90 text-white/60 text-white/40
+
+// Glass effects
+bg-white/[0.03] border-white/[0.08]
 ```
 
-### Feature Card
+**Inline Styles**
 ```jsx
-// Container
-bg-white/[0.03] border border-white/[0.08]
-rounded-2xl p-8
-hover:bg-white/[0.05] hover:scale-[1.02]
+// Gradients
+background: 'radial-gradient(ellipse at center, rgba(100,16,154,0.25) 0%, transparent 65%)'
 
-// Icon
-bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20
-border border-[#AC0064]/30
+// Glows
+boxShadow: '0_0_40px_rgba(172,0,100,0.3)'
 ```
 
-### Section Divider
+### Typography in Code
+
 ```jsx
-// Lines
-w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50
+// Hero headline
+className="text-5xl md:text-7xl font-extralight tracking-tight"
 
-// Label
-text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase
+// Body text
+className="text-lg text-white/60 font-light leading-relaxed"
+
+// Gradient text
+className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A]"
+
+// Uppercase label
+className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase"
+```
+
+### Component Examples
+
+**Card Component**
+```jsx
+<div className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
+  {/* Content */}
+</div>
+```
+
+**Button Component**
+```jsx
+<button className="px-8 py-4 rounded-xl bg-[#AC0064] text-white font-medium hover:bg-[#C0007A] hover:shadow-[0_0_40px_rgba(172,0,100,0.3)] transition-all duration-500 hover:scale-[1.01]">
+  Get Early Access
+</button>
 ```
 
 ---
 
-## Resources
+## Quick Reference
 
-### Design Files
-- **Favicon:** `/public/favicon.svg` (both sites)
-- **Color Palette:** See Color Palette section above
-- **Component Library:** React components in `/src/components`
+### Primary Colors
+- Background: `#18021A`
+- Primary: `#AC0064` (Magenta)
+- Secondary: `#64109A` (Purple)
+- Accent: `#9B4DCA` (Light Purple)
+- Warm: `#E85A24` (Orange), `#FF8C42` (Light Orange), `#B56A00` (Amber)
 
-### Code References
-- **Investor Site:** `/investor_site/src`
-- **Waitlist Site:** `/waitlist_site/src`
-- **Styling:** Tailwind CSS with custom colors
+### Typography
+- Font: System fonts
+- Weights: Extralight, Light, Medium, Semibold
+- Tracking: Wide for headlines, normal for body
 
-### External Resources
-- **Icons:** Lucide React (`lucide-react`)
-- **Animations:** Framer Motion (`framer-motion`)
-- **Fonts:** System fonts (no external dependencies)
+### Spacing
+- Cards: `p-6` to `p-10` (24px - 40px)
+- Sections: `py-24 md:py-32` (96px - 128px)
+- Gaps: `gap-4` to `gap-12` (16px - 48px)
+
+### Border Radius
+- Small: `rounded-xl` (12px)
+- Medium: `rounded-2xl` (16px)
+- Large: `rounded-3xl` (24px)
+- Full: `rounded-full` (for pills, buttons)
+
+### Shadows & Glows
+- Card hover: `shadow-[0_8px_40px_rgba(100,16,154,0.08)]`
+- Button hover: `shadow-[0_0_40px_rgba(172,0,100,0.3)]`
+- Text glow: `filter: blur(3xl)` with gradient background
 
 ---
 
-## Version History
+## Brand Voice Checklist
 
-- **v1.0** (December 2024) - Initial brand book creation
+When creating content, ensure it:
+
+- [ ] Feels modern and sophisticated, not corporate
+- [ ] Centers creators in the narrative
+- [ ] Emphasizes experience and pleasure
+- [ ] Uses direct, confident language
+- [ ] Avoids jargon and generic platitudes
+- [ ] Highlights benefits over features
+- [ ] Maintains consistent tone across channels
 
 ---
 
-**Questions or Updates?**  
-Contact the design team or refer to the codebase for implementation details.
+## Design Checklist
+
+When designing, ensure:
+
+- [ ] Dark background (`#18021A`)
+- [ ] Brand colors used appropriately
+- [ ] Glassmorphism effects on cards
+- [ ] Smooth animations and transitions
+- [ ] Generous spacing and breathing room
+- [ ] Mobile-responsive layout
+- [ ] High contrast for readability
+- [ ] Gradient accents for premium feel
+- [ ] Microinteractions on interactive elements
 
 ---
 
-*This brand book is a living document and will be updated as the brand evolves.*
+**End of Brand Book**
+
+For questions or updates, contact the design team.
 
