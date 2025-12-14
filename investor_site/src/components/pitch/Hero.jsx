@@ -92,7 +92,9 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <span className="text-white/90">Altyr, An Exclusive Content platform that finally feels</span>
+          <span className="text-white/90">Introducing an exclusive Content platform that </span>
+          <span className="text-white font-medium">actually</span>
+          <span className="text-white/90"> feels</span>
           <br />
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#AC0064] to-[#64109A]">
             pleasurable
