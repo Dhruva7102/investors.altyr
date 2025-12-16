@@ -7,14 +7,25 @@ Add these to your Vercel project settings (Settings → Environment Variables):
 ### Airtable Configuration
 - **VITE_AIRTABLE_API_KEY**: Your Airtable Personal Access Token (starts with `pat...`)
 - **VITE_AIRTABLE_BASE_ID**: Your Airtable Base ID (starts with `app...`)
-- **VITE_AIRTABLE_TABLE_NAME**: `Emails` (optional, defaults to "Emails")
 
 ## Airtable Table Structure
 
-Make sure your Airtable table "Emails" has these fields:
-- **Email** (Single line text) - Required
-- **Type** (Single line text) - e.g., "creator", "fan", "waitlist"
-- **Created** (Date/Time) - Optional, auto-populated
+The waitlist site uses two separate Airtable tables:
+
+### Creators Table
+- **Table ID**: `tblTYUu6019qDOoSQ`
+- **Table Name**: Creators
+- **Fields**:
+  - **Emails** (primary): Field ID `fldZv1kaQxw33TMgS` - Optional
+  - **Phone number**: Field ID `fld1vqZScSirZsi5U` - Optional
+  - **X.com**: Field ID `fldrBclz4LVKRnHpz` - Optional
+  - At least one field must be provided
+
+### Fans Table
+- **Table ID**: `tblgZjlVJQowsWLWf`
+- **Table Name**: Fans
+- **Fields**:
+  - **Email** (primary): Field ID `fldQLgyoC0iYySj0w` - Required
 
 ## Setup in Vercel
 

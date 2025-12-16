@@ -18,7 +18,7 @@ export default function FanGiftSignup() {
 
     try {
       // Store to Airtable
-      await storeWaitlistEmail(email, 'fan');
+      await storeWaitlistEmail({ email }, 'fan');
       
       setIsSubmitted(true);
     } catch (error) {

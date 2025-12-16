@@ -11,7 +11,9 @@ export default function EmailSignupForm({
   title = "Join the Waitlist",
   subtitle = "Be the first to know when we launch."
 }) {
-  const [contact, setContact] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [xHandle, setXHandle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -23,13 +25,22 @@ export default function EmailSignupForm({
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!contact || isSubmitting) return;
     
-    const isEmail = isValidEmail(contact);
-    const isPhone = isValidPhone(contact);
+    // Validate that at least one field is filled
+    if (!email && !phone && !xHandle) {
+      setError('Please provide at least one contact method (email, phone, or X handle)');
+      return;
+    }
     
-    if (!isEmail && !isPhone) {
-      setError('Please enter a valid email or phone number');
+    // Validate email if provided
+    if (email && !isValidEmail(email)) {
+      setError('Please enter a valid email address');
+      return;
+    }
+    
+    // Validate phone if provided
+    if (phone && !isValidPhone(phone)) {
+      setError('Please enter a valid phone number');
       return;
     }
     
@@ -38,20 +49,24 @@ export default function EmailSignupForm({
     
     try {
       // Store to Airtable
-      await storeWaitlistEmail(contact, type);
-      
+      await storeWaitlistEmail({
+        email: email || undefined,
+        phone: phone || undefined,
+        xHandle: xHandle || undefined
+      }, type);
+    
       if (onSubmit) {
-        await onSubmit(contact);
+        await onSubmit({ email, phone, xHandle });
       }
-      
+    
       setIsSubmitted(true);
     } catch (error) {
-      console.error('Failed to store email:', error);
+      console.error('Failed to store data:', error);
       // Show more specific error message if available
       const errorMessage = error.message || 'Something went wrong. Please try again.';
       setError(errorMessage.includes('not configured') 
         ? 'Service is not configured. Please contact support.' 
-        : 'Something went wrong. Please try again.');
+        : errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -90,21 +105,38 @@ export default function EmailSignupForm({
 
           {!isSubmitted ? (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
+              <div className="space-y-3">
                 <Input
-                  type="text"
-                  placeholder="Enter your email or phone"
-                  value={contact}
-                  onChange={(e) => { setContact(e.target.value); setError(''); }}
-                  required
+                  type="email"
+                  placeholder="Email (optional)"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); setError(''); }}
                   className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
                 />
+                {isCreator && (
+                  <>
+                    <Input
+                      type="tel"
+                      placeholder="Phone number (optional)"
+                      value={phone}
+                      onChange={(e) => { setPhone(e.target.value); setError(''); }}
+                      className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
+                    />
+                    <Input
+                      type="text"
+                      placeholder="X.com handle (optional)"
+                      value={xHandle}
+                      onChange={(e) => { setXHandle(e.target.value); setError(''); }}
+                      className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
+                    />
+                  </>
+                )}
                 {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
               </div>
               
               <Button
                 type="submit"
-                disabled={isSubmitting || !contact}
+                disabled={isSubmitting || (!email && !phone && !xHandle)}
                 className={`group w-full h-14 text-[15px] font-medium text-white border-0 rounded-xl transition-all duration-500 hover:scale-[1.01] ${
                   isCreator
                     ? 'bg-[#B56A00] hover:bg-[#C97A00] hover:shadow-[0_0_40px_rgba(181,106,0,0.3)]'
