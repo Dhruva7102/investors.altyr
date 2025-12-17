@@ -18,7 +18,7 @@ The investor deck is now password protected. Here's how to configure it.
    - Navigate to **Settings → Secrets and variables → Actions**
    - Click **New repository secret**
    - Name: `INVESTOR_DECK_PASSWORD`
-   - Value: Your desired password (e.g., `Altyr2024!`)
+   - Value: Your desired password (e.g., `AltyrRelations2026!`)
    - Click **Add secret**
 
 2. **The password will be used during build:**
@@ -27,7 +27,7 @@ The investor deck is now password protected. Here's how to configure it.
    - Users will need to enter this password to access the deck
 
 3. **Default Password:**
-   - If no secret is set, it defaults to `Altyr2024!`
+   - If no secret is set, it defaults to `AltyrRelations2026!`
    - **Change this immediately** by setting the GitHub secret
 
 ### Option 2: Local Development

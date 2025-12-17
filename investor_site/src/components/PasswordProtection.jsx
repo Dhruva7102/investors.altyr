@@ -22,7 +22,7 @@ export default function PasswordProtection({ children }) {
     setError('');
 
     // Set your password here - in production, consider using environment variables
-    const correctPassword = import.meta.env.VITE_INVESTOR_PASSWORD || 'Altyr2024!';
+    const correctPassword = import.meta.env.VITE_INVESTOR_PASSWORD || 'AltyrRelations2026!';
 
     if (password === correctPassword) {
       setIsAuthenticated(true);
