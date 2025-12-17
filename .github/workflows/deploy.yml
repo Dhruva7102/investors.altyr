@@ -33,6 +33,8 @@ jobs:
         run: cd investor_site && npm ci
       
       - name: Build
+        env:
+          VITE_INVESTOR_PASSWORD: ${{ secrets.INVESTOR_DECK_PASSWORD }}
         run: cd investor_site && npm run build
       
       - name: Setup Pages
