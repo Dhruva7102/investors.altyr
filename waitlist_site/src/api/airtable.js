@@ -76,15 +76,23 @@ export async function createAirtableRecord(tableId, fields) {
 /**
  * Store waitlist data to Airtable
  * @param {Object} data - The data to store
- * @param {string} data.email - Email address (optional for creators, required for fans)
+ * @param {string} data.email - Email address (required for fans, optional for creators if phone is provided)
  * @param {string} data.phone - Phone number (optional, creators only)
- * @param {string} data.xHandle - X.com handle (optional, creators only)
+ * @param {string} data.xHandle - X username (required for creators)
  * @param {string} type - The type ('creator' or 'fan')
  * @returns {Promise<Object>} The created record
  */
 export async function storeWaitlistEmail(data, type = 'fan') {
   if (type === 'creator') {
-    // For creators: store in Creators table with email, phone, and X handle
+    // For creators: require either email OR phone, and X username is mandatory
+    if (!data.email && !data.phone) {
+      throw new Error('Either email or phone number must be provided');
+    }
+    
+    if (!data.xHandle || data.xHandle.trim() === '') {
+      throw new Error('X username is required');
+    }
+    
     const fields = {};
     
     if (data.email) {
@@ -93,14 +101,7 @@ export async function storeWaitlistEmail(data, type = 'fan') {
     if (data.phone) {
       fields[CREATORS_PHONE_FIELD_ID] = data.phone;
     }
-    if (data.xHandle) {
-      fields[CREATORS_X_FIELD_ID] = data.xHandle;
-    }
-    
-    // At least one field must be provided
-    if (Object.keys(fields).length === 0) {
-      throw new Error('At least one field (email, phone, or X handle) must be provided');
-    }
+    fields[CREATORS_X_FIELD_ID] = data.xHandle;
     
     return createAirtableRecord(CREATORS_TABLE_ID, fields);
   } else {

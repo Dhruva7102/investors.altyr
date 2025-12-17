@@ -5,6 +5,18 @@ import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { storeWaitlistEmail } from '@/api/airtable';
 
+// X (Twitter) icon component
+const XIcon = ({ className }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </svg>
+);
+
 export default function EmailSignupForm({ 
   type = 'creator', 
   onSubmit,
@@ -26,10 +38,23 @@ export default function EmailSignupForm({
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validate that at least one field is filled
-    if (!email && !phone && !xHandle) {
-      setError('Please provide at least one contact method (email, phone, or X handle)');
-      return;
+    // For creators: require either email OR phone, and X username is mandatory
+    if (isCreator) {
+      if (!email && !phone) {
+        setError('Please provide either an email address or phone number');
+        return;
+      }
+      
+      if (!xHandle || xHandle.trim() === '') {
+        setError('X username is required');
+        return;
+      }
+    } else {
+      // For fans: email is required
+      if (!email) {
+        setError('Email is required');
+        return;
+      }
     }
     
     // Validate email if provided
@@ -52,7 +77,7 @@ export default function EmailSignupForm({
       await storeWaitlistEmail({
         email: email || undefined,
         phone: phone || undefined,
-        xHandle: xHandle || undefined
+        xHandle: isCreator ? xHandle : undefined
       }, type);
     
       if (onSubmit) {
@@ -108,7 +133,7 @@ export default function EmailSignupForm({
               <div className="space-y-3">
                 <Input
                   type="email"
-                  placeholder="Email (optional)"
+                  placeholder="Email"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setError(''); }}
                   className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
@@ -117,18 +142,23 @@ export default function EmailSignupForm({
                   <>
                     <Input
                       type="tel"
-                      placeholder="Phone number (optional)"
+                      placeholder="Phone number"
                       value={phone}
                       onChange={(e) => { setPhone(e.target.value); setError(''); }}
                       className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
                     />
-                    <Input
-                      type="text"
-                      placeholder="X.com handle (optional)"
-                      value={xHandle}
-                      onChange={(e) => { setXHandle(e.target.value); setError(''); }}
-                      className="w-full h-14 px-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
-                    />
+                    <div className="relative">
+                      <div className="absolute left-5 top-1/2 -translate-y-1/2 pointer-events-none">
+                        <XIcon className="w-5 h-5 text-white/40" />
+                      </div>
+                      <Input
+                        type="text"
+                        placeholder="X username"
+                        value={xHandle}
+                        onChange={(e) => { setXHandle(e.target.value); setError(''); }}
+                        className="w-full h-14 pl-12 pr-5 bg-white/[0.03] border-white/10 rounded-xl text-white placeholder:text-white/30 focus:border-white/20 focus:ring-0 transition-colors"
+                      />
+                    </div>
                   </>
                 )}
                 {error && <p className="text-red-400 text-xs mt-2">{error}</p>}
@@ -136,7 +166,7 @@ export default function EmailSignupForm({
               
               <Button
                 type="submit"
-                disabled={isSubmitting || (!email && !phone && !xHandle)}
+                disabled={isSubmitting || (isCreator ? (!email && !phone) || !xHandle : !email)}
                 className={`group w-full h-14 text-[15px] font-medium text-white border-0 rounded-xl transition-all duration-500 hover:scale-[1.01] ${
                   isCreator
                     ? 'bg-[#B56A00] hover:bg-[#C97A00] hover:shadow-[0_0_40px_rgba(181,106,0,0.3)]'
