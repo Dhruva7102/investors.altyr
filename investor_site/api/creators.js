@@ -51,14 +51,23 @@ function pickHandle(fields) {
 async function fetchAirtableHandles({ apiKey, baseId, tableName, view }) {
   const params = new URLSearchParams();
   params.set("pageSize", "50");
-  // Allows access by field IDs like `fldrBclz4LVKRnHpz`
-  params.set("returnFieldsByFieldId", "true");
+  // Try without returnFieldsByFieldId first (works with field names)
+  // If that fails, we'll fall back to field IDs
   if (view) params.set("view", view);
 
-  const url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}?${params.toString()}`;
-  const r = await fetch(url, {
+  let url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}?${params.toString()}`;
+  let r = await fetch(url, {
     headers: { Authorization: `Bearer ${apiKey}` },
   });
+
+  // If 403, try with returnFieldsByFieldId (might need different permissions)
+  if (!r.ok && r.status === 403) {
+    params.set("returnFieldsByFieldId", "true");
+    url = `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(tableName)}?${params.toString()}`;
+    r = await fetch(url, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+  }
 
   if (!r.ok) {
     const text = await r.text().catch(() => "");
