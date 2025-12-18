@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Target, Building2, Rocket } from 'lucide-react';
+import CreatorShowcase from '@/components/creators/CreatorShowcase';
 
 const steps = [
   {
@@ -119,6 +120,38 @@ export default function GoToMarket() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Creator social proof (horizontal marquee) */}
+        <div className="mt-20">
+          <motion.div
+            className="flex items-center justify-center gap-6 mb-10"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9 }}
+          >
+            <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/40" />
+            <span className="text-xs tracking-[0.35em] text-[#AC0064]/70 uppercase font-medium">Our Waitlist</span>
+            <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/40" />
+          </motion.div>
+
+          <motion.div
+            className="text-center max-w-3xl mx-auto mb-10"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
+            <h3 className="text-2xl md:text-3xl font-extralight text-white/90 tracking-wide">
+              Creators already leaning in
+            </h3>
+            <p className="mt-3 text-base md:text-lg text-white/55 font-light leading-relaxed">
+              A preview of high-intent creators we’re in active conversations with. (Data currently mocked — soon this will read from Airtable.)
+            </p>
+          </motion.div>
+
+          <CreatorShowcase />
         </div>
 
         {/* Bottom note */}
