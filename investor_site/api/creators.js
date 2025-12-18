@@ -173,7 +173,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const bearerToken = process.env.X_BEARER_TOKEN;
+    // Decode bearer token in case it's URL-encoded (Vercel env vars might encode it)
+    let bearerToken = process.env.X_BEARER_TOKEN;
+    if (bearerToken && bearerToken.includes('%')) {
+      try {
+        bearerToken = decodeURIComponent(bearerToken);
+      } catch (e) {
+        console.warn('Failed to decode bearer token, using as-is');
+      }
+    }
     const creatorHandlesEnv = process.env.CREATOR_HANDLES || "";
 
     if (!bearerToken) return json(res, 500, { error: "Missing env var: X_BEARER_TOKEN" });
