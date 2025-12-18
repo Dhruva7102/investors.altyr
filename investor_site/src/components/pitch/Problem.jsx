@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { DollarSign, Zap, Search, TrendingUp, Eye } from 'lucide-react';
+import { DollarSign, Zap, Search, TrendingUp, Eye, Users } from 'lucide-react';
 
 const problems = [
   {
@@ -17,6 +17,11 @@ const problems = [
     icon: Search,
     title: "Weak discovery and targeting",
     description: "Basic search and categories make it difficult for niche and emerging creators to reach the right fans."
+  },
+  {
+    icon: Users,
+    title: "No creator CRM or basic revenue tooling",
+    description: "No CRM to segment and engage top fans, no workflows, no automation—so creators run their business in spreadsheets and DMs."
   },
   {
     icon: TrendingUp,

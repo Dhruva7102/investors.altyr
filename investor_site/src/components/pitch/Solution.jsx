@@ -135,7 +135,7 @@ export default function Solution() {
             </div>
             
             <p className="relative text-xl md:text-2xl font-extralight text-white/80 leading-relaxed">
-              We bring <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">casino-grade and game-grade monetization design</span> into the creator ecosystem—turning the standard 20% commission into a justified investment in technology that meaningfully grows creator revenue.
+              We bring <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">casino-grade and game-grade monetization design</span> into the creator ecosystem—paired with modern creator tooling (CRM, analytics, revenue ops) so the standard 20% commission becomes a justified investment in technology that meaningfully grows creator revenue.
             </p>
           </div>
         </motion.div>

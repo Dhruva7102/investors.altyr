@@ -110,11 +110,11 @@ export default function Hero() {
         >
           <div className="flex items-center gap-3 text-white/70 font-light">
             <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
-            <span className="text-base md:text-lg">Modern and responsive UX</span>
+            <span className="text-base md:text-lg">Delightful, premium user experience</span>
           </div>
           <div className="flex items-center gap-3 text-white/70 font-light">
             <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
-            <span className="text-base md:text-lg">Extensive Business tooling</span>
+            <span className="text-base md:text-lg">Modern creator tools + revenue ops (CRM, analytics, automations)</span>
           </div>
           <div className="flex items-center gap-3 text-white/70 font-light">
             <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
