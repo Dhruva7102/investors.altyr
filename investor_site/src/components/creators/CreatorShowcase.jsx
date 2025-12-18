@@ -9,17 +9,22 @@ function splitTwoRows(items) {
 }
 
 function duplicateForMarquee(items) {
-  // Duplicate content so scrollLeft can loop seamlessly.
+  // Duplicate content so translateX(-50%) loops seamlessly.
   return [...items, ...items];
 }
 
 export default function CreatorShowcase() {
   const [creators, setCreators] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const topRef = useRef(null);
   const bottomRef = useRef(null);
+  const mobileRef = useRef(null);
   const pauseUntilRef = useRef(0);
   const rafRef = useRef(null);
+  const topPosRef = useRef(0);
+  const bottomPosRef = useRef(0);
+  const mobilePosRef = useRef(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -27,7 +32,15 @@ export default function CreatorShowcase() {
     async function run() {
       try {
         const data = await fetchCreators();
-        if (!cancelled) setCreators(Array.isArray(data) ? data : []);
+        if (!cancelled) {
+          setCreators(Array.isArray(data) ? data : []);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error('Failed to fetch creators:', err);
+          setError(err.message || 'Failed to load creator profiles');
+        }
       } finally {
         if (!cancelled) setIsLoading(false);
       }
@@ -44,55 +57,74 @@ export default function CreatorShowcase() {
   const topMarquee = useMemo(() => duplicateForMarquee(topRow), [topRow]);
   const bottomMarquee = useMemo(() => duplicateForMarquee(bottomRow), [bottomRow]);
 
-  const pauseAuto = (ms = 2200) => {
+  const pauseAuto = (ms = 1100) => {
     pauseUntilRef.current = Math.max(pauseUntilRef.current, Date.now() + ms);
   };
 
   const onWheelToHorizontal = (ref) => (e) => {
     if (!ref?.current) return;
-    // Trackpad horizontal works naturally; this is a nice fallback for mouse wheels.
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    // Let natural horizontal trackpad scroll pass through.
+    if (Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
     e.preventDefault();
-    pauseAuto();
+    pauseAuto(2200);
     ref.current.scrollLeft += e.deltaY;
   };
 
   useEffect(() => {
-    // Auto-scroll by nudging scrollLeft. Still allows manual scrolling at any time.
-    // Pauses briefly on user interaction for a premium “you’re in control” feel.
+    // Auto-scroll by nudging scrollLeft (still allows manual scrolling).
+    // Loops seamlessly because we duplicate content 2x; loop point is half scrollWidth.
     if (!creators.length) return;
 
     const topEl = topRef.current;
     const bottomEl = bottomRef.current;
-    if (!topEl || !bottomEl) return;
+    const mobileEl = mobileRef.current;
+
+    // Initialize positions from current scroll state to avoid a visual “jump”
+    if (topEl) topPosRef.current = topEl.scrollLeft || 0;
+    if (bottomEl) bottomPosRef.current = bottomEl.scrollLeft || 0;
+    if (mobileEl) mobilePosRef.current = mobileEl.scrollLeft || 0;
 
     let lastT = performance.now();
 
     const tick = (t) => {
-      const dt = Math.min(32, t - lastT);
+      const dt = Math.min(24, t - lastT);
       lastT = t;
 
       const paused = Date.now() < pauseUntilRef.current;
 
       if (!paused) {
-        // px per second (parallax feel via different speeds)
-        // Tuned slightly faster so it feels “alive” even with manual-scroll enabled.
-        const topSpeed = 34;
-        const bottomSpeed = 46;
+        // px/sec: tuned to feel “alive” but not distracting
+        // Increase AUTO_SCROLL_MULTIPLIER to speed up the whole system while preserving parallax.
+        const AUTO_SCROLL_MULTIPLIER = 1;
+        const topSpeed = 32 * AUTO_SCROLL_MULTIPLIER;
+        const bottomSpeed = 44 * AUTO_SCROLL_MULTIPLIER;
+        const mobileSpeed = 34 * AUTO_SCROLL_MULTIPLIER;
 
-        // Loop point is half the scrollWidth because we duplicate content 2x.
-        const topLoop = topEl.scrollWidth / 2;
-        const bottomLoop = bottomEl.scrollWidth / 2;
-
-        if (topLoop > 0) {
-          topEl.scrollLeft = (topEl.scrollLeft + (topSpeed * dt) / 1000) % topLoop;
+        if (topEl) {
+          const loop = topEl.scrollWidth / 2;
+          if (loop > 0) {
+            topPosRef.current += (topSpeed * dt) / 1000;
+            if (topPosRef.current >= loop) topPosRef.current -= loop;
+            topEl.scrollLeft = topPosRef.current;
+          }
         }
 
-        if (bottomLoop > 0) {
-          // Reverse direction by subtracting; keep in [0, loop)
-          let nextBottom = bottomEl.scrollLeft - (bottomSpeed * dt) / 1000;
-          if (nextBottom < 0) nextBottom += bottomLoop;
-          bottomEl.scrollLeft = nextBottom % bottomLoop;
+        if (bottomEl) {
+          const loop = bottomEl.scrollWidth / 2;
+          if (loop > 0) {
+            bottomPosRef.current -= (bottomSpeed * dt) / 1000; // reverse direction
+            if (bottomPosRef.current < 0) bottomPosRef.current += loop;
+            bottomEl.scrollLeft = bottomPosRef.current;
+          }
+        }
+
+        if (mobileEl) {
+          const loop = mobileEl.scrollWidth / 2;
+          if (loop > 0) {
+            mobilePosRef.current += (mobileSpeed * dt) / 1000;
+            if (mobilePosRef.current >= loop) mobilePosRef.current -= loop;
+            mobileEl.scrollLeft = mobilePosRef.current;
+          }
         }
       }
 
@@ -134,40 +166,57 @@ export default function CreatorShowcase() {
               />
             ))}
           </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-white/60 text-lg font-light">
+              Unable to load creator profiles
+            </p>
+            <p className="text-white/40 text-sm font-light mt-2">
+              {error}
+            </p>
+          </div>
+        ) : creators.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-white/60 text-lg font-light">
+              No creators in waitlist yet
+            </p>
+          </div>
         ) : (
           <div className="space-y-6">
             {/* Desktop: 2 rows (manual scroll + auto-scroll w/ parallax speeds) */}
             <div className="hidden md:block">
               <div className="space-y-6">
-                <div
-                  ref={topRef}
-                  className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                  onWheel={onWheelToHorizontal(topRef)}
-                  onPointerDown={() => pauseAuto(3000)}
-                  onPointerUp={() => pauseAuto(1800)}
-                  onTouchStart={() => pauseAuto(3500)}
-                  onMouseEnter={() => pauseAuto(1200)}
-                >
-                  <div className="rowInner">
-                    {topMarquee.map((creator, idx) => (
-                      <CreatorCard key={`${creator.handle}-top-${idx}`} creator={creator} />
-                    ))}
+                <div className="relative">
+                  <div
+                    ref={topRef}
+                    className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
+                    onWheel={onWheelToHorizontal(topRef)}
+                    onPointerDown={() => pauseAuto(3200)}
+                    onPointerUp={() => pauseAuto(1800)}
+                    onTouchStart={() => pauseAuto(3600)}
+                  >
+                    <div className="rowInner">
+                      {topMarquee.map((creator, idx) => (
+                        <CreatorCard key={`${creator.handle}-top-${idx}`} creator={creator} />
+                      ))}
+                    </div>
                   </div>
                 </div>
 
-                <div
-                  ref={bottomRef}
-                  className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                  onWheel={onWheelToHorizontal(bottomRef)}
-                  onPointerDown={() => pauseAuto(3000)}
-                  onPointerUp={() => pauseAuto(1800)}
-                  onTouchStart={() => pauseAuto(3500)}
-                  onMouseEnter={() => pauseAuto(1200)}
-                >
-                  <div className="rowInner">
-                    {bottomMarquee.map((creator, idx) => (
-                      <CreatorCard key={`${creator.handle}-bottom-${idx}`} creator={creator} />
-                    ))}
+                <div className="relative">
+                  <div
+                    ref={bottomRef}
+                    className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
+                    onWheel={onWheelToHorizontal(bottomRef)}
+                    onPointerDown={() => pauseAuto(3200)}
+                    onPointerUp={() => pauseAuto(1800)}
+                    onTouchStart={() => pauseAuto(3600)}
+                  >
+                    <div className="rowInner">
+                      {bottomMarquee.map((creator, idx) => (
+                        <CreatorCard key={`${creator.handle}-bottom-${idx}`} creator={creator} />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -176,13 +225,12 @@ export default function CreatorShowcase() {
             {/* Mobile: single row (manual scroll + auto-scroll) */}
             <div className="md:hidden">
               <div
-                ref={topRef}
+                ref={mobileRef}
                 className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                onWheel={onWheelToHorizontal(topRef)}
-                onPointerDown={() => pauseAuto(3000)}
+                onWheel={onWheelToHorizontal(mobileRef)}
+                onPointerDown={() => pauseAuto(3200)}
                 onPointerUp={() => pauseAuto(1800)}
-                onTouchStart={() => pauseAuto(3500)}
-                onMouseEnter={() => pauseAuto(1200)}
+                onTouchStart={() => pauseAuto(3600)}
               >
                 <div className="rowInner">
                   {duplicateForMarquee(creators).map((creator, idx) => (
@@ -200,8 +248,10 @@ export default function CreatorShowcase() {
         .scrollRow {
           overflow-x: auto;
           overflow-y: hidden;
-          scroll-behavior: smooth;
+          scroll-behavior: auto;
           -webkit-overflow-scrolling: touch;
+          overscroll-behavior-x: contain;
+          touch-action: pan-x;
         }
 
         .rowInner {
@@ -209,6 +259,7 @@ export default function CreatorShowcase() {
           gap: 16px;
           width: max-content;
           padding: 6px 64px;
+          transform: translateZ(0);
         }
 
         @media (min-width: 768px) {

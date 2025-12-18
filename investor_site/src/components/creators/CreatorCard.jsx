@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2 } from 'lucide-react';
+import { Check } from 'lucide-react';
 import { formatFollowerCount } from '@/data/creators';
 
 /**
@@ -70,10 +70,14 @@ export default function CreatorCard({ creator }) {
               @{handle}
             </span>
             {verified && (
-              <CheckCircle2
-                className="w-4 h-4 text-[#1D9BF0] flex-shrink-0"
-                fill="#1D9BF0"
-              />
+              <span
+                className="inline-flex items-center justify-center w-4 h-4 rounded-full flex-shrink-0"
+                style={{ backgroundColor: '#1D9BF0' }}
+                aria-label="Verified"
+                title="Verified"
+              >
+                <Check className="w-3 h-3 text-white" strokeWidth={3} />
+              </span>
             )}
           </div>
 

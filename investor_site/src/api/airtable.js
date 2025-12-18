@@ -1,42 +1,39 @@
-// NOTE: This is a placeholder API layer.
-// Today: we simulate async fetches (no keys / no backend).
-// Soon: swap `fetchCreators()` to read from Airtable (or a serverless proxy) using creator handles.
-//
-// Expected Airtable schema (suggested):
-// - Table: Creators
-// - Fields:
-//   - Handle (text)              e.g. "sophiarose"
-//   - Name (text)                e.g. "Sophia Rose"
-//   - Followers (number)         e.g. 487000
-//   - Verified (checkbox/bool)   e.g. true
-//   - AvatarUrl (url)            e.g. https://...
-//
-// IMPORTANT:
-// - Do NOT call Airtable directly from the browser with a secret key.
-// - If/when we integrate Airtable, use a serverless function (Vercel/Cloudflare) to keep secrets private.
-
-import { creators as fallbackCreators } from '@/data/creators';
-
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 /**
- * Dummy async fetch that mimics a real network call.
- * Later: replace with a serverless endpoint or Airtable proxy.
+ * Client-side API: Fetch creator profiles
+ * 
+ * Flow:
+ * 1. Browser calls this function
+ * 2. Hits serverless endpoint /api/creators (Vercel function)
+ * 3. Server reads handles from Airtable
+ * 4. Server fetches profiles from X API
+ * 5. Returns real data to frontend
+ * 
+ * Airtable schema:
+ * - Table: Creators
+ * - Fields:
+ *   - X.com (text, field ID: fldrBclz4LVKRnHpz) - X/Twitter handle
+ *   - Name (text, optional) - Override display name
+ *   - Category (text, optional) - Creator category
  */
+
 export async function fetchCreators() {
-  // Simulate network + parsing latency
-  await sleep(250);
+  const res = await fetch('/api/creators', {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
 
-  // In the near future, this might look like:
-  // const res = await fetch('/api/creators');
-  // return await res.json();
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+    throw new Error(errorData.error || `API error: ${res.status}`);
+  }
 
-  return fallbackCreators.map((c) => ({
-    ...c,
-    avatarUrl: c.avatarUrl ?? null,
-  }));
+  const data = await res.json();
+  
+  if (!Array.isArray(data)) {
+    throw new Error('Invalid API response format');
+  }
+
+  return data;
 }
 
 

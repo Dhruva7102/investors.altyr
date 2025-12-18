@@ -6,17 +6,12 @@ const team = [
   {
     name: "Dhruva Kolikineni",
     role: "CEO",
-    bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products."
+    bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer."
   },
   {
     name: "Solan",
     role: "Chief Strategy Officer",
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies."
-  },
-  {
-    name: "Rahul",
-    role: "Lead Developer",
-    bio: "10+ years running high execution tech teams"
   }
 ];
 
@@ -63,7 +58,7 @@ export default function Team() {
         </motion.div>
 
         {/* Team members */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
           {team.map((member, index) => (
             <motion.div
               key={index}

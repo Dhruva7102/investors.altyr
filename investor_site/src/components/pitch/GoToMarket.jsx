@@ -147,25 +147,12 @@ export default function GoToMarket() {
               Creators already leaning in
             </h3>
             <p className="mt-3 text-base md:text-lg text-white/55 font-light leading-relaxed">
-              A preview of high-intent creators we’re in active conversations with. (Data currently mocked — soon this will read from Airtable.)
+              High-intent creators we're in active conversations with—pulled live from our waitlist.
             </p>
           </motion.div>
 
           <CreatorShowcase />
         </div>
-
-        {/* Bottom note */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <p className="text-lg text-white/50 font-light italic">
-            Start small, prove value, scale systematically
-          </p>
-        </motion.div>
       </div>
     </section>
   );
