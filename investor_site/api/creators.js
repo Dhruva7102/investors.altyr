@@ -71,7 +71,9 @@ async function fetchAirtableHandles({ apiKey, baseId, tableName, view }) {
 
   if (!r.ok) {
     const text = await r.text().catch(() => "");
-    throw new Error(`Airtable error ${r.status}: ${text || r.statusText}`);
+    // Include base ID and table in error for debugging (safe to expose)
+    const debugInfo = ` (baseId: ${baseId.substring(0, 8)}..., table: ${tableName})`;
+    throw new Error(`Airtable error ${r.status}: ${text || r.statusText}${debugInfo}`);
   }
 
   const data = await r.json();
