@@ -24,6 +24,12 @@ export async function fetchCreators() {
 
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+    
+    // Handle rate limit errors with a more user-friendly message
+    if (res.status === 429) {
+      throw new Error('X API rate limit exceeded. Profiles will load automatically once the limit resets.');
+    }
+    
     throw new Error(errorData.error || `API error: ${res.status}`);
   }
 

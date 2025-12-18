@@ -28,27 +28,43 @@ export default function CreatorShowcase() {
 
   useEffect(() => {
     let cancelled = false;
+    let retryTimeout = null;
 
-    async function run() {
+    async function run(retryCount = 0) {
       try {
         const data = await fetchCreators();
         if (!cancelled) {
           setCreators(Array.isArray(data) ? data : []);
           setError(null);
+          setIsLoading(false);
         }
       } catch (err) {
         if (!cancelled) {
           console.error('Failed to fetch creators:', err);
-          setError(err.message || 'Failed to load creator profiles');
+          const isRateLimit = err.message?.includes('rate limit');
+          
+          // Auto-retry for rate limit errors (up to 3 times, with exponential backoff)
+          if (isRateLimit && retryCount < 3) {
+            const retryDelay = Math.min(30000 * Math.pow(2, retryCount), 120000); // 30s, 60s, 120s max
+            setError(`${err.message} Retrying in ${Math.ceil(retryDelay / 1000)} seconds...`);
+            
+            retryTimeout = setTimeout(() => {
+              if (!cancelled) {
+                run(retryCount + 1);
+              }
+            }, retryDelay);
+          } else {
+            setError(err.message || 'Failed to load creator profiles');
+            setIsLoading(false);
+          }
         }
-      } finally {
-        if (!cancelled) setIsLoading(false);
       }
     }
 
     run();
     return () => {
       cancelled = true;
+      if (retryTimeout) clearTimeout(retryTimeout);
     };
   }, []);
 
