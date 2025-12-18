@@ -48,7 +48,7 @@ function pickHandle(fields) {
   );
 }
 
-async function fetchAirtableHandles({ apiKey, baseId, tableName, view }) {
+async function fetchAirtableHandles({ apiKey, baseId, tableName, view, tokenDebug = "" }) {
   const params = new URLSearchParams();
   params.set("pageSize", "50");
   // Try without returnFieldsByFieldId first (works with field names)
@@ -71,8 +71,8 @@ async function fetchAirtableHandles({ apiKey, baseId, tableName, view }) {
 
   if (!r.ok) {
     const text = await r.text().catch(() => "");
-    // Include base ID and table in error for debugging (safe to expose)
-    const debugInfo = ` (baseId: ${baseId.substring(0, 8)}..., table: ${tableName})`;
+    // Include base ID, table, and token prefix in error for debugging (safe to expose)
+    const debugInfo = ` (baseId: ${baseId.substring(0, 8)}..., table: ${tableName}${tokenDebug})`;
     throw new Error(`Airtable error ${r.status}: ${text || r.statusText}${debugInfo}`);
   }
 
@@ -154,11 +154,19 @@ export default async function handler(req, res) {
     if (!airtableApiKey) return json(res, 500, { error: "Missing env var: AIRTABLE_API_KEY" });
     if (!airtableBaseId) return json(res, 500, { error: "Missing env var: AIRTABLE_BASE_ID" });
 
+    // Debug: Verify token prefix (safe - only shows first 8 chars)
+    const tokenPrefix = airtableApiKey ? airtableApiKey.substring(0, 8) : "MISSING";
+    const expectedPrefix = "patp3YH0"; // First 8 chars of new token
+    const tokenDebug = tokenPrefix !== expectedPrefix 
+      ? ` [Token prefix: ${tokenPrefix}... (expected: ${expectedPrefix}...)]`
+      : ` [Token prefix: ${tokenPrefix}... ✓]`;
+
     const { handles, metaByHandle } = await fetchAirtableHandles({
       apiKey: airtableApiKey,
       baseId: airtableBaseId,
       tableName: airtableTable,
       view: airtableView || undefined,
+      tokenDebug, // Pass debug info for error messages
     });
 
     if (!handles.length) {
