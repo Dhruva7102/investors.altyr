@@ -154,7 +154,19 @@ export default function Hero() {
             visionSection.scrollIntoView({ behavior: 'smooth' });
           }
         }}>
-        <span className="text-xs text-white/30 tracking-widest uppercase">Explore</span>
+        <div className="flex items-center gap-2 text-xs text-white/30 tracking-widest uppercase">
+          <span>Explore</span>
+          <span className="opacity-60">or get the</span>
+          <a
+            href="/one-pager.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-4 hover:text-white/45 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            one-pager
+          </a>
+        </div>
         <motion.div
           className="p-2 rounded-full border border-white/10"
           animate={{ y: [0, 6, 0] }}
