@@ -1,11 +1,54 @@
 /**
- * X API integration - temporarily disabled
- * This was a failed experiment. May try again in the future.
+ * Client-side API: Fetch creator profiles
+ * 
+ * TEMPORARILY DISABLED - X API integration commented out for now
+ * Can be re-enabled in the future when ready to implement
+ * 
+ * Original Flow:
+ * 1. Browser calls this function
+ * 2. Hits serverless endpoint /api/creators (Vercel function)
+ * 3. Server reads handles from Airtable
+ * 4. Server fetches profiles from X API
+ * 5. Returns real data to frontend
+ * 
+ * Airtable schema:
+ * - Table: Creators
+ * - Fields:
+ *   - X.com (text, field ID: fldrBclz4LVKRnHpz) - X/Twitter handle
+ *   - Name (text, optional) - Override display name
+ *   - Category (text, optional) - Creator category
  */
 
-// export async function fetchCreators() {
-//   // X API integration removed - returning empty array for now
-//   return [];
-// }
+// TEMPORARILY DISABLED - Return empty array for now
+export async function fetchCreators() {
+  // Return empty array - X API integration disabled
+  return [];
+}
 
+/* COMMENTED OUT - Original X API Integration Code (can be restored later)
+export async function fetchCreators() {
+  const res = await fetch('/api/creators', {
+    method: 'GET',
+    headers: { 'Accept': 'application/json' },
+  });
 
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+    
+    // Handle rate limit errors with a more user-friendly message
+    if (res.status === 429) {
+      throw new Error('X API rate limit exceeded. Profiles will load automatically once the limit resets.');
+    }
+    
+    throw new Error(errorData.error || `API error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  
+  if (!Array.isArray(data)) {
+    throw new Error('Invalid API response format');
+  }
+
+  return data;
+}
+END OF COMMENTED CODE */

@@ -1,6 +1,7 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-// import { fetchCreators } from '@/api/airtable'; // X API integration disabled
+import CreatorCard from '@/components/creators/CreatorCard';
+import { fetchCreators } from '@/api/airtable';
 
 function splitTwoRows(items) {
   const midpoint = Math.ceil(items.length / 2);
@@ -13,8 +14,9 @@ function duplicateForMarquee(items) {
 }
 
 export default function CreatorShowcase() {
-  // X API integration disabled - showing empty state for now
-  const creators = [];
+  const [creators, setCreators] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const mobileRef = useRef(null);
@@ -23,6 +25,58 @@ export default function CreatorShowcase() {
   const topPosRef = useRef(0);
   const bottomPosRef = useRef(0);
   const mobilePosRef = useRef(0);
+
+  // TEMPORARILY DISABLED - X API integration commented out
+  // Just set empty creators and loading to false immediately
+  useEffect(() => {
+    setCreators([]);
+    setIsLoading(false);
+    setError(null);
+  }, []);
+
+  /* COMMENTED OUT - Original X API Fetching Code (can be restored later)
+  useEffect(() => {
+    let cancelled = false;
+    let retryTimeout = null;
+
+    async function run(retryCount = 0) {
+      try {
+        const data = await fetchCreators();
+        if (!cancelled) {
+          setCreators(Array.isArray(data) ? data : []);
+          setError(null);
+          setIsLoading(false);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          console.error('Failed to fetch creators:', err);
+          const isRateLimit = err.message?.includes('rate limit');
+          
+          // Auto-retry for rate limit errors (up to 3 times, with exponential backoff)
+          if (isRateLimit && retryCount < 3) {
+            const retryDelay = Math.min(30000 * Math.pow(2, retryCount), 120000); // 30s, 60s, 120s max
+            setError(`${err.message} Retrying in ${Math.ceil(retryDelay / 1000)} seconds...`);
+            
+            retryTimeout = setTimeout(() => {
+              if (!cancelled) {
+                run(retryCount + 1);
+              }
+            }, retryDelay);
+          } else {
+          setError(err.message || 'Failed to load creator profiles');
+            setIsLoading(false);
+          }
+        }
+      }
+    }
+
+    run();
+    return () => {
+      cancelled = true;
+      if (retryTimeout) clearTimeout(retryTimeout);
+    };
+  }, []);
+  END OF COMMENTED CODE */
 
   const [topRow, bottomRow] = useMemo(() => splitTwoRows(creators), [creators]);
 
@@ -129,8 +183,25 @@ export default function CreatorShowcase() {
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
       >
-        {creators.length === 0 ? (
-          // X API integration disabled - showing empty state
+        {isLoading ? (
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 opacity-60">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-[120px] rounded-2xl bg-white/5 border border-white/10 animate-pulse"
+              />
+            ))}
+          </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-white/60 text-lg font-light">
+              Unable to load creator profiles
+            </p>
+            <p className="text-white/40 text-sm font-light mt-2">
+              {error}
+            </p>
+          </div>
+        ) : creators.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-white/60 text-lg font-light">
               No creators in waitlist yet
