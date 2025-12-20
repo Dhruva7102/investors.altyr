@@ -158,6 +158,41 @@ export default function Market() {
           ))}
         </div>
 
+        {/* Competitive Analysis */}
+        <motion.div
+          className="text-center mt-16 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.4 }}
+        >
+          <h3 className="text-xl md:text-2xl font-extralight text-white/80 mb-6 tracking-wide">
+            Competitive Analysis
+          </h3>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <motion.a
+              href="/onlyfans-analysis.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-white/[0.05] border border-white/[0.15] hover:bg-white/[0.08] hover:border-white/[0.25] transition-all duration-300 text-white/90 font-light"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              OnlyFans Traffic Analysis
+            </motion.a>
+            <motion.a
+              href="/fansly-analysis.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-white/[0.05] border border-white/[0.15] hover:bg-white/[0.08] hover:border-white/[0.25] transition-all duration-300 text-white/90 font-light"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Fansly Traffic Analysis
+            </motion.a>
+          </div>
+        </motion.div>
+
         {/* Bottom statement */}
         <motion.div
           className="text-center mt-16"
