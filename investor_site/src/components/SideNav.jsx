@@ -11,7 +11,6 @@ const sections = [
   { id: 'gtm', label: 'Go-to-Market' },
   { id: 'team', label: 'Team' },
   { id: 'raise', label: 'Raise' },
-  { id: 'timeline', label: 'Timeline' },
   { id: 'risks', label: 'Risks' },
   { id: 'contact', label: 'Contact' }
 ];

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calculator, TrendingUp, DollarSign } from 'lucide-react';
+import { TrendingUp, DollarSign } from 'lucide-react';
 
 function clampNumber(value, min, max) {
   const n = Number(value);
@@ -160,15 +160,8 @@ export default function RevenueCalculator() {
           viewport={{ once: true }}
           transition={{ duration: 0.9 }}
         >
-          <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm mb-6">
-            <Calculator className="w-4 h-4 text-[#AC0064]" />
-            <span className="text-sm text-white/70 font-light">
-              Investors: model GMV → platform revenue at <span className="text-white/90 font-medium">20% commission</span>
-            </span>
-          </div>
-
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-white/90 mb-4">
-            Simple, high-signal unit economics
+            Revenue forecasting and projections
           </h2>
           <p className="text-lg md:text-xl text-white/60 font-light max-w-3xl mx-auto leading-relaxed">
             Adjust the inputs to see how quickly platform revenue scales as creators onboard and monetize through subscriptions + pay-per-view.
