@@ -175,10 +175,10 @@ export default function RevenueCalculator() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 items-stretch">
           {/* Controls */}
           <motion.div
-            className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm"
+            className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex flex-col"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -198,7 +198,7 @@ export default function RevenueCalculator() {
               </div>
             </div>
 
-            <div className="space-y-8">
+            <div className="space-y-8 flex-1">
               <SliderRow
                 label="Creators on platform"
                 value={creators}
