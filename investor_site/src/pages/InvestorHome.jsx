@@ -4,9 +4,11 @@ import Vision from '@/components/pitch/Vision';
 import Problem from '@/components/pitch/Problem';
 import Solution from '@/components/pitch/Solution';
 import Market from '@/components/pitch/Market';
+import RevenueCalculator from '@/components/pitch/RevenueCalculator';
 import GoToMarket from '@/components/pitch/GoToMarket';
 import Team from '@/components/pitch/Team';
 import Raise from '@/components/pitch/Raise';
+import Risks from '@/components/pitch/Risks';
 import Contact from '@/components/pitch/Contact';
 import SideNav from '@/components/SideNav';
 
@@ -63,6 +65,7 @@ export default function InvestorHome() {
         section {
           position: relative;
           overflow-x: hidden;
+          overflow-y: visible;
           width: 100%;
           max-width: 100vw;
         }
@@ -88,9 +91,11 @@ export default function InvestorHome() {
       <Problem />
       <Solution />
       <Market />
+      <RevenueCalculator />
       <GoToMarket />
       <Team />
       <Raise />
+      <Risks />
       <Contact />
     </div>
   );

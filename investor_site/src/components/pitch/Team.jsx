@@ -17,7 +17,7 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="relative py-24 md:py-32 bg-gradient-to-b from-[#18021A] to-[#0d0110]">
+    <section id="team" className="relative py-24 md:py-32 bg-gradient-to-b from-[#18021A] to-[#0d0110] overflow-visible">
       {/* Subtle gradient accent */}
       <div 
         className="absolute top-1/2 left-1/4 w-[700px] h-[700px] opacity-20"
