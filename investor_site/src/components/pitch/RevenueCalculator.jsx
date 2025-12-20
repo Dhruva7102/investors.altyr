@@ -198,7 +198,7 @@ export default function RevenueCalculator() {
               </div>
             </div>
 
-            <div className="space-y-10 flex-1">
+            <div className="space-y-10 flex-1 flex flex-col justify-between">
               <SliderRow
                 label="Creators on platform"
                 value={creators}
@@ -253,7 +253,7 @@ export default function RevenueCalculator() {
 
           {/* Outputs */}
           <motion.div
-            className="space-y-5 flex flex-col"
+            className="space-y-6 flex flex-col"
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
@@ -261,14 +261,14 @@ export default function RevenueCalculator() {
           >
             <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
               <div className="flex items-center gap-3 mb-5">
-                <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                  <DollarSign className="w-4 h-4 text-[#AC0064]" />
+                <div className="p-3 rounded-xl bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                  <DollarSign className="w-5 h-5 text-[#AC0064]" />
                 </div>
                 <div>
-                  <div className="text-base font-light text-white/90 tracking-wide">
+                  <div className="text-base md:text-lg font-light text-white/90 tracking-wide">
                     Snapshot (Month 0)
                   </div>
-                  <div className="text-xs text-white/50 font-light">
+                  <div className="text-sm text-white/50 font-light">
                     Commission rate: {(COMMISSION_RATE * 100).toFixed(0)}%
                   </div>
                 </div>
@@ -312,20 +312,20 @@ export default function RevenueCalculator() {
                 </div>
               </div>
 
-              <div className="mt-4 text-xs text-white/55 font-light leading-relaxed">
+              <div className="mt-4 text-xs text-white/50 font-light leading-relaxed">
                 GMV includes <span className="text-white/75">subscriptions</span> and{' '}
                 <span className="text-white/75">pay-per-view</span>. Platform revenue is{' '}
                 <span className="text-white/80 font-medium">GMV × 20%</span>.
               </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-              <div className="flex items-end justify-between gap-4 mb-5">
+            <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex-1 flex flex-col">
+              <div className="flex items-end justify-between gap-6 mb-5">
                 <div>
-                  <div className="text-base font-light text-white/90 tracking-wide">
+                  <div className="text-base md:text-lg font-light text-white/90 tracking-wide">
                     12-Month Projection
                   </div>
-                  <div className="text-xs text-white/50 font-light">
+                  <div className="text-sm text-white/50 font-light">
                     Growth applied to creators at {monthlyGrowthRatePct}% MoM
                   </div>
                 </div>
@@ -339,30 +339,30 @@ export default function RevenueCalculator() {
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
+              <div className="overflow-x-auto flex-1">
+                <table className="w-full text-left text-sm">
                   <thead>
                     <tr className="text-white/50">
-                      <th className="py-1.5 pr-3 font-light">Month</th>
-                      <th className="py-1.5 pr-3 font-light">Creators</th>
-                      <th className="py-1.5 pr-3 font-light">Subscribers</th>
-                      <th className="py-1.5 pr-3 font-light">Platform Rev</th>
+                      <th className="py-1.5 pr-4 font-light">Month</th>
+                      <th className="py-1.5 pr-4 font-light">Creators</th>
+                      <th className="py-1.5 pr-4 font-light">Subscribers</th>
+                      <th className="py-1.5 pr-4 font-light">Platform Rev</th>
                     </tr>
                   </thead>
                   <tbody>
                     {[month0, forecast[3], forecast[6], forecast[9], month12].map(
                       (row) => (
                         <tr key={row.month} className="border-t border-white/[0.06]">
-                          <td className="py-1.5 pr-3 text-white/70 tabular-nums">
+                          <td className="py-1.5 pr-4 text-white/70 tabular-nums">
                             {row.month}
                           </td>
-                          <td className="py-1.5 pr-3 text-white/70 tabular-nums">
+                          <td className="py-1.5 pr-4 text-white/70 tabular-nums">
                             {new Intl.NumberFormat('en-US').format(row.creators)}
                           </td>
-                          <td className="py-1.5 pr-3 text-white/70 tabular-nums">
+                          <td className="py-1.5 pr-4 text-white/70 tabular-nums">
                             {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
                           </td>
-                          <td className="py-1.5 pr-3 text-white/90 tabular-nums">
+                          <td className="py-1.5 pr-4 text-white/90 tabular-nums">
                             {formatCurrencyCompact(row.platformRevenue)}
                           </td>
                         </tr>
