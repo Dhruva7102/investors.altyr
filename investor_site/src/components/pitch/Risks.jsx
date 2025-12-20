@@ -1,37 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Shield, Users, TrendingDown, Scale, Zap } from 'lucide-react';
+import { Scale, Zap, Users, TrendingDown, Shield, AlertTriangle, ArrowRight } from 'lucide-react';
 
 const risks = [
   {
-    icon: Shield,
-    title: "Regulatory & Compliance",
-    description: "Payment processing, content moderation, and age verification require ongoing compliance investment and may face regulatory changes."
-  },
-  {
-    icon: Users,
-    title: "Creator Acquisition",
-    description: "Network effects favor established platforms. Success depends on attracting high-value creators who bring their audiences."
-  },
-  {
-    icon: TrendingDown,
-    title: "Competition",
-    description: "Established players (OnlyFans, Fansly) have significant market share, brand recognition, and resources to compete."
+    icon: Scale,
+    risk: "Legal & Regulatory",
+    riskDescription: "Payment processing, content moderation, and age verification require ongoing compliance investment and may face regulatory changes.",
+    mitigation: "We have legal counsel from day one, ensuring proactive compliance and risk management."
   },
   {
     icon: Zap,
-    title: "Payment Processing",
-    description: "Payment processors may restrict or terminate services. Chargebacks and fraud require robust risk management."
+    risk: "Platform Scaling",
+    riskDescription: "Handling scaling content delivery systems is a strain on infrastructure as users grow.",
+    mitigation: "We are building with scale in mind and are budgeting for bursts in infrastructure costs as users grow."
   },
   {
-    icon: Scale,
-    title: "Content Moderation",
-    description: "Balancing creator freedom with legal compliance and platform safety requires ongoing investment in moderation tools and processes."
+    icon: Shield,
+    risk: "Payment Processors",
+    riskDescription: "Payment processors may restrict or terminate services. Chargebacks and fraud require robust risk management.",
+    mitigation: "We choose an adult-content-friendly payment processor. We are investigating ways to minimize chargebacks."
+  },
+  {
+    icon: Users,
+    risk: "Creator Acquisition",
+    riskDescription: "Network effects favor established platforms. Success depends on attracting high-value creators who bring their audiences.",
+    mitigation: "Our Inner Circle strategy focuses on high-touch onboarding of top creators, with direct founder relationships and white-glove service."
+  },
+  {
+    icon: TrendingDown,
+    risk: "Competition",
+    riskDescription: "Established players (OnlyFans, Fansly) have significant market share, brand recognition, and resources to compete.",
+    mitigation: "We differentiate through superior UX, creator-grade analytics/CRM tools, and gamified fan experiences that drive higher LTV."
   },
   {
     icon: AlertTriangle,
-    title: "Platform Scaling",
-    description: "Rapid growth could strain infrastructure, support capacity, and operational processes if not managed carefully."
+    risk: "Content Moderation",
+    riskDescription: "Balancing creator freedom with legal compliance and platform safety requires ongoing investment in moderation tools and processes.",
+    mitigation: "We're investing in automated moderation tools from day one and building clear policies with legal oversight."
   }
 ];
 
@@ -70,16 +76,16 @@ export default function Risks() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight leading-relaxed text-white/90 tracking-wide mb-4">
-            Risks we're <span className="text-white/60">actively managing</span>
+            Risks and <span className="text-white/60">our mitigations</span>
           </h2>
           <p className="text-lg text-white/50 font-light max-w-3xl mx-auto">
-            We acknowledge these challenges and have strategies to address them
+            We acknowledge these challenges and have concrete strategies to address them
           </p>
         </motion.div>
 
-        {/* Risk cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {risks.map((risk, index) => (
+        {/* Risk → Mitigation cards */}
+        <div className="space-y-6 mb-12">
+          {risks.map((item, index) => (
             <motion.div
               key={index}
               className="relative group"
@@ -92,44 +98,51 @@ export default function Risks() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <motion.div 
-                className="h-full p-6 rounded-xl bg-white/[0.02] border border-amber-500/20 backdrop-blur-sm cursor-pointer"
-                whileHover={{ 
-                  scale: 1.02,
-                  borderColor: 'rgba(245, 158, 11, 0.4)',
-                  backgroundColor: 'rgba(255,255,255,0.03)',
-                }}
-                transition={{ duration: 0.2, ease: 'easeOut' }}
-              >
-                {/* Subtle hover glow */}
-                <motion.div
-                  className="absolute inset-0 rounded-xl opacity-0 pointer-events-none"
-                  style={{
-                    background: 'radial-gradient(circle at 50% 0%, rgba(245,158,11,0.08) 0%, transparent 50%)',
-                  }}
-                  whileHover={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
-                />
-                
-                <div className="relative">
-                  {/* Icon */}
-                  <motion.div 
-                    className="mb-4 inline-flex p-3 rounded-lg bg-amber-500/10 border border-amber-500/20"
-                    whileHover={{ scale: 1.05, rotate: -2 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <risk.icon className="w-5 h-5 text-amber-400/80" />
-                  </motion.div>
-                  
-                  {/* Content */}
-                  <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide group-hover:text-white transition-colors duration-200">
-                    {risk.title}
-                  </h3>
-                  <p className="text-sm text-white/50 font-light leading-relaxed group-hover:text-white/60 transition-colors duration-200">
-                    {risk.description}
-                  </p>
+              <div className="relative p-6 md:p-8 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300">
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+                  {/* Risk Section */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                        <item.icon className="w-4 h-4 text-amber-400/80" />
+                      </div>
+                      <h3 className="text-lg font-light text-white/90 tracking-wide">
+                        {item.risk}
+                      </h3>
+                    </div>
+                    <p className="text-sm text-white/50 font-light leading-relaxed">
+                      {item.riskDescription}
+                    </p>
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="flex-shrink-0 flex items-center justify-center">
+                    <motion.div
+                      className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ArrowRight className="w-5 h-5 text-[#AC0064] md:block hidden" />
+                      <ArrowRight className="w-5 h-5 text-[#AC0064] md:hidden rotate-90" />
+                    </motion.div>
+                  </div>
+
+                  {/* Mitigation Section */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="p-2 rounded-lg bg-green-500/10 border border-green-500/20">
+                        <Shield className="w-4 h-4 text-green-400/80" />
+                      </div>
+                      <h3 className="text-lg font-light text-white/90 tracking-wide">
+                        Mitigation
+                      </h3>
+                    </div>
+                    <p className="text-sm text-white/60 font-light leading-relaxed">
+                      {item.mitigation}
+                    </p>
+                  </div>
                 </div>
-              </motion.div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -152,4 +165,3 @@ export default function Risks() {
     </section>
   );
 }
-

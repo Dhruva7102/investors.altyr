@@ -91,10 +91,10 @@ export default function InvestorHome() {
       <Problem />
       <Solution />
       <Market />
-      <RevenueCalculator />
       <GoToMarket />
       <Team />
       <Raise />
+      <RevenueCalculator />
       <Risks />
       <Contact />
     </div>
