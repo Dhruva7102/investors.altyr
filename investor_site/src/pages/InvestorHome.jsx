@@ -8,6 +8,7 @@ import RevenueCalculator from '@/components/pitch/RevenueCalculator';
 import GoToMarket from '@/components/pitch/GoToMarket';
 import Team from '@/components/pitch/Team';
 import Raise from '@/components/pitch/Raise';
+import LaunchTimeline from '@/components/pitch/LaunchTimeline';
 import Risks from '@/components/pitch/Risks';
 import Contact from '@/components/pitch/Contact';
 import SideNav from '@/components/SideNav';
@@ -94,6 +95,7 @@ export default function InvestorHome() {
       <GoToMarket />
       <Team />
       <Raise />
+      <LaunchTimeline />
       <RevenueCalculator />
       <Risks />
       <Contact />
