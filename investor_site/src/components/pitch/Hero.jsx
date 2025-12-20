@@ -136,7 +136,7 @@ export default function Hero() {
           }}
         >
           <p className="text-white/80 text-lg font-light">
-            Raising <span className="text-white font-medium">$1,200,000</span> via SAFE
+            Raising <span className="text-white font-medium">$1,500,000</span> via SAFE
             <span className="text-white/60 text-base ml-2">• Friends & Family Round</span>
           </p>
         </motion.div>
