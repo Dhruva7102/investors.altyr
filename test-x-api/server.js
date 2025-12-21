@@ -1,165 +1,133 @@
 /**
- * Minimal local proxy for X API v2 to avoid browser CORS restrictions.
- *
- * Why: Browsers typically block direct requests to https://api.x.com via CORS.
- * This server forwards requests from the local HTML page to X API.
- *
- * Usage:
- *   cd test-x-api
- *   node server.js
- *
- * Then open index.html and set Proxy base URL to http://localhost:8787
+ * Simple proxy server for Airtable API testing
+ * Avoids CORS issues when testing locally
  */
 
-import http from "node:http";
-import { URL } from "node:url";
+const http = require('http');
+const https = require('https');
+const url = require('url');
 
-const PORT = Number(process.env.PORT || 8787);
-
-function sendJson(res, status, body) {
-  const payload = JSON.stringify(body);
-  res.statusCode = status;
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-  res.setHeader("Content-Length", Buffer.byteLength(payload));
-  res.end(payload);
-}
-
-function setCors(res) {
-  // Local tool only; allow all origins.
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Authorization,Content-Type,Accept");
-  res.setHeader("Access-Control-Max-Age", "86400");
-}
-
-function normalizeHandle(raw) {
-  const s = String(raw || "").trim();
-  if (!s) return "";
-  return s.startsWith("@") ? s.slice(1) : s;
-}
-
-function decodeIfEncoded(token) {
-  const t = String(token || "").trim();
-  if (!t) return "";
-  if (!t.includes("%")) return t;
-  try {
-    return decodeURIComponent(t);
-  } catch {
-    return t;
-  }
-}
-
-function getBearerFromAuthHeader(authHeader) {
-  const h = String(authHeader || "").trim();
-  if (!h) return "";
-  const m = h.match(/^Bearer\s+(.+)$/i);
-  return m ? m[1].trim() : "";
-}
-
-async function fetchXUser({ bearerToken, username }) {
-  const params = new URLSearchParams();
-  params.set("usernames", username);
-  params.set("user.fields", ["profile_image_url", "public_metrics", "verified", "name"].join(","));
-
-  const url = `https://api.x.com/2/users/by?${params.toString()}`;
-
-  const r = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${bearerToken}`,
-      Accept: "application/json",
-    },
-  });
-
-  const text = await r.text().catch(() => "");
-  const contentType = r.headers.get("content-type") || "";
-  const isJson = contentType.includes("application/json");
-  const body = isJson
-    ? (() => {
-        try {
-          return text ? JSON.parse(text) : null;
-        } catch {
-          return { detail: text };
-        }
-      })()
-    : { detail: text || r.statusText };
-
-  if (!r.ok) {
-    const msg = body?.detail || body?.title || r.statusText || "Request failed";
-    return {
-      ok: false,
-      status: r.status,
-      body: { error: msg, ...body },
-    };
-  }
-
-  const user = Array.isArray(body?.data) ? body.data[0] : null;
-  if (!user) {
-    return {
-      ok: false,
-      status: 404,
-      body: { error: "User not found" },
-    };
-  }
-
-  return {
-    ok: true,
-    status: 200,
-    body: {
-      handle: user.username,
-      name: user.name || user.username,
-      verified: !!user.verified,
-      avatarUrl: user.profile_image_url
-        ? String(user.profile_image_url).replace("_normal", "_bigger")
-        : null,
-      public_metrics: user.public_metrics || {},
-      raw: user, // useful for debugging while testing
-    },
-  };
-}
+const PORT = 8787;
 
 const server = http.createServer(async (req, res) => {
-  setCors(res);
+  // Enable CORS
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // CORS preflight
-  if (req.method === "OPTIONS") {
-    res.statusCode = 204;
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    res.writeHead(200);
     res.end();
     return;
   }
 
-  const url = new URL(req.url || "/", `http://${req.headers.host || "localhost"}`);
+  const parsedUrl = url.parse(req.url, true);
+  const pathname = parsedUrl.pathname;
 
-  if (req.method !== "GET") {
-    return sendJson(res, 405, { error: "Method not allowed" });
+  // Health check
+  if (pathname === '/health') {
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ status: 'ok', timestamp: new Date().toISOString() }));
+    return;
   }
 
-  if (url.pathname === "/health") {
-    return sendJson(res, 200, { ok: true });
+  // Airtable proxy endpoint
+  if (pathname === '/airtable' && req.method === 'GET') {
+    const { baseId, tableId } = parsedUrl.query;
+    
+    if (!baseId || !tableId) {
+      res.writeHead(400, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ 
+        error: 'Missing required parameters: baseId and tableId' 
+      }));
+      return;
+    }
+
+    // Get Authorization header
+    const authHeader = req.headers.authorization;
+    if (!authHeader) {
+      res.writeHead(401, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'Missing Authorization header' }));
+      return;
+    }
+
+    // Proxy request to Airtable
+    const airtableUrl = `https://api.airtable.com/v0/${baseId}/${tableId}`;
+    
+    console.log(`[airtable] Fetching from: ${airtableUrl}`);
+
+    const options = {
+      hostname: 'api.airtable.com',
+      path: `/v0/${baseId}/${tableId}`,
+      method: 'GET',
+      headers: {
+        'Authorization': authHeader,
+        'User-Agent': 'Altyr-Test-App/1.0'
+      }
+    };
+
+    const proxyReq = https.request(options, (proxyRes) => {
+      let data = '';
+
+      proxyRes.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      proxyRes.on('end', () => {
+        console.log(`[airtable] Response status: ${proxyRes.statusCode}`);
+        
+        res.writeHead(proxyRes.statusCode, { 
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        });
+
+        try {
+          const parsed = JSON.parse(data);
+          
+          if (proxyRes.statusCode === 200) {
+            console.log(`[airtable] Success! Found ${parsed.records?.length || 0} records`);
+          } else {
+            console.error(`[airtable] Error:`, parsed);
+          }
+          
+          res.end(data);
+        } catch (err) {
+          console.error(`[airtable] JSON parse error:`, err);
+          res.end(data);
+        }
+      });
+    });
+
+    proxyReq.on('error', (err) => {
+      console.error(`[airtable] Request error:`, err);
+      res.writeHead(500, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ 
+        error: 'Proxy request failed',
+        details: err.message 
+      }));
+    });
+
+    proxyReq.end();
+    return;
   }
 
-  if (url.pathname !== "/profile") {
-    return sendJson(res, 404, { error: "Not found. Use /profile?username=..." });
-  }
-
-  const username = normalizeHandle(url.searchParams.get("username"));
-  if (!username) return sendJson(res, 400, { error: "Missing query param: username" });
-
-  const bearerToken = decodeIfEncoded(getBearerFromAuthHeader(req.headers.authorization));
-  if (!bearerToken) return sendJson(res, 401, { error: "Missing Authorization Bearer token" });
-
-  try {
-    const out = await fetchXUser({ bearerToken, username });
-    return sendJson(res, out.status, out.body);
-  } catch (e) {
-    return sendJson(res, 500, { error: e?.message || "Unknown server error" });
-  }
+  // Default 404
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ 
+    error: 'Not found',
+    endpoints: {
+      '/health': 'Health check',
+      '/airtable?baseId=...&tableId=...': 'Fetch Airtable records (requires Authorization header)'
+    }
+  }));
 });
 
 server.listen(PORT, () => {
-  // eslint-disable-next-line no-console
-  console.log(`[x-api-test] proxy running on http://localhost:${PORT}`);
-  // eslint-disable-next-line no-console
-  console.log(`[x-api-test] endpoints: GET /health, GET /profile?username=...`);
+  console.log(`[airtable-test] proxy running on http://localhost:${PORT}`);
+  console.log(`[airtable-test] endpoints:`);
+  console.log(`  GET /health`);
+  console.log(`  GET /airtable?baseId=...&tableId=...`);
+  console.log('');
+  console.log('Open test-x-api/index.html in your browser to test');
 });
-
-

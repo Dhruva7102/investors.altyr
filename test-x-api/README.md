@@ -1,45 +1,62 @@
-# X API Test App (throwaway)
+# Airtable Integration Test App
 
-This is a tiny local test app to verify X API v2 profile lookup works (avatar + follower counts) before integrating it into the main product.
+Quick throwaway app to verify **Airtable** integration works before adding it to the main investor site.
 
-## Why there’s a server
+## What it does
 
-Browsers commonly block direct calls to `https://api.x.com` due to **CORS**.  
-So this includes a minimal local proxy (`server.js`) that forwards requests to X.
+- Fetches **creator records** from your Airtable base
+- Displays **X.com handles**, emails, and phone numbers
+- Shows stats (total creators, how many have X handles, etc.)
+- Displays raw JSON response for debugging
 
-## Run it
+## How to run
 
-From the repo root:
+### 1. Start the proxy server
+
+From the project root:
 
 ```bash
 cd test-x-api
 node server.js
 ```
 
-Then open:
+This starts a local proxy on `http://localhost:8787` to avoid CORS issues.
 
-- `test-x-api/index.html` (double-click, or drag into browser)
+### 2. Open the UI
 
-## Use it
+Open `test-x-api/index.html` in your browser.
 
-- Paste your **Bearer token** into the UI
-- Enter a username like `edgerxnyc` or `@edgerxnyc`
-- Click **Fetch profile**
+### 3. Test the integration
 
-It will display:
-- Avatar
-- Name
-- Verified
-- Followers / Following / Posts
+The form is pre-filled with your Airtable credentials:
+- API Key: `patp3YH0tUQ1hKuNL...`
+- Base ID: `appv5KPKpVtQm3MbE`
+- Table ID: `tblTYUu6019qDOoSQ` (Creators table)
 
-## Notes
+Click **Fetch Creators** to pull all creator records.
 
-- The bearer token is **not** stored to disk by the UI.
-- If you hit **429 Too Many Requests**, wait for the rate limit window to reset and retry.
+## What you'll see
 
-## Endpoints (proxy)
+- **Total Creators**: Number of records in the table
+- **With X Handle**: How many have the `X.com` field filled
+- **With Email**: How many have the `Emails` field filled
+- **Creator cards**: Grid showing each creator's data
+- **Raw JSON**: Expandable section with the full API response
 
-- `GET http://localhost:8787/health`
-- `GET http://localhost:8787/profile?username=edgerxnyc`
+## Airtable Schema
 
+### Creators Table (`tblTYUu6019qDOoSQ`)
 
+Fields:
+- **X.com** (field ID: `fldrBclz4LVKRnHpz`) - X/Twitter handle
+- **Emails** (field ID: `fldZv1kaQxw33TMgS`) - Email address
+- **Phone number** (field ID: `fld1vqZScSirZsi5U`) - Phone number
+
+## Cleanup
+
+When done testing, you can delete this entire `test-x-api/` directory.
+
+```bash
+cd ..
+rm -rf test-x-api/
+```
