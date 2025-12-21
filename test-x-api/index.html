@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>X API Test (Profile Lookup)</title>
+    <style>
+      :root {
+        --bg: #18021a;
+        --panel: rgba(255, 255, 255, 0.04);
+        --border: rgba(255, 255, 255, 0.10);
+        --text: rgba(255, 255, 255, 0.92);
+        --muted: rgba(255, 255, 255, 0.62);
+        --muted2: rgba(255, 255, 255, 0.42);
+        --accentA: #ac0064;
+        --accentB: #64109a;
+        --danger: #ff4d6d;
+        --ok: #46d39a;
+        --shadow: 0 22px 80px rgba(0,0,0,0.45);
+        --radius: 18px;
+      }
+
+      html, body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: radial-gradient(circle at 20% 20%, rgba(100,16,154,0.25) 0%, transparent 55%),
+                    radial-gradient(circle at 85% 35%, rgba(172,0,100,0.22) 0%, transparent 55%),
+                    var(--bg);
+        color: var(--text);
+      }
+
+      .wrap {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 44px 18px 64px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 22px;
+      }
+      .kicker {
+        letter-spacing: 0.35em;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: rgba(172, 0, 100, 0.70);
+      }
+      h1 {
+        margin: 14px 0 10px;
+        font-size: 30px;
+        font-weight: 300;
+        letter-spacing: 0.02em;
+      }
+      .sub {
+        margin: 0;
+        font-size: 15px;
+        font-weight: 300;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .sub code {
+        color: rgba(255,255,255,0.78);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 16px;
+        margin-top: 26px;
+      }
+      @media (max-width: 880px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(10px);
+      }
+
+      .cardHead {
+        padding: 18px 18px 0;
+      }
+      .cardBody {
+        padding: 18px;
+      }
+
+      .label {
+        display: block;
+        font-size: 12px;
+        color: var(--muted2);
+        margin: 0 0 8px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(0,0,0,0.22);
+        color: var(--text);
+        padding: 12px 14px;
+        outline: none;
+        font-size: 14px;
+      }
+      input::placeholder { color: rgba(255,255,255,0.35); }
+      input:focus {
+        border-color: rgba(172,0,100,0.55);
+        box-shadow: 0 0 0 4px rgba(172,0,100,0.12);
+      }
+
+      .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      @media (max-width: 520px) {
+        .row { grid-template-columns: 1fr; }
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+      button {
+        appearance: none;
+        border: 1px solid rgba(255,255,255,0.16);
+        background: rgba(255,255,255,0.06);
+        color: var(--text);
+        border-radius: 14px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 500;
+        transition: transform 0.08s ease, background 0.2s ease, border-color 0.2s ease;
+      }
+      button.primary {
+        border-color: rgba(172,0,100,0.35);
+        background: linear-gradient(135deg, rgba(172,0,100,0.28), rgba(100,16,154,0.22));
+      }
+      button:hover { background: rgba(255,255,255,0.10); }
+      button:active { transform: translateY(1px); }
+      button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .hint {
+        margin-top: 10px;
+        font-size: 12px;
+        color: var(--muted2);
+        line-height: 1.55;
+      }
+
+      .status {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .status.error { color: rgba(255, 77, 109, 0.92); }
+      .status.ok { color: rgba(70, 211, 154, 0.92); }
+
+      .profile {
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 14px;
+        align-items: center;
+      }
+      .avatar {
+        width: 72px;
+        height: 72px;
+        border-radius: 18px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(255,255,255,0.06);
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+      }
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .name {
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0 0 4px;
+      }
+      .handle {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 10px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chip {
+        font-size: 12px;
+        padding: 7px 10px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.14);
+        background: rgba(0,0,0,0.18);
+        color: rgba(255,255,255,0.78);
+      }
+      .chip strong { color: rgba(255,255,255,0.92); font-weight: 600; }
+
+      .footer {
+        margin-top: 14px;
+        font-size: 12px;
+        color: rgba(255,255,255,0.38);
+        text-align: center;
+      }
+      .footer a { color: rgba(255,255,255,0.58); text-decoration: none; }
+      .footer a:hover { text-decoration: underline; }
+
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="header">
+        <div class="kicker">X API Test</div>
+        <h1>Profile lookup (avatar + metrics)</h1>
+        <p class="sub">
+          Enter a bearer token + a username. This uses a local proxy at <code class="mono">http://localhost:8787</code>
+          to avoid browser CORS restrictions.
+        </p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="cardHead">
+            <div class="kicker" style="letter-spacing:0.28em;color:rgba(255,255,255,0.50)">Inputs</div>
+          </div>
+          <div class="cardBody">
+            <label class="label" for="token">Bearer token</label>
+            <input id="token" type="password" autocomplete="off" placeholder="Paste your X API bearer token" />
+
+            <div style="height:12px"></div>
+
+            <div class="row">
+              <div>
+                <label class="label" for="handle">X username</label>
+                <input id="handle" type="text" autocomplete="off" placeholder="@edgerxnyc" />
+              </div>
+              <div>
+                <label class="label" for="base">Proxy base URL</label>
+                <input id="base" type="text" autocomplete="off" value="http://localhost:8787" />
+              </div>
+            </div>
+
+            <div class="actions">
+              <button id="fetchBtn" class="primary">Fetch profile</button>
+              <button id="clearBtn">Clear</button>
+            </div>
+
+            <div class="hint">
+              - Keep this token local. This is a throwaway test UI. <br />
+              - If you see CORS errors, make sure the proxy is running: <span class="mono">node server.js</span>.
+            </div>
+
+            <div id="status" class="status"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="cardHead">
+            <div class="kicker" style="letter-spacing:0.28em;color:rgba(255,255,255,0.50)">Result</div>
+          </div>
+          <div class="cardBody">
+            <div id="emptyState" class="status" style="margin:0;color:rgba(255,255,255,0.55)">
+              No result yet.
+            </div>
+
+            <div id="profile" style="display:none">
+              <div class="profile">
+                <div class="avatar" id="avatarBox"></div>
+                <div>
+                  <p class="name" id="name"></p>
+                  <p class="handle" id="username"></p>
+                  <div class="chips" id="chips"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="height:14px"></div>
+            <div class="hint">
+              Endpoint used (server-side):<br />
+              <span class="mono">GET https://api.x.com/2/users/by?usernames=...&amp;user.fields=profile_image_url,public_metrics,verified,name</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        Temporary test app. Delete anytime. If X rate-limits you, wait and retry.
+      </div>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+      const tokenEl = $("token");
+      const handleEl = $("handle");
+      const baseEl = $("base");
+      const fetchBtn = $("fetchBtn");
+      const clearBtn = $("clearBtn");
+      const statusEl = $("status");
+
+      const emptyStateEl = $("emptyState");
+      const profileEl = $("profile");
+      const avatarBoxEl = $("avatarBox");
+      const nameEl = $("name");
+      const usernameEl = $("username");
+      const chipsEl = $("chips");
+
+      const storageKey = "x_api_test_app_v1";
+
+      function setStatus(msg, kind) {
+        statusEl.textContent = msg || "";
+        statusEl.className = "status" + (kind ? " " + kind : "");
+      }
+
+      function showProfile(data) {
+        emptyStateEl.style.display = "none";
+        profileEl.style.display = "block";
+
+        const avatarUrl = data?.avatarUrl || null;
+        avatarBoxEl.innerHTML = avatarUrl
+          ? `<img alt="avatar" src="${avatarUrl.replaceAll('"', "&quot;")}" />`
+          : `<div style="color:rgba(255,255,255,0.45);font-size:12px">No avatar</div>`;
+
+        nameEl.textContent = data?.name || "Unknown";
+        usernameEl.textContent = data?.handle ? "@" + data.handle : "";
+
+        const metrics = data?.public_metrics || {};
+        const chips = [
+          ["Followers", metrics.followers_count],
+          ["Following", metrics.following_count],
+          ["Posts", metrics.tweet_count],
+          ["Verified", data?.verified ? "Yes" : "No"],
+        ];
+
+        chipsEl.innerHTML = chips
+          .map(([k, v]) => `<span class="chip"><strong>${k}:</strong> ${formatValue(v)}</span>`)
+          .join("");
+      }
+
+      function hideProfile() {
+        profileEl.style.display = "none";
+        emptyStateEl.style.display = "block";
+        avatarBoxEl.innerHTML = "";
+        nameEl.textContent = "";
+        usernameEl.textContent = "";
+        chipsEl.innerHTML = "";
+      }
+
+      function normalizeHandle(raw) {
+        const s = String(raw || "").trim();
+        if (!s) return "";
+        return s.startsWith("@") ? s.slice(1) : s;
+      }
+
+      function decodeIfEncoded(token) {
+        const t = String(token || "").trim();
+        if (!t) return "";
+        if (!t.includes("%")) return t;
+        try { return decodeURIComponent(t); } catch { return t; }
+      }
+
+      function formatValue(v) {
+        if (v === null || v === undefined || v === "") return "—";
+        if (typeof v === "number") return v.toLocaleString();
+        return String(v);
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify({
+            token: tokenEl.value ? "stored" : "",
+            base: baseEl.value || "",
+            handle: handleEl.value || "",
+          }));
+        } catch {}
+      }
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(storageKey);
+          if (!raw) return;
+          const data = JSON.parse(raw);
+          if (data?.base) baseEl.value = data.base;
+          if (data?.handle) handleEl.value = data.handle;
+          // We deliberately do NOT store the token in localStorage.
+        } catch {}
+      }
+
+      async function fetchProfile() {
+        const base = String(baseEl.value || "").trim().replace(/\/+$/, "");
+        const token = decodeIfEncoded(tokenEl.value);
+        const handle = normalizeHandle(handleEl.value);
+
+        hideProfile();
+        setStatus("", "");
+
+        if (!token) return setStatus("Please paste a bearer token.", "error");
+        if (!handle) return setStatus("Please enter a username.", "error");
+        if (!base) return setStatus("Please provide a proxy base URL.", "error");
+
+        fetchBtn.disabled = true;
+        setStatus("Fetching…", "");
+
+        try {
+          const url = `${base}/profile?username=${encodeURIComponent(handle)}`;
+          const r = await fetch(url, {
+            method: "GET",
+            headers: {
+              "Authorization": `Bearer ${token}`,
+              "Accept": "application/json",
+            },
+          });
+
+          const text = await r.text();
+          let body = null;
+          try { body = text ? JSON.parse(text) : null; } catch { body = { error: text }; }
+
+          if (!r.ok) {
+            const msg = body?.error || body?.detail || body?.title || `HTTP ${r.status}`;
+            if (r.status === 401) return setStatus(`401 Unauthorized: ${msg}`, "error");
+            if (r.status === 429) return setStatus(`429 Rate limited: ${msg}`, "error");
+            if (r.status === 404) return setStatus(`404 Not found: ${msg}`, "error");
+            return setStatus(`${r.status}: ${msg}`, "error");
+          }
+
+          showProfile(body);
+          setStatus("Success.", "ok");
+          saveState();
+        } catch (e) {
+          const msg = e?.message || String(e);
+          setStatus(`Network error: ${msg}`, "error");
+        } finally {
+          fetchBtn.disabled = false;
+        }
+      }
+
+      fetchBtn.addEventListener("click", fetchProfile);
+      clearBtn.addEventListener("click", () => {
+        handleEl.value = "";
+        setStatus("", "");
+        hideProfile();
+        saveState();
+      });
+
+      handleEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") fetchProfile();
+      });
+
+      loadState();
+    </script>
+  </body>
+</html>
+
