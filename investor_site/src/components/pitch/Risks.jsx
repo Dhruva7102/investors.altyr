@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Scale, Zap, Users, TrendingDown, Shield, AlertTriangle, ArrowRight } from 'lucide-react';
+import CompetitiveLandscape from './CompetitiveLandscape';
 
 const risks = [
   {
@@ -161,6 +162,11 @@ export default function Risks() {
             </p>
           </div>
         </motion.div>
+
+        {/* Competitive Landscape Section */}
+        <div className="mt-12">
+          <CompetitiveLandscape />
+        </div>
       </div>
     </section>
   );
