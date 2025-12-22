@@ -164,7 +164,7 @@ export default function Risks() {
         </motion.div>
 
         {/* Competitive Landscape Section */}
-        <div className="mt-12">
+        <div className="mt-20">
           <CompetitiveLandscape />
         </div>
       </div>
