@@ -184,9 +184,10 @@ export default function CompetitiveLandscape() {
           transition={{ duration: 0.9, delay: 0.3 }}
         >
           <p className="text-sm md:text-base font-light text-white/60 leading-relaxed max-w-3xl mx-auto">
-            <span className="text-[#AC0064]/80 font-normal">The opportunity:</span> While competitors are established, 
-            their platforms are dated, clunky, and lack the sophisticated tools creators need to maximize revenue.
-            We're building the platform creators <em className="text-white/70">wish</em> existed.
+            We encourage you to click into each of these sites—the value of exceptional UX becomes 
+            <em className="text-white/70"> increasingly </em>clear. While competitors are established, 
+            their platforms are dated, clunky, and lack the sophisticated tools creators need. 
+            We're building what creators <span className="text-[#AC0064]/80 font-normal">actually</span> want.
           </p>
         </motion.div>
       </div>
