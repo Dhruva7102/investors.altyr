@@ -6,6 +6,7 @@ import Solution from '@/components/pitch/Solution';
 import Market from '@/components/pitch/Market';
 import RevenueCalculator from '@/components/pitch/RevenueCalculator';
 import GoToMarket from '@/components/pitch/GoToMarket';
+import Waitlist from '@/components/pitch/Waitlist';
 import Team from '@/components/pitch/Team';
 import Raise from '@/components/pitch/Raise';
 import Risks from '@/components/pitch/Risks';
@@ -91,10 +92,11 @@ export default function InvestorHome() {
       <Problem />
       <Solution />
       <Market />
+      <RevenueCalculator />
       <GoToMarket />
+      <Waitlist />
       <Team />
       <Raise />
-      <RevenueCalculator />
       <Risks />
       <Contact />
     </div>

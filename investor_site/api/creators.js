@@ -1,18 +1,15 @@
+/* global process */
 /**
  * Vercel Serverless Function: /api/creators
- * 
- * TEMPORARILY DISABLED - X API integration commented out for now
- * Can be re-enabled in the future when ready to implement
- * 
- * Original Flow:
- * 1) Read creator handles from environment variable (comma-separated) or fallback to empty array
- * 2) Fetch user profile info from X API v2 for each handle
+ *
+ * New Flow (Airtable-only):
+ * 1) Fetch Creators records from Airtable
+ * 2) Filter to records with an X handle
  * 3) Return normalized creator objects to the frontend
- * 
+ *
  * Env Vars (Vercel Project → Settings → Environment Variables):
- * - X_BEARER_TOKEN (required)
- * - CREATOR_HANDLES (optional, comma-separated list like: "elonmusk,barackobama,@billgates")
- *   If not set, returns empty array (no creators shown)
+ * - AIRTABLE_API_KEY (required) - Airtable Personal Access Token
+ * - AIRTABLE_BASE_ID (required)
  */
 
 function json(res, status, body) {
@@ -21,165 +18,89 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
-// TEMPORARILY DISABLED - Return empty array for now
-export default async function handler(req, res) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", "GET");
-    return json(res, 405, { error: "Method not allowed" });
-  }
+const AIRTABLE_CREATORS_TABLE_ID = "tblTYUu6019qDOoSQ";
+const AIRTABLE_X_HANDLE_FIELD = "X.com";
+const AIRTABLE_FOLLOWER_COUNT_FIELD = "follower count";
 
-  // Return empty array - X API integration disabled
-  res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
-  return json(res, 200, []);
-}
-
-/* COMMENTED OUT - X API Integration Code (can be restored later)
-function normalizeHandle(raw) {
-  if (!raw) return null;
-  const s = String(raw).trim();
+function normalizeXHandle(raw) {
+  if (raw === undefined || raw === null) return null;
+  let s = String(raw).trim();
   if (!s) return null;
-  return s.startsWith("@") ? s.slice(1) : s;
+
+  // Handle cases like full URLs: https://x.com/username or twitter.com/username
+  s = s.replace(/^https?:\/\//i, "");
+  s = s.replace(/^www\./i, "");
+  s = s.replace(/^x\.com\//i, "");
+  s = s.replace(/^twitter\.com\//i, "");
+
+  // Strip leading @
+  s = s.replace(/^@+/, "");
+
+  // Strip query / fragments / trailing slashes
+  s = s.split("?")[0].split("#")[0].replace(/\/+$/, "");
+
+  return s || null;
 }
 
-function parseHandlesFromEnv(envString) {
-  if (!envString) return [];
-  return envString
-    .split(",")
-    .map((h) => normalizeHandle(h))
-    .filter(Boolean);
-}
+function parseFollowerCount(value) {
+  if (value === undefined || value === null || value === "") return 0;
+  if (typeof value === "number" && Number.isFinite(value)) return Math.max(0, Math.floor(value));
 
-async function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+  const s = String(value).trim().toUpperCase();
+  if (!s) return 0;
 
-async function fetchXUsersByUsernames({ bearerToken, usernames }) {
-  if (!usernames.length) return [];
-  
-  // X API v2: up to 100 usernames per call.
-  const chunks = [];
-  for (let i = 0; i < usernames.length; i += 100) chunks.push(usernames.slice(i, i + 100));
-
-  const results = [];
-  for (let chunkIdx = 0; chunkIdx < chunks.length; chunkIdx++) {
-    const chunk = chunks[chunkIdx];
-    const params = new URLSearchParams();
-    params.set("usernames", chunk.join(","));
-    params.set("user.fields", ["profile_image_url", "public_metrics", "verified", "name"].join(","));
-
-    const url = `https://api.x.com/2/users/by?${params.toString()}`;
-    
-    // Retry logic with exponential backoff for rate limits
-    let retries = 3;
-    let chunkSuccess = false;
-    
-    while (retries > 0) {
-      try {
-        const r = await fetch(url, {
-          headers: {
-            Authorization: `Bearer ${bearerToken}`,
-          },
-        });
-
-        // Handle rate limiting (429)
-        if (r.status === 429) {
-          const rateLimitReset = r.headers.get("x-rate-limit-reset");
-          const resetTime = rateLimitReset ? parseInt(rateLimitReset, 10) * 1000 : null;
-          const waitTime = resetTime 
-            ? Math.max(0, resetTime - Date.now()) + 1000 // Add 1s buffer
-            : Math.pow(2, 4 - retries) * 1000; // Exponential backoff: 16s, 8s, 4s
-          
-          retries--;
-          
-          if (retries === 0) {
-            // If we have partial results, log warning and continue with next chunk
-            if (results.length > 0) {
-              console.warn(`X API rate limit exceeded for chunk ${chunkIdx + 1}. Returning partial results.`);
-              chunkSuccess = true; // Mark as "handled" so we continue
-              break;
-            }
-            throw new Error(`X API rate limit exceeded. Please try again later.`);
-          }
-          
-          console.warn(`X API rate limited. Waiting ${Math.ceil(waitTime / 1000)}s before retry... (${retries} retries left)`);
-          
-          if (waitTime > 0 && waitTime < 300000) { // Don't wait more than 5 minutes
-            await sleep(waitTime);
-            continue;
-          } else {
-            // If we have partial results, log warning and continue
-            if (results.length > 0) {
-              console.warn(`X API rate limit exceeded for chunk ${chunkIdx + 1}. Returning partial results.`);
-              chunkSuccess = true;
-              break;
-            }
-            throw new Error(`X API rate limit exceeded. Please try again later.`);
-          }
-        }
-
-        if (!r.ok) {
-          const text = await r.text().catch(() => "");
-          const errorData = text ? (() => {
-            try { return JSON.parse(text); } catch { return { detail: text }; }
-          })() : { detail: r.statusText };
-          
-          throw new Error(`X API error ${r.status}: ${errorData.detail || errorData.title || r.statusText}`);
-        }
-
-        const data = await r.json();
-        if (Array.isArray(data?.data)) results.push(...data.data);
-        if (data?.errors) {
-          // Log errors but continue with valid users
-          console.warn("X API errors:", data.errors);
-        }
-        
-        // Success - break out of retry loop
-        chunkSuccess = true;
-        break;
-      } catch (error) {
-        retries--;
-        
-        // If it's not a rate limit error or we're out of retries, throw (unless we have partial results)
-        if (!error.message?.includes("rate limit")) {
-          // For non-rate-limit errors, throw immediately unless we have partial results
-          if (results.length > 0) {
-            console.warn(`X API error for chunk ${chunkIdx + 1}, but returning partial results:`, error.message);
-            chunkSuccess = true;
-            break;
-          }
-          throw error;
-        }
-        
-        // Rate limit error and out of retries
-        if (retries === 0) {
-          // If we have partial results, log warning and continue
-          if (results.length > 0) {
-            console.warn(`X API rate limit exceeded for chunk ${chunkIdx + 1}. Returning partial results.`);
-            chunkSuccess = true;
-            break;
-          }
-          throw error;
-        }
-        
-        // Exponential backoff for rate limit errors
-        const backoffTime = Math.pow(2, 4 - retries) * 1000;
-        console.warn(`X API request failed, retrying in ${backoffTime / 1000}s... (${retries} retries left)`, error.message);
-        await sleep(backoffTime);
-      }
-    }
-    
-    // If chunk failed completely and we have no results at all, we would have thrown above
-    // So if we get here, either the chunk succeeded or we're returning partial results
-    
-    // Add delay between chunks to avoid hitting rate limits
-    // X API v2 free tier: 300 requests per 15 minutes
-    // Adding 3s delay between chunks should keep us well under the limit
-    if (chunkIdx < chunks.length - 1) {
-      await sleep(3000);
-    }
+  // Handle K/M/B suffixes (e.g., "590.8K" → 590800, "1.2M" → 1200000)
+  if (s.endsWith('K')) {
+    const num = parseFloat(s.slice(0, -1));
+    return Number.isFinite(num) ? Math.round(num * 1000) : 0;
+  }
+  if (s.endsWith('M')) {
+    const num = parseFloat(s.slice(0, -1));
+    return Number.isFinite(num) ? Math.round(num * 1000000) : 0;
+  }
+  if (s.endsWith('B')) {
+    const num = parseFloat(s.slice(0, -1));
+    return Number.isFinite(num) ? Math.round(num * 1000000000) : 0;
   }
 
-  return results;
+  // Plain number (remove commas)
+  const cleaned = s.replace(/,/g, '');
+  const n = parseFloat(cleaned);
+  return Number.isFinite(n) ? Math.max(0, Math.round(n)) : 0;
+}
+
+async function fetchAirtableAllRecords({ apiKey, baseId, tableId }) {
+  const records = [];
+  let offset = null;
+
+  // Airtable returns up to 100 records per request by default.
+  do {
+    const url = new URL(`https://api.airtable.com/v0/${baseId}/${tableId}`);
+    if (offset) url.searchParams.set("offset", offset);
+
+    const r = await fetch(url.toString(), {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await r.json().catch(() => null);
+    if (!r.ok) {
+      const msg =
+        data?.error?.message ||
+        data?.error ||
+        data?.message ||
+        `Airtable error ${r.status}`;
+      throw new Error(msg);
+    }
+
+    if (Array.isArray(data?.records)) records.push(...data.records);
+    offset = data?.offset || null;
+  } while (offset);
+
+  return records;
 }
 
 export default async function handler(req, res) {
@@ -189,68 +110,36 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Decode bearer token in case it's URL-encoded (Vercel env vars might encode it)
-    let bearerToken = process.env.X_BEARER_TOKEN;
-    if (bearerToken && bearerToken.includes('%')) {
-      try {
-        bearerToken = decodeURIComponent(bearerToken);
-      } catch (e) {
-        console.warn('Failed to decode bearer token, using as-is');
-      }
-    }
-    const creatorHandlesEnv = process.env.CREATOR_HANDLES || "";
+    const apiKey = process.env.AIRTABLE_API_KEY;
+    const baseId = process.env.AIRTABLE_BASE_ID;
 
-    if (!bearerToken) return json(res, 500, { error: "Missing env var: X_BEARER_TOKEN" });
+    if (!apiKey) return json(res, 500, { error: "Missing env var: AIRTABLE_API_KEY" });
+    if (!baseId) return json(res, 500, { error: "Missing env var: AIRTABLE_BASE_ID" });
 
-    // Parse handles from environment variable (comma-separated)
-    const handles = parseHandlesFromEnv(creatorHandlesEnv);
+    const records = await fetchAirtableAllRecords({
+      apiKey,
+      baseId,
+      tableId: AIRTABLE_CREATORS_TABLE_ID,
+    });
 
-    if (!handles.length) {
-      res.setHeader("Cache-Control", "s-maxage=60, stale-while-revalidate=300");
-      return json(res, 200, []);
-    }
+    const creators = records
+      .map((record) => {
+        const fields = record?.fields || {};
+        const handle = normalizeXHandle(fields[AIRTABLE_X_HANDLE_FIELD]);
+        if (!handle) return null;
 
-    // Fetch user data from X API
-    const users = await fetchXUsersByUsernames({ bearerToken, usernames: handles });
-
-    const byUsername = new Map();
-    for (const u of users) {
-      if (!u?.username) continue;
-      byUsername.set(String(u.username).toLowerCase(), u);
-    }
-
-    // Build response array matching handles order
-    const out = handles
-      .map((h) => {
-        const u = byUsername.get(h.toLowerCase());
-        if (!u) return null; // Skip if X API didn't return data for this handle
         return {
-          handle: u.username,
-          name: u.name || u.username,
-          followers: u.public_metrics?.followers_count ?? 0,
-          verified: !!u.verified,
-          avatarUrl: u.profile_image_url
-            ? String(u.profile_image_url).replace("_normal", "_bigger")
-            : null,
+          handle,
+          followers: parseFollowerCount(fields[AIRTABLE_FOLLOWER_COUNT_FIELD]),
         };
       })
       .filter(Boolean);
 
-    // Cache server-side a bit to avoid rate-limits
-    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate=900");
-    return json(res, 200, out);
+    // Cache a bit (Airtable is stable enough for this UI)
+    res.setHeader("Cache-Control", "s-maxage=120, stale-while-revalidate=600");
+    return json(res, 200, { creators });
   } catch (e) {
-    console.error("API error:", e);
-    
-    // Handle rate limit errors with appropriate status code
-    if (e?.message?.includes("rate limit") || e?.message?.includes("429")) {
-      return json(res, 429, { 
-        error: "X API rate limit exceeded. Please try again in a few minutes.",
-        retryAfter: 300 // Suggest retrying after 5 minutes
-      });
-    }
-    
+    console.error("Airtable /api/creators error:", e);
     return json(res, 500, { error: e?.message || "Unknown error" });
   }
 }
-END OF COMMENTED CODE */

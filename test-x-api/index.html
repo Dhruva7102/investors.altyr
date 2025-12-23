@@ -238,46 +238,10 @@
     <h1>Airtable Integration Test</h1>
     <p class="subtitle">Verify Airtable connection and fetch creator handles</p>
 
-    <div class="form-group">
-      <label for="apiKey">Airtable API Key (Personal Access Token)</label>
-      <input 
-        type="password" 
-        id="apiKey" 
-        placeholder="patp3YH0tUQ1hKuNL..." 
-      />
-      <small style="display: block; margin-top: 4px; color: rgba(255,255,255,0.4); font-size: 12px;">
-        Get from: investor_site/.env.production (AIRTABLE_API_KEY)
-      </small>
+    <div style="text-align: center; padding: 20px;">
+      <div class="loading" id="loadingInitial"></div>
+      <p style="color: rgba(255,255,255,0.6); margin-top: 12px;">Loading creators from Airtable...</p>
     </div>
-
-    <div class="form-group">
-      <label for="baseId">Base ID</label>
-      <input 
-        type="text" 
-        id="baseId" 
-        placeholder="appv5KPKpVtQm3MbE" 
-      />
-      <small style="display: block; margin-top: 4px; color: rgba(255,255,255,0.4); font-size: 12px;">
-        Get from: investor_site/.env.production (AIRTABLE_BASE_ID)
-      </small>
-    </div>
-
-    <div class="form-group">
-      <label for="tableId">Creators Table ID</label>
-      <input 
-        type="text" 
-        id="tableId" 
-        placeholder="tblTYUu6019qDOoSQ" 
-      />
-      <small style="display: block; margin-top: 4px; color: rgba(255,255,255,0.4); font-size: 12px;">
-        Get from: investor_site/.env.production (AIRTABLE_CREATORS_TABLE)
-      </small>
-    </div>
-
-    <button class="btn" onclick="fetchCreators()">
-      Fetch Creators
-      <span id="loading" class="loading" style="display: none;"></span>
-    </button>
 
     <div id="results" class="results">
       <div class="stats">
@@ -308,35 +272,35 @@
   </div>
 
   <script>
+    // Store token locally (not committed to the repo). Prompt once, then reuse from localStorage.
+    let AIRTABLE_API_KEY = localStorage.getItem('AIRTABLE_API_KEY') || '';
+    const AIRTABLE_BASE_ID = 'appv5KPKpVtQm3MbE';
+    const AIRTABLE_TABLE_ID = 'tblTYUu6019qDOoSQ';
+
     async function fetchCreators() {
-      const apiKey = document.getElementById('apiKey').value.trim();
-      const baseId = document.getElementById('baseId').value.trim();
-      const tableId = document.getElementById('tableId').value.trim();
-      
-      const btn = document.querySelector('.btn');
-      const loading = document.getElementById('loading');
+      if (!AIRTABLE_API_KEY) {
+        AIRTABLE_API_KEY = window.prompt('Paste Airtable API key (PAT):') || '';
+        if (AIRTABLE_API_KEY) localStorage.setItem('AIRTABLE_API_KEY', AIRTABLE_API_KEY);
+      }
+
       const results = document.getElementById('results');
       const creatorList = document.getElementById('creatorList');
       const rawJson = document.getElementById('rawJson');
-
-      if (!apiKey || !baseId || !tableId) {
-        alert('Please fill in all fields');
-        return;
-      }
+      const loadingInitial = document.getElementById('loadingInitial');
 
       // Clear previous results
       creatorList.innerHTML = '';
       rawJson.textContent = '';
       results.classList.remove('show');
       
-      // Show loading
-      btn.disabled = true;
-      loading.style.display = 'inline-block';
+      if (loadingInitial) {
+        loadingInitial.style.display = 'inline-block';
+      }
 
       try {
-        const response = await fetch(`http://localhost:8787/airtable?baseId=${baseId}&tableId=${tableId}`, {
+        const response = await fetch(`http://localhost:8787/airtable?baseId=${AIRTABLE_BASE_ID}&tableId=${AIRTABLE_TABLE_ID}`, {
           headers: {
-            'Authorization': `Bearer ${apiKey}`
+            'Authorization': `Bearer ${AIRTABLE_API_KEY}`
           }
         });
 
@@ -389,8 +353,9 @@
         </div>`;
         results.classList.add('show');
       } finally {
-        btn.disabled = false;
-        loading.style.display = 'none';
+        if (loadingInitial) {
+          loadingInitial.parentElement.style.display = 'none';
+        }
       }
     }
 
@@ -400,11 +365,9 @@
       return div.innerHTML;
     }
 
-    // Allow Enter key to submit
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' && e.target.tagName === 'INPUT') {
-        fetchCreators();
-      }
+    // Auto-fetch on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      fetchCreators();
     });
   </script>
 </body>

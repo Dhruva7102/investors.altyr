@@ -9,6 +9,7 @@ const sections = [
   { id: 'market', label: 'Market' },
   { id: 'calculator', label: 'Revenue' },
   { id: 'gtm', label: 'Go-to-Market' },
+  { id: 'waitlist', label: 'Waitlist' },
   { id: 'team', label: 'Team' },
   { id: 'raise', label: 'Raise' },
   { id: 'risks', label: 'Risks' },

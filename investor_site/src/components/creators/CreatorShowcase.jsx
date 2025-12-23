@@ -1,7 +1,8 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import CreatorCard from '@/components/creators/CreatorCard';
 import { fetchCreators } from '@/api/airtable';
+import { formatFollowerCount } from '@/data/creators';
 
 function splitTwoRows(items) {
   const midpoint = Math.ceil(items.length / 2);
@@ -17,6 +18,7 @@ export default function CreatorShowcase() {
   const [creators, setCreators] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [stats, setStats] = useState({ totalCreators: 0, totalFollowers: 0 });
   const topRef = useRef(null);
   const bottomRef = useRef(null);
   const mobileRef = useRef(null);
@@ -26,57 +28,38 @@ export default function CreatorShowcase() {
   const bottomPosRef = useRef(0);
   const mobilePosRef = useRef(0);
 
-  // TEMPORARILY DISABLED - X API integration commented out
-  // Just set empty creators and loading to false immediately
-  useEffect(() => {
-    setCreators([]);
-    setIsLoading(false);
-    setError(null);
-  }, []);
-
-  /* COMMENTED OUT - Original X API Fetching Code (can be restored later)
   useEffect(() => {
     let cancelled = false;
-    let retryTimeout = null;
 
-    async function run(retryCount = 0) {
+    async function run() {
       try {
+        setIsLoading(true);
+        setError(null);
+
         const data = await fetchCreators();
-        if (!cancelled) {
-          setCreators(Array.isArray(data) ? data : []);
-          setError(null);
-          setIsLoading(false);
-        }
+        const list = Array.isArray(data) ? data : [];
+
+        if (cancelled) return;
+
+        setCreators(list);
+        const totalFollowers = list.reduce((sum, c) => sum + (Number(c?.followers) || 0), 0);
+        setStats({ totalCreators: list.length, totalFollowers });
+        setIsLoading(false);
       } catch (err) {
-        if (!cancelled) {
-          console.error('Failed to fetch creators:', err);
-          const isRateLimit = err.message?.includes('rate limit');
-          
-          // Auto-retry for rate limit errors (up to 3 times, with exponential backoff)
-          if (isRateLimit && retryCount < 3) {
-            const retryDelay = Math.min(30000 * Math.pow(2, retryCount), 120000); // 30s, 60s, 120s max
-            setError(`${err.message} Retrying in ${Math.ceil(retryDelay / 1000)} seconds...`);
-            
-            retryTimeout = setTimeout(() => {
-              if (!cancelled) {
-                run(retryCount + 1);
-              }
-            }, retryDelay);
-          } else {
-          setError(err.message || 'Failed to load creator profiles');
-            setIsLoading(false);
-          }
-        }
+        if (cancelled) return;
+        console.error('Failed to fetch creators:', err);
+        setCreators([]);
+        setStats({ totalCreators: 0, totalFollowers: 0 });
+        setError(err?.message || 'Failed to load creator profiles');
+        setIsLoading(false);
       }
     }
 
     run();
     return () => {
       cancelled = true;
-      if (retryTimeout) clearTimeout(retryTimeout);
     };
   }, []);
-  END OF COMMENTED CODE */
 
   const [topRow, bottomRow] = useMemo(() => splitTwoRows(creators), [creators]);
 
@@ -208,60 +191,82 @@ export default function CreatorShowcase() {
             </p>
           </div>
         ) : (
-          <div className="space-y-6">
-            {/* Desktop: 2 rows (manual scroll + auto-scroll w/ parallax speeds) */}
-            <div className="hidden md:block">
-              <div className="space-y-6">
-                <div className="relative">
-                  <div
-                    ref={topRef}
-                    className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                    onWheel={onWheelToHorizontal(topRef)}
-                    onPointerDown={() => pauseAuto(3200)}
-                    onPointerUp={() => pauseAuto(1800)}
-                    onTouchStart={() => pauseAuto(3600)}
-                  >
-                    <div className="rowInner">
-                      {topMarquee.map((creator, idx) => (
-                        <CreatorCard key={`${creator.handle}-top-${idx}`} creator={creator} />
-                      ))}
+          <div className="space-y-8">
+            <div className="space-y-6">
+              {/* Desktop: 2 rows (manual scroll + auto-scroll w/ parallax speeds) */}
+              <div className="hidden md:block">
+                <div className="space-y-6">
+                  <div className="relative">
+                    <div
+                      ref={topRef}
+                      className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
+                      onWheel={onWheelToHorizontal(topRef)}
+                      onPointerDown={() => pauseAuto(3200)}
+                      onPointerUp={() => pauseAuto(1800)}
+                      onTouchStart={() => pauseAuto(3600)}
+                    >
+                      <div className="rowInner">
+                        {topMarquee.map((creator, idx) => (
+                          <CreatorCard key={`${creator.handle}-top-${idx}`} creator={creator} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <div
+                      ref={bottomRef}
+                      className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
+                      onWheel={onWheelToHorizontal(bottomRef)}
+                      onPointerDown={() => pauseAuto(3200)}
+                      onPointerUp={() => pauseAuto(1800)}
+                      onTouchStart={() => pauseAuto(3600)}
+                    >
+                      <div className="rowInner">
+                        {bottomMarquee.map((creator, idx) => (
+                          <CreatorCard key={`${creator.handle}-bottom-${idx}`} creator={creator} />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
+              </div>
 
-                <div className="relative">
-                  <div
-                    ref={bottomRef}
-                    className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                    onWheel={onWheelToHorizontal(bottomRef)}
-                    onPointerDown={() => pauseAuto(3200)}
-                    onPointerUp={() => pauseAuto(1800)}
-                    onTouchStart={() => pauseAuto(3600)}
-                  >
-                    <div className="rowInner">
-                      {bottomMarquee.map((creator, idx) => (
-                        <CreatorCard key={`${creator.handle}-bottom-${idx}`} creator={creator} />
-                      ))}
-                    </div>
+              {/* Mobile: single row (manual scroll + auto-scroll) */}
+              <div className="md:hidden">
+                <div
+                  ref={mobileRef}
+                  className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
+                  onWheel={onWheelToHorizontal(mobileRef)}
+                  onPointerDown={() => pauseAuto(3200)}
+                  onPointerUp={() => pauseAuto(1800)}
+                  onTouchStart={() => pauseAuto(3600)}
+                >
+                  <div className="rowInner">
+                    {duplicateForMarquee(creators).map((creator, idx) => (
+                      <CreatorCard key={`${creator.handle}-mobile-${idx}`} creator={creator} />
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Mobile: single row (manual scroll + auto-scroll) */}
-            <div className="md:hidden">
-              <div
-                ref={mobileRef}
-                className="scrollRow hide-scrollbar cursor-grab active:cursor-grabbing"
-                onWheel={onWheelToHorizontal(mobileRef)}
-                onPointerDown={() => pauseAuto(3200)}
-                onPointerUp={() => pauseAuto(1800)}
-                onTouchStart={() => pauseAuto(3600)}
-              >
-                <div className="rowInner">
-                  {duplicateForMarquee(creators).map((creator, idx) => (
-                    <CreatorCard key={`${creator.handle}-mobile-${idx}`} creator={creator} />
-                  ))}
+            {/* Summary stats */}
+            <div className="flex justify-center gap-10 md:gap-14 text-center">
+              <div>
+                <div className="text-2xl md:text-3xl font-semibold text-white/90">
+                  {stats.totalCreators}
+                </div>
+                <div className="text-xs md:text-sm text-white/40 mt-1 font-light">
+                  Total creators
+                </div>
+              </div>
+              <div>
+                <div className="text-2xl md:text-3xl font-semibold text-white/90">
+                  {formatFollowerCount(stats.totalFollowers)}
+                </div>
+                <div className="text-xs md:text-sm text-white/40 mt-1 font-light">
+                  Total followers
                 </div>
               </div>
             </div>

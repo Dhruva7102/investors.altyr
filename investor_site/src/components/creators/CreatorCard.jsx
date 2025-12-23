@@ -1,6 +1,4 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
 import { formatFollowerCount } from '@/data/creators';
 
 /**
@@ -8,20 +6,31 @@ import { formatFollowerCount } from '@/data/creators';
  * Optimized for horizontal scrolling with 2-row layout
  */
 export default function CreatorCard({ creator }) {
-  const { handle, name, followers, verified, avatarUrl } = creator;
+  const { handle, followers } = creator;
 
-  const initial = (name || handle || '?').trim().charAt(0).toUpperCase();
+  const rawHandle = (handle || '').toString().trim();
+  const cleanHandle = rawHandle
+    .replace(/^https?:\/\//i, '')
+    .replace(/^www\./i, '')
+    .replace(/^x\.com\//i, '')
+    .replace(/^twitter\.com\//i, '')
+    .replace(/^@+/, '')
+    .split('?')[0]
+    .split('#')[0]
+    .replace(/\/+$/, '');
+
+  const displayHandle = cleanHandle ? `@${cleanHandle}` : '@';
   
   return (
     <motion.a
-      href={`https://x.com/${handle}`}
+      href={cleanHandle ? `https://x.com/${cleanHandle}` : 'https://x.com'}
       target="_blank"
       rel="noopener noreferrer"
       className="group relative flex flex-col justify-between p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#AC0064]/50 transition-all duration-300 cursor-pointer"
       style={{
         minWidth: '220px',
         maxWidth: '220px',
-        height: '120px'
+        height: '110px'
       }}
       whileHover={{ 
         scale: 1.05,
@@ -39,53 +48,10 @@ export default function CreatorCard({ creator }) {
       />
 
       {/* Content */}
-      <div className="flex items-start gap-3 relative z-10">
-        {/* Avatar */}
-        <div className="flex-shrink-0">
-          {avatarUrl ? (
-            <img
-              src={avatarUrl}
-              alt={name ? `${name} avatar` : `@${handle} avatar`}
-              className="w-9 h-9 rounded-full object-cover border border-white/10"
-              loading="lazy"
-              decoding="async"
-              referrerPolicy="no-referrer"
-            />
-          ) : (
-            <div
-              className="w-9 h-9 rounded-full flex items-center justify-center border border-white/10 text-white/80 text-xs font-medium"
-              style={{
-                background: 'linear-gradient(135deg, rgba(172,0,100,0.35), rgba(100,16,154,0.35))',
-              }}
-            >
-              {initial}
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col gap-1 min-w-0">
-          {/* Handle with verified badge */}
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className="text-white/90 font-medium text-sm truncate">
-              @{handle}
-            </span>
-            {verified && (
-              <span
-                className="inline-flex items-center justify-center w-4 h-4 rounded-full flex-shrink-0"
-                style={{ backgroundColor: '#1D9BF0' }}
-                aria-label="Verified"
-                title="Verified"
-              >
-                <Check className="w-3 h-3 text-white" strokeWidth={3} />
-              </span>
-            )}
-          </div>
-
-          {/* Name */}
-          <span className="text-white/50 text-xs font-light truncate">
-            {name}
-          </span>
-        </div>
+      <div className="flex items-start relative z-10">
+        <span className="text-white/90 font-medium text-base truncate">
+          {displayHandle}
+        </span>
       </div>
 
       {/* Follower count */}

@@ -25,7 +25,7 @@ export default function Waitlist() {
   const bottomRowX = useTransform(scrollXProgress, [0, 1], [0, -30]);
 
   return (
-    <section className="py-20 px-4 md:px-8 relative">
+    <section id="waitlist" className="py-20 px-4 md:px-8 relative">
       {/* Header */}
       <motion.div
         className="text-center mb-12 max-w-4xl mx-auto"
