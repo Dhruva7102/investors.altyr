@@ -147,7 +147,7 @@ export default function CompetitiveLandscape() {
                   }}
                   whileHover={{ y: -3, scale: 1.02 }}
                 >
-                  <div className="relative h-full p-5 rounded-xl border border-white/10 hover:border-white/20 backdrop-blur-sm transition-all duration-300">
+                  <div className="relative h-full p-5 rounded-xl border border-white/20 hover:border-white/30 transition-all duration-300">
                     {/* External Link Icon */}
                     <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <ExternalLink className="w-3.5 h-3.5 text-white/40" />
