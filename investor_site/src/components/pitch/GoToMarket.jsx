@@ -1,8 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Target, Building2, Rocket } from 'lucide-react';
-// TEMPORARILY DISABLED - X API integration commented out
-// import CreatorShowcase from '@/components/creators/CreatorShowcase';
+import CreatorShowcase from '@/components/creators/CreatorShowcase';
 
 const steps = [
   {
@@ -123,10 +122,7 @@ export default function GoToMarket() {
           ))}
         </div>
 
-        {/* TEMPORARILY DISABLED - Creator showcase section commented out
-        Can be restored when X API integration is ready
-        
-        Creator social proof (horizontal marquee)
+        {/* Creator social proof (horizontal marquee) */}
         <div className="mt-20">
           <motion.div
             className="flex items-center justify-center gap-6 mb-10"
@@ -157,7 +153,6 @@ export default function GoToMarket() {
 
           <CreatorShowcase />
         </div>
-        */}
       </div>
     </section>
   );
