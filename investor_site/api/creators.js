@@ -58,20 +58,33 @@ export default async function handler(req, res) {
       .map(record => {
         const fields = record.fields;
         
+        // Log available fields for debugging (only log first record)
+        if (data.records.indexOf(record) === 0) {
+          console.log('Available Airtable fields:', Object.keys(fields));
+        }
+        
         // Get the handle from X.com field (field ID: fldrBclz4LVKRnHpz)
         const handle = fields['X.com'] || fields.handle || fields.Handle;
         
         if (!handle) return null;
 
+        // Try multiple possible field names for followers
+        const followers = fields.Followers 
+          || fields.followers 
+          || fields['Follower Count']
+          || fields['follower_count']
+          || fields['X Followers']
+          || fields['x_followers']
+          || 0;
+
         return {
           handle: handle.replace('@', ''), // Remove @ if present
           name: fields.Name || fields.name || handle,
-          avatarUrl: fields.Avatar || fields.avatar || null,
-          followers: fields.Followers || fields.followers || 0,
+          avatarUrl: fields.Avatar || fields.avatar || fields['Profile Image'] || null,
+          followers: followers,
           verified: fields.Verified || fields.verified || false,
           category: fields.Category || fields.category || null,
         };
-      })
       .filter(Boolean); // Remove null entries
 
     // Cache for 5 minutes
