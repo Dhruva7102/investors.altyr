@@ -19,13 +19,6 @@
  *   - Category (text, optional) - Creator category
  */
 
-// TEMPORARILY DISABLED - Return empty array for now
-export async function fetchCreators() {
-  // Return empty array - X API integration disabled
-  return [];
-}
-
-/* COMMENTED OUT - Original X API Integration Code (can be restored later)
 export async function fetchCreators() {
   const res = await fetch('/api/creators', {
     method: 'GET',
@@ -51,4 +44,3 @@ export async function fetchCreators() {
 
   return data;
 }
-END OF COMMENTED CODE */
