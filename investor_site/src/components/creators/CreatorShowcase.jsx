@@ -26,15 +26,6 @@ export default function CreatorShowcase() {
   const bottomPosRef = useRef(0);
   const mobilePosRef = useRef(0);
 
-  // TEMPORARILY DISABLED - X API integration commented out
-  // Just set empty creators and loading to false immediately
-  useEffect(() => {
-    setCreators([]);
-    setIsLoading(false);
-    setError(null);
-  }, []);
-
-  /* COMMENTED OUT - Original X API Fetching Code (can be restored later)
   useEffect(() => {
     let cancelled = false;
     let retryTimeout = null;
@@ -76,7 +67,6 @@ export default function CreatorShowcase() {
       if (retryTimeout) clearTimeout(retryTimeout);
     };
   }, []);
-  END OF COMMENTED CODE */
 
   const [topRow, bottomRow] = useMemo(() => splitTwoRows(creators), [creators]);
 
