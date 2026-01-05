@@ -68,12 +68,13 @@ export default async function handler(req, res) {
         
         if (!handle) return null;
 
-        // Get followers count - field name is 'follower_count' in Airtable
-        let followers = fields['follower_count'] 
+        // Get followers count - field name is 'follower count' in Airtable
+        let followers = fields['follower count']
+          || fields['Follower Count']
+          || fields['follower_count'] 
           || fields.follower_count
           || fields.Followers 
           || fields.followers 
-          || fields['Follower Count']
           || fields['X Followers']
           || fields['x_followers']
           || 0;
