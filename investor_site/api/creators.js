@@ -15,6 +15,57 @@ function json(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+/**
+ * Parse Airtable's K/M notation to actual numbers
+ * Examples: "196K" → 196000, "1.2M" → 1200000, "805.5K" → 805500
+ * @param {string|number} value - The value to parse
+ * @returns {number} Parsed number or 0 if invalid
+ */
+function parseFollowerNotation(value) {
+  // If already a number, return it
+  if (typeof value === 'number') {
+    return value;
+  }
+  
+  // If not a string, try to convert to number
+  if (typeof value !== 'string') {
+    return Number(value) || 0;
+  }
+  
+  // Trim whitespace
+  const str = value.trim();
+  
+  // If empty, return 0
+  if (!str) {
+    return 0;
+  }
+  
+  // Check for K/k notation (thousands)
+  const kMatch = str.match(/^([\d.]+)\s*[Kk]$/);
+  if (kMatch) {
+    const num = parseFloat(kMatch[1]);
+    return Math.round(num * 1000);
+  }
+  
+  // Check for M/m notation (millions)
+  const mMatch = str.match(/^([\d.]+)\s*[Mm]$/);
+  if (mMatch) {
+    const num = parseFloat(mMatch[1]);
+    return Math.round(num * 1000000);
+  }
+  
+  // Check for B/b notation (billions) - just in case
+  const bMatch = str.match(/^([\d.]+)\s*[Bb]$/);
+  if (bMatch) {
+    const num = parseFloat(bMatch[1]);
+    return Math.round(num * 1000000000);
+  }
+  
+  // If no notation found, try to parse as regular number
+  const num = parseFloat(str);
+  return isNaN(num) ? 0 : Math.round(num);
+}
+
 export default async function handler(req, res) {
   if (req.method !== "GET") {
     res.setHeader("Allow", "GET");
@@ -79,8 +130,19 @@ export default async function handler(req, res) {
           || fields['x_followers']
           || 0;
         
-        // Ensure it's a number
-        followers = typeof followers === 'string' ? parseInt(followers, 10) || 0 : Number(followers) || 0;
+        // Log the first record's follower value for debugging
+        if (data.records.indexOf(record) === 0) {
+          console.log('First record followers value (raw):', followers, 'Type:', typeof followers);
+          console.log('follower count field value:', fields['follower count']);
+        }
+        
+        // Parse the follower count (handles K/M notation from Airtable)
+        followers = parseFollowerNotation(followers);
+        
+        // Log parsed value for debugging
+        if (data.records.indexOf(record) === 0) {
+          console.log('First record followers value (parsed):', followers);
+        }
 
         return {
           handle: handle.replace('@', ''), // Remove @ if present

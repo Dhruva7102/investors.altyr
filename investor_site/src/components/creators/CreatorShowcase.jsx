@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import CreatorCard from '@/components/creators/CreatorCard';
 import { fetchCreators } from '@/api/airtable';
+import { formatFollowerCount } from '@/data/creators';
 
 function splitTwoRows(items) {
   const midpoint = Math.ceil(items.length / 2);
@@ -87,6 +88,12 @@ export default function CreatorShowcase() {
 
   const topMarquee = useMemo(() => duplicateForMarquee(topRow), [topRow]);
   const bottomMarquee = useMemo(() => duplicateForMarquee(bottomRow), [bottomRow]);
+
+  // Calculate summary statistics
+  const totalCreators = creators.length;
+  const totalFollowers = useMemo(() => {
+    return creators.reduce((sum, creator) => sum + (creator.followers || 0), 0);
+  }, [creators]);
 
   const pauseAuto = (ms = 1100) => {
     pauseUntilRef.current = Math.max(pauseUntilRef.current, Date.now() + ms);
@@ -273,6 +280,40 @@ export default function CreatorShowcase() {
           </div>
         )}
       </motion.div>
+
+      {/* Summary Statistics */}
+      {!isLoading && !error && creators.length > 0 && (
+        <motion.div
+          className="mt-12 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
+        >
+          {/* Total Creators */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl md:text-4xl font-light text-white/90 mb-1">
+              {totalCreators}
+            </div>
+            <div className="text-sm md:text-base text-white/50 font-light">
+              Creators
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="w-px h-12 bg-gradient-to-b from-transparent via-white/20 to-transparent hidden md:block" />
+
+          {/* Total Followers */}
+          <div className="flex flex-col items-center">
+            <div className="text-3xl md:text-4xl font-light text-white/90 mb-1">
+              {formatFollowerCount(totalFollowers)}
+            </div>
+            <div className="text-sm md:text-base text-white/50 font-light">
+              Total Followers
+            </div>
+          </div>
+        </motion.div>
+      )}
 
       {/* Scroll CSS (scoped) */}
       <style>{`
