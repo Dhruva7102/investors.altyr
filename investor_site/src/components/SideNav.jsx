@@ -7,10 +7,10 @@ const sections = [
   { id: 'problem', label: 'Problem' },
   { id: 'solution', label: 'Solution' },
   { id: 'market', label: 'Market' },
-  { id: 'calculator', label: 'Revenue' },
   { id: 'gtm', label: 'Go-to-Market' },
   { id: 'team', label: 'Team' },
   { id: 'raise', label: 'Raise' },
+  { id: 'calculator', label: 'Revenue' },
   { id: 'risks', label: 'Risks' },
   { id: 'contact', label: 'Contact' }
 ];
