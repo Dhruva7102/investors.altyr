@@ -26,14 +26,27 @@ export async function fetchCreators() {
   });
 
   if (!res.ok) {
-    const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+    let errorMessage = `API error: ${res.status}`;
+    
+    try {
+      const errorData = await res.json();
+      errorMessage = errorData.error || errorData.message || errorMessage;
+    } catch (e) {
+      // If JSON parsing fails, try to get text
+      try {
+        const text = await res.text();
+        if (text) errorMessage = text;
+      } catch (e2) {
+        // Fall back to status code message
+      }
+    }
     
     // Handle rate limit errors with a more user-friendly message
     if (res.status === 429) {
       throw new Error('X API rate limit exceeded. Profiles will load automatically once the limit resets.');
     }
     
-    throw new Error(errorData.error || `API error: ${res.status}`);
+    throw new Error(errorMessage);
   }
 
   const data = await res.json();

@@ -41,12 +41,27 @@ export default function CreatorShowcase() {
       } catch (err) {
         if (!cancelled) {
           console.error('Failed to fetch creators:', err);
-          const isRateLimit = err.message?.includes('rate limit');
+          
+          // Extract error message safely
+          let errorMessage = 'Failed to load creator profiles';
+          if (err instanceof Error) {
+            errorMessage = err.message;
+          } else if (typeof err === 'string') {
+            errorMessage = err;
+          } else if (err?.message) {
+            errorMessage = String(err.message);
+          } else if (err?.error) {
+            errorMessage = String(err.error);
+          } else {
+            errorMessage = JSON.stringify(err);
+          }
+          
+          const isRateLimit = errorMessage?.toLowerCase().includes('rate limit');
           
           // Auto-retry for rate limit errors (up to 3 times, with exponential backoff)
           if (isRateLimit && retryCount < 3) {
             const retryDelay = Math.min(30000 * Math.pow(2, retryCount), 120000); // 30s, 60s, 120s max
-            setError(`${err.message} Retrying in ${Math.ceil(retryDelay / 1000)} seconds...`);
+            setError(`${errorMessage} Retrying in ${Math.ceil(retryDelay / 1000)} seconds...`);
             
             retryTimeout = setTimeout(() => {
               if (!cancelled) {
@@ -54,7 +69,7 @@ export default function CreatorShowcase() {
               }
             }, retryDelay);
           } else {
-          setError(err.message || 'Failed to load creator profiles');
+            setError(errorMessage);
             setIsLoading(false);
           }
         }

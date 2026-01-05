@@ -69,13 +69,17 @@ export default async function handler(req, res) {
         if (!handle) return null;
 
         // Try multiple possible field names for followers
-        const followers = fields.Followers 
+        // Convert to number if it's a string
+        let followers = fields.Followers 
           || fields.followers 
           || fields['Follower Count']
           || fields['follower_count']
           || fields['X Followers']
           || fields['x_followers']
           || 0;
+        
+        // Ensure it's a number
+        followers = typeof followers === 'string' ? parseInt(followers, 10) || 0 : Number(followers) || 0;
 
         return {
           handle: handle.replace('@', ''), // Remove @ if present
@@ -85,6 +89,7 @@ export default async function handler(req, res) {
           verified: fields.Verified || fields.verified || false,
           category: fields.Category || fields.category || null,
         };
+      })
       .filter(Boolean); // Remove null entries
 
     // Cache for 5 minutes
