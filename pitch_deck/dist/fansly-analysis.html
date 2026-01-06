@@ -1,0 +1,737 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Fansly Website Analysis </title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="dcbbd101-36c7-4afb-9a7f-f99ff797d786" class="page sans"><header><div class="page-header-icon undefined"><span class="icon">📊</span></div><h1 class="page-title" dir="auto">Fansly Website Analysis </h1><p class="page-description" dir="auto"></p></header><div class="page-body"><div style="display:contents" dir="auto"><h1 id="dbdb20b6-34ca-4bde-b7f0-b76c6a760f56" class="">Website Analysis</h1></div><div style="display:contents" dir="auto"><p id="b1483eac-33df-4b38-91ba-4dd7c14bb492" class=""><strong><a href="http://fansly.com">fansly.com</a></strong><br/></p></div><div style="display:contents" dir="auto"><p id="13f77e77-b975-4a2f-99a5-87c112ca8b85" class="">August 2025</p></div><div style="display:contents" dir="auto"><blockquote id="39368ed4-3a1b-49ab-a234-f8695974d716" class="">Interact with your fans today and start selling content. Sign up today and make a free account.</blockquote></div><div style="display:contents" dir="auto"><hr id="26b9a75e-9669-4898-8ffd-5553a7e6f368"/></div><div style="display:contents" dir="auto"><h1 id="7496d99a-6b64-4d8b-bbba-13129c073b86" class="">Traffic &amp; Engagement</h1></div><div style="display:contents" dir="auto"><div id="7773f172-8dd6-4e91-ba6b-44121cf2f410" class="column-list"><div style="display:contents" dir="auto"><div id="1b517dc8-d0a6-449a-9cdf-261fa3623781" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="b6a96a46-162a-46b4-b600-8f6ad83f8650" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="8d284280-611e-4c43-beba-61de30addeb9"><div style="font-size:1.5em"><span class="icon">📊</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="482590e2-efd7-40b7-b7a4-4c769dd985c0" class=""><strong>Total visits</strong><br/>Aug 2025 | Worldwide<br/><br/><strong>31.09M</strong><br/>↓ 0.65% from last month</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="1705ddcb-76bf-427d-a7ca-2d64f261869d" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="41f285cd-fc31-4596-a0f1-bd11688f500b" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="8c5dff7e-f228-4f74-8b41-6c3e0986f5bb" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="f64ed5e8-6e8d-4356-9bc3-9099d35946c2"><div style="font-size:1.5em"><span class="icon">📱</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="4e4c5380-3181-4209-9643-b9459de0e27b" class=""><strong>Device distribution</strong><br/>Aug 2025 | Worldwide<br/><br/><strong>Desktop:</strong> 25.10%<br/><strong>Mobile Web:</strong> 74.90%</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="a1c1405a-44cf-4451-8349-2682bea7b228" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><div id="4eb95b2e-73cf-490d-af1b-2beb7c4d78ed" class="column-list"><div style="display:contents" dir="auto"><div id="262cadd8-128c-41e2-a527-c254fcc3b4e8" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="e05960c6-7dab-4918-9ac7-62f2adeeb7ea" class="">
+</p></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="9058629a-176a-42f1-8d6a-79096b6979bb"><div style="font-size:1.5em"><span class="icon">🌍</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="61dd1669-24cd-4e55-9ddd-156f043fd9b6" class=""><strong>Global rank</strong><br/>#1,280</p></div></div></figure></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="45edac8e-e3d5-46b8-99ae-9264ebee0aca"><div style="font-size:1.5em"><span class="icon">🇺🇸</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="39c20de2-205f-4541-9453-c4633554f8db" class=""><strong>Country rank</strong><br/>United States #625</p></div></div></figure></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="22b1a296-a234-46ba-bcc8-7d5c75fd7aa7"><div style="font-size:1.5em"><span class="icon">🏷️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="8ab2d78e-92eb-40f0-bf13-5d6a1cfe08d9" class=""><strong>Industry rank</strong><br/>Adult #150</p></div></div></figure></div><div style="display:contents" dir="auto"><p id="f6e88dc6-3122-4421-b76b-94a418b3aa99" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="2904dfe9-700c-4098-8312-c99a0b5e2909" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="c81bce8e-b905-4b87-9886-e7c94839e116" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="f7461eb1-c2d7-420f-9314-e95a060102cb" class="">Engagement overview</h3></div><div style="display:contents" dir="auto"><p id="8eb2ac3a-d752-439f-8ae9-9659e0c538bd" class="">Aug 2025 | Worldwide | All Traffic</p></div><div style="display:contents" dir="ltr"><table id="02b72678-c249-4f97-8c5b-c01bb28d6d68" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="81cfc64c-7af2-4b73-8b1a-1c9767586040"><th id="nmIq" class="simple-table-header-color simple-table-header">Metric</th><th id="DeeI" class="simple-table-header-color simple-table-header">Value</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="09aea888-becb-44aa-9641-da4d45f128e0"><td id="nmIq" class="">Monthly visits</td><td id="DeeI" class="">31.09M</td></tr></div><div style="display:contents" dir="ltr"><tr id="6ba9d102-a146-468d-9a5f-35e7578daf5f"><td id="nmIq" class="">Monthly Unique Visitors</td><td id="DeeI" class="">10.11M</td></tr></div><div style="display:contents" dir="ltr"><tr id="05a67913-0db3-4f86-9816-8c389ba99c74"><td id="nmIq" class="">Deduplicated audience</td><td id="DeeI" class="">8.680M</td></tr></div><div style="display:contents" dir="ltr"><tr id="7dbafcd9-f602-4034-abf6-68f8eb829e19"><td id="nmIq" class="">Visit Duration</td><td id="DeeI" class="">00:06:06</td></tr></div><div style="display:contents" dir="ltr"><tr id="17d6f46f-8b4f-4f86-ad5b-586e93a58ce0"><td id="nmIq" class="">Pages / Visit</td><td id="DeeI" class="">6.11</td></tr></div><div style="display:contents" dir="ltr"><tr id="f1605197-1027-4613-8ad4-9837bce76abd"><td id="nmIq" class="">Bounce Rate</td><td id="DeeI" class="">38.86%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="be71956d-8e9f-478e-a66b-f4e90aa344ef" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="49f78303-2a12-4012-badf-8b13164fbdc3"/></div><div style="display:contents" dir="auto"><h1 id="2e072d52-fbbd-461a-8bac-51562939d6e7" class="">Visits over time</h1></div><div style="display:contents" dir="auto"><p id="73eb2568-00a7-4580-8d26-e5a4c55bd7c5" class=""><strong>Aug 2025 | Worldwide | All traffic</strong></p></div><div style="display:contents" dir="ltr"><table id="4f1dcf5c-4308-4d36-8d62-b103863dbfaf" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="5c0f1357-84ef-4634-a5a8-0a9097711fb3"><th id="?&lt;Pu" class="simple-table-header-color simple-table-header">Website</th><th id="xvAc" class="simple-table-header-color simple-table-header">Total Visits</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="c4fbadca-f647-485a-a56a-ffd36da41899"><td id="?&lt;Pu" class=""><strong><a href="http://fansly.com">fansly.com</a></strong></td><td id="xvAc" class=""><strong>31.09M</strong></td></tr></div><div style="display:contents" dir="ltr"><tr id="9fe650c0-8a63-4c0e-934a-816a456d6148"><td id="?&lt;Pu" class=""><a href="http://onlyfans.com">onlyfans.com</a></td><td id="xvAc" class="">280.2M</td></tr></div><div style="display:contents" dir="ltr"><tr id="863a886a-515d-4298-8a7a-c6df1fe1c3ad"><td id="?&lt;Pu" class=""><a href="http://allmylinks.com">allmylinks.com</a></td><td id="xvAc" class="">26.05M</td></tr></div><div style="display:contents" dir="ltr"><tr id="4386bd13-005d-40be-9dc7-ce3ae0e5e681"><td id="?&lt;Pu" class=""><a href="http://manyvids.com">manyvids.com</a></td><td id="xvAc" class="">23.24M</td></tr></div><div style="display:contents" dir="ltr"><tr id="b548979e-649d-4786-93c6-c2886f7f85e9"><td id="?&lt;Pu" class=""><a href="http://coomer.su">coomer.su</a></td><td id="xvAc" class="">20.89M</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="1eecb9eb-8997-42ec-b21a-10c3ed532654"/></div><div style="display:contents" dir="auto"><h1 id="97476546-42f3-4b37-85bc-94a839240dfb" class="">Geography</h1></div><div style="display:contents" dir="auto"><h2 id="e5217eaf-677a-4976-9995-eed7e8476627" class="">Top Countries</h2></div><div style="display:contents" dir="auto"><p id="da57ca0b-4b40-42ee-a8b1-2a433b6b5f32" class=""><strong>Aug 2025 | All traffic</strong></p></div><div style="display:contents" dir="ltr"><table id="83bcf3b1-32c4-4432-adb3-81d461513faa" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2c1e8b62-9a40-4a4c-8161-6353ecdf8274"><th id="e=]L" class="simple-table-header-color simple-table-header">Country</th><th id="wJ&lt;S" class="simple-table-header-color simple-table-header">Traffic Share</th><th id="^|Kz" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="bedce2fc-35e6-4e0a-8f80-2cbc41385c1c"><td id="e=]L" class="">🇺🇸 United States</td><td id="wJ&lt;S" class="">40.92%</td><td id="^|Kz" class="">↓ 1.99%</td></tr></div><div style="display:contents" dir="ltr"><tr id="5f274047-8c7f-401d-b2d1-6e9a3cf0ff15"><td id="e=]L" class="">🇬🇧 United Kingdom</td><td id="wJ&lt;S" class="">6.66%</td><td id="^|Kz" class="">↓ 19.41%</td></tr></div><div style="display:contents" dir="ltr"><tr id="49b77b1b-235e-4598-9816-49330418584d"><td id="e=]L" class="">🇩🇪 Germany</td><td id="wJ&lt;S" class="">4.42%</td><td id="^|Kz" class="">↓ 12.31%</td></tr></div><div style="display:contents" dir="ltr"><tr id="9370e8d1-7895-4910-8d17-a49bd712bb5f"><td id="e=]L" class="">🇨🇦 Canada</td><td id="wJ&lt;S" class="">3.70%</td><td id="^|Kz" class="">↑ 2.57%</td></tr></div><div style="display:contents" dir="ltr"><tr id="595f65d0-e039-41a5-948a-69494ac223a2"><td id="e=]L" class="">🇲🇽 Mexico</td><td id="wJ&lt;S" class="">3.60%</td><td id="^|Kz" class="">↓ 4.65%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="4009feb3-e315-40cc-a2f6-ecf7c9fcb501"/></div><div style="display:contents" dir="auto"><h1 id="499168f7-0d23-4bb4-8996-67a92443689c" class="">Marketing Channels</h1></div><div style="display:contents" dir="auto"><h2 id="b9f3dac2-46b2-4bc3-af06-6d256c40b271" class="">Channels overview</h2></div><div style="display:contents" dir="auto"><p id="ee8eb435-fa56-4074-b0ee-c8f8b6e978c9" class=""><strong>Aug 2025 | Worldwide | All traffic</strong></p></div><div style="display:contents" dir="ltr"><table id="b95b730f-7868-461e-845f-dc1a94f432b4" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="cc2fc394-0fae-4c47-841c-c7224b2bcda3"><th id="wLQ`" class="simple-table-header-color simple-table-header">Channel</th><th id="[sQc" class="simple-table-header-color simple-table-header">Traffic Share</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="604cc654-3803-47e4-a14e-38b00f7b7543"><td id="wLQ`" class=""><strong>Direct</strong></td><td id="[sQc" class="">49.20%</td></tr></div><div style="display:contents" dir="ltr"><tr id="25dbb256-fad5-4523-bb50-6ff3ff1fa722"><td id="wLQ`" class=""><strong>Organic Search</strong></td><td id="[sQc" class="">24.57%</td></tr></div><div style="display:contents" dir="ltr"><tr id="34901a3d-062d-4fb8-9aa6-74b9cba52b90"><td id="wLQ`" class=""><strong>Referrals</strong></td><td id="[sQc" class="">15.57%</td></tr></div><div style="display:contents" dir="ltr"><tr id="864f0029-0c96-49cf-9a31-57c3d4e43c64"><td id="wLQ`" class=""><strong>Social</strong></td><td id="[sQc" class="">10.36%</td></tr></div><div style="display:contents" dir="ltr"><tr id="9c99823c-840a-4c29-b05d-be1c30b4de5a"><td id="wLQ`" class=""><strong>Paid</strong></td><td id="[sQc" class="">0.16%</td></tr></div><div style="display:contents" dir="ltr"><tr id="9227854b-4581-4278-a99e-0b10435b6ebc"><td id="wLQ`" class=""><strong>Display</strong></td><td id="[sQc" class="">0.14%</td></tr></div><div style="display:contents" dir="ltr"><tr id="83c7dd87-9cba-4e30-b2a4-f6caad5d32b8"><td id="wLQ`" class=""><strong>Email</strong></td><td id="[sQc" class="">0.01%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="06e91b73-0f7e-4bbf-80b4-abc3968cf0cd"/></div><div style="display:contents" dir="auto"><h1 id="f93a94f7-cf66-47d1-9146-5b2bf9e3b636" class="">Organic Search</h1></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="ef48a115-8e84-4824-aee5-cf9173d1e08f"><div style="font-size:1.5em"><span class="icon">🔍</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="6ee57983-6c48-4945-999f-16fddb2c2c3e" class="">Organic search makes up <strong>24.57%</strong> of website traffic</p></div></div></figure></div><div style="display:contents" dir="auto"><div id="60c88343-bc71-4917-92c4-f34be5c61afb" class="column-list"><div style="display:contents" dir="auto"><div id="1a13bdfd-acec-44bd-9d26-72859a80c3db" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="bdcd501c-be46-46ee-a357-7ba06f4958bc" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="02bf0c9e-cb39-4d54-af78-55854bb3f5f8" class="">Branded vs. non-branded</h3></div><div style="display:contents" dir="auto"><p id="c8d071a0-e780-4145-8134-b811f1a8d81d" class=""><strong>Aug 2025 | Worldwide | All traffic</strong></p></div><div style="display:contents" dir="auto"><ul id="5a321fd5-63e0-4e62-9052-5c1347a8570f" class="bulleted-list"><li style="list-style-type:disc"><strong>Branded:</strong> 50%</li></ul></div><div style="display:contents" dir="auto"><ul id="8342923d-bef0-4fdc-9e41-259a18a68509" class="bulleted-list"><li style="list-style-type:disc"><strong>Non-Branded:</strong> 50%<div style="display:contents" dir="auto"><p id="7582ed8e-cf0c-4dc2-b344-4b77a1257137" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="28d99b90-fc42-4e10-8251-68709577fa34" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="20eb7b02-7b52-4592-9a2b-953d50eab8eb" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="7f5cbc9e-7672-4901-9712-bf35b89e8847" class="">Top organic non-branded search terms</h3></div><div style="display:contents" dir="auto"><p id="14565725-1b9b-4a8c-9fbc-5877076bdd8c" class=""><strong>Aug 2025 | Worldwide | All traffic</strong></p></div><div style="display:contents" dir="ltr"><table id="e3ba55d7-d9ab-4b55-9d7a-f063ade571bd" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="6831ae36-b379-4bea-a4d1-b06ce5a80c64"><th id="vafo" class="simple-table-header-color simple-table-header">Search Term</th><th id="|z}F" class="simple-table-header-color simple-table-header">Share</th><th id="vcOU" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="e769eb96-9c0d-4b3e-974f-bb3b4342ac04"><td id="vafo" class="">lilijunex</td><td id="|z}F" class="">4.34%</td><td id="vcOU" class="">↑ 74.63%</td></tr></div><div style="display:contents" dir="ltr"><tr id="b747bb5a-0c18-40c5-ad98-1e18a87ee312"><td id="vafo" class="">comatozze</td><td id="|z}F" class="">2.77%</td><td id="vcOU" class="">↑ 87.65%</td></tr></div><div style="display:contents" dir="ltr"><tr id="8847ac8b-9feb-4886-8e40-1e1c4ea8d2ac"><td id="vafo" class="">npxvip</td><td id="|z}F" class="">2.66%</td><td id="vcOU" class="">↑ 62.06%</td></tr></div><div style="display:contents" dir="ltr"><tr id="1112904c-d0ac-4ed6-899a-ef983f28a4fd"><td id="vafo" class="">anaimiya</td><td id="|z}F" class="">0.57%</td><td id="vcOU" class="">↑ 772.15%</td></tr></div><div style="display:contents" dir="ltr"><tr id="32abb7d8-86e7-4d18-b6ff-84757b757117"><td id="vafo" class="">huge tits</td><td id="|z}F" class="">0.56%</td><td id="vcOU" class="">↑ 104.52%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="2be49436-4941-449a-a96b-9fb27c087a54" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="ef7dd428-3c2d-4ae5-9923-211b72453987"/></div><div style="display:contents" dir="auto"><h1 id="300ce049-f6e3-4b8a-ad0f-d55265038e6d" class="">Paid Search</h1></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="051e6ac7-0ad4-42d6-975a-292a2a282933"><div style="font-size:1.5em"><span class="icon">💰</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="01d13cf9-8a09-4c53-a5d6-3895fa282d2c" class="">Paid search makes up <strong>&lt;1%</strong> of website traffic</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="2c6bae51-e816-4d78-9bc3-6fc25bd4d8b7" class="">Top paid non-branded search terms</h3></div><div style="display:contents" dir="auto"><p id="d89c9e95-1e4e-405b-9629-284d8bc73e73" class=""><strong>Aug 2025 | Worldwide | All traffic</strong></p></div><div style="display:contents" dir="ltr"><table id="8203d113-11c3-4a20-aa51-3d0f0860ef19" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="f346757a-0301-4ade-bddf-f11b05a8ab22"><th id="[U&gt;z" class="simple-table-header-color simple-table-header">Search Term</th><th id="J|L\" class="simple-table-header-color simple-table-header">Share</th><th id="}CAt" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="356386c2-1f44-4760-815a-d1405b0d00bd"><td id="[U&gt;z" class="">onlyfans</td><td id="J|L\" class="">82.94%</td><td id="}CAt" class="">↑ 21.74%</td></tr></div><div style="display:contents" dir="ltr"><tr id="dfcfff62-bd39-4b2f-8366-32819ca298b9"><td id="[U&gt;z" class="">only fans</td><td id="J|L\" class="">5.31%</td><td id="}CAt" class="">↓ 45.80%</td></tr></div><div style="display:contents" dir="ltr"><tr id="afe4bbaf-8d10-4240-ac51-3ef4f0619a67"><td id="[U&gt;z" class="">onlyfans app</td><td id="J|L\" class="">1.78%</td><td id="}CAt" class="">↑ 389.47%</td></tr></div><div style="display:contents" dir="ltr"><tr id="efc4ad24-7ecd-4aa2-8302-27cd616a494f"><td id="[U&gt;z" class="">fanvue</td><td id="J|L\" class="">1.65%</td><td id="}CAt" class="">↓ 77.55%</td></tr></div><div style="display:contents" dir="ltr"><tr id="0927d11b-f138-4f18-8ebc-c1125f3e8414"><td id="[U&gt;z" class="">onlyfan</td><td id="J|L\" class="">1.02%</td><td id="}CAt" class="">↑ 21.59%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="cc992067-8691-44ac-ba44-ce8ce8f78271"/></div><div style="display:contents" dir="auto"><h1 id="2a3c190e-de17-4a9b-afc2-11a9c46ce71f" class="">Referrals</h1></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="55cb463f-9a22-4054-9741-5d3524927660"><div style="font-size:1.5em"><span class="icon">🔗</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="eff7eee2-4a6b-49b0-8000-0a85a6c0f5a2" class="">Referrals makes up <strong>15.57%</strong> of website traffic</p></div></div></figure></div><div style="display:contents" dir="auto"><div id="17b74fa1-f4a7-4a89-9863-984c75c80f2f" class="column-list"><div style="display:contents" dir="auto"><div id="d16bc986-9fed-44c6-b7bb-26b08146a68d" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="d95b1e1e-15b4-4764-9b46-d401a85cce33" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="fbcd8743-df93-4f13-9bbd-a89156464bbb" class="">Top referring websites</h3></div><div style="display:contents" dir="auto"><p id="2c58ec1c-5a7f-43d0-a124-c14972a19436" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="e2e7e677-1f5c-4a88-8ad5-eeb437ff493e" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="be34e026-0ab2-40ec-a057-7b1d0c7182b2"><th id="FHeA" class="simple-table-header-color simple-table-header">Domain</th><th id="?tqo" class="simple-table-header-color simple-table-header">Share</th><th id="]K`u" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="d7911404-8d24-4d17-a27a-cdb16549b326"><td id="FHeA" class=""><a href="http://linktr.ee">linktr.ee</a></td><td id="?tqo" class="">37.45%</td><td id="]K`u" class="">↓ 3.72%</td></tr></div><div style="display:contents" dir="ltr"><tr id="e61fdfb7-2a72-4738-aa91-c8f3089bd6e2"><td id="FHeA" class=""><a href="http://simpcity.cr">simpcity.cr</a></td><td id="?tqo" class="">10.31%</td><td id="]K`u" class="">↑ 238.27%</td></tr></div><div style="display:contents" dir="ltr"><tr id="b5e46cf2-2b0c-4ab2-8a53-057a5d32f42a"><td id="FHeA" class=""><a href="http://chaturbate.com">chaturbate.com</a></td><td id="?tqo" class="">9.56%</td><td id="]K`u" class="">↑ 13.68%</td></tr></div><div style="display:contents" dir="ltr"><tr id="c1996c17-20ad-423b-b443-e6127a94f72b"><td id="FHeA" class=""><a href="http://allmylinks.com">allmylinks.com</a></td><td id="?tqo" class="">5.85%</td><td id="]K`u" class="">↓ 0.59%</td></tr></div><div style="display:contents" dir="ltr"><tr id="658c0095-8beb-4e8a-ad56-570a44f9b860"><td id="FHeA" class=""><a href="http://pornhub.com">pornhub.com</a></td><td id="?tqo" class="">4.82%</td><td id="]K`u" class="">↓ 1.58%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="134b4f79-4626-4987-8088-4307bf149ebd" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="7a846d4e-5975-4008-b209-86c716449404" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="d2ede4e0-a931-4406-931e-0c5cc95bdac3" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="52ede632-3c76-4791-9cac-1ebac3e9e71c" class="">Top referring industries</h3></div><div style="display:contents" dir="auto"><p id="4f3c0b65-a7d3-43a7-8cff-ec0f17ec530b" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="30dd2233-eaa4-4786-90c4-b9599aa36abb" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="8c18d9e2-0585-41b5-b06e-feed549dce8e"><th id="ZIqB" class="simple-table-header-color simple-table-header">Website Categories</th><th id="ifF:" class="simple-table-header-color simple-table-header">Traffic Share</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="43679a25-343e-4a84-9ffd-48034ae4185a"><td id="ZIqB" class="">Online Marketing</td><td id="ifF:" class="">37.45%</td></tr></div><div style="display:contents" dir="ltr"><tr id="59fce4c8-f2da-48ce-8662-b737d9872ec2"><td id="ZIqB" class="">Adult</td><td id="ifF:" class="">34.77%</td></tr></div><div style="display:contents" dir="ltr"><tr id="3d87da4e-09f8-41cd-b738-12c6c02670ed"><td id="ZIqB" class="">Graphics Multimedia and Web Design</td><td id="ifF:" class="">4.11%</td></tr></div><div style="display:contents" dir="ltr"><tr id="798ac8f7-3748-4839-a5a8-1ed45a5670a4"><td id="ZIqB" class="">Computers Electronics and Technology - Other</td><td id="ifF:" class="">3.72%</td></tr></div><div style="display:contents" dir="ltr"><tr id="86f04627-d45c-45ab-8def-4da9a661654f"><td id="ZIqB" class="">Video Games Consoles and Accessories</td><td id="ifF:" class="">1.97%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="12cb6898-67d2-4fdc-8841-aa10ce700f99" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="66a56c88-b257-4723-8ef9-66f15a27e14b"/></div><div style="display:contents" dir="auto"><h1 id="d37c4aa6-619c-4f79-8741-1b50be92444f" class="">Outgoing Traffic</h1></div><div style="display:contents" dir="auto"><div id="5da5de3a-9ade-4e4a-a4d1-5a352cd7ae0d" class="column-list"><div style="display:contents" dir="auto"><div id="7eac3778-1abc-4218-b224-df93f9a548fb" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="fea0d330-374a-412e-9c67-2dc254924452" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="c24b8a9a-2bf9-47cd-9823-0ebf13d56d05" class="">Top link destinations</h3></div><div style="display:contents" dir="auto"><p id="b6b1ef8e-5424-4b8d-98c4-952c859b7dd4" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="62a54571-abe9-427f-82df-c0f1a2273607" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="f6a045b0-56dd-4f32-be22-d09786a4f69b"><th id="tnfL" class="simple-table-header-color simple-table-header">Domain</th><th id="ZMZb" class="simple-table-header-color simple-table-header">Share</th><th id="HUTe" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="bce6f306-e17e-4e4b-9680-a456cf484f01"><td id="tnfL" class=""><a href="http://google.com">google.com</a></td><td id="ZMZb" class="">66.82%</td><td id="HUTe" class="">↓ 3.69%</td></tr></div><div style="display:contents" dir="ltr"><tr id="174f4d50-fc34-406c-b4d8-7f177d63c945"><td id="tnfL" class=""><a href="http://twitch.tv">twitch.tv</a></td><td id="ZMZb" class="">5.64%</td><td id="HUTe" class="">↑ 20.13%</td></tr></div><div style="display:contents" dir="ltr"><tr id="8a6a2a33-5ab4-4d49-a47b-ce5d89eae3d9"><td id="tnfL" class=""><a href="http://linktr.ee">linktr.ee</a></td><td id="ZMZb" class="">5.41%</td><td id="HUTe" class="">↓ 5.13%</td></tr></div><div style="display:contents" dir="ltr"><tr id="ccf7becb-e8d6-4862-a40c-e07beb220ac7"><td id="tnfL" class=""><a href="http://idv.ondato.com">idv.ondato.com</a></td><td id="ZMZb" class="">4.63%</td><td id="HUTe" class="">↓ 11.56%</td></tr></div><div style="display:contents" dir="ltr"><tr id="035a443d-f23d-4a29-a972-3a6506bc7582"><td id="tnfL" class=""><a href="http://youtube.com">youtube.com</a></td><td id="ZMZb" class="">2.91%</td><td id="HUTe" class="">↓ 4.33%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="58d05a2e-5949-44b8-85fc-a23d29b50054" class="">
+</p></div></div></div><div style="display:contents" dir="auto"><div id="1aba8700-bef1-4fb5-8e45-283b4715e42a" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="7e0185ba-3a02-460e-bc05-3da56d4c9b2f" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="c9e73dd4-8711-4ceb-b913-b4d675692f88" class="">Top ad destinations</h3></div><div style="display:contents" dir="auto"><p id="0639d466-a36e-4678-ae13-45a87308c510" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="01abd408-b21a-426b-8755-e4afa6eb3cf7" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="2b029d6d-3866-4d82-8b0b-fc24fdad71b4"><th id="PL~=" class="simple-table-header-color simple-table-header">Domain</th><th id="?dS}" class="simple-table-header-color simple-table-header">Share</th><th id="ncdD" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="7092194a-d2c6-4c52-a66e-f2fc8dac266b"><td id="PL~=" class=""><a href="http://gardern.co.za">gardern.co.za</a></td><td id="?dS}" class="">80.22%</td><td id="ncdD" class="">-</td></tr></div><div style="display:contents" dir="ltr"><tr id="ae7a4cdf-e6d6-4904-b84d-a1eab87004ab"><td id="PL~=" class=""><a href="http://crmacd.livejasmin.com">crmacd.livejasmin.com</a></td><td id="?dS}" class="">4.16%</td><td id="ncdD" class="">-</td></tr></div><div style="display:contents" dir="ltr"><tr id="b2d4fda8-7730-4f24-9bf1-8c680eaadbea"><td id="PL~=" class=""><a href="http://online-reservations.com">online-reservations.com</a></td><td id="?dS}" class="">4.00%</td><td id="ncdD" class="">-</td></tr></div><div style="display:contents" dir="ltr"><tr id="41cbba88-479b-45a5-a197-4c2fc03ce96c"><td id="PL~=" class=""><a href="http://9alb.com">9alb.com</a></td><td id="?dS}" class="">3.23%</td><td id="ncdD" class="">-</td></tr></div><div style="display:contents" dir="ltr"><tr id="70f25883-c7cf-4dbe-86f1-abff71456342"><td id="PL~=" class=""><a href="http://pornhub.com">pornhub.com</a></td><td id="?dS}" class="">2.51%</td><td id="ncdD" class="">-</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="5c4e1465-7b07-4b54-8d26-b1383c5f1cbb" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="377e3cd7-7028-4c32-bc2f-00edb4f47153"/></div><div style="display:contents" dir="auto"><h1 id="a43f9c3d-dbf3-40a1-af10-5c4588ed851a" class="">Social</h1></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="e7ef4825-99c5-4fdd-a8a5-7069bb0e3520"><div style="font-size:1.5em"><span class="icon">📱</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="bfa05b2a-3d5a-4593-9dbc-7e10bbff1c8a" class="">Social makes up <strong>10.36%</strong> of website traffic</p></div></div></figure></div><div style="display:contents" dir="auto"><h3 id="6a12d3d7-8e3f-4c12-a522-6569dc7c9b62" class="">Social traffic</h3></div><div style="display:contents" dir="auto"><p id="361e5e08-e5ed-47d0-b9d1-f7afee4bcec2" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="1d027465-b794-4d60-a738-ac5cf65d9a14" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="e95b7817-454b-47b7-b3e3-bf00244e1469"><th id="mf`Y" class="simple-table-header-color simple-table-header">Platform</th><th id="MdLv" class="simple-table-header-color simple-table-header">Share</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="9f96d5dc-06e7-4c1e-a392-5677946dcf1b"><td id="mf`Y" class=""><strong>X-twitter</strong></td><td id="MdLv" class="">59.82%</td></tr></div><div style="display:contents" dir="ltr"><tr id="c7e20c2c-9917-46a8-bb1d-5bd0a9730944"><td id="mf`Y" class=""><strong>Reddit</strong></td><td id="MdLv" class="">17.27%</td></tr></div><div style="display:contents" dir="ltr"><tr id="86bdab8b-4c36-4950-8d5a-81b9de28f8bf"><td id="mf`Y" class=""><strong>Youtube</strong></td><td id="MdLv" class="">10.65%</td></tr></div><div style="display:contents" dir="ltr"><tr id="0e070f76-5340-4d90-aef8-0ffec218717a"><td id="mf`Y" class=""><strong>Instagram</strong></td><td id="MdLv" class="">8.03%</td></tr></div><div style="display:contents" dir="ltr"><tr id="76d00c1f-d322-4c31-9dba-6b78281aa1ee"><td id="mf`Y" class=""><strong>Facebook</strong></td><td id="MdLv" class="">1.62%</td></tr></div><div style="display:contents" dir="ltr"><tr id="a6339e45-579a-4dc3-b320-26d9010f0860"><td id="mf`Y" class=""><strong>Other</strong></td><td id="MdLv" class="">2.62%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><hr id="a559748c-69f4-4e46-98c9-e486ccee7c86"/></div><div style="display:contents" dir="auto"><h1 id="a66ff73c-9ff9-4ec7-8518-ef9fb7690bc4" class="">Display Advertising</h1></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="662b872c-af9a-45c3-92a1-53e4b50c9e5b"><div style="font-size:1.5em"><span class="icon">📺</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="cbeb7ad6-ef87-41bb-ad1e-c3469d484a0f" class="">Display ads makes up <strong>&lt;1%</strong> of website traffic</p></div></div></figure></div><div style="display:contents" dir="auto"><div id="e0530739-e45d-4973-bad1-92ec81127e81" class="column-list"><div style="display:contents" dir="auto"><div id="7b475598-1388-4d87-ace7-8955a5164c0d" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="e0fd0cae-f585-4ad5-9872-f2343b4c54bf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="6f2426cd-3c75-43f4-8f36-cb3560d7b7cb" class="">Display ad network</h3></div><div style="display:contents" dir="auto"><p id="b467129c-7465-40c9-91a5-6538f38ba0b2" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="auto"><ul id="d5be1342-5ad5-495e-bc78-ea261c69b88f" class="bulleted-list"><li style="list-style-type:disc"><strong>Google Display Network:</strong> 35.8%</li></ul></div><div style="display:contents" dir="auto"><ul id="20a43fdb-4a75-47dd-9a35-ad4c1cc5d6a0" class="bulleted-list"><li style="list-style-type:disc"><strong>Juicy Ads:</strong> 34.03%</li></ul></div><div style="display:contents" dir="auto"><ul id="51b31993-32fa-4730-874b-22b09e86001f" class="bulleted-list"><li style="list-style-type:disc"><strong>Paid Referrals:</strong> 30.16%<div style="display:contents" dir="auto"><p id="f5917dfb-8f15-437e-bd1e-ebdce66569fa" class="">
+</p></div></li></ul></div></div></div><div style="display:contents" dir="auto"><div id="56aa38a4-f3f8-4090-8f4a-cba303da1425" style="width:100%" class="column"><div style="display:contents" dir="auto"><p id="ad5fd39d-5ddc-4d67-a7c0-92552d210adf" class="">
+</p></div><div style="display:contents" dir="auto"><h3 id="c50bd2ad-618f-40fe-b70e-03e90d03083e" class="">Top publishers</h3></div><div style="display:contents" dir="auto"><p id="8cdff535-50cb-42d5-998d-44ae517e480e" class=""><strong>Aug 2025 | Worldwide | Desktop</strong></p></div><div style="display:contents" dir="ltr"><table id="f9bec6ec-9939-4d0a-a920-325991fa7cff" class="simple-table"><thead class="simple-table-header"><div style="display:contents" dir="ltr"><tr id="41f1c5fc-e03c-4265-9278-61f545993c7d"><th id="I[::" class="simple-table-header-color simple-table-header">Publisher</th><th id="MJSB" class="simple-table-header-color simple-table-header">Share</th><th id="{u}\" class="simple-table-header-color simple-table-header">Change</th></tr></div></thead><tbody><div style="display:contents" dir="ltr"><tr id="364cc1f6-1c43-4bf7-a0cd-262a7fef4f44"><td id="I[::" class=""><a href="http://startpage.com">startpage.com</a></td><td id="MJSB" class="">35.80%</td><td id="{u}\" class="">11%</td></tr></div><div style="display:contents" dir="ltr"><tr id="6b59d834-93c6-4b30-845f-ae523e000534"><td id="I[::" class=""><a href="http://xtapes.in">xtapes.in</a></td><td id="MJSB" class="">32.60%</td><td id="{u}\" class="">New</td></tr></div><div style="display:contents" dir="ltr"><tr id="692d9096-6e24-46d2-beb1-f492d3556c28"><td id="I[::" class=""><a href="http://mail.google.com">mail.google.com</a></td><td id="MJSB" class="">11.64%</td><td id="{u}\" class="">36%</td></tr></div><div style="display:contents" dir="ltr"><tr id="23c7a9a1-478f-4f0c-9c86-487658384239"><td id="I[::" class=""><a href="http://outlook.live.com">outlook.live.com</a></td><td id="MJSB" class="">10.56%</td><td id="{u}\" class="">148%</td></tr></div><div style="display:contents" dir="ltr"><tr id="9983b0d1-8649-4a17-9d37-99eea97af362"><td id="I[::" class=""><a href="http://apps.facebook.com">apps.facebook.com</a></td><td id="MJSB" class="">1.95%</td><td id="{u}\" class="">67%</td></tr></div></tbody></table></div><div style="display:contents" dir="auto"><p id="9f23e090-1dc4-45c5-a5d4-5f18d47b461f" class="">
+</p></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="74bb2826-e62e-49bf-b883-3ad8701f9145"/></div><div style="display:contents" dir="ltr"><figure class="callout" style="white-space:pre-wrap;display:flex" id="c5850da8-545a-44b1-b7ea-94c31a9a6958"><div style="font-size:1.5em"><span class="icon">ℹ️</span></div><div style="width:100%"><div style="display:contents" dir="auto"><p id="0aec53fb-ab02-4c65-bdb9-88ae6fa514ef" class="">All Rights Reserved by SimilarWeb LTD. 2019 | <a href="mailto:info@similarweb.com">info@similarweb.com</a><br/>Report Date: 10/7/25, 10:08 AM</p></div></div></figure></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
