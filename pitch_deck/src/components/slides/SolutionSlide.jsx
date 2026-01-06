@@ -62,6 +62,9 @@ export default function SolutionSlide() {
           <p className="text-lg text-white/60 font-light">
             Modern tech + Creator-grade analytics + Gamified fan journeys
           </p>
+          <p className="mt-4 text-sm text-white/50 font-light max-w-4xl mx-auto italic">
+            Whenever demand is proven, margins are high, owners are economically sophisticated, and tooling is primitive, a new platform emerges that captures the unrealized upside.
+          </p>
         </motion.div>
 
         {/* Two column layout */}

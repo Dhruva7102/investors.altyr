@@ -10,6 +10,8 @@ import TitleSlide from '@/components/slides/TitleSlide';
 import VisionSlide from '@/components/slides/VisionSlide';
 import ProblemSlide1 from '@/components/slides/ProblemSlide1';
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
+import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
+import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 import SolutionSlide from '@/components/slides/SolutionSlide';
 import MarketSlide from '@/components/slides/MarketSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
@@ -17,9 +19,9 @@ import TeamSlide from '@/components/slides/TeamSlide';
 import RaiseSlide from '@/components/slides/RaiseSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
+import MarketRealitySlide from '@/components/slides/MarketRealitySlide';
 import ContactSlide from '@/components/slides/ContactSlide';
 import V2DividerSlide from '@/components/slides/V2DividerSlide';
-import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
 
 const slides = [
@@ -27,6 +29,8 @@ const slides = [
   VisionSlide,
   ProblemSlide1,
   ProblemSlide2,
+  RevenueConcentrationSlide,
+  V2AdjacentIndustriesSlide,
   SolutionSlide,
   MarketSlide,
   GoToMarketSlide,
@@ -34,9 +38,9 @@ const slides = [
   RaiseSlide,
   RevenueCalculatorSlide,
   RisksSlide,
+  MarketRealitySlide,
   ContactSlide,
   V2DividerSlide,
-  V2AdjacentIndustriesSlide,
   V2DividendsSlide,
 ];
 

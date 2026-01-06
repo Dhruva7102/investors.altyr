@@ -48,10 +48,10 @@ export default function TeamSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight leading-relaxed text-white/90 tracking-wide mb-4">
-            Technical execution + Domain expertise + Distribution
+            Why This Team
           </h2>
-          <p className="text-lg text-white/50 font-light">
-            The right team to build and scale a creator platform
+          <p className="text-lg text-white/50 font-light max-w-3xl mx-auto">
+            Platforms fail when built for creators instead of with them. Altyr's founding creators are users, partners, and distribution.
           </p>
         </motion.div>
 
@@ -111,9 +111,9 @@ export default function TeamSlide() {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <div className="inline-block px-8 py-4 rounded-full bg-white/[0.03] border border-white/[0.08]">
-            <p className="text-white/70 font-light">
-              Founder-led with deep creator relationships and technical chops
+          <div className="inline-block px-8 py-4 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <p className="text-white/70 font-light italic">
+              Technical execution + creator credibility is the minimum bar—not a nice-to-have—in this category.
             </p>
           </div>
         </motion.div>

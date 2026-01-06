@@ -4,21 +4,12 @@ import { ArrowRight, Layers, ShieldCheck, Sparkles, TrendingUp } from 'lucide-re
 
 const examples = [
   {
-    leftTitle: 'Myspace',
-    rightTitle: 'Facebook',
-    leftSubtitle: 'Discovery platform',
-    rightSubtitle: 'Structured identity & engagement',
-    takeaways: [
-      { icon: Sparkles, text: 'Clean UX increased engagement' },
-      { icon: Layers, text: 'Identity + graph enabled targeting' },
-      { icon: TrendingUp, text: 'Monetization followed engagement' },
-    ],
-  },
-  {
     leftTitle: 'Craigslist',
     rightTitle: 'Airbnb',
     leftSubtitle: 'Listings',
     rightSubtitle: 'Designed marketplace',
+    leftLogo: '🏠',
+    rightLogo: '🏨',
     takeaways: [
       { icon: ShieldCheck, text: 'Trust systems increased conversion' },
       { icon: Sparkles, text: 'Design drove usability and purchase intent' },
@@ -30,6 +21,8 @@ const examples = [
     rightTitle: 'YouTube (modern)',
     leftSubtitle: 'Hosting',
     rightSubtitle: 'Monetization infrastructure',
+    leftLogo: '▶️',
+    rightLogo: '📊',
     takeaways: [
       { icon: Layers, text: 'Creator Studio + analytics' },
       { icon: TrendingUp, text: 'Revenue predictability' },
@@ -41,6 +34,8 @@ const examples = [
     rightTitle: 'Twitch',
     leftSubtitle: 'Entertainment',
     rightSubtitle: 'Live monetization design',
+    leftLogo: '📺',
+    rightLogo: '🎮',
     takeaways: [
       { icon: Layers, text: 'Status, badges, recognition' },
       { icon: TrendingUp, text: 'VIP tiers + soft loss aversion' },
@@ -52,6 +47,8 @@ const examples = [
     rightTitle: 'Shopify',
     leftSubtitle: 'Websites + plugins',
     rightSubtitle: 'Running a business',
+    leftLogo: '🛒',
+    rightLogo: '🛍️',
     takeaways: [
       { icon: Layers, text: 'Dashboards, analytics, funnels' },
       { icon: ShieldCheck, text: 'Apps, automation, reliability' },
@@ -69,23 +66,29 @@ function ExampleCard({ ex, index }) {
       transition={{ duration: 0.7, delay: 0.08 * index, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div className="p-6">
-        <div className="flex items-center justify-between gap-3 mb-4">
-          <div className="min-w-0">
-            <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
-              {ex.leftTitle}
+        <div className="flex items-center justify-between gap-4 mb-4">
+          <div className="min-w-0 flex items-center gap-3">
+            <div className="text-3xl flex-shrink-0">{ex.leftLogo}</div>
+            <div>
+              <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
+                {ex.leftTitle}
+              </div>
+              <div className="text-xs text-white/45 font-light truncate">{ex.leftSubtitle}</div>
             </div>
-            <div className="text-xs text-white/45 font-light truncate">{ex.leftSubtitle}</div>
           </div>
 
           <div className="flex items-center gap-2 text-white/40 flex-shrink-0">
             <ArrowRight className="w-4 h-4" />
           </div>
 
-          <div className="min-w-0 text-right">
-            <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
-              {ex.rightTitle}
+          <div className="min-w-0 text-right flex items-center gap-3 justify-end">
+            <div>
+              <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
+                {ex.rightTitle}
+              </div>
+              <div className="text-xs text-white/45 font-light truncate">{ex.rightSubtitle}</div>
             </div>
-            <div className="text-xs text-white/45 font-light truncate">{ex.rightSubtitle}</div>
+            <div className="text-3xl flex-shrink-0">{ex.rightLogo}</div>
           </div>
         </div>
 

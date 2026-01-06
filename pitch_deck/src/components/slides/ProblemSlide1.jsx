@@ -80,8 +80,8 @@ export default function ProblemSlide1() {
               }}
             />
           </div>
-          <p className="text-lg text-white/60 font-extralight">
-            combined market value of top 5 platforms
+          <p className="text-xs text-white/40 font-light italic mt-1">
+            * combined market value of top 5 platforms
           </p>
         </motion.div>
 
@@ -95,9 +95,6 @@ export default function ProblemSlide1() {
           <p>
             Creator monetization is already a multi-billion-dollar, high-margin industry—but it is still being run on first-generation infrastructure.
             That gap cannot persist.
-          </p>
-          <p>
-            Whenever demand is proven, margins are high, owners are economically sophisticated, and tooling is primitive, a new platform emerges that captures the unrealized upside.
           </p>
           <p className="text-white/75">
             OnlyFans didn’t invent creator monetization. It proved it at scale. What’s speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.

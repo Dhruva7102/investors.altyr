@@ -41,8 +41,24 @@ export default function ProblemSlide2() {
           transition={{ duration: 0.8 }}
         >
           <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
-          <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">The Problem (continued)</span>
+          <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">First-generation infrastructure</span>
           <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
+        </motion.div>
+
+        {/* Header */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9 }}
+        >
+          <h2 className="text-2xl md:text-3xl font-extralight text-white/90 tracking-wide mb-3">
+            Creators have professionalized. Platforms have not.
+          </h2>
+          <p className="text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed">
+            Top creators think in funnels, segmentation, and LTV—yet platforms still offer uploads, subscriptions, and tips.
+            That mismatch isn’t stable.
+          </p>
         </motion.div>
 
         {/* Problem cards */}
@@ -60,10 +76,10 @@ export default function ProblemSlide2() {
               }}
             >
               <motion.div 
-                className="h-full p-6 rounded-xl bg-white/[0.02] border border-red-500/20 backdrop-blur-sm"
+                className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm"
                 whileHover={{ 
                   scale: 1.02,
-                  borderColor: 'rgba(239, 68, 68, 0.4)',
+                  borderColor: 'rgba(255,255,255,0.12)',
                   backgroundColor: 'rgba(255,255,255,0.03)',
                 }}
                 transition={{ duration: 0.2, ease: 'easeOut' }}
@@ -71,9 +87,9 @@ export default function ProblemSlide2() {
                 <div className="relative">
                   {/* Icon */}
                   <motion.div 
-                    className="mb-4 inline-flex p-3 rounded-lg bg-red-500/10 border border-red-500/20"
+                    className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30"
                   >
-                    <problem.icon className="w-5 h-5 text-red-400/80" />
+                    <problem.icon className="w-5 h-5 text-[#AC0064]" />
                   </motion.div>
                   
                   {/* Content */}
@@ -99,7 +115,7 @@ export default function ProblemSlide2() {
           <div className="relative p-8 md:p-12 rounded-2xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-white/[0.1]">
             <div className="absolute top-6 left-6 text-6xl text-[#AC0064]/20 font-serif">"</div>
             <p className="text-xl md:text-2xl font-extralight text-white/80 leading-relaxed italic">
-              Despite generating billions in revenue, platforms like OnlyFans operate on infrastructure that looks and behaves like a 2016 web app—creating a massive opportunity for a modern alternative.
+              Despite generating billions in revenue, the category is still missing the tooling that every other creator economy now considers table stakes: analytics, CRM, automation, and monetization design.
             </p>
             <div className="absolute bottom-6 right-6 text-6xl text-[#AC0064]/20 font-serif rotate-180">"</div>
           </div>
