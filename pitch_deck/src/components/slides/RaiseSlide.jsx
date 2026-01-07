@@ -49,7 +49,7 @@ export default function RaiseSlide() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] opacity-30"
         style={{
           background: 'radial-gradient(ellipse at center, rgba(172,0,100,0.5) 0%, rgba(100,16,154,0.3) 40%, transparent 70%)',
-          filter: 'blur(150px)',
+          filter: 'blur(100px)',
         }}
       />
       
@@ -148,7 +148,7 @@ export default function RaiseSlide() {
                     ease: [0.25, 0.46, 0.45, 0.94]
                   }}
                 >
-                  <div className="relative p-3 rounded-lg bg-white/[0.03] border border-white/[0.05] backdrop-blur-sm">
+                  <div className="relative p-3 rounded-lg bg-white/[0.03] border border-white/[0.05]">
                     <div className="flex items-center justify-between gap-3">
                       <div className="flex items-center gap-2 flex-1 min-w-0">
                         <div 

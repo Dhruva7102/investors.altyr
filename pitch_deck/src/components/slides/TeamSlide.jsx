@@ -23,7 +23,7 @@ export default function TeamSlide() {
         className="absolute top-1/2 left-1/4 w-[700px] h-[700px] opacity-20"
         style={{
           background: 'radial-gradient(circle, rgba(77,7,28,0.5) 0%, transparent 60%)',
-          filter: 'blur(120px)',
+          filter: 'blur(80px)',
         }}
       />
       
@@ -70,7 +70,7 @@ export default function TeamSlide() {
               }}
             >
               <motion.div 
-                className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm"
+                className="relative h-full p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08]"
                 whileHover={{ 
                   scale: 1.02,
                   backgroundColor: 'rgba(255,255,255,0.05)',

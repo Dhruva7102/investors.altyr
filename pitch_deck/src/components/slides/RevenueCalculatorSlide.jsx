@@ -10,7 +10,7 @@ export default function RevenueCalculatorSlide() {
         style={{
           background:
             'radial-gradient(ellipse at center, rgba(172,0,100,0.35) 0%, rgba(100,16,154,0.25) 40%, transparent 70%)',
-          filter: 'blur(150px)',
+          filter: 'blur(100px)',
         }}
       />
 

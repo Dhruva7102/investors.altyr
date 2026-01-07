@@ -43,7 +43,7 @@ export default function RisksSlide() {
         className="absolute top-1/3 right-1/4 w-[700px] h-[700px] opacity-15"
         style={{
           background: 'radial-gradient(circle, rgba(77,7,28,0.6) 0%, transparent 60%)',
-          filter: 'blur(120px)',
+          filter: 'blur(80px)',
         }}
       />
       
@@ -86,7 +86,7 @@ export default function RisksSlide() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="relative h-full p-5 rounded-xl bg-white/[0.02] border border-orange-500/20 backdrop-blur-sm hover:bg-white/[0.03] hover:border-orange-500/30 transition-all duration-500">
+              <div className="relative h-full p-5 rounded-xl bg-white/[0.02] border border-orange-500/20 hover:bg-white/[0.03] hover:border-orange-500/30 transition-all duration-500">
                 <div className="relative">
                   {/* Icon */}
                   <div className="mb-4 inline-flex p-2.5 rounded-lg bg-orange-500/10 border border-orange-500/20">

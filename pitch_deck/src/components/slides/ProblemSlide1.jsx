@@ -33,7 +33,7 @@ export default function ProblemSlide1() {
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1200px] h-[800px] opacity-25"
         style={{
           background: 'radial-gradient(ellipse at center, rgba(172,0,100,0.35) 0%, rgba(100,16,154,0.25) 40%, transparent 70%)',
-          filter: 'blur(150px)',
+          filter: 'blur(100px)',
         }}
       />
       
@@ -74,8 +74,9 @@ export default function ProblemSlide1() {
                 scale: [1, 1.1, 1],
               }}
               transition={{
-                duration: 4,
-                repeat: Infinity,
+                duration: 3.2,
+                repeat: 1,
+                repeatType: 'mirror',
                 ease: 'easeInOut',
               }}
             />
@@ -115,7 +116,7 @@ export default function ProblemSlide1() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300">
+              <div className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300">
                 <div className="relative">
                   {/* Icon */}
                   <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">

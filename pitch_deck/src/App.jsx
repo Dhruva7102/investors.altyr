@@ -19,10 +19,9 @@ import TeamSlide from '@/components/slides/TeamSlide';
 import RaiseSlide from '@/components/slides/RaiseSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
-import MarketRealitySlide from '@/components/slides/MarketRealitySlide';
+import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
 import V2DividerSlide from '@/components/slides/V2DividerSlide';
-import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
 
 const slides = [
   TitleSlide,
@@ -38,10 +37,9 @@ const slides = [
   RaiseSlide,
   RevenueCalculatorSlide,
   RisksSlide,
-  MarketRealitySlide,
+  V2DividendsSlide,
   ContactSlide,
   V2DividerSlide,
-  V2DividendsSlide,
 ];
 
 function App() {

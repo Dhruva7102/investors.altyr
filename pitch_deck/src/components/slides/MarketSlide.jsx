@@ -82,13 +82,19 @@ export default function MarketSlide() {
 
         {/* Context paragraph */}
         <motion.div
-          className="text-center text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed mb-10"
+          className="text-center text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.2 }}
         >
-          <p>
+          <p className="mb-4">
             Subscription and adult content represent a massive, high-margin market. OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure. We leverage data-driven insights and proven gamification techniques to <span className="text-white/80 font-medium">expand the total addressable market</span> by making spending more engaging and rewarding.
+          </p>
+          <p className="text-lg md:text-xl font-extralight text-white/70 italic">
+            This is not a <span className="text-white/50">"winner-take-all"</span> consumer social bet.
+          </p>
+          <p className="text-base text-white/60 font-light mt-2">
+            This is a <span className="text-white/80 font-medium">high-margin</span>, <span className="text-white/80 font-medium">commission-based</span>, <span className="text-white/80 font-medium">supply-driven marketplace</span>. Creators bring demand with them. When even a small percentage of top creators move, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">gravity does the rest</span>.
           </p>
         </motion.div>
 

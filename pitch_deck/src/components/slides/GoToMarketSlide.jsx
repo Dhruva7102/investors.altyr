@@ -80,9 +80,9 @@ export default function GoToMarketSlide() {
                 ease: [0.25, 0.46, 0.45, 0.94]
               }}
             >
-              <div className="relative h-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
+              <div className="relative h-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
                 {/* Number badge */}
-                <div className="absolute -top-3 -left-3 w-12 h-12 rounded-full bg-gradient-to-br from-[#AC0064]/30 to-[#64109A]/30 border-2 border-[#AC0064]/50 flex items-center justify-center backdrop-blur-sm">
+                <div className="absolute -top-3 -left-3 w-12 h-12 rounded-full bg-gradient-to-br from-[#AC0064]/30 to-[#64109A]/30 border-2 border-[#AC0064]/50 flex items-center justify-center">
                   <span className="text-sm font-medium text-[#AC0064]">{step.number}</span>
                 </div>
 

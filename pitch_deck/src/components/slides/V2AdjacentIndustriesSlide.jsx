@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Layers, ShieldCheck, Sparkles, TrendingUp } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const examples = [
   {
@@ -10,10 +10,21 @@ const examples = [
     rightSubtitle: 'Designed marketplace',
     leftLogo: '🏠',
     rightLogo: '🏨',
-    takeaways: [
-      { icon: ShieldCheck, text: 'Trust systems increased conversion' },
-      { icon: Sparkles, text: 'Design drove usability and purchase intent' },
-      { icon: TrendingUp, text: 'Monetization aligned incentives' },
+    leftProved: [
+      'Peer-to-peer commerce works',
+      'Supply creates its own demand',
+    ],
+    leftLacked: [
+      'Trust systems',
+      'UX',
+      'Monetization',
+      'Optimization',
+    ],
+    rightWon: [
+      'Design drove conversion',
+      'Reputation systems increased trust',
+      'Monetization aligned incentives',
+      'Hosts became semi-professional businesses',
     ],
   },
   {
@@ -23,11 +34,20 @@ const examples = [
     rightSubtitle: 'Monetization infrastructure',
     leftLogo: '▶️',
     rightLogo: '📊',
-    takeaways: [
-      { icon: Layers, text: 'Creator Studio + analytics' },
-      { icon: TrendingUp, text: 'Revenue predictability' },
-      { icon: ShieldCheck, text: 'Business tooling became table stakes' },
+    leftProved: [
+      'Upload videos',
+      'Get views',
     ],
+    leftLacked: [
+      'No income clarity',
+    ],
+    rightWon: [
+      'Analytics',
+      'Creator Studio',
+      'Monetization tools',
+      'Revenue predictability',
+    ],
+    note: null,
   },
   {
     leftTitle: 'Early video platforms',
@@ -36,31 +56,60 @@ const examples = [
     rightSubtitle: 'Live monetization design',
     leftLogo: '📺',
     rightLogo: '🎮',
-    takeaways: [
-      { icon: Layers, text: 'Status, badges, recognition' },
-      { icon: TrendingUp, text: 'VIP tiers + soft loss aversion' },
-      { icon: Sparkles, text: 'Not better content—better mechanics' },
+    leftProved: [
+      'Entertainment at scale',
+      'Creator communities form',
     ],
+    leftLacked: [
+      'No designed monetization mechanics',
+      'No progression, status, or recognition loops',
+    ],
+    rightWon: [
+      'Subscriptions',
+      'Bits',
+      'Badges',
+      'Status',
+      'Parasocial incentives',
+    ],
+    note: 'Not better content—better monetization mechanics. This is one of the closest parallels to Altyr: Status, Progression, Recognition, Soft loss aversion. Adult platforms never adopted this playbook.',
   },
   {
     leftTitle: 'Selling online (before)',
     rightTitle: 'Shopify',
     leftSubtitle: 'Websites + plugins',
-    rightSubtitle: 'Running a business',
+    rightSubtitle: 'Small Business Enablement',
     leftLogo: '🛒',
     rightLogo: '🛍️',
-    takeaways: [
-      { icon: Layers, text: 'Dashboards, analytics, funnels' },
-      { icon: ShieldCheck, text: 'Apps, automation, reliability' },
-      { icon: TrendingUp, text: 'Made merchants professional' },
+    leftProved: [
+      'Merchants want to sell online',
+      'Demand exists, but tooling was fragmented',
     ],
+    leftLacked: [
+      'Websites',
+      'Payments',
+      'Plugins',
+      'Chaos',
+    ],
+    rightWon: [
+      'Dashboards',
+      'Analytics',
+      'Funnels',
+      'Apps',
+      'Automation',
+    ],
+    note: null,
   },
 ];
 
 function ExampleCard({ ex, index }) {
+  const isTwitchExample = ex.rightTitle === 'Twitch';
+  const leftProved = ex.leftProved ?? [];
+  const leftLacked = ex.leftLacked ?? [];
+  const rightWon = ex.rightWon ?? [];
+
   return (
     <motion.div
-      className="relative rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm overflow-hidden"
+      className="relative rounded-2xl bg-white/[0.03] border border-white/[0.08] overflow-hidden"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.08 * index, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -92,18 +141,89 @@ function ExampleCard({ ex, index }) {
           </div>
         </div>
 
-        <div className="grid gap-2">
-          {ex.takeaways.map((t, i) => (
-            <div
-              key={i}
-              className="flex items-start gap-2 text-sm text-white/60 font-light"
-            >
-              <div className="mt-0.5 p-1.5 rounded-md bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/25">
-                <t.icon className="w-3.5 h-3.5 text-[#AC0064]" />
+        {/* Two-column layout: left = context, right = why winner won */}
+        <div className="grid md:grid-cols-2 gap-5">
+          <div>
+            {/* What [left] proved */}
+            <div className="mb-4">
+              <div className="text-xs tracking-[0.22em] text-white/45 uppercase mb-1.5">
+                What {ex.leftTitle} proved
               </div>
-              <div className="leading-relaxed">{t.text}</div>
+              {leftProved.length > 0 ? (
+                <ul className="space-y-1">
+                  {leftProved.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-white/60 font-light">
+                      <span className="mt-1 w-1 h-1 rounded-full bg-white/40 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="text-sm text-white/35 font-light">—</div>
+              )}
             </div>
-          ))}
+
+            {/* What [left] lacked */}
+            <div className="mb-2">
+              <div className="text-xs tracking-[0.22em] text-white/45 uppercase mb-1.5">
+                What it lacked
+              </div>
+              {leftLacked.length > 0 ? (
+                <ul className="space-y-1">
+                  {leftLacked.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-white/60 font-light">
+                      <span className="mt-1 w-1 h-1 rounded-full bg-red-400/60 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="text-sm text-white/35 font-light">—</div>
+              )}
+            </div>
+          </div>
+
+          <div>
+            {/* Why [right] won (moved to right column) */}
+            <div className="mb-3">
+              <div className="text-xs tracking-[0.22em] text-[#AC0064]/80 uppercase mb-1.5">
+                Why {ex.rightTitle} won
+              </div>
+              {rightWon.length > 0 ? (
+                <ul className="space-y-1">
+                  {rightWon.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-white/70 font-light">
+                      <span className="mt-1 w-1 h-1 rounded-full bg-[#AC0064]/60 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div className="text-sm text-white/35 font-light">—</div>
+              )}
+            </div>
+
+            {/* Note (highlight Twitch note) */}
+            {ex.note && (
+              <div
+                className={
+                  isTwitchExample
+                    ? 'mt-3 p-3 rounded-xl bg-gradient-to-r from-[#E85A24]/15 to-[#FF8C42]/10 border border-[#FF8C42]/25'
+                    : 'mt-3 pt-3 border-t border-white/[0.08]'
+                }
+              >
+                <p
+                  className={
+                    isTwitchExample
+                      ? 'text-xs text-white/80 font-light italic leading-relaxed'
+                      : 'text-xs text-white/50 font-light italic leading-relaxed'
+                  }
+                >
+                  {ex.note}
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -145,7 +265,7 @@ export default function V2AdjacentIndustriesSlide() {
             Every creator platform evolves into a business platform — or gets displaced
           </h2>
           <p className="text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed">
-            When demand is real and margins are high, the winner isn’t “more expressive” — it’s more structured,
+            When demand is real and margins are high, the winner isn't "more expressive" — it's more structured,
             more intentional, and more monetizable.
           </p>
         </motion.div>
@@ -159,4 +279,3 @@ export default function V2AdjacentIndustriesSlide() {
     </section>
   );
 }
-

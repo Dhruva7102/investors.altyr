@@ -66,21 +66,24 @@ export default function V2DividendsSlide() {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {points.map((p, idx) => (
-            <motion.div
-              key={idx}
-              className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm"
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.75, delay: idx * 0.08 }}
-            >
-              <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                <p.icon className="w-5 h-5 text-[#AC0064]" />
-              </div>
-              <h3 className="text-lg font-light text-white/90 tracking-wide mb-2">{p.title}</h3>
-              <p className="text-sm text-white/55 font-light leading-relaxed">{p.description}</p>
-            </motion.div>
-          ))}
+          {points.map((point, idx) => {
+            const IconComponent = point.icon;
+            return (
+              <motion.div
+                key={idx}
+                className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm"
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.75, delay: idx * 0.08 }}
+              >
+                <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                  <IconComponent className="w-5 h-5 text-[#AC0064]" />
+                </div>
+                <h3 className="text-lg font-light text-white/90 tracking-wide mb-2">{point.title}</h3>
+                <p className="text-sm text-white/55 font-light leading-relaxed">{point.description}</p>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

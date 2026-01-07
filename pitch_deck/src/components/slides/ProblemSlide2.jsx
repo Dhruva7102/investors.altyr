@@ -28,7 +28,7 @@ export default function ProblemSlide2() {
         className="absolute top-1/3 left-0 w-[600px] h-[600px] opacity-15"
         style={{
           background: 'radial-gradient(circle, rgba(77,7,28,0.6) 0%, transparent 60%)',
-          filter: 'blur(120px)',
+          filter: 'blur(80px)',
         }}
       />
       
@@ -76,7 +76,7 @@ export default function ProblemSlide2() {
               }}
             >
               <motion.div 
-                className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-sm"
+                className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08]"
                 whileHover={{ 
                   scale: 1.02,
                   borderColor: 'rgba(255,255,255,0.12)',
