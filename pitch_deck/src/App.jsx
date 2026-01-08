@@ -16,7 +16,6 @@ import SolutionSlide from '@/components/slides/SolutionSlide';
 import MarketSlide from '@/components/slides/MarketSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
-import TractionSlide from '@/components/slides/TractionSlide';
 import RaiseSlide from '@/components/slides/RaiseSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
@@ -28,14 +27,13 @@ const slides = [
   TitleSlide,
   VisionSlide,
   ProblemSlide1,
-  RevenueConcentrationSlide,
   ProblemSlide2,
+  RevenueConcentrationSlide,
   V2AdjacentIndustriesSlide,
   SolutionSlide,
   MarketSlide,
   GoToMarketSlide,
   TeamSlide,
-  TractionSlide,
   RaiseSlide,
   RevenueCalculatorSlide,
   RisksSlide,

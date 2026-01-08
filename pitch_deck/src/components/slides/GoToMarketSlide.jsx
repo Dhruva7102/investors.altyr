@@ -92,7 +92,7 @@ export default function GoToMarketSlide() {
                     <step.icon className="w-5 h-5 text-[#AC0064]" />
                   </div>
                   <h3 className="text-lg font-light text-white/90 tracking-wide">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{step.title}</span>
+                    {step.title}
                   </h3>
                 </div>
 

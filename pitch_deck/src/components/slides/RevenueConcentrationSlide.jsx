@@ -74,7 +74,7 @@ export default function RevenueConcentrationSlide() {
               <Heart className="w-6 h-6 text-[#AC0064]" />
             </div>
             <p className="text-base text-white/70 font-light leading-relaxed">
-              These fans pay for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">emotional connection</span> and feeling closer to creators
+              These fans pay for <span className="text-white/90 font-medium">emotional connection</span> and feeling closer to creators
             </p>
           </motion.div>
 
@@ -88,7 +88,7 @@ export default function RevenueConcentrationSlide() {
               <Target className="w-6 h-6 text-[#AC0064]" />
             </div>
             <p className="text-base text-white/70 font-light leading-relaxed">
-              OnlyFans tools optimize for <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">transactions</span>. They don't deepen connections.
+              OnlyFans tools optimize for <span className="text-white/90 font-medium">transactions</span>. They don't deepen connections.
             </p>
           </motion.div>
 
@@ -102,7 +102,7 @@ export default function RevenueConcentrationSlide() {
               <TrendingUp className="w-6 h-6 text-[#AC0064]" />
             </div>
             <p className="text-base text-white/70 font-light leading-relaxed">
-              Deeper connections capture more revenue from the <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">fans who matter most</span>
+              Deeper connections capture more revenue from the <span className="text-white/90 font-medium">fans who matter most</span>
             </p>
           </motion.div>
         </div>
@@ -116,7 +116,7 @@ export default function RevenueConcentrationSlide() {
         >
           <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
             <p className="text-lg md:text-xl font-extralight text-white/80 leading-relaxed italic">
-              The market exists because people spend on <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">relationship depth</span>, not just content access. Current platforms leave that value on the table.
+              The market exists because people spend on <span className="text-white/90 font-medium">relationship depth</span>, not just content access. Current platforms leave that value on the table.
             </p>
           </div>
         </motion.div>

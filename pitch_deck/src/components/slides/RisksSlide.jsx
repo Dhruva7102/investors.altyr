@@ -95,7 +95,7 @@ export default function RisksSlide() {
                   
                   {/* Content */}
                   <h3 className="text-base font-light text-white/90 mb-2 tracking-wide">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{risk.title}</span>
+                    {risk.title}
                   </h3>
                   
                   <div className="pt-2 border-t border-white/[0.08]">

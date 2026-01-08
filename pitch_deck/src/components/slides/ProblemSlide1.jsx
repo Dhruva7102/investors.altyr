@@ -94,11 +94,11 @@ export default function ProblemSlide1() {
           transition={{ duration: 0.9, delay: 0.15 }}
         >
           <p>
-            Creator monetization is already a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">multi-billion-dollar, high-margin industry</span>—but it is still being run on <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">first-generation infrastructure</span>.
+            Creator monetization is already a multi-billion-dollar, high-margin industry—but it is still being run on first-generation infrastructure.
             That gap cannot persist.
           </p>
           <p className="text-white/75">
-            OnlyFans didn't invent creator monetization. It <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">proved it at scale</span>. What's speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.
+            OnlyFans didn’t invent creator monetization. It proved it at scale. What’s speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.
           </p>
         </motion.div>
 
@@ -125,7 +125,7 @@ export default function ProblemSlide1() {
                   
                   {/* Content */}
                   <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{item.title}</span>
+                    {item.title}
                   </h3>
                   <p className="text-sm text-white/50 font-light leading-relaxed">
                     {item.description}

@@ -53,7 +53,7 @@ export default function ProblemSlide2() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-2xl md:text-3xl font-extralight text-white/90 tracking-wide mb-3">
-            Creators have <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">professionalized</span>. Platforms have not.
+            Creators have professionalized. Platforms have not.
           </h2>
           <p className="text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed">
             Top creators think in funnels, segmentation, and LTV—yet platforms still offer uploads, subscriptions, and tips.
@@ -94,7 +94,7 @@ export default function ProblemSlide2() {
                   
                   {/* Content */}
                   <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{problem.title}</span>
+                    {problem.title}
                   </h3>
                   <p className="text-sm text-white/50 font-light leading-relaxed">
                     {problem.description}
