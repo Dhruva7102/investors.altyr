@@ -48,7 +48,7 @@ export default function TeamSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight leading-relaxed text-white/90 tracking-wide mb-4">
-            Why This Team
+            Why <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">This Team</span>
           </h2>
           <p className="text-lg text-white/50 font-light max-w-3xl mx-auto">
             Platforms fail when built for creators instead of with them. Altyr's founding creators are users, partners, and distribution.
@@ -91,7 +91,7 @@ export default function TeamSlide() {
                     <h3 className="text-xl font-light text-white/90 mb-1 tracking-wide">
                       {member.name}
                     </h3>
-                    <p className="text-sm text-[#AC0064]/80 font-medium mb-4 uppercase tracking-wider">
+                    <p className="text-sm text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-medium mb-4 uppercase tracking-wider">
                       {member.role}
                     </p>
                     <p className="text-sm text-white/50 font-light leading-relaxed">

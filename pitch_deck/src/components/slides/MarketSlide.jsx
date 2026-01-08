@@ -76,7 +76,7 @@ export default function MarketSlide() {
             />
           </div>
           <p className="text-lg text-white/60 font-extralight">
-            combined market value of top 5 platforms
+            combined market value of <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">top 5 platforms</span>
           </p>
         </motion.div>
 
@@ -120,7 +120,7 @@ export default function MarketSlide() {
                 
                 {/* Content */}
                 <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                  {item.title}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{item.title}</span>
                 </h3>
                 <p className="text-sm text-white/50 font-light leading-relaxed">
                   {item.description}

@@ -57,10 +57,10 @@ export default function SolutionSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/90 tracking-wide mb-2">
-            A creator revenue platform that blends
+            A <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">creator revenue platform</span> that blends
           </h2>
           <p className="text-lg text-white/60 font-light">
-            Modern tech + Creator-grade analytics + Gamified fan journeys
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Modern tech</span> + <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Creator-grade analytics</span> + <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Gamified fan journeys</span>
           </p>
           <p className="mt-4 text-sm text-white/50 font-light max-w-4xl mx-auto italic">
             Whenever demand is proven, margins are high, owners are economically sophisticated, and tooling is primitive, a new platform emerges that captures the unrealized upside.
@@ -83,7 +83,7 @@ export default function SolutionSlide() {
                   <Sparkles className="w-5 h-5 text-[#AC0064]" />
                 </div>
                 <h3 className="text-lg font-light text-white/90 tracking-wide">
-                  Modern Platform & Onboarding
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Modern Platform</span> & Onboarding
                 </h3>
               </div>
               <ul className="space-y-2">
@@ -103,7 +103,7 @@ export default function SolutionSlide() {
                   <LineChart className="w-5 h-5 text-[#AC0064]" />
                 </div>
                 <h3 className="text-lg font-light text-white/90 tracking-wide">
-                  Creator-Grade Analytics & Revenue Ops
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Creator-Grade Analytics</span> & Revenue Ops
                 </h3>
               </div>
               <ul className="space-y-2">
@@ -129,7 +129,7 @@ export default function SolutionSlide() {
                   <Trophy className="w-5 h-5 text-[#AC0064]" />
                 </div>
                 <h3 className="text-lg font-light text-white/90 tracking-wide">
-                  Gamified Fan Experience
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">Gamified Fan Experience</span>
                 </h3>
               </div>
               <ul className="space-y-2">

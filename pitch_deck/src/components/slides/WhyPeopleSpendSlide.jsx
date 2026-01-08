@@ -91,7 +91,9 @@ export default function WhyPeopleSpendSlide() {
               <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                 <d.icon className="w-5 h-5 text-[#AC0064]" />
               </div>
-              <h3 className="text-lg font-light text-white/90 tracking-wide mb-2">{d.title}</h3>
+              <h3 className="text-lg font-light text-white/90 tracking-wide mb-2">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{d.title}</span>
+              </h3>
               <p className="text-sm text-white/55 font-light leading-relaxed">{d.description}</p>
             </motion.div>
           ))}

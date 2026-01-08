@@ -82,7 +82,7 @@ export default function VisionSlide() {
                 
                 {/* Content */}
                 <h3 className="text-xl font-light text-white/90 mb-3 tracking-wide">
-                  {item.title}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">{item.title}</span>
                 </h3>
                 <p className="text-white/50 font-light leading-relaxed">
                   {item.description}
