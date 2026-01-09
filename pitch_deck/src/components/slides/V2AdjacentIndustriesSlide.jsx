@@ -27,6 +27,26 @@ const examples = [
     note: null,
   },
   {
+    leftTitle: 'YouTube (early)',
+    rightTitle: 'YouTube (modern)',
+    leftSubtitle: 'Hosting',
+    rightSubtitle: 'Monetization infrastructure',
+    leftProved: [
+      'Upload videos',
+      'Get views',
+    ],
+    leftLacked: [
+      'No income clarity',
+    ],
+    rightWon: [
+      'Analytics',
+      'Creator Studio',
+      'Monetization tools',
+      'Revenue predictability',
+    ],
+    note: null,
+  },
+  {
     leftTitle: 'Early video platforms',
     rightTitle: 'Twitch',
     leftSubtitle: 'Entertainment',
@@ -233,7 +253,7 @@ export default function V2AdjacentIndustriesSlide() {
           </h2>
         </motion.div>
 
-        <div className="space-y-6 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-6 max-w-7xl mx-auto">
           {examples.map((ex, idx) => (
             <ExampleCard key={idx} ex={ex} index={idx} />
           ))}
