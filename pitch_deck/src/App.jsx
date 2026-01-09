@@ -8,10 +8,9 @@ import SlideIndicator from '@/components/SlideIndicator';
 // Import all slides
 import TitleSlide from '@/components/slides/TitleSlide';
 import ProblemSlide1 from '@/components/slides/ProblemSlide1';
+import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
-import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
-import MarketSlide from '@/components/slides/MarketSlide';
 import SolutionSlide from '@/components/slides/SolutionSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
@@ -25,10 +24,9 @@ import ContactSlide from '@/components/slides/ContactSlide';
 const slides = [
   TitleSlide,
   ProblemSlide1,
+  RevenueConcentrationSlide,
   ProblemSlide2,
   V2AdjacentIndustriesSlide,
-  RevenueConcentrationSlide,
-  MarketSlide,
   SolutionSlide,
   GoToMarketSlide,
   TeamSlide,
