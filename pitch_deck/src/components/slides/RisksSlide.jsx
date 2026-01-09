@@ -20,8 +20,8 @@ const risks = [
   },
   {
     icon: Users,
-    title: "Scaling Too Fast Without Product-Market Fit",
-    mitigation: "Intentionally slow-rolling with a tight cohort of founding creators to test, iterate, and refine before scaling."
+    title: "Male Skewed Gender Imbalance",
+    mitigation: "We recognise our most network is most powerful in Gay Male space. We are pursuing every venue to diversify into female creators"
   },
   {
     icon: Target,
