@@ -5,19 +5,19 @@ import { User } from 'lucide-react';
 const team = [
   {
     name: "Dhruva Kolikineni",
-    role: "CEO",
+    role: "Cheif Executive Officer",
     bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer.",
     photo: "/team/dhruva.jpg",
-    photoStyle: { objectPosition: 'left bottom' },
+    photoStyle: { objectPosition: 'center left', transform: 'scale(1.3)' },
     containerStyle: {}
   },
   {
-    name: "Solan",
+    name: "Solan Dennis",
     role: "Chief Strategy Officer",
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies.",
     photo: "/team/solan.jpg",
-    photoStyle: { objectPosition: 'right bottom' },
-    containerStyle: { transform: 'scale(1.1)' }
+    photoStyle: { objectPosition: 'top left', transform: 'scale(1.15)' },
+    containerStyle: { }
   }
 ];
 
@@ -87,7 +87,7 @@ export default function TeamSlide() {
                 <div className="relative">
                   {/* Photo */}
                   <motion.div 
-                    className="mb-6 w-24 h-24 rounded-full overflow-hidden border-2 border-[#AC0064]/50 mx-auto bg-white/[0.05] flex items-center justify-center"
+                    className="mb-6 w-20 h-28 rounded-xl overflow-hidden border-2 border-[#AC0064]/50 mx-auto bg-white/[0.05] flex items-center justify-center"
                     style={member.containerStyle}
                   >
                     {member.photo ? (
