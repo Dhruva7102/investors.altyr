@@ -233,7 +233,7 @@ export default function V2AdjacentIndustriesSlide() {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        <div className="space-y-6 max-w-6xl mx-auto">
           {examples.map((ex, idx) => (
             <ExampleCard key={idx} ex={ex} index={idx} />
           ))}
