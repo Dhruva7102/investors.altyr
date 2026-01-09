@@ -11,7 +11,9 @@ import ProblemSlide1 from '@/components/slides/ProblemSlide1';
 import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
-import SolutionSlide from '@/components/slides/SolutionSlide';
+import AltyrInsightSlide from '@/components/slides/AltyrInsightSlide';
+import AltyrSolutionSlide from '@/components/slides/AltyrSolutionSlide';
+import WhyAltyrWinsSlide from '@/components/slides/WhyAltyrWinsSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
 import TractionSlide from '@/components/slides/TractionSlide';
@@ -27,7 +29,9 @@ const slides = [
   RevenueConcentrationSlide,
   ProblemSlide2,
   V2AdjacentIndustriesSlide,
-  SolutionSlide,
+  AltyrInsightSlide,
+  AltyrSolutionSlide,
+  WhyAltyrWinsSlide,
   GoToMarketSlide,
   TeamSlide,
   TractionSlide,
