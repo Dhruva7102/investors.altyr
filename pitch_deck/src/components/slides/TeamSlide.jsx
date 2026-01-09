@@ -6,12 +6,14 @@ const team = [
   {
     name: "Dhruva Kolikineni",
     role: "CEO",
-    bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer."
+    bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer.",
+    photo: "/team/dhruva.jpg"
   },
   {
     name: "Solan",
     role: "Chief Strategy Officer",
-    bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies."
+    bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies.",
+    photo: "/team/solan.jpg"
   }
 ];
 
@@ -79,11 +81,19 @@ export default function TeamSlide() {
                 transition={{ duration: 0.2, ease: 'easeOut' }}
               >
                 <div className="relative">
-                  {/* Avatar placeholder */}
+                  {/* Photo */}
                   <motion.div 
-                    className="mb-6 w-20 h-20 rounded-full bg-gradient-to-br from-[#AC0064]/30 to-[#64109A]/30 border-2 border-[#AC0064]/50 flex items-center justify-center mx-auto"
+                    className="mb-6 w-24 h-24 rounded-full overflow-hidden border-2 border-[#AC0064]/50 mx-auto bg-white/[0.05] flex items-center justify-center"
                   >
-                    <User className="w-10 h-10 text-[#AC0064]/80" />
+                    {member.photo ? (
+                      <img 
+                        src={member.photo} 
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <User className="w-10 h-10 text-[#AC0064]/80" />
+                    )}
                   </motion.div>
                   
                   {/* Content */}

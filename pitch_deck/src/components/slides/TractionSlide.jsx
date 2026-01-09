@@ -6,32 +6,22 @@ const highlights = [
   {
     icon: Users,
     title: 'Industry Legends',
-    description: 'Working with legends in the space like Max Konnor',
+    description: 'Working with legends in the space like Max Konnor, Sean Ford, Hazel Hoffman',
   },
   {
     icon: Scale,
     title: 'Legal Team',
-    description: 'Legal team on board',
+    description: 'Specialized Legal Advisor on board from day 1',
   },
   {
     icon: Code,
     title: 'Full Stack Team',
-    description: 'Full stack development team',
+    description: 'Lean, off-shore dev team with deep experience in the product',
   },
   {
     icon: Target,
     title: 'Product Progress',
     description: 'Product 80% completed',
-  },
-  {
-    icon: MessageSquare,
-    title: 'Customer Discovery',
-    description: 'Extensive customer discovery with both creators and users',
-  },
-  {
-    icon: UserCheck,
-    title: 'Beta Testers',
-    description: 'List of beta testers ready',
   },
 ];
 
@@ -94,7 +84,7 @@ export default function TractionSlide() {
         </motion.div>
 
         {/* Highlights grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
           {highlights.map((highlight, index) => {
             const IconComponent = highlight.icon;
             return (
