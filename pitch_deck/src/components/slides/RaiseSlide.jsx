@@ -76,7 +76,7 @@ export default function RaiseSlide() {
           <div className="relative inline-block mb-4">
             <h2 className="text-5xl md:text-6xl lg:text-7xl font-extralight text-white/90">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                $1,500,000
+                $500,000
               </span>
             </h2>
             {/* Glow effect */}
@@ -100,7 +100,7 @@ export default function RaiseSlide() {
             via SAFE
           </p>
           <p className="text-base text-white/50 font-light">
-            at 20% discount
+            at 20% discount with $15M cap
           </p>
         </motion.div>
 
@@ -129,7 +129,7 @@ export default function RaiseSlide() {
           {/* Breakdown List - Compact version */}
           <div className="space-y-3">
             {useOfFunds.map((item, index) => {
-              const amount = (item.value / 100) * 1500000;
+              const amount = (item.value / 100) * 500000;
               const formattedAmount = new Intl.NumberFormat('en-US', {
                 style: 'currency',
                 currency: 'USD',

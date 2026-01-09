@@ -8,8 +8,6 @@ const examples = [
     rightTitle: 'Airbnb',
     leftSubtitle: 'Listings',
     rightSubtitle: 'Designed marketplace',
-    leftLogo: '🏠',
-    rightLogo: '🏨',
     leftProved: [
       'Peer-to-peer commerce works',
       'Supply creates its own demand',
@@ -32,8 +30,6 @@ const examples = [
     rightTitle: 'YouTube (modern)',
     leftSubtitle: 'Hosting',
     rightSubtitle: 'Monetization infrastructure',
-    leftLogo: '▶️',
-    rightLogo: '📊',
     leftProved: [
       'Upload videos',
       'Get views',
@@ -54,8 +50,6 @@ const examples = [
     rightTitle: 'Twitch',
     leftSubtitle: 'Entertainment',
     rightSubtitle: 'Live monetization design',
-    leftLogo: '📺',
-    rightLogo: '🎮',
     leftProved: [
       'Entertainment at scale',
       'Creator communities form',
@@ -78,8 +72,6 @@ const examples = [
     rightTitle: 'Shopify',
     leftSubtitle: 'Websites + plugins',
     rightSubtitle: 'Small Business Enablement',
-    leftLogo: '🛒',
-    rightLogo: '🛍️',
     leftProved: [
       'Merchants want to sell online',
       'Demand exists, but tooling was fragmented',
@@ -116,28 +108,22 @@ function ExampleCard({ ex, index }) {
     >
       <div className="p-6">
         <div className="flex items-center justify-between gap-4 mb-4">
-          <div className="min-w-0 flex items-center gap-3">
-            <div className="text-3xl flex-shrink-0">{ex.leftLogo}</div>
-            <div>
-              <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
-                {ex.leftTitle}
-              </div>
-              <div className="text-xs text-white/45 font-light truncate">{ex.leftSubtitle}</div>
+          <div className="min-w-0">
+            <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
+              {ex.leftTitle}
             </div>
+            <div className="text-xs text-white/45 font-light truncate">{ex.leftSubtitle}</div>
           </div>
 
           <div className="flex items-center gap-2 text-white/40 flex-shrink-0">
             <ArrowRight className="w-4 h-4" />
           </div>
 
-          <div className="min-w-0 text-right flex items-center gap-3 justify-end">
-            <div>
-              <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
-                {ex.rightTitle}
-              </div>
-              <div className="text-xs text-white/45 font-light truncate">{ex.rightSubtitle}</div>
+          <div className="min-w-0 text-right">
+            <div className="text-lg md:text-xl font-light text-white/90 tracking-wide truncate">
+              {ex.rightTitle}
             </div>
-            <div className="text-3xl flex-shrink-0">{ex.rightLogo}</div>
+            <div className="text-xs text-white/45 font-light truncate">{ex.rightSubtitle}</div>
           </div>
         </div>
 
@@ -264,10 +250,6 @@ export default function V2AdjacentIndustriesSlide() {
           <h2 className="text-2xl md:text-3xl font-extralight text-white/90 tracking-wide mb-3">
             Every creator platform evolves into a business platform — or gets displaced
           </h2>
-          <p className="text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed">
-            When demand is real and margins are high, the winner isn't "more expressive" — it's more structured,
-            more intentional, and more monetizable.
-          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-6">

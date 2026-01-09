@@ -47,17 +47,26 @@ export default function RevenueConcentrationSlide() {
           transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="relative inline-block">
-            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">
+            <div className="text-4xl md:text-5xl font-extralight text-white/90 mb-3 leading-relaxed">
+              <span className="text-white/60">Only </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                Top 10%
+                ~4.2%
               </span>
-              <span className="text-white/60"> of fans generate </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                90%
-              </span>
+              <span className="text-white/60"> of OnlyFans subscribers pay for content</span>
             </div>
-            <p className="text-lg text-white/60 font-light mt-2">
-              of revenue
+            <div className="text-3xl md:text-4xl font-extralight text-white/90 mb-2">
+              <span className="text-white/60">A tiny </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
+                ~0.01%
+              </span>
+              <span className="text-white/60"> account for </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
+                ~20%
+              </span>
+              <span className="text-white/60"> of creator revenue</span>
+            </div>
+            <p className="text-sm text-white/40 font-light mt-3 italic">
+              (OnlyGuider)
             </p>
           </div>
         </motion.div>

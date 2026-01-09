@@ -8,38 +8,34 @@ import SlideIndicator from '@/components/SlideIndicator';
 // Import all slides
 import TitleSlide from '@/components/slides/TitleSlide';
 import VisionSlide from '@/components/slides/VisionSlide';
-import ProblemSlide1 from '@/components/slides/ProblemSlide1';
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
-import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
+import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
 import SolutionSlide from '@/components/slides/SolutionSlide';
-import MarketSlide from '@/components/slides/MarketSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
+import TractionSlide from '@/components/slides/TractionSlide';
 import RaiseSlide from '@/components/slides/RaiseSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
-import RisksSlide from '@/components/slides/RisksSlide';
 import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
+import RisksSlide from '@/components/slides/RisksSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
-import V2DividerSlide from '@/components/slides/V2DividerSlide';
 
 const slides = [
   TitleSlide,
   VisionSlide,
-  ProblemSlide1,
   ProblemSlide2,
-  RevenueConcentrationSlide,
   V2AdjacentIndustriesSlide,
+  RevenueConcentrationSlide,
   SolutionSlide,
-  MarketSlide,
   GoToMarketSlide,
   TeamSlide,
+  TractionSlide,
   RaiseSlide,
   RevenueCalculatorSlide,
-  RisksSlide,
   V2DividendsSlide,
+  RisksSlide,
   ContactSlide,
-  V2DividerSlide,
 ];
 
 function App() {

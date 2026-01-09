@@ -56,14 +56,22 @@ export default function GoToMarketSlide() {
 
         {/* Intro */}
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
         >
-          <h2 className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/90 tracking-wide">
+          <h2 className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/90 tracking-wide mb-4">
             A <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">focused, high-touch</span> strategy
           </h2>
+          <div className="text-base text-white/60 font-light max-w-4xl mx-auto leading-relaxed space-y-2">
+            <p className="text-lg md:text-xl font-extralight text-white/70 italic">
+              This is not a <span className="text-white/50">"winner-take-all"</span> consumer social bet.
+            </p>
+            <p>
+              This is a <span className="text-white/80 font-medium">high-margin</span>, <span className="text-white/80 font-medium">commission-based</span>, <span className="text-white/80 font-medium">supply-driven marketplace</span>. Creators bring demand with them. When even a small percentage of top creators move, <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">gravity does the rest</span>.
+            </p>
+          </div>
         </motion.div>
 
         {/* Timeline steps - 2 column grid on larger screens */}
