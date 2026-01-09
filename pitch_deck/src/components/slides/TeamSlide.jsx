@@ -8,14 +8,16 @@ const team = [
     role: "CEO",
     bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer.",
     photo: "/team/dhruva.jpg",
-    photoStyle: { objectPosition: '60% 40%' }
+    photoStyle: { objectPosition: 'left bottom' },
+    containerStyle: {}
   },
   {
     name: "Solan",
     role: "Chief Strategy Officer",
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies.",
     photo: "/team/solan.jpg",
-    photoStyle: { objectPosition: '40% 50%', objectFit: 'cover', transform: 'scale(1.1)' }
+    photoStyle: { objectPosition: 'right bottom' },
+    containerStyle: { transform: 'scale(1.1)' }
   }
 ];
 
@@ -86,6 +88,7 @@ export default function TeamSlide() {
                   {/* Photo */}
                   <motion.div 
                     className="mb-6 w-24 h-24 rounded-full overflow-hidden border-2 border-[#AC0064]/50 mx-auto bg-white/[0.05] flex items-center justify-center"
+                    style={member.containerStyle}
                   >
                     {member.photo ? (
                       <img 
