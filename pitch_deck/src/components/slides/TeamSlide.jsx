@@ -7,13 +7,15 @@ const team = [
     name: "Dhruva Kolikineni",
     role: "CEO",
     bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer.",
-    photo: "/team/dhruva.jpg"
+    photo: "/team/dhruva.jpg",
+    photoStyle: { objectPosition: '60% 40%' }
   },
   {
     name: "Solan",
     role: "Chief Strategy Officer",
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies.",
-    photo: "/team/solan.jpg"
+    photo: "/team/solan.jpg",
+    photoStyle: { objectPosition: '40% 50%', objectFit: 'cover', transform: 'scale(1.1)' }
   }
 ];
 
@@ -58,7 +60,7 @@ export default function TeamSlide() {
         </motion.div>
 
         {/* Team members */}
-        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 mb-16 max-w-5xl mx-auto">
           {team.map((member, index) => (
             <motion.div
               key={index}
@@ -90,6 +92,7 @@ export default function TeamSlide() {
                         src={member.photo} 
                         alt={member.name}
                         className="w-full h-full object-cover"
+                        style={member.photoStyle}
                       />
                     ) : (
                       <User className="w-10 h-10 text-[#AC0064]/80" />
