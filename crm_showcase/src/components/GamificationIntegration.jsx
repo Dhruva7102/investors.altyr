@@ -141,26 +141,24 @@ export default function GamificationIntegration({ setActiveSection }) {
           <h3 className="text-2xl font-light text-white/90 mb-8 text-center">Two-Way Data Flow</h3>
           <div className="relative">
             {/* Flow Diagram */}
-            <div className="overflow-x-auto pb-4 -mx-4 px-4 md:mx-0 md:px-0">
-              <div className="flex flex-col md:flex-row items-center justify-center md:justify-between gap-3 md:gap-4 min-w-fit md:min-w-0">
-                {dataFlow.map((step, index) => (
-                  <React.Fragment key={index}>
-                    <motion.div
-                      className="glass-card rounded-xl p-4 md:p-5 text-center w-full md:w-auto md:min-w-[120px] md:max-w-[150px] lg:max-w-[180px] flex-shrink-0"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                    >
-                      <div className="text-sm font-medium text-white/90 mb-1 break-words">{step.step}</div>
-                      <div className="text-xs text-white/60 break-words">{step.description}</div>
-                    </motion.div>
-                    {index < dataFlow.length - 1 && (
-                      <ArrowRight className="w-5 h-5 md:w-6 md:h-6 text-altyr-purple-light flex-shrink-0 rotate-90 md:rotate-0 hidden md:block" />
-                    )}
-                  </React.Fragment>
-                ))}
-              </div>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              {dataFlow.map((step, index) => (
+                <React.Fragment key={index}>
+                  <motion.div
+                    className="glass-card rounded-xl p-5 text-center min-w-[140px]"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                  >
+                    <div className="text-sm font-medium text-white/90 mb-1">{step.step}</div>
+                    <div className="text-xs text-white/60">{step.description}</div>
+                  </motion.div>
+                  {index < dataFlow.length - 1 && (
+                    <ArrowRight className="w-6 h-6 text-altyr-purple-light flex-shrink-0 rotate-90 md:rotate-0" />
+                  )}
+                </React.Fragment>
+              ))}
             </div>
             
             {/* Reverse Flow Indicator */}

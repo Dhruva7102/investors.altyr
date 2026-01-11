@@ -9,7 +9,7 @@ const team = [
     bio: "Second-time founder and DevOps engineer, ex-Berkeley SkyDeck, experienced in building and operating scalable products. Full-Stack Developer."
   },
   {
-    name: "Solan",
+    name: "Solan Dennis",
     role: "Chief Strategy Officer",
     bio: "Top OnlyFans creator with direct experience of current platform pain points and deep relationships with high-earning creators and agencies."
   }
