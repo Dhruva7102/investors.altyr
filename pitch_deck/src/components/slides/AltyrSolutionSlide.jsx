@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { BarChart, Users, Zap, TrendingUp, Award, Star, Sparkles } from 'lucide-react';
+import { BarChart, Users, Zap, TrendingUp, Award, Star, Sparkles, ExternalLink } from 'lucide-react';
+import { SHOWCASE_URLS } from '@/config/showcaseUrls';
 
 export default function AltyrSolutionSlide() {
   return (
@@ -39,7 +40,7 @@ export default function AltyrSolutionSlide() {
             <h3 className="text-xl font-light text-white/90 tracking-wide mb-6 text-center">
               For creators:
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 mb-6">
               <li className="flex items-start gap-3">
                 <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30 flex-shrink-0">
                   <BarChart className="w-4 h-4 text-[#AC0064]" />
@@ -65,6 +66,15 @@ export default function AltyrSolutionSlide() {
                 <p className="text-sm text-white/70 font-light">Predictive guidance on what to post and when</p>
               </li>
             </ul>
+            <a 
+              href={SHOWCASE_URLS.crm}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#AC0064]/10 to-[#64109A]/10 border border-[#AC0064]/40 text-sm text-white/80 font-light hover:border-[#AC0064]/70 hover:bg-[#AC0064]/20 transition-all duration-300 group"
+            >
+              <span>See CRM showcase</span>
+              <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            </a>
           </motion.div>
 
           {/* For fans */}
@@ -77,7 +87,7 @@ export default function AltyrSolutionSlide() {
             <h3 className="text-xl font-light text-white/90 tracking-wide mb-6 text-center">
               For fans:
             </h3>
-            <ul className="space-y-4">
+            <ul className="space-y-4 mb-6">
               <li className="flex items-start gap-3">
                 <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30 flex-shrink-0">
                   <Award className="w-4 h-4 text-[#AC0064]" />
@@ -97,6 +107,15 @@ export default function AltyrSolutionSlide() {
                 <p className="text-sm text-white/70 font-light">Engagement that feels rewarding, not transactional</p>
               </li>
             </ul>
+            <a 
+              href={SHOWCASE_URLS.gamification}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-br from-[#AC0064]/10 to-[#64109A]/10 border border-[#AC0064]/40 text-sm text-white/80 font-light hover:border-[#AC0064]/70 hover:bg-[#AC0064]/20 transition-all duration-300 group"
+            >
+              <span>See gamification showcase</span>
+              <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+            </a>
           </motion.div>
         </div>
 

@@ -94,11 +94,7 @@ export default function ProblemSlide1() {
           transition={{ duration: 0.9, delay: 0.15 }}
         >
           <p>
-            Creator monetization is already a multi-billion-dollar, high-margin industry—but it is still being run on first-generation infrastructure.
-            That gap cannot persist.
-          </p>
-          <p className="text-white/75">
-            OnlyFans didn’t invent creator monetization. It proved it at scale. What’s speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.
+            Creator monetization is already a multi-billion-dollar, high-margin industry—but it is still being run on first-generation infrastructure. That gap cannot persist. OnlyFans didn't invent creator monetization. It proved it at scale. What's speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.
           </p>
         </motion.div>
 
