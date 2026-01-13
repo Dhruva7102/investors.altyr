@@ -59,7 +59,7 @@ export default function TractionSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight text-white/90 tracking-wide mb-3">
-            Building with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A]">Momentum</span>
+            Building with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Momentum</span>
           </h2>
           <p className="text-base text-white/60 font-light max-w-3xl mx-auto">
             Early traction demonstrates market validation and execution capability
@@ -99,7 +99,7 @@ export default function TractionSlide() {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                <div className="relative h-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-300">
+                <div className="relative h-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
                   {/* Icon */}
                   <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                     <IconComponent className="w-5 h-5 text-[#AC0064]" />

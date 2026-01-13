@@ -36,10 +36,10 @@ const slides = [
   TeamSlide,
   TractionSlide,
   RaiseSlide,
-  RevenueCalculatorSlide,
   V2DividendsSlide,
-  RisksSlide,
   ContactSlide,
+  RevenueCalculatorSlide,
+  RisksSlide,
 ];
 
 function App() {

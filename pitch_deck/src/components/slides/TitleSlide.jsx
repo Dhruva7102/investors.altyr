@@ -129,7 +129,7 @@ export default function TitleSlide() {
           transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <p className="text-white/80 text-lg font-light">
-            Raising <span className="text-white font-medium">$500,000</span> via SAFE
+            Raising <span className="text-white font-medium">$1,500,000</span> via SAFE
             <span className="text-white/60 text-base ml-2">• Friends & Family Round</span>
           </p>
         </motion.div>

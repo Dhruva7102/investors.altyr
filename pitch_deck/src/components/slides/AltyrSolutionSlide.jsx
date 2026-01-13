@@ -32,7 +32,7 @@ export default function AltyrSolutionSlide() {
         <div className="grid md:grid-cols-2 gap-8 mb-10">
           {/* For creators */}
           <motion.div
-            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]"
+            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
@@ -79,7 +79,7 @@ export default function AltyrSolutionSlide() {
 
           {/* For fans */}
           <motion.div
-            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]"
+            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
@@ -126,9 +126,9 @@ export default function AltyrSolutionSlide() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
         >
-          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
             <p className="text-base md:text-lg font-extralight text-white/80 leading-relaxed">
-              All tied together with a modern platform built for fast uploads, smooth mobile UX, white-glove onboarding, and seamless content migration.
+              All tied together with a <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A]">modern platform</span> built for fast uploads, smooth mobile UX, white-glove onboarding, and seamless content migration.
             </p>
           </div>
         </motion.div>
