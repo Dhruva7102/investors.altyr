@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Scale, Code, Target, MessageSquare, UserCheck } from 'lucide-react';
+import GamificationDailyRewardMockup from '@/components/product_mockups/GamificationDailyRewardMockup';
 
 const highlights = [
   {
@@ -113,6 +114,16 @@ export default function TractionSlide() {
             );
           })}
         </div>
+
+        {/* Light product UI tile */}
+        <motion.div
+          className="mt-8 max-w-xl mx-auto"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+        >
+          <GamificationDailyRewardMockup size="sm" />
+        </motion.div>
       </div>
     </section>
   );

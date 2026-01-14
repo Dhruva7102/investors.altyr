@@ -2,6 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { BarChart, Users, Zap, TrendingUp, Award, Star, Sparkles, ExternalLink } from 'lucide-react';
 import { SHOWCASE_URLS } from '@/config/showcaseUrls';
+import CrmQuickScanMockup from '@/components/product_mockups/CrmQuickScanMockup';
+import CrmChurnRiskMockup from '@/components/product_mockups/CrmChurnRiskMockup';
+import GamificationProfileMockup from '@/components/product_mockups/GamificationProfileMockup';
+import GamificationDailyRewardMockup from '@/components/product_mockups/GamificationDailyRewardMockup';
 
 export default function AltyrSolutionSlide() {
   return (
@@ -75,6 +79,12 @@ export default function AltyrSolutionSlide() {
               <span>See CRM showcase</span>
               <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
             </a>
+
+            {/* Product UI mockups (creators) */}
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <CrmQuickScanMockup size="sm" />
+              <CrmChurnRiskMockup size="sm" />
+            </div>
           </motion.div>
 
           {/* For fans */}
@@ -116,6 +126,12 @@ export default function AltyrSolutionSlide() {
               <span>See gamification showcase</span>
               <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
             </a>
+
+            {/* Product UI mockups (fans) */}
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <GamificationProfileMockup size="sm" compact />
+              <GamificationDailyRewardMockup size="sm" />
+            </div>
           </motion.div>
         </div>
 

@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Lightbulb, TrendingUp, Eye, Target } from 'lucide-react';
+import CrmChurnRiskMockup from '@/components/product_mockups/CrmChurnRiskMockup';
+import GamificationProfileMockup from '@/components/product_mockups/GamificationProfileMockup';
 
 export default function AltyrInsightSlide() {
   return (
@@ -13,6 +15,19 @@ export default function AltyrInsightSlide() {
           filter: 'blur(100px)',
         }}
       />
+
+      {/* Product UI collage (subtle, behind content) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden md:block"
+      >
+        <div className="absolute top-24 right-10 w-[520px] opacity-[0.18] blur-[0.2px] rotate-[2deg]">
+          <GamificationProfileMockup size="sm" compact />
+        </div>
+        <div className="absolute bottom-20 left-10 w-[620px] opacity-[0.14] blur-[0.4px] -rotate-[2deg]">
+          <CrmChurnRiskMockup size="sm" />
+        </div>
+      </div>
       
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         {/* Section label */}
