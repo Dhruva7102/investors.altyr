@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Target, Building2, Rocket } from 'lucide-react';
-import CrmAnalyticsMockup from '@/components/product_mockups/CrmAnalyticsMockup';
 
 const steps = [
   {
@@ -113,18 +112,6 @@ export default function GoToMarketSlide() {
             </motion.div>
           ))}
         </div>
-
-        {/* Light product UI tile */}
-        <motion.div
-          className="mt-8 max-w-4xl mx-auto"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-        >
-          <div className="opacity-95">
-            <CrmAnalyticsMockup size="sm" />
-          </div>
-        </motion.div>
       </div>
     </section>
   );
