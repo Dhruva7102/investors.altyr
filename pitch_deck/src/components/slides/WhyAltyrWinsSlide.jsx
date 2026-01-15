@@ -53,7 +53,7 @@ export default function WhyAltyrWinsSlide() {
         {/* Three key points */}
         <div className="grid md:grid-cols-3 gap-6 mb-10">
           <motion.div
-            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] text-center"
+            className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500 text-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -102,9 +102,9 @@ export default function WhyAltyrWinsSlide() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.5 }}
         >
-          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
             <p className="text-base md:text-lg font-extralight text-white/80 leading-relaxed">
-              Once a creator sees higher income with the same audience, switching stops being risky—<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] font-light">it becomes irresponsible</span>.
+              Once a creator sees higher income with the same audience, switching stops being risky—<span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A] font-light">it becomes irresponsible</span>.
             </p>
           </div>
         </motion.div>

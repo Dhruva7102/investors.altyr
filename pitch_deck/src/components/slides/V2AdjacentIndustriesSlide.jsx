@@ -102,7 +102,7 @@ function ExampleCard({ ex, index }) {
 
   return (
     <motion.div
-      className="relative rounded-2xl bg-white/[0.03] border border-white/[0.08] overflow-hidden"
+      className="relative rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500 overflow-hidden"
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.08 * index, ease: [0.25, 0.46, 0.45, 0.94] }}

@@ -93,15 +93,20 @@ export default function ContactSlide() {
           </div>
         </motion.div>
 
-        {/* Tagline */}
-        <motion.p
-          className="text-lg md:text-xl text-white/50 font-extralight italic mt-12"
+        {/* Thank You Message */}
+        <motion.div
+          className="mt-12 space-y-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.4 }}
         >
-          Let's build the future of creator monetization, together.
-        </motion.p>
+          <h2 className="text-3xl md:text-4xl font-extralight text-white/90 mb-4">
+            Thank You
+          </h2>
+          <p className="text-lg md:text-xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
+            Let's build the future of creator monetization, together.
+          </p>
+        </motion.div>
 
         {/* Footer note */}
         <motion.div

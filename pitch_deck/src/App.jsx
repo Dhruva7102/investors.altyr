@@ -12,7 +12,8 @@ import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationS
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 import AltyrInsightSlide from '@/components/slides/AltyrInsightSlide';
-import AltyrSolutionSlide from '@/components/slides/AltyrSolutionSlide';
+import ForCreatorsSlide from '@/components/slides/ForCreatorsSlide';
+import ForFansSlide from '@/components/slides/ForFansSlide';
 import WhyAltyrWinsSlide from '@/components/slides/WhyAltyrWinsSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
@@ -30,16 +31,17 @@ const slides = [
   ProblemSlide2,
   V2AdjacentIndustriesSlide,
   AltyrInsightSlide,
-  AltyrSolutionSlide,
+  ForCreatorsSlide,
+  ForFansSlide,
   WhyAltyrWinsSlide,
   GoToMarketSlide,
   TeamSlide,
   TractionSlide,
   RaiseSlide,
-  RevenueCalculatorSlide,
   V2DividendsSlide,
-  RisksSlide,
   ContactSlide,
+  RevenueCalculatorSlide,
+  RisksSlide,
 ];
 
 function App() {
