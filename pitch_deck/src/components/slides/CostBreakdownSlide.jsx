@@ -132,63 +132,24 @@ export default function CostBreakdownSlide() {
             Fixed Costs (Operating Expenses)
           </h3>
 
-          {/* Spreadsheet Table for Fixed Costs */}
-          <div className="mb-8 overflow-x-auto rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.05]">
-                  <th className="px-6 py-4 text-left font-light text-white/70">Cost Category</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Month 1</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Month 6</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Month 12</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Month 18</th>
-                  <th className="px-6 py-4 text-left font-light text-white/70">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fixedCosts.map((cost, index) => {
-                  const month6 = Math.round((cost.month1 + cost.month12) / 2);
-                  return (
-                    <tr key={index} className="border-b border-white/[0.06] hover:bg-white/[0.02] transition-colors">
-                      <td className="px-6 py-4 font-medium text-white/90">{cost.category}</td>
-                      <td className="px-6 py-4 text-right font-mono text-white/80">
-                        ${cost.month1.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-right font-mono text-white/80">
-                        ${month6.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-right font-mono text-white/80">
-                        ${cost.month12.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-right font-mono text-white/80">
-                        ${cost.month18.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-xs text-white/60">{cost.description}</td>
-                    </tr>
-                  );
-                })}
-                <tr className="border-t-2 border-[#AC0064]/30 bg-white/[0.05]">
-                  <td className="px-6 py-4 font-medium text-[#AC0064]">Total Fixed Costs</td>
-                  <td className="px-6 py-4 text-right font-mono font-medium text-white/90">
-                    ${totalMonth1.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 text-right font-mono font-medium text-white/90">
-                    ${Math.round((totalMonth1 + totalMonth12) / 2).toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 text-right font-mono font-medium text-white/90">
-                    ${totalMonth12.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4 text-right font-mono font-medium text-white/90">
-                    ${totalMonth18.toLocaleString()}
-                  </td>
-                  <td className="px-6 py-4"></td>
-                </tr>
-              </tbody>
-            </table>
+          {/* Bar Chart */}
+          <div className="flex justify-center mb-8">
+            <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+              <BarChart
+                data={chartData}
+                config={{
+                  width: 900,
+                  height: 400,
+                  orientation: 'vertical',
+                  showGrid: true,
+                  formatValue: (val) => `$${(val / 1000).toFixed(0)}k`,
+                }}
+              />
+            </div>
           </div>
 
-          {/* Fixed costs summary cards (optional, smaller) */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8" style={{ display: 'none' }}>
+          {/* Fixed costs table */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {fixedCosts.map((cost, index) => {
               const IconComponent = cost.icon;
               return (
@@ -250,6 +211,39 @@ export default function CostBreakdownSlide() {
               );
             })}
 
+            {/* Totals card */}
+            <motion.div
+              className="p-6 rounded-xl bg-gradient-to-br from-[#AC0064]/10 to-[#64109A]/10 border border-[#AC0064]/30 backdrop-blur-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.4 + fixedCosts.length * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
+            >
+              <h4 className="text-sm font-light text-[#AC0064] mb-4">Total Fixed Costs</h4>
+              <div className="space-y-2">
+                <div className="flex justify-between text-xs">
+                  <span className="text-white/50">Month 1</span>
+                  <span className="text-white/90 font-medium">
+                    ${totalMonth1.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-white/50">Month 12</span>
+                  <span className="text-white/90 font-medium">
+                    ${totalMonth12.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between text-xs">
+                  <span className="text-white/50">Month 18</span>
+                  <span className="text-white/90 font-medium">
+                    ${totalMonth18.toLocaleString()}
+                  </span>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
 

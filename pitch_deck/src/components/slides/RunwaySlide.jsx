@@ -119,7 +119,7 @@ export default function RunwaySlide() {
               ]}
               config={{
                 width: 900,
-                height: 300,
+                height: 400,
                 showGrid: true,
                 yAxisLabel: 'Cash Balance ($)',
                 xAxisLabel: 'Month',
@@ -127,49 +127,6 @@ export default function RunwaySlide() {
                 formatX: (val) => `M${val}`,
               }}
             />
-          </div>
-        </motion.div>
-
-        {/* Spreadsheet Table */}
-        <motion.div
-          className="max-w-6xl mx-auto mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-          <div className="overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/[0.08] bg-white/[0.05]">
-                  <th className="px-6 py-4 text-left font-light text-white/70">Month</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Cash Balance</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Monthly Burn</th>
-                  <th className="px-6 py-4 text-right font-light text-white/70">Cumulative Burn</th>
-                </tr>
-              </thead>
-              <tbody>
-                {runwayData.map((row, index) => {
-                  const previousCash = index > 0 ? runwayData[index - 1].cash : 1500000;
-                  const monthlyBurn = previousCash - row.cash;
-                  const cumulativeBurn = 1500000 - row.cash;
-                  
-                  return (
-                    <tr key={index} className="border-b border-white/[0.06] hover:bg-white/[0.02] transition-colors">
-                      <td className="px-6 py-4 font-medium text-white/90">{row.label}</td>
-                      <td className="px-6 py-4 text-right font-mono text-white/80">
-                        ${row.cash.toLocaleString()}
-                      </td>
-                      <td className="px-6 py-4 text-right font-mono text-red-400/80">
-                        {index > 0 ? `-$${monthlyBurn.toLocaleString()}` : '-'}
-                      </td>
-                      <td className="px-6 py-4 text-right font-mono text-white/60">
-                        ${cumulativeBurn.toLocaleString()}
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
           </div>
         </motion.div>
 

@@ -184,61 +184,103 @@ export default function FinancialProjectionsSlide() {
           <p className="text-sm text-white/60 font-light">{scenario.description}</p>
         </motion.div>
 
-        {/* Spreadsheet Table */}
+        {/* Charts */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            className="max-w-7xl mx-auto"
+            className="space-y-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="overflow-x-auto rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-white/[0.08] bg-white/[0.05]">
-                    <th className="px-4 py-3 text-left font-light text-white/70 sticky left-0 bg-white/[0.05]">Month</th>
-                    <th className="px-4 py-3 text-right font-light text-white/70">MAU</th>
-                    <th className="px-4 py-3 text-right font-light text-white/70">Net Revenue</th>
-                    <th className="px-4 py-3 text-right font-light text-white/70">Expenses</th>
-                    <th className="px-4 py-3 text-right font-light text-white/70">Net Burn</th>
-                    <th className="px-4 py-3 text-right font-light text-white/70">Cash Balance</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {scenario.users.map((userRow, index) => {
-                    const revenue = scenario.revenue[index].value;
-                    const expenses = scenario.expenses[index].value;
-                    const netBurn = expenses - revenue;
-                    const previousCash = index > 0 ? (1500000 - scenario.expenses.slice(0, index).reduce((sum, e) => sum + e.value, 0) + scenario.revenue.slice(0, index).reduce((sum, r) => sum + r.value, 0)) : 1500000;
-                    const cashBalance = previousCash - netBurn;
-                    
-                    return (
-                      <tr key={index} className="border-b border-white/[0.06] hover:bg-white/[0.02] transition-colors">
-                        <td className="px-4 py-3 font-medium text-white/90 sticky left-0 bg-white/[0.03]">
-                          Month {userRow.month}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-white/80">
-                          {userRow.value >= 1000 ? `${(userRow.value / 1000).toFixed(1)}k` : userRow.value.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-green-400/80">
-                          ${revenue >= 1000 ? `${(revenue / 1000).toFixed(0)}k` : revenue.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-red-400/80">
-                          ${expenses >= 1000 ? `${(expenses / 1000).toFixed(0)}k` : expenses.toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-white/70">
-                          {netBurn > 0 ? '-' : ''}${Math.abs(netBurn) >= 1000 ? `${(Math.abs(netBurn) / 1000).toFixed(0)}k` : Math.abs(netBurn).toLocaleString()}
-                        </td>
-                        <td className="px-4 py-3 text-right font-mono text-white/80">
-                          ${cashBalance >= 1000 ? `${(cashBalance / 1000).toFixed(0)}k` : cashBalance.toLocaleString()}
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+            {/* Users Growth */}
+            <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                  <Users className="w-5 h-5 text-[#AC0064]" />
+                </div>
+                <h3 className="text-lg font-light text-white/90">User Growth</h3>
+              </div>
+              <div className="flex justify-center">
+                <LineChart
+                  datasets={[
+                    {
+                      label: 'Monthly Active Users',
+                      data: usersData,
+                      color: scenario.color
+                    }
+                  ]}
+                  config={{
+                    width: 900,
+                    height: 300,
+                    showGrid: true,
+                    yAxisLabel: 'Users',
+                    xAxisLabel: 'Month',
+                    formatY: (val) => val >= 1000 ? `${(val / 1000).toFixed(1)}k` : val.toLocaleString(),
+                    formatX: (val) => `M${val}`,
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Revenue & Expenses */}
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Revenue */}
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                    <DollarSign className="w-5 h-5 text-[#AC0064]" />
+                  </div>
+                  <h3 className="text-lg font-light text-white/90">Monthly Revenue (Net)</h3>
+                </div>
+                <div className="flex justify-center">
+                  <LineChart
+                    datasets={[
+                      {
+                        label: 'Net Revenue',
+                        data: revenueData,
+                        color: '#34D399'
+                      }
+                    ]}
+                    config={{
+                      width: 400,
+                      height: 250,
+                      showGrid: true,
+                      formatY: (val) => `$${(val / 1000).toFixed(0)}k`,
+                      formatX: (val) => `M${val}`,
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Expenses */}
+              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                    <TrendingDown className="w-5 h-5 text-[#AC0064]" />
+                  </div>
+                  <h3 className="text-lg font-light text-white/90">Monthly Expenses (Burn)</h3>
+                </div>
+                <div className="flex justify-center">
+                  <LineChart
+                    datasets={[
+                      {
+                        label: 'Monthly Burn',
+                        data: expensesData,
+                        color: '#EF4444'
+                      }
+                    ]}
+                    config={{
+                      width: 400,
+                      height: 250,
+                      showGrid: true,
+                      formatY: (val) => `$${(val / 1000).toFixed(0)}k`,
+                      formatX: (val) => `M${val}`,
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </motion.div>
         </AnimatePresence>
