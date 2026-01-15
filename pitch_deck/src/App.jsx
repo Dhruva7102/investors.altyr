@@ -12,8 +12,7 @@ import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationS
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 import AltyrInsightSlide from '@/components/slides/AltyrInsightSlide';
-import ForCreatorsSlide from '@/components/slides/ForCreatorsSlide';
-import ForFansSlide from '@/components/slides/ForFansSlide';
+import AltyrSolutionSlide from '@/components/slides/AltyrSolutionSlide';
 import WhyAltyrWinsSlide from '@/components/slides/WhyAltyrWinsSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
 import TeamSlide from '@/components/slides/TeamSlide';
@@ -23,6 +22,10 @@ import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
 import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
+import RunwaySlide from '@/components/slides/RunwaySlide';
+import FinancialProjectionsSlide from '@/components/slides/FinancialProjectionsSlide';
+import UnitEconomicsSlide from '@/components/slides/UnitEconomicsSlide';
+import CostBreakdownSlide from '@/components/slides/CostBreakdownSlide';
 
 const slides = [
   TitleSlide,
@@ -31,8 +34,7 @@ const slides = [
   ProblemSlide2,
   V2AdjacentIndustriesSlide,
   AltyrInsightSlide,
-  ForCreatorsSlide,
-  ForFansSlide,
+  AltyrSolutionSlide,
   WhyAltyrWinsSlide,
   GoToMarketSlide,
   TeamSlide,
@@ -40,6 +42,10 @@ const slides = [
   RaiseSlide,
   V2DividendsSlide,
   ContactSlide,
+  RunwaySlide,
+  FinancialProjectionsSlide,
+  UnitEconomicsSlide,
+  CostBreakdownSlide,
   RevenueCalculatorSlide,
   RisksSlide,
 ];
