@@ -109,7 +109,7 @@ export default function AudienceSplit() {
                 </ul>
                 
                 <div className="mt-10">
-                <Link to={createPageUrl('CreatorSignup')}>
+                <Link to="/demo/creators">
                   <Button className="group px-7 py-5 text-sm font-medium bg-[#B56A00] hover:bg-[#C97A00] text-white border-0 rounded-full transition-all duration-500 hover:shadow-[0_0_40px_rgba(181,106,0,0.3)] hover:scale-[1.02]">
                     Sign Up as a Creator
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-300" />
@@ -149,7 +149,7 @@ export default function AudienceSplit() {
                 </ul>
                 
                 <div className="mt-10">
-                <Link to={createPageUrl('FanSignup')}>
+                <Link to="/demo/fans">
                   <Button className="group px-7 py-5 text-sm font-medium bg-[#AC0064] hover:bg-[#C0007A] text-white border-0 rounded-full transition-all duration-500 hover:shadow-[0_0_40px_rgba(172,0,100,0.3)] hover:scale-[1.02]">
                     Sign Up as a Fan
                     <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform duration-300" />

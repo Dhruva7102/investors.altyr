@@ -130,7 +130,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <Link to={createPageUrl('CreatorSignup')}>
+          <Link to="/demo/creators">
             <Button
               className="group w-52 justify-center px-8 py-6 text-[15px] font-medium bg-gradient-to-r from-[#D4740C] to-[#B56A00] hover:from-[#E8840C] hover:to-[#C97A00] text-white border-0 rounded-full transition-all duration-500 hover:shadow-[0_0_60px_rgba(212,116,12,0.4)] hover:scale-[1.02]"
             >
@@ -139,7 +139,7 @@ export default function Hero() {
             </Button>
           </Link>
           
-          <Link to={createPageUrl('FanSignup')}>
+          <Link to="/demo/fans">
             <Button
               className="group w-52 justify-center px-8 py-6 text-[15px] font-medium bg-white/[0.06] hover:bg-white/[0.1] text-white/90 border border-white/[0.12] hover:border-white/[0.2] rounded-full transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] hover:scale-[1.02] backdrop-blur-sm"
             >

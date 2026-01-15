@@ -10,6 +10,9 @@ import Privacy from "./Privacy";
 
 import Terms from "./Terms";
 
+import CreatorDemo from "./CreatorDemo";
+import FanDemo from "./FanDemo";
+
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 const PAGES = {
@@ -19,6 +22,10 @@ const PAGES = {
     CreatorSignup: CreatorSignup,
     
     FanSignup: FanSignup,
+    
+    CreatorDemo: CreatorDemo,
+    
+    FanDemo: FanDemo,
     
     Privacy: Privacy,
     
@@ -57,6 +64,10 @@ function PagesContent() {
                 
                 <Route path="/FanSignup" element={<FanSignup />} />
                 
+                <Route path="/demo/creators/*" element={<CreatorDemo />} />
+
+                <Route path="/demo/fans/*" element={<FanDemo />} />
+
                 <Route path="/Privacy" element={<Privacy />} />
                 
                 <Route path="/Terms" element={<Terms />} />
