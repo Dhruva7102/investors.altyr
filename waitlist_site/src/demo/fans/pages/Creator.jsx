@@ -1,10 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Crown, Gift, Sparkles, Ticket, ArrowRight } from 'lucide-react'
+import { Crown, Gift, Sparkles, Ticket, ArrowRight, ShoppingBag } from 'lucide-react'
+import { useLocation } from 'react-router-dom'
 import { GlassCard, IconContainer, StatusBadge } from '@/components/shared'
 import { demoCreator, demoOffers, demoStoreItems } from '@/data/mockFanLoop'
+import { demoCreatorStore } from '@/data/mockCreatorStore'
+import { useDemoState } from '@/components/demo/DemoState'
 
 export default function FanCreator() {
+  const location = useLocation()
+  const { pushToast } = useDemoState()
+
+  useEffect(() => {
+    if (location.hash !== '#store') return
+    const t = setTimeout(() => {
+      document.getElementById('store')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }, 50)
+    return () => clearTimeout(t)
+  }, [location.hash])
+
   return (
     <div className="space-y-6">
       <GlassCard className="overflow-hidden" padding="p-0">
@@ -26,7 +40,7 @@ export default function FanCreator() {
             </div>
             <button className="px-4 py-2 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white text-sm font-medium hover:opacity-90 transition-opacity flex items-center gap-2">
               <Crown className="w-4 h-4" />
-              Upgrade (demo)
+              Upgrade
             </button>
           </div>
 
@@ -44,6 +58,47 @@ export default function FanCreator() {
               />
             </div>
           </div>
+        </div>
+      </GlassCard>
+
+      <GlassCard padding="p-0">
+        <div id="store" className="p-6 border-b border-white/[0.08] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <IconContainer icon={ShoppingBag} size="sm" variant="warning" />
+            <div>
+              <h3 className="text-lg font-light text-white/90">Store</h3>
+              <p className="text-xs text-white/50">Browse content and buy instantly</p>
+            </div>
+          </div>
+        </div>
+        <div className="p-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {demoCreatorStore.map((item) => (
+            <div key={item.id} className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:bg-white/[0.03] transition-colors">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-medium text-white/90">{item.title}</p>
+                  <p className="text-xs text-white/50 mt-1">{item.description}</p>
+                </div>
+                <span className="flex-shrink-0 text-[10px] px-2 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-white/55">
+                  {item.tag}
+                </span>
+              </div>
+
+              <div className="mt-3 flex items-center justify-between">
+                <span className="text-[10px] text-white/40">{item.type}</span>
+                <span className="text-sm text-gradient font-medium">${item.priceUsd}</span>
+              </div>
+
+              <button
+                onClick={() => {
+                  pushToast({ title: 'Purchased', message: `${item.title} (+$${item.priceUsd})`, tone: 'success' })
+                }}
+                className="mt-3 w-full px-3 py-2 rounded-xl bg-gradient-to-r from-altyr-magenta/25 to-altyr-purple/15 border border-white/[0.12] text-xs text-white/85 hover:bg-white/[0.06] transition-colors"
+              >
+                Buy now
+              </button>
+            </div>
+          ))}
         </div>
       </GlassCard>
 
@@ -88,8 +143,13 @@ export default function FanCreator() {
                   </div>
                   <div className="text-right">
                     <p className="text-sm text-gradient font-medium">${offer.price}</p>
-                    <button className="mt-2 px-3 py-1.5 rounded-lg bg-altyr-magenta/20 border border-altyr-magenta/30 text-altyr-magenta text-xs hover:bg-altyr-magenta/25">
-                      Buy (demo)
+                    <button
+                      onClick={() => {
+                        pushToast({ title: 'Purchased', message: `${offer.title} (+$${offer.price})`, tone: 'success' })
+                      }}
+                      className="mt-2 px-3 py-1.5 rounded-lg bg-altyr-magenta/20 border border-altyr-magenta/30 text-altyr-magenta text-xs hover:bg-altyr-magenta/25"
+                    >
+                      Buy
                     </button>
                   </div>
                 </div>
@@ -119,7 +179,7 @@ export default function FanCreator() {
                 <span className="text-sm text-gradient font-medium">{item.price} pts</span>
               </div>
               <button className="mt-3 w-full px-3 py-2 rounded-lg glass-card hover:bg-white/[0.05] text-xs text-white/70">
-                Redeem (demo)
+                Redeem
               </button>
             </div>
           ))}

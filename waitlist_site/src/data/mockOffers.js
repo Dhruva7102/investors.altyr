@@ -66,7 +66,7 @@ export const offers = [
     name: 'Custom Content Flash Sale',
     type: 'Custom',
     status: 'completed',
-    targetSegment: 'Whales',
+    targetSegment: 'Superfans',
     startDate: '2024-12-20',
     endDate: '2024-12-25',
     price: 150,

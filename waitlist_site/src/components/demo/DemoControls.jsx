@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ChevronDown, ChevronUp, ArrowUpRight, ArrowUp, Users, User } from 'lucide-react'
+import { ChevronDown, ChevronUp, ArrowUpRight, ArrowUp, Users, User, Sparkles } from 'lucide-react'
+import { useDemoState } from '@/components/demo/DemoState'
+import DemoTourOverlay from '@/components/demo/DemoTourOverlay'
 
 const creatorLinks = [
   { label: 'Dashboard', to: '/demo/creators/dashboard' },
@@ -21,6 +23,7 @@ const fanLinks = [
 export default function DemoControls({ mode = 'auto' }) {
   const location = useLocation()
   const navigate = useNavigate()
+  const { setTour, pushToast } = useDemoState()
 
   const inferredMode = useMemo(() => {
     if (mode !== 'auto') return mode
@@ -32,6 +35,70 @@ export default function DemoControls({ mode = 'auto' }) {
   const links = inferredMode === 'creator' ? creatorLinks : fanLinks
 
   const [open, setOpen] = useState(true)
+
+  const tourSteps = useMemo(() => {
+    if (inferredMode === 'creator') {
+      return [
+        {
+          to: '/demo/creators/dashboard',
+          title: 'Start with signals and opportunities',
+          body: 'This is the “what to do today” view: at-risk fans, conversion windows, and repeat spend moments.',
+          hint: 'Click any action in Today’s Opportunities to see an outcome toast.',
+        },
+        {
+          to: '/demo/creators/fan-crm',
+          title: 'Fan CRM: see the relationship at a glance',
+          body: 'Segment fans by relationship strength and spot who needs attention right now.',
+          toast: { title: 'CRM lens applied', message: 'Filtered to high-signal fans.', tone: 'neutral' },
+        },
+        {
+          to: '/demo/creators/messaging',
+          title: 'Messaging: convert warmth into revenue',
+          body: 'Send timely messages and offers based on signals—without guessing.',
+          toast: { title: 'Offer sent', message: 'Limited-time offer queued (+$35)', tone: 'success' },
+        },
+        {
+          to: '/demo/creators/gamification',
+          title: 'Gamification: keep fans coming back',
+          body: 'Progression, quests, and perks increase engagement—and make spending feel fun.',
+          toast: { title: 'Milestone unlocked', message: 'VIP tier moment created (+1 VIP)', tone: 'success' },
+        },
+        {
+          to: '/demo/creators/revenue',
+          title: 'Revenue: see outcomes and attribution',
+          body: 'Track what worked and double down on the loops that drive repeat spend.',
+          toast: { title: 'Revenue attributed', message: 'Repeat spend loop +$75', tone: 'success' },
+        },
+      ]
+    }
+
+    return [
+      {
+        to: '/demo/fans/home',
+        title: 'Home: your loop in one glance',
+        body: 'Quests and streaks create habit. Points turn engagement into perks.',
+        hint: 'Click a quest to “complete” it and feel the progression.',
+      },
+      {
+        to: '/demo/fans/rewards',
+        title: 'Rewards: badges and level-ups',
+        body: 'Status makes fans feel seen, while giving creators a lever for upgrades.',
+        toast: { title: 'Status moment', message: 'VIP moment created (+1 VIP)', tone: 'success' },
+      },
+      {
+        to: '/demo/fans/creator#store',
+        title: 'Creator store: buy content and perks',
+        body: 'Fans can browse content and purchase directly—plus redeem perks that change their experience.',
+        toast: { title: 'Purchased', message: 'Content purchased (+$29)', tone: 'success' },
+      },
+      {
+        to: '/demo/fans/messages',
+        title: 'Messages: the relationship layer',
+        body: 'Perks and status change messaging priority and access.',
+        toast: { title: 'Message sent', message: 'Reply queued (+1)', tone: 'neutral' },
+      },
+    ]
+  }, [inferredMode])
 
   return (
     <div className="fixed bottom-5 right-5 z-50">
@@ -47,6 +114,7 @@ export default function DemoControls({ mode = 'auto' }) {
             <div className="text-left">
               <p className="text-xs text-white/70">Demo Controls</p>
               <p className="text-sm text-white/90">{inferredMode === 'creator' ? 'Creator' : 'Fan'} view</p>
+              <p className="text-[10px] text-white/40">Interactive preview (simulated)</p>
             </div>
           </div>
           {open ? <ChevronDown className="w-4 h-4 text-white/60" /> : <ChevronUp className="w-4 h-4 text-white/60" />}
@@ -54,6 +122,25 @@ export default function DemoControls({ mode = 'auto' }) {
 
         {open && (
           <div className="p-4 space-y-4">
+            <div className="space-y-2">
+              <p className="text-[10px] uppercase tracking-wider text-white/40">Guided tour</p>
+              <button
+                onClick={() => {
+                  setTour({ active: true, stepIndex: 0 })
+                  const first = tourSteps[0]
+                  if (first?.to) navigate(first.to)
+                  pushToast({ title: 'Tour started', message: 'Use Next/Prev to move through the loop.', tone: 'neutral' })
+                }}
+                className="w-full px-3 py-2 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white text-xs font-medium hover:opacity-90 transition-opacity flex items-center justify-between"
+              >
+                <span className="flex items-center gap-2">
+                  <Sparkles className="w-4 h-4" />
+                  Start 45s tour
+                </span>
+                <ArrowUpRight className="w-4 h-4 text-white/90" />
+              </button>
+            </div>
+
             <div className="space-y-2">
               <p className="text-[10px] uppercase tracking-wider text-white/40">Quick jump</p>
               <div className="flex flex-wrap gap-2">
@@ -93,6 +180,8 @@ export default function DemoControls({ mode = 'auto' }) {
           </div>
         )}
       </div>
+
+      <DemoTourOverlay mode={inferredMode} steps={tourSteps} />
     </div>
   )
 }

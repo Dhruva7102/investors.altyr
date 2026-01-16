@@ -2,8 +2,8 @@
 
 export const segments = [
   {
-    id: 'whales',
-    name: 'Whales',
+    id: 'superfans',
+    name: 'Superfans',
     description: 'Top 1-5% of fans by lifetime value',
     count: 7,
     percentageOfTotal: 5,
@@ -28,7 +28,7 @@ export const segments = [
     revenuePercentage: 20.2,
     avgLTV: 1890,
     avgConnectionScore: 72,
-    characteristics: ['Consistent subscribers', 'Regular tippers', 'Moderate engagement', 'Potential to become whales'],
+    characteristics: ['Consistent subscribers', 'Regular tippers', 'Moderate engagement', 'Potential to become superfans'],
     recommendedActions: ['Nurture with regular communication', 'Offer VIP upgrade paths', 'Create exclusive tier benefits', 'Recognize loyalty milestones'],
     color: '#A855F7',
     bgColor: 'bg-status-vip/20',
@@ -76,7 +76,7 @@ export const getSegmentById = (id) => segments.find((seg) => seg.id === id)
 
 // Get segment for a fan based on their LTV
 export const getSegmentForFan = (ltv) => {
-  if (ltv >= 4000) return segments[0] // Whales
+  if (ltv >= 4000) return segments[0] // Superfans
   if (ltv >= 1500) return segments[1] // Core Supporters
   if (ltv >= 400) return segments[2] // Regulars
   return segments[3] // Casuals

@@ -1,0 +1,51 @@
+export const demoCreatorStore = [
+  {
+    id: 'c-1',
+    type: 'Clip',
+    title: 'BTS Clip Pack',
+    description: 'Behind-the-scenes moments from the latest shoot.',
+    priceUsd: 29,
+    tag: 'New',
+  },
+  {
+    id: 'c-2',
+    type: 'Photo Set',
+    title: 'Founders-Only Set',
+    description: 'A premium 18-photo set with commentary.',
+    priceUsd: 49,
+    tag: 'Limited',
+  },
+  {
+    id: 'c-3',
+    type: 'Voice Note',
+    title: 'Personal Voice Note',
+    description: 'A short personalized voice note (demo purchase).',
+    priceUsd: 15,
+    tag: 'Popular',
+  },
+  {
+    id: 'c-4',
+    type: 'Live Drop',
+    title: 'Early Access Drop',
+    description: 'Unlock early access to the next limited bundle.',
+    priceUsd: 25,
+    tag: 'VIP',
+  },
+  {
+    id: 'c-5',
+    type: 'Bundle',
+    title: 'Collector Bundle',
+    description: 'Clip pack + photo set + bonus surprise.',
+    priceUsd: 79,
+    tag: 'Best value',
+  },
+  {
+    id: 'c-6',
+    type: 'Tip',
+    title: 'Send a Tip',
+    description: 'Support the creator instantly.',
+    priceUsd: 10,
+    tag: 'Instant',
+  },
+]
+

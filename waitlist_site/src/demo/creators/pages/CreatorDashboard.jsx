@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { PageHeader } from '@/components/layout'
-import { RevenueOverview, TopFansModule, AlertsModule, QuickActions } from '@/components/dashboard'
+import { OpportunitiesModule, RevenueOverview, TopFansModule, AlertsModule, QuickActions } from '@/components/dashboard'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -31,6 +31,10 @@ export default function CreatorDashboard() {
         title="Welcome back, Creator"
         subtitle="Here's your relationship intelligence at a glance. Focus on your top fans—they drive 90% of your revenue."
       />
+
+      <motion.section variants={itemVariants}>
+        <OpportunitiesModule />
+      </motion.section>
 
       <motion.section variants={itemVariants}>
         <h2 className="text-lg font-light text-white/70 mb-4">Revenue Overview</h2>

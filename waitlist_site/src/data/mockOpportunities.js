@@ -1,0 +1,43 @@
+export const opportunities = [
+  {
+    id: 'opp_churn_quinn',
+    type: 'churn',
+    title: 'High-value fan at risk',
+    fanName: 'Quinn D.',
+    summary: 'No interaction in 8 days. Engagement declining rapidly.',
+    why: ['8 days since last message', '3 drops viewed with no reply', 'Tip frequency down 60%'],
+    actionLabel: 'Send re-engagement DM',
+    toast: { title: 'Retention play sent', message: 'Re-engagement DM queued for Quinn D. (+$120 churn saved)', tone: 'success' },
+  },
+  {
+    id: 'opp_vip_casey',
+    type: 'vip',
+    title: 'VIP conversion window',
+    fanName: 'Casey L.',
+    summary: 'High warmth + high spend. Perfect moment to upgrade.',
+    why: ['4 messages this week', '2 purchases in last 48h', 'Viewed “VIP perks” twice'],
+    actionLabel: 'Offer VIP upgrade',
+    toast: { title: 'VIP offer sent', message: 'Upgrade offer delivered to Casey L. (+1 VIP)', tone: 'success' },
+  },
+  {
+    id: 'opp_winback_drew',
+    type: 'winback',
+    title: 'Win-back opportunity',
+    fanName: 'Drew C.',
+    summary: 'Subscription lapsed 5 days ago. High chance to return.',
+    why: ['Churned 5 days ago', 'Previously weekly buyer', 'Responds well to limited offers'],
+    actionLabel: 'Send limited-time offer',
+    toast: { title: 'Win-back launched', message: 'Limited-time offer sent to Drew C. (+$35)', tone: 'success' },
+  },
+  {
+    id: 'opp_repeat_marcus',
+    type: 'repeat',
+    title: 'Drive repeat spend',
+    fanName: 'Marcus W.',
+    summary: 'Re-engaged today with a $50 tip. Strike while warm.',
+    why: ['Tipped $50 today', 'Replied to latest drop', 'Opens DMs within 10 minutes'],
+    actionLabel: 'Send exclusive add-on',
+    toast: { title: 'Add-on sent', message: 'Exclusive add-on offer sent to Marcus W. (+$75)', tone: 'success' },
+  },
+]
+

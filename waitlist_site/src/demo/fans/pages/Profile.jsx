@@ -126,7 +126,7 @@ export default function FanProfile() {
 
       <div className="flex justify-end">
         <button className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white text-sm font-medium hover:opacity-90 transition-opacity">
-          Save (demo)
+          Save
         </button>
       </div>
     </div>

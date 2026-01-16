@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Zap, Sparkles, Trophy, Gift, CheckCircle2 } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { demoFanProfile, currentStreak } from '@/data/mockGamification'
@@ -29,7 +30,12 @@ export default function FanHome() {
             <div>
               <p className="text-sm text-white/50">Your status</p>
               <p className="text-xl font-light text-white/90">Level {demoFanProfile.level} • {demoCreator.tier}</p>
-              <p className="text-xs text-white/40">{demoCreator.name} • {demoCreator.tagline}</p>
+              <p className="text-xs text-white/40">
+                <Link to="/demo/fans/creator#store" className="text-white/70 hover:text-white/90 underline underline-offset-4">
+                  {demoCreator.name}
+                </Link>
+                <span> • {demoCreator.tagline}</span>
+              </p>
             </div>
           </div>
 
@@ -149,7 +155,7 @@ export default function FanHome() {
               </div>
             </div>
             <button className="w-full px-4 py-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white text-sm font-medium hover:opacity-90 transition-opacity">
-              Redeem (demo)
+              Redeem
             </button>
             <p className="text-[10px] text-white/35">
               In production, this would mint a perk token and change your messaging priority.

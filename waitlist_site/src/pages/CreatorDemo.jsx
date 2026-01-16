@@ -2,13 +2,16 @@ import React from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
 import { createPageUrl } from '@/utils'
 import CreatorApp from '@/demo/creators/CreatorApp'
+import { DemoStateProvider } from '@/components/demo/DemoState'
+import DemoToasts from '@/components/demo/DemoToasts'
+import DemoPrimaryCta from '@/components/demo/DemoPrimaryCta'
 
 const DEMO_TOPBAR_OFFSET = 72
 
-function DemoTopBar({ title, subtitle }) {
+function DemoTopBar({ title }) {
   return (
     <div className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#18021A]/70 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-3 items-center gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#AC0064] to-[#64109A] flex items-center justify-center">
@@ -16,22 +19,22 @@ function DemoTopBar({ title, subtitle }) {
             </div>
             <div className="min-w-0">
               <p className="text-sm text-white/90 font-light truncate">{title}</p>
-              <p className="text-xs text-white/40 truncate">{subtitle}</p>
             </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+
+        <div className="flex items-center justify-center">
+          <DemoPrimaryCta to={createPageUrl('CreatorSignup')} tone="amber">
+            Join as Creator
+          </DemoPrimaryCta>
+        </div>
+
+        <div className="flex items-center justify-end">
           <Link
             to="/"
             className="px-3 py-2 rounded-lg text-sm text-white/60 hover:text-white/85 hover:bg-white/[0.04] transition-colors"
           >
             Back to ALTYR
-          </Link>
-          <Link
-            to={createPageUrl('CreatorSignup')}
-            className="px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#D4740C] to-[#B56A00] hover:opacity-90 transition-opacity text-white"
-          >
-            Join waitlist
           </Link>
         </div>
       </div>
@@ -41,8 +44,9 @@ function DemoTopBar({ title, subtitle }) {
 
 function CreatorDemoShell({ children }) {
   return (
-    <div className="demo-root min-h-screen bg-[#18021A] text-white">
-      <DemoTopBar title="Creator Demo" subtitle="Clickable sandbox of the ALTYR creator operating system" />
+    <DemoStateProvider>
+      <div className="demo-root min-h-screen bg-[#18021A] text-white">
+      <DemoTopBar title="Creator Demo" />
 
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
         <div
@@ -55,8 +59,10 @@ function CreatorDemoShell({ children }) {
         />
       </div>
 
-      {children}
-    </div>
+        {children}
+        <DemoToasts />
+      </div>
+    </DemoStateProvider>
   )
 }
 

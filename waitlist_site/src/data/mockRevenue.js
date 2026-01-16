@@ -14,8 +14,8 @@ export const revenueMetrics = {
   ltvTrend: 'up',
 
   // This is the key metric - top 10% = 90% of revenue
-  whalePercentage: 91,
-  whaleRevenue: 11329,
+  superfanPercentage: 91,
+  superfanRevenue: 11329,
 
   totalFans: 140,
   activeFans: 124,
@@ -34,8 +34,8 @@ export const revenueMetrics = {
 
 // Revenue by segment - demonstrating concentration
 export const revenueBySegment = {
-  whales: {
-    name: 'Whales',
+  superfans: {
+    name: 'Superfans',
     description: 'Top 1-5% of fans',
     count: 7,
     percentage: 5,

@@ -83,7 +83,7 @@ export const alerts = [
     severity: 'low',
     fanId: 'fan-001',
     fanName: 'Marcus W.',
-    title: 'Whale re-engaged',
+    title: 'Superfan re-engaged',
     description: 'Top fan active again with $50 tip today.',
     suggestedAction: 'Send thank you message',
     timestamp: '2025-01-13T12:15:00',
