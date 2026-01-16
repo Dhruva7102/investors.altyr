@@ -2,6 +2,7 @@ import React from 'react'
 import { Sparkles, ArrowRight, MessageSquare, Gift, Award, RefreshCw } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { getSuggestedActions } from '@/data/mockInteractions'
+import { trackEvent } from '@/lib/mixpanel'
 
 const actionIcons = {
   'Send voice note': MessageSquare,
@@ -53,6 +54,14 @@ export default function SuggestedActions({ fanId }) {
           return (
             <div key={action.id} className="group">
               <div
+                onClick={() => {
+                  trackEvent('Suggested Action Clicked', {
+                    action: action.action,
+                    priority: action.priority,
+                    fan_id: fanId,
+                    demo_type: 'creator',
+                  })
+                }}
                 className={`
                   p-4 rounded-xl
                   bg-gradient-to-r ${getPriorityColor(action.priority)} bg-opacity-10
@@ -89,7 +98,15 @@ export default function SuggestedActions({ fanId }) {
 
       {/* Footer */}
       <div className="p-4 border-t border-white/[0.08] bg-white/[0.02]">
-        <button className="w-full py-2 text-sm text-altyr-magenta hover:text-altyr-purple-light transition-colors flex items-center justify-center gap-2">
+        <button
+          onClick={() => {
+            trackEvent('Suggested Actions Refreshed', {
+              fan_id: fanId,
+              demo_type: 'creator',
+            })
+          }}
+          className="w-full py-2 text-sm text-altyr-magenta hover:text-altyr-purple-light transition-colors flex items-center justify-center gap-2"
+        >
           <RefreshCw className="w-4 h-4" />
           Refresh suggestions
         </button>

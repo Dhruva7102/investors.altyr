@@ -1,12 +1,19 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Zap, Sparkles, Trophy, Gift, CheckCircle2 } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { demoFanProfile, currentStreak } from '@/data/mockGamification'
 import { demoCreator, demoQuests, demoStoreItems } from '@/data/mockFanLoop'
+import { trackPageView } from '@/lib/mixpanel'
 
 export default function FanHome() {
   const [completed, setCompleted] = useState(() => new Set())
+
+  useEffect(() => {
+    trackPageView('Fan Home', {
+      demo_type: 'fan',
+    })
+  }, [])
 
   const completedCount = completed.size
   const totalCount = demoQuests.length
@@ -99,11 +106,19 @@ export default function FanHome() {
                     ${isDone ? 'bg-white/[0.03] border-white/[0.10]' : 'bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.04]'}
                   `}
                   onClick={() => {
+                    const wasCompleted = completed.has(q.id)
                     setCompleted((prev) => {
                       const next = new Set(prev)
                       if (next.has(q.id)) next.delete(q.id)
                       else next.add(q.id)
                       return next
+                    })
+                    trackEvent('Quest Toggled', {
+                      quest_id: q.id,
+                      quest_title: q.title,
+                      quest_category: q.category,
+                      is_completed: !wasCompleted,
+                      demo_type: 'fan',
                     })
                   }}
                 >

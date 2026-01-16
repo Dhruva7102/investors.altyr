@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/mixpanel'
 import { Crown, Gift, Sparkles, Ticket, ArrowRight } from 'lucide-react'
 import { GlassCard, IconContainer, StatusBadge } from '@/components/shared'
 import { demoCreator, demoOffers, demoStoreItems } from '@/data/mockFanLoop'
 
 export default function FanCreator() {
+  useEffect(() => {
+    trackPageView('Fan Creator', {
+      demo_type: 'fan',
+    })
+  }, [])
+
   return (
     <div className="space-y-6">
       <GlassCard className="overflow-hidden" padding="p-0">

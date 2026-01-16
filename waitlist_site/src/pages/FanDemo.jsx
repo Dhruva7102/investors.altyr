@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, NavLink, Route, Routes, Navigate } from 'react-router-dom'
 import { createPageUrl } from '@/utils'
 import FanHome from '@/demo/fans/pages/Home'
@@ -7,6 +7,7 @@ import FanCreator from '@/demo/fans/pages/Creator'
 import FanMessages from '@/demo/fans/pages/Messages'
 import FanProfile from '@/demo/fans/pages/Profile'
 import DemoControls from '@/components/demo/DemoControls'
+import { trackEvent } from '@/lib/mixpanel'
 
 function DemoTopBar({ title, subtitle }) {
   return (
@@ -26,12 +27,24 @@ function DemoTopBar({ title, subtitle }) {
         <div className="flex items-center gap-2">
           <Link
             to="/"
+            onClick={() => {
+              trackEvent('Demo Exited', {
+                demo_type: 'fan',
+                exit_point: 'back_to_home',
+              })
+            }}
             className="px-3 py-2 rounded-lg text-sm text-white/60 hover:text-white/85 hover:bg-white/[0.04] transition-colors"
           >
             Back to ALTYR
           </Link>
           <Link
             to={createPageUrl('FanSignup')}
+            onClick={() => {
+              trackEvent('Join Waitlist Clicked', {
+                demo_type: 'fan',
+                source: 'demo_topbar',
+              })
+            }}
             className="px-4 py-2 rounded-full text-sm font-medium bg-gradient-to-r from-[#AC0064] to-[#64109A] hover:opacity-90 transition-opacity text-white"
           >
             Join waitlist
@@ -64,6 +77,14 @@ function FanDemoShell({ children }) {
                 <NavLink
                   key={item.to}
                   to={item.to}
+                  onClick={() => {
+                    trackEvent('Navigation Clicked', {
+                      navigation_type: 'fan_tab',
+                      target: item.to,
+                      label: item.label,
+                      demo_type: 'fan',
+                    })
+                  }}
                   className={({ isActive }) =>
                     [
                       'px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all',
@@ -100,6 +121,13 @@ function FanDemoShell({ children }) {
 }
 
 export default function FanDemo() {
+  useEffect(() => {
+    trackEvent('Demo Started', {
+      demo_type: 'fan',
+      entry_point: 'route',
+    })
+  }, [])
+
   return (
     <Routes>
       <Route path="/" element={<Navigate to="home" replace />} />

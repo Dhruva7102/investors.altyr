@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2, Gift } from 'lucide-react';
 import { storeWaitlistEmail } from '@/api/airtable';
+import { identifyUser, trackEvent } from '@/lib/mixpanel';
 
 export default function FanGiftSignup() {
   const [email, setEmail] = useState('');
@@ -19,6 +20,18 @@ export default function FanGiftSignup() {
     try {
       // Store to Airtable
       await storeWaitlistEmail({ email }, 'fan');
+      
+      // Identify user in Mixpanel
+      identifyUser(email, {
+        user_type: 'fan',
+      })
+      
+      // Track signup event
+      trackEvent('Waitlist Signup', {
+        user_type: 'fan',
+        has_email: true,
+        source: 'fan_gift_signup',
+      })
       
       setIsSubmitted(true);
     } catch (error) {

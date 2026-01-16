@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/mixpanel'
 import { Zap, Award, Calendar, Trophy, Eye, MessageSquare, CreditCard, Heart, Users, Star } from 'lucide-react'
 import { PageHeader } from '@/components/layout'
 import { GlassCard, IconContainer, StatusBadge } from '@/components/shared'
@@ -24,6 +25,12 @@ const rarityColors = {
 }
 
 export default function GamificationView() {
+  useEffect(() => {
+    trackPageView('Creator Gamification', {
+      demo_type: 'creator',
+    })
+  }, [])
+
   return (
     <div className="space-y-6">
       <PageHeader

@@ -1,4 +1,5 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
+import { trackPageView } from '@/lib/mixpanel'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Search, Send, Image, Smile, MoreVertical, Sparkles, Zap, Trophy } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
@@ -159,6 +160,12 @@ export default function FanMessages() {
   const [messageInput, setMessageInput] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
 
+  useEffect(() => {
+    trackPageView('Fan Messages', {
+      demo_type: 'fan',
+    })
+  }, [])
+
   const messages = useMemo(() => getMessagesByCreatorConversationId(activeConversation?.id), [activeConversation])
 
   const filtered = useMemo(() => {
@@ -189,7 +196,19 @@ export default function FanMessages() {
         </div>
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {filtered.map((c) => (
-            <ConversationItem key={c.id} conversation={c} isActive={activeConversation?.id === c.id} onClick={() => setActiveConversation(c)} />
+            <ConversationItem
+              key={c.id}
+              conversation={c}
+              isActive={activeConversation?.id === c.id}
+              onClick={() => {
+                setActiveConversation(c)
+                trackEvent('Conversation Opened', {
+                  conversation_id: c.id,
+                  creator_name: c.creatorName,
+                  demo_type: 'fan',
+                })
+              }}
+            />
           ))}
         </div>
       </div>
@@ -247,7 +266,19 @@ export default function FanMessages() {
                 <Smile className="w-5 h-5" />
               </button>
             </div>
-            <button className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity">
+            <button
+              onClick={() => {
+                if (messageInput.trim()) {
+                  trackEvent('Message Sent', {
+                    conversation_id: activeConversation?.id,
+                    creator_name: activeConversation?.creatorName,
+                    message_length: messageInput.length,
+                    demo_type: 'fan',
+                  })
+                }
+              }}
+              className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
+            >
               <Send className="w-5 h-5" />
             </button>
           </div>

@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { PageHeader } from '@/components/layout'
 import { RevenueOverview, TopFansModule, AlertsModule, QuickActions } from '@/components/dashboard'
+import { trackPageView } from '@/lib/mixpanel'
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -24,6 +25,12 @@ const itemVariants = {
 }
 
 export default function CreatorDashboard() {
+  useEffect(() => {
+    trackPageView('Creator Dashboard', {
+      demo_type: 'creator',
+    })
+  }, [])
+
   return (
     <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="show">
       <PageHeader

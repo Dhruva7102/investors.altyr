@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ChevronDown, ChevronUp, ArrowUpRight, ArrowUp, Users, User } from 'lucide-react'
+import { trackEvent } from '@/lib/mixpanel'
 
 const creatorLinks = [
   { label: 'Dashboard', to: '/demo/creators/dashboard' },
@@ -37,7 +38,13 @@ export default function DemoControls({ mode = 'auto' }) {
     <div className="fixed bottom-5 right-5 z-50">
       <div className="w-[280px] rounded-2xl bg-white/[0.05] border border-white/[0.10] backdrop-blur-md shadow-2xl overflow-hidden">
         <button
-          onClick={() => setOpen((v) => !v)}
+          onClick={() => {
+            setOpen((v) => !v)
+            trackEvent('Demo Controls Toggled', {
+              demo_type: inferredMode,
+              is_open: !open,
+            })
+          }}
           className="w-full px-4 py-3 flex items-center justify-between hover:bg-white/[0.04] transition-colors"
         >
           <div className="flex items-center gap-2">
@@ -63,6 +70,14 @@ export default function DemoControls({ mode = 'auto' }) {
                     <Link
                       key={l.to}
                       to={l.to}
+                      onClick={() => {
+                        trackEvent('Navigation Clicked', {
+                          navigation_type: 'quick_jump',
+                          target: l.to,
+                          label: l.label,
+                          demo_type: inferredMode,
+                        })
+                      }}
                       className={`px-3 py-1.5 rounded-full text-xs border transition-colors ${
                         isActive ? 'bg-white/[0.06] border-white/[0.18] text-white' : 'bg-white/[0.02] border-white/[0.08] text-white/65 hover:bg-white/[0.04]'
                       }`}
@@ -76,14 +91,27 @@ export default function DemoControls({ mode = 'auto' }) {
 
             <div className="flex items-center gap-2">
               <button
-                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' })
+                  trackEvent('Navigation Clicked', {
+                    navigation_type: 'scroll_to_top',
+                    demo_type: inferredMode,
+                  })
+                }}
                 className="flex-1 px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.04] text-xs text-white/70 flex items-center justify-center gap-2"
               >
                 <ArrowUp className="w-4 h-4" />
                 Top
               </button>
               <button
-                onClick={() => navigate(inferredMode === 'creator' ? '/demo/fans/home' : '/demo/creators/dashboard')}
+                onClick={() => {
+                  const targetDemo = inferredMode === 'creator' ? 'fan' : 'creator'
+                  navigate(inferredMode === 'creator' ? '/demo/fans/home' : '/demo/creators/dashboard')
+                  trackEvent('Demo Swapped', {
+                    from_demo: inferredMode,
+                    to_demo: targetDemo,
+                  })
+                }}
                 className="flex-1 px-3 py-2 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white text-xs font-medium hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
               >
                 Swap

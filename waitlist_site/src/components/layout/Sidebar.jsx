@@ -2,6 +2,7 @@ import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { LayoutDashboard, Users, TrendingUp, Gamepad2, MessageSquare, Settings, LogOut } from 'lucide-react'
+import { trackEvent } from '@/lib/mixpanel'
 
 const navItems = [
   { segment: 'dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -47,7 +48,21 @@ export default function Sidebar({ basePath = '/demo/creators', topOffset = 0 }) 
           const isActive = location.pathname === itemPath || isFanDetail
 
           return (
-            <NavLink key={item.segment} to={itemPath} className="block">
+            <NavLink
+              key={item.segment}
+              to={itemPath}
+              onClick={() => {
+                if (!isActive) {
+                  trackEvent('Navigation Clicked', {
+                    navigation_type: 'sidebar',
+                    target: itemPath,
+                    label: item.label,
+                    demo_type: 'creator',
+                  })
+                }
+              }}
+              className="block"
+            >
               <div
                 className={`
                   relative flex items-center gap-3 px-4 py-3 rounded-xl
