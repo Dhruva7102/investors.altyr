@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, Route, Routes } from 'react-router-dom'
+import { Menu } from 'lucide-react'
 import { createPageUrl } from '@/utils'
 import CreatorApp from '@/demo/creators/CreatorApp'
 import { DemoStateProvider } from '@/components/demo/DemoState'
@@ -8,7 +9,7 @@ import DemoPrimaryCta from '@/components/demo/DemoPrimaryCta'
 
 const DEMO_TOPBAR_OFFSET = 72
 
-function DemoTopBar({ title }) {
+function DemoTopBar({ title, onMenuClick }) {
   return (
     <div className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#18021A]/70 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
@@ -17,6 +18,15 @@ function DemoTopBar({ title }) {
           {/* Logo and title */}
           <div className="flex items-center justify-between sm:justify-start gap-3 min-w-0">
             <div className="flex items-center gap-3 min-w-0">
+              {/* Hamburger menu - mobile only */}
+              {onMenuClick && (
+                <button
+                  onClick={onMenuClick}
+                  className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/70 hover:text-white"
+                >
+                  <Menu className="w-5 h-5" />
+                </button>
+              )}
               <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#AC0064] to-[#64109A] flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-light text-sm sm:text-base">A</span>
               </div>
@@ -50,11 +60,11 @@ function DemoTopBar({ title }) {
   )
 }
 
-function CreatorDemoShell({ children }) {
+function CreatorDemoShell({ children, mobileMenuOpen, setMobileMenuOpen }) {
   return (
     <DemoStateProvider>
       <div className="demo-root min-h-screen bg-[#18021A] text-white">
-      <DemoTopBar title="Creator Demo" />
+      <DemoTopBar title="Creator Demo" onMenuClick={() => setMobileMenuOpen(true)} />
 
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
         <div
@@ -75,13 +85,15 @@ function CreatorDemoShell({ children }) {
 }
 
 export default function CreatorDemo() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
   return (
     <Routes>
       <Route
         path="/*"
         element={
-          <CreatorDemoShell>
-            <CreatorApp topOffset={DEMO_TOPBAR_OFFSET} />
+          <CreatorDemoShell mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen}>
+            <CreatorApp topOffset={DEMO_TOPBAR_OFFSET} mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
           </CreatorDemoShell>
         }
       />
