@@ -5,7 +5,7 @@ import { Zap, Sparkles, Trophy, Gift, CheckCircle2 } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { demoFanProfile, currentStreak } from '@/data/mockGamification'
 import { demoCreator, demoQuests, demoStoreItems } from '@/data/mockFanLoop'
-import { trackPageView } from '@/lib/mixpanel'
+import { trackPageView, trackEvent } from '@/lib/mixpanel'
 
 export default function FanHome() {
   const [completed, setCompleted] = useState(() => new Set())

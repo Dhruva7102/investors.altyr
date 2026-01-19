@@ -1,22 +1,16 @@
-import mixpanel from 'mixpanel-browser'
+/**
+ * Lightweight Mixpanel wrapper.
+ *
+ * Important: We intentionally DO NOT import `mixpanel-browser` here to keep builds
+ * working even when analytics deps are not installed (e.g. demo deploys).
+ *
+ * If `window.mixpanel` is present (loaded via script tag or another bundler entry),
+ * we’ll call it. Otherwise we safely no-op.
+ */
 
-const MIXPANEL_PROJECT_ID = '48f34ae8d16e5cb787cfce136cbdbbf7'
-
-// Initialize Mixpanel
-try {
-  mixpanel.init(MIXPANEL_PROJECT_ID, {
-    debug: import.meta.env.DEV,
-    track_pageview: false, // We'll track page views manually
-    persistence: 'localStorage',
-    loaded: (mixpanel) => {
-      // Log initialization success in dev mode
-      if (import.meta.env.DEV) {
-        console.log('Mixpanel initialized successfully', mixpanel)
-      }
-    },
-  })
-} catch (error) {
-  console.error('Failed to initialize Mixpanel:', error)
+function getMixpanel() {
+  // eslint-disable-next-line no-undef
+  return typeof window !== 'undefined' ? window.mixpanel : null
 }
 
 // Generate or retrieve session ID
@@ -34,8 +28,8 @@ function getDefaultProperties() {
   return {
     session_id: getSessionId(),
     timestamp: new Date().toISOString(),
-    url: window.location.href,
-    path: window.location.pathname,
+    url: typeof window !== 'undefined' ? window.location.href : '',
+    path: typeof window !== 'undefined' ? window.location.pathname : '',
   }
 }
 
@@ -49,13 +43,14 @@ export function trackPageView(pageName, properties = {}) {
     const eventProperties = {
       ...getDefaultProperties(),
       page_name: pageName,
-      referrer: document.referrer || 'direct',
+      referrer: typeof document !== 'undefined' ? document.referrer || 'direct' : 'direct',
       ...properties,
     }
 
-    mixpanel.track('Page Viewed', eventProperties)
-    
-    if (import.meta.env.DEV) {
+    const mp = getMixpanel()
+    if (mp?.track) mp.track('Page Viewed', eventProperties)
+
+    if (import.meta.env?.DEV) {
       console.log('Mixpanel: Page Viewed', eventProperties)
     }
   } catch (error) {
@@ -75,9 +70,10 @@ export function trackEvent(eventName, properties = {}) {
       ...properties,
     }
 
-    mixpanel.track(eventName, eventProperties)
-    
-    if (import.meta.env.DEV) {
+    const mp = getMixpanel()
+    if (mp?.track) mp.track(eventName, eventProperties)
+
+    if (import.meta.env?.DEV) {
       console.log('Mixpanel: Event tracked', eventName, eventProperties)
     }
   } catch (error) {
@@ -91,17 +87,15 @@ export function trackEvent(eventName, properties = {}) {
  * @param {object} properties - User properties to set
  */
 export function identifyUser(userId, properties = {}) {
-  mixpanel.identify(userId)
-  
-  if (Object.keys(properties).length > 0) {
-    mixpanel.people.set(properties)
+  const mp = getMixpanel()
+  if (!mp) return
+
+  if (mp.identify) mp.identify(userId)
+  if (Object.keys(properties).length > 0 && mp.people?.set) {
+    mp.people.set(properties)
   }
-  
-  // Track identification event
-  trackEvent('User Identified', {
-    user_id: userId,
-    ...properties,
-  })
+
+  trackEvent('User Identified', { user_id: userId, ...properties })
 }
 
 /**
@@ -109,15 +103,17 @@ export function identifyUser(userId, properties = {}) {
  * @param {object} properties - User properties to set
  */
 export function setUserProperties(properties) {
-  mixpanel.people.set(properties)
+  const mp = getMixpanel()
+  if (mp?.people?.set) mp.people.set(properties)
 }
 
 /**
  * Reset Mixpanel (for logout or anonymous sessions)
  */
 export function reset() {
-  mixpanel.reset()
-  sessionStorage.removeItem('mixpanel_session_id')
+  const mp = getMixpanel()
+  if (mp?.reset) mp.reset()
+  if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem('mixpanel_session_id')
 }
 
 /**
@@ -125,7 +121,8 @@ export function reset() {
  * @param {object} properties - Super properties to register
  */
 export function registerSuperProperties(properties) {
-  mixpanel.register(properties)
+  const mp = getMixpanel()
+  if (mp?.register) mp.register(properties)
 }
 
 export default {
