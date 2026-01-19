@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { LayoutDashboard, Users, TrendingUp, Gamepad2, MessageSquare, Settings, LogOut } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { LayoutDashboard, Users, TrendingUp, Gamepad2, MessageSquare, Settings, LogOut, X } from 'lucide-react'
 import { trackEvent } from '@/lib/mixpanel'
 
 const navItems = [
@@ -12,21 +12,11 @@ const navItems = [
   { segment: 'messaging', icon: MessageSquare, label: 'Messaging' },
 ]
 
-export default function Sidebar({ basePath = '/demo/creators', topOffset = 0 }) {
+function SidebarContent({ basePath, topOffset, onNavClick }) {
   const location = useLocation()
 
   return (
-    <aside
-      className="fixed left-0 top-0 h-screen w-64 bg-altyr-bg-dark border-r border-white/[0.08] z-50 flex flex-col"
-      style={
-        topOffset
-          ? {
-              top: `${topOffset}px`,
-              height: `calc(100vh - ${topOffset}px)`,
-            }
-          : undefined
-      }
-    >
+    <>
       {/* Logo */}
       <div className="p-6 border-b border-white/[0.08]">
         <div className="flex items-center gap-3">
@@ -60,6 +50,7 @@ export default function Sidebar({ basePath = '/demo/creators', topOffset = 0 }) 
                     demo_type: 'creator',
                   })
                 }
+                onNavClick?.()
               }}
               className="block"
             >
@@ -110,7 +101,70 @@ export default function Sidebar({ basePath = '/demo/creators', topOffset = 0 }) 
           </button>
         </div>
       </div>
-    </aside>
+    </>
   )
 }
 
+// Mobile drawer sidebar
+export function MobileSidebar({ isOpen, onClose, basePath = '/demo/creators', topOffset = 0 }) {
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] lg:hidden"
+            style={{ top: topOffset }}
+            onClick={onClose}
+          />
+          
+          {/* Drawer */}
+          <motion.aside
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed left-0 w-72 bg-altyr-bg-dark border-r border-white/[0.08] z-[70] flex flex-col lg:hidden"
+            style={{
+              top: topOffset,
+              height: `calc(100vh - ${topOffset}px)`,
+            }}
+          >
+            {/* Close button */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            
+            <SidebarContent basePath={basePath} topOffset={topOffset} onNavClick={onClose} />
+          </motion.aside>
+        </>
+      )}
+    </AnimatePresence>
+  )
+}
+
+// Desktop fixed sidebar
+export default function Sidebar({ basePath = '/demo/creators', topOffset = 0 }) {
+  return (
+    <aside
+      className="fixed left-0 top-0 h-screen w-64 bg-altyr-bg-dark border-r border-white/[0.08] z-50 hidden lg:flex flex-col"
+      style={
+        topOffset
+          ? {
+              top: `${topOffset}px`,
+              height: `calc(100vh - ${topOffset}px)`,
+            }
+          : undefined
+      }
+    >
+      <SidebarContent basePath={basePath} topOffset={topOffset} />
+    </aside>
+  )
+}

@@ -14,29 +14,39 @@ import DemoPrimaryCta from '@/components/demo/DemoPrimaryCta'
 function DemoTopBar({ title }) {
   return (
     <div className="sticky top-0 z-40 border-b border-white/[0.08] bg-[#18021A]/70 backdrop-blur-md">
-      <div className="max-w-7xl mx-auto px-6 py-4 grid grid-cols-3 items-center gap-4">
-        <div className="min-w-0">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#AC0064] to-[#64109A] flex items-center justify-center">
-              <span className="text-white font-light text-base">A</span>
-            </div>
-            <div className="min-w-0">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
+        {/* Mobile: stacked layout, Desktop: flex row */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+          {/* Logo and title */}
+          <div className="flex items-center justify-between sm:justify-start gap-3 min-w-0">
+            <div className="flex items-center gap-3 min-w-0">
+              <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-[#AC0064] to-[#64109A] flex items-center justify-center flex-shrink-0">
+                <span className="text-white font-light text-sm sm:text-base">A</span>
+              </div>
               <p className="text-sm text-white/90 font-light truncate">{title}</p>
             </div>
+            {/* Back link - visible on mobile in header row */}
+            <Link
+              to="/"
+              className="sm:hidden px-2 py-1.5 rounded-lg text-xs text-white/60 hover:text-white/85 hover:bg-white/[0.04] transition-colors whitespace-nowrap"
+            >
+              Back
+            </Link>
           </div>
-        </div>
-        <div className="flex items-center justify-center">
-          <DemoPrimaryCta to={createPageUrl('FanSignup')} tone="magenta" className="h-12 px-7 text-[15px]">
-            Join as Fan
-          </DemoPrimaryCta>
-        </div>
-        <div className="flex items-center justify-end">
-          <Link
-            to="/"
-            className="px-3 py-2 rounded-lg text-sm text-white/60 hover:text-white/85 hover:bg-white/[0.04] transition-colors"
-          >
-            Back to ALTYR
-          </Link>
+
+          {/* CTA and back link */}
+          <div className="flex items-center justify-center sm:justify-end gap-3 sm:gap-4">
+            <DemoPrimaryCta to={createPageUrl('FanSignup')} tone="magenta" className="h-10 sm:h-12 px-5 sm:px-7 text-sm sm:text-[15px]">
+              Join as Fan
+            </DemoPrimaryCta>
+            {/* Back link - hidden on mobile, visible on desktop */}
+            <Link
+              to="/"
+              className="hidden sm:block px-3 py-2 rounded-lg text-sm text-white/60 hover:text-white/85 hover:bg-white/[0.04] transition-colors whitespace-nowrap"
+            >
+              Back to ALTYR
+            </Link>
+          </div>
         </div>
       </div>
     </div>
@@ -57,20 +67,21 @@ function FanDemoShell({ children }) {
       <div className="demo-root min-h-screen bg-[#18021A] text-white">
         <DemoTopBar title="Fan Demo" />
 
-        <div className="demo-container max-w-7xl mx-auto px-6 py-6">
+        <div className="demo-container max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="rounded-2xl bg-white/[0.02] border border-white/[0.08] overflow-hidden">
-            <div className="p-4 border-b border-white/[0.08] flex items-center justify-between gap-4">
-              <div className="min-w-0">
+            <div className="p-3 sm:p-4 border-b border-white/[0.08] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+              <div className="min-w-0 hidden sm:block">
                 <p className="text-xs text-white/50">Explore the fan progression, rewards, and messaging loop.</p>
               </div>
-              <div className="flex gap-2 overflow-x-auto">
+              {/* Navigation pills - horizontal scroll on mobile with larger touch targets */}
+              <div className="flex gap-2 overflow-x-auto pb-1 sm:pb-0 -mx-1 px-1 scrollbar-hide">
                 {nav.map((item) => (
                   <NavLink
                     key={item.to}
                     to={item.to}
                     className={({ isActive }) =>
                       [
-                        'px-3 py-2 rounded-full text-xs whitespace-nowrap transition-all',
+                        'px-4 py-2.5 sm:px-3 sm:py-2 rounded-full text-xs whitespace-nowrap transition-all flex-shrink-0',
                         isActive
                           ? 'bg-white/[0.08] border border-white/[0.14] text-white'
                           : 'text-white/60 hover:text-white/85 hover:bg-white/[0.04]',
@@ -82,7 +93,7 @@ function FanDemoShell({ children }) {
                 ))}
               </div>
             </div>
-            <div className="p-6">{children}</div>
+            <div className="p-4 sm:p-6">{children}</div>
           </div>
         </div>
 

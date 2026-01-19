@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { trackPageView } from '@/lib/mixpanel'
+import { trackPageView, trackEvent } from '@/lib/mixpanel'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Search, Send, Image, Smile, MoreVertical, Sparkles, Zap, Trophy } from 'lucide-react'
+import { Search, Send, Image, Smile, MoreVertical, Sparkles, Zap, Trophy, ArrowLeft } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { demoFanProfile, currentStreak } from '@/data/mockGamification'
 import { creatorConversations, getMessagesByCreatorConversationId, fanQuickReplies } from '@/data/mockFanMessages'
@@ -49,7 +49,7 @@ function MessageBubble({ message }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isFan ? 'justify-end' : 'justify-start'} mb-3`}>
-      <div className={`max-w-[70%] ${isFan ? 'order-2' : ''}`}>
+      <div className={`max-w-[85%] sm:max-w-[70%] ${isFan ? 'order-2' : ''}`}>
         <div
           className={`
             px-4 py-2.5 rounded-2xl
@@ -71,7 +71,7 @@ function FanStatusSidebar() {
   const progress = demoFanProfile.currentLevelXp / demoFanProfile.xpToNextLevel
 
   return (
-    <div className="w-72 flex-shrink-0 border-l border-white/[0.08] bg-altyr-bg-dark/50 overflow-y-auto overflow-x-hidden">
+    <div className="w-72 flex-shrink-0 border-l border-white/[0.08] bg-altyr-bg-dark/50 overflow-y-auto overflow-x-hidden hidden lg:block">
       <div className="p-4 space-y-4">
         <div className="text-center pb-4 border-b border-white/[0.08]">
           <div className="relative inline-block mb-3">
@@ -135,7 +135,7 @@ function FanStatusSidebar() {
             <div className="flex items-start gap-2">
               <div className="w-1 h-1 rounded-full bg-green-400 mt-1.5 flex-shrink-0" />
               <span>
-                You’re close to: <span className="text-green-400">next reward</span>
+                You're close to: <span className="text-green-400">next reward</span>
               </span>
             </div>
           </div>
@@ -155,10 +155,140 @@ function FanStatusSidebar() {
   )
 }
 
+// Conversation List Panel
+function ConversationListPanel({ conversations, activeConversation, onSelect, searchQuery, setSearchQuery }) {
+  return (
+    <div className="flex-1 lg:w-72 lg:flex-shrink-0 border-r border-white/[0.08] bg-altyr-bg-dark/30 flex flex-col overflow-hidden">
+      <div className="p-4 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-light text-white/90">Messages</h2>
+          <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors">
+            <MoreVertical className="w-4 h-4 text-white/50" />
+          </button>
+        </div>
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+          <input
+            type="text"
+            placeholder="Search creators..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50"
+          />
+        </div>
+      </div>
+      <div className="flex-1 overflow-y-auto p-2 space-y-1">
+        {conversations.map((c) => (
+          <ConversationItem
+            key={c.id}
+            conversation={c}
+            isActive={activeConversation?.id === c.id}
+            onClick={() => {
+              onSelect(c)
+              trackEvent('Conversation Opened', {
+                conversation_id: c.id,
+                creator_name: c.creatorName,
+                demo_type: 'fan',
+              })
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Chat Panel
+function ChatPanel({ conversation, messages, messageInput, setMessageInput, onBack }) {
+  return (
+    <div className="flex-1 min-w-0 flex flex-col bg-altyr-bg overflow-hidden">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/[0.08] flex items-center justify-between">
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Back button - mobile only */}
+          <button
+            onClick={onBack}
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/70"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-altyr-magenta to-altyr-purple flex items-center justify-center text-sm font-medium text-white">
+            {conversation?.creatorInitials}
+          </div>
+          <div className="min-w-0">
+            <h3 className="text-white/90 font-medium truncate">{conversation?.creatorName}</h3>
+            <p className="text-xs text-white/40">{conversation?.isOnline ? 'Online' : 'Offline'}</p>
+          </div>
+        </div>
+        <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
+          <MoreVertical className="w-5 h-5" />
+        </button>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <AnimatePresence>
+          {messages.map((message) => (
+            <MessageBubble key={message.id} message={message} />
+          ))}
+        </AnimatePresence>
+      </div>
+
+      <div className="px-4 sm:px-6 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
+        {fanQuickReplies.map((s, idx) => (
+          <button
+            key={idx}
+            onClick={() => setMessageInput(s)}
+            className="px-3 py-2 rounded-full glass-card hover:bg-white/[0.05] text-xs text-white/60 whitespace-nowrap transition-all flex-shrink-0"
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-3 sm:p-4 border-t border-white/[0.08]">
+        <div className="flex items-end gap-2 sm:gap-3">
+          <button className="hidden sm:flex p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
+            <Image className="w-5 h-5" />
+          </button>
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              className="w-full px-4 py-3 pr-12 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50 transition-colors text-sm sm:text-base"
+            />
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors">
+              <Smile className="w-5 h-5" />
+            </button>
+          </div>
+          <button
+            onClick={() => {
+              if (messageInput.trim()) {
+                trackEvent('Message Sent', {
+                  conversation_id: conversation?.id,
+                  creator_name: conversation?.creatorName,
+                  message_length: messageInput.length,
+                  demo_type: 'fan',
+                })
+              }
+            }}
+            className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
+          >
+            <Send className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function FanMessages() {
   const [activeConversation, setActiveConversation] = useState(creatorConversations[0])
   const [messageInput, setMessageInput] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
+  // Mobile view state: 'list' or 'chat'
+  const [mobileView, setMobileView] = useState('list')
 
   useEffect(() => {
     trackPageView('Fan Messages', {
@@ -172,122 +302,58 @@ export default function FanMessages() {
     return creatorConversations.filter((c) => c.creatorName.toLowerCase().includes(searchQuery.toLowerCase()))
   }, [searchQuery])
 
+  const handleSelectConversation = (conversation) => {
+    setActiveConversation(conversation)
+    setMobileView('chat')
+  }
+
+  const handleBackToList = () => {
+    setMobileView('list')
+  }
+
   return (
-    <div className="-m-6 overflow-x-auto">
-      <div className="flex min-w-[980px] h-[min(820px,calc(100vh-260px))]">
-      <div className="w-72 flex-shrink-0 border-r border-white/[0.08] bg-altyr-bg-dark/30 flex flex-col overflow-hidden">
-        <div className="p-4 border-b border-white/[0.08]">
-          <div className="flex items-center justify-between mb-3">
-            <h2 className="text-lg font-light text-white/90">Messages</h2>
-            <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors">
-              <MoreVertical className="w-4 h-4 text-white/50" />
-            </button>
-          </div>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="text"
-              placeholder="Search creators..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50"
-            />
-          </div>
-        </div>
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {filtered.map((c) => (
-            <ConversationItem
-              key={c.id}
-              conversation={c}
-              isActive={activeConversation?.id === c.id}
-              onClick={() => {
-                setActiveConversation(c)
-                trackEvent('Conversation Opened', {
-                  conversation_id: c.id,
-                  creator_name: c.creatorName,
-                  demo_type: 'fan',
-                })
-              }}
-            />
-          ))}
-        </div>
+    <div className="-m-4 sm:-m-6">
+      {/* Desktop: Three-column layout */}
+      <div className="hidden lg:flex h-[min(820px,calc(100vh-260px))]">
+        <ConversationListPanel
+          conversations={filtered}
+          activeConversation={activeConversation}
+          onSelect={handleSelectConversation}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+        />
+        
+        <ChatPanel
+          conversation={activeConversation}
+          messages={messages}
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          onBack={handleBackToList}
+        />
+        
+        <FanStatusSidebar />
       </div>
 
-      <div className="flex-1 min-w-0 flex flex-col bg-altyr-bg overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/[0.08] flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-altyr-magenta to-altyr-purple flex items-center justify-center text-sm font-medium text-white">
-              {activeConversation?.creatorInitials}
-            </div>
-            <div>
-              <h3 className="text-white/90 font-medium">{activeConversation?.creatorName}</h3>
-              <p className="text-xs text-white/40">{activeConversation?.isOnline ? 'Online' : 'Offline'}</p>
-            </div>
-          </div>
-          <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
-            <MoreVertical className="w-5 h-5" />
-          </button>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6">
-          <AnimatePresence>
-            {messages.map((message) => (
-              <MessageBubble key={message.id} message={message} />
-            ))}
-          </AnimatePresence>
-        </div>
-
-        <div className="px-6 py-2 flex gap-2 overflow-x-auto">
-          {fanQuickReplies.map((s, idx) => (
-            <button
-              key={idx}
-              onClick={() => setMessageInput(s)}
-              className="px-3 py-1.5 rounded-full glass-card hover:bg-white/[0.05] text-xs text-white/60 whitespace-nowrap transition-all"
-            >
-              {s}
-            </button>
-          ))}
-        </div>
-
-        <div className="p-4 border-t border-white/[0.08]">
-          <div className="flex items-end gap-3">
-            <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
-              <Image className="w-5 h-5" />
-            </button>
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                placeholder="Type a message..."
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-                className="w-full px-4 py-3 pr-12 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50 transition-colors"
-              />
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors">
-                <Smile className="w-5 h-5" />
-              </button>
-            </div>
-            <button
-              onClick={() => {
-                if (messageInput.trim()) {
-                  trackEvent('Message Sent', {
-                    conversation_id: activeConversation?.id,
-                    creator_name: activeConversation?.creatorName,
-                    message_length: messageInput.length,
-                    demo_type: 'fan',
-                  })
-                }
-              }}
-              className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
-            >
-              <Send className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <FanStatusSidebar />
+      {/* Mobile: Single-pane view */}
+      <div className="lg:hidden h-[calc(100vh-220px)] min-h-[450px]">
+        {mobileView === 'list' ? (
+          <ConversationListPanel
+            conversations={filtered}
+            activeConversation={activeConversation}
+            onSelect={handleSelectConversation}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
+        ) : (
+          <ChatPanel
+            conversation={activeConversation}
+            messages={messages}
+            messageInput={messageInput}
+            setMessageInput={setMessageInput}
+            onBack={handleBackToList}
+          />
+        )}
       </div>
     </div>
   )
 }
-

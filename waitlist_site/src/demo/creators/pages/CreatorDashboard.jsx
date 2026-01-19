@@ -25,7 +25,7 @@ const itemVariants = {
 
 export default function CreatorDashboard() {
   return (
-    <motion.div className="space-y-8" variants={containerVariants} initial="hidden" animate="show">
+    <motion.div className="space-y-6 sm:space-y-8" variants={containerVariants} initial="hidden" animate="show">
       <PageHeader
         label="Dashboard"
         title="Welcome back, Creator"
@@ -37,17 +37,17 @@ export default function CreatorDashboard() {
       </motion.section>
 
       <motion.section variants={itemVariants}>
-        <h2 className="text-lg font-light text-white/70 mb-4">Revenue Overview</h2>
+        <h2 className="text-base sm:text-lg font-light text-white/70 mb-3 sm:mb-4">Revenue Overview</h2>
         <RevenueOverview />
       </motion.section>
 
-      <motion.section variants={itemVariants} className="grid lg:grid-cols-2 gap-6">
+      <motion.section variants={itemVariants} className="grid lg:grid-cols-2 gap-4 sm:gap-6">
         <TopFansModule />
         <AlertsModule />
       </motion.section>
 
       <motion.section variants={itemVariants}>
-        <h2 className="text-lg font-light text-white/70 mb-4">Quick Actions</h2>
+        <h2 className="text-base sm:text-lg font-light text-white/70 mb-3 sm:mb-4">Quick Actions</h2>
         <QuickActions />
       </motion.section>
     </motion.div>

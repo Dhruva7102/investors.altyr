@@ -46,14 +46,14 @@ export default function FanCRM() {
   }
 
   return (
-    <motion.div className="space-y-6" variants={containerVariants} initial="hidden" animate="show">
+    <motion.div className="space-y-4 sm:space-y-6" variants={containerVariants} initial="hidden" animate="show">
       <PageHeader
         label="Fan CRM"
         title="Relationship Intelligence"
         subtitle="Understand each fan as an individual. Build deeper connections to capture more revenue from your top supporters."
       />
 
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-3 sm:gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-white/40" />
           <input
@@ -65,19 +65,20 @@ export default function FanCRM() {
           />
         </div>
 
-        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0">
+        {/* Filter pills with improved touch targets */}
+        <div className="flex gap-2 overflow-x-auto pb-2 md:pb-0 -mx-1 px-1 scrollbar-hide">
           {statusFilters.map((status) => (
             <button
               key={status}
               onClick={() => setActiveFilter(status)}
               className={`
-                px-4 py-2 rounded-lg text-sm font-light whitespace-nowrap
+                px-4 py-2.5 rounded-lg text-sm font-light whitespace-nowrap flex-shrink-0
                 transition-all duration-300
                 ${activeFilter === status ? 'bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white' : 'glass-card hover:bg-white/[0.05] text-white/60'}
               `}
             >
               {status}
-              <span className="ml-2 text-xs opacity-60">({statusCounts[status]})</span>
+              <span className="ml-1.5 sm:ml-2 text-xs opacity-60">({statusCounts[status]})</span>
             </button>
           ))}
         </div>
@@ -85,18 +86,18 @@ export default function FanCRM() {
 
       <motion.div variants={itemVariants}>
         <GlassCard padding="p-0">
-          <div className="flex items-center justify-between p-6 border-b border-white/[0.08]">
-            <div className="flex items-center gap-3">
+          <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/[0.08]">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Users className="w-5 h-5 text-altyr-magenta" />
-              <span className="text-lg font-light text-white/90">{filteredFans.length} Fans</span>
+              <span className="text-base sm:text-lg font-light text-white/90">{filteredFans.length} Fans</span>
             </div>
-            <button className="flex items-center gap-2 px-3 py-2 rounded-lg glass-card hover:bg-white/[0.05] text-sm text-white/60">
+            <button className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg glass-card hover:bg-white/[0.05] text-sm text-white/60">
               <Filter className="w-4 h-4" />
               More Filters
             </button>
           </div>
 
-          <div className="p-4 space-y-2 max-h-[600px] overflow-y-auto">
+          <div className="p-3 sm:p-4 space-y-2 max-h-[500px] sm:max-h-[600px] overflow-y-auto">
             {filteredFans.length > 0 ? (
               filteredFans.map((fan, index) => (
                 <FanListItem

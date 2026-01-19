@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { trackPageView } from '@/lib/mixpanel'
+import { trackPageView, trackEvent } from '@/lib/mixpanel'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search,
@@ -24,6 +24,8 @@ import {
   MessageSquare,
   Sparkles,
   Tag,
+  ArrowLeft,
+  User,
 } from 'lucide-react'
 import { StatusBadge, ConnectionScoreBar } from '@/components/shared'
 import { getFanById } from '@/data/mockFans'
@@ -96,7 +98,7 @@ function MessageBubble({ message, isCreator }) {
 
   return (
     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className={`flex ${isCreator ? 'justify-end' : 'justify-start'} mb-3`}>
-      <div className={`max-w-[70%] ${isCreator ? 'order-2' : ''}`}>
+      <div className={`max-w-[85%] sm:max-w-[70%] ${isCreator ? 'order-2' : ''}`}>
         {message.hasTip && (
           <div className="flex items-center gap-1 mb-1 text-green-400 text-xs">
             <Gift className="w-3 h-3" />
@@ -120,7 +122,7 @@ function MessageBubble({ message, isCreator }) {
   )
 }
 
-function FanProfileSidebar({ fan, conversation }) {
+function FanProfileSidebar({ fan, conversation, onClose }) {
   if (!fan) return null
 
   const healthIcon = { up: TrendingUp, down: TrendingDown, stable: Minus }
@@ -128,7 +130,7 @@ function FanProfileSidebar({ fan, conversation }) {
   const healthColors = { up: 'text-green-400', down: 'text-red-400', stable: 'text-white/50' }
 
   return (
-    <div className="w-72 flex-shrink-0 border-l border-white/[0.08] bg-altyr-bg-dark/50 overflow-y-auto overflow-x-hidden">
+    <div className="w-72 flex-shrink-0 border-l border-white/[0.08] bg-altyr-bg-dark/50 overflow-y-auto overflow-x-hidden hidden lg:block">
       <div className="p-4 space-y-4">
         <div className="text-center pb-4 border-b border-white/[0.08]">
           <div className="relative inline-block mb-3">
@@ -325,11 +327,190 @@ function FanProfileSidebar({ fan, conversation }) {
   )
 }
 
+// Conversation List Panel
+function ConversationListPanel({ conversations, activeConversation, onSelect, searchQuery, setSearchQuery, filter, setFilter, filters, totalUnread }) {
+  return (
+    <div className="flex-1 lg:w-72 lg:flex-shrink-0 border-r border-white/[0.08] bg-altyr-bg-dark/30 flex flex-col overflow-hidden">
+      <div className="p-4 border-b border-white/[0.08]">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <MessageSquare className="w-5 h-5 text-altyr-magenta" />
+            <h2 className="text-lg font-light text-white/90">Messages</h2>
+            {totalUnread > 0 && <span className="px-2 py-0.5 rounded-full bg-altyr-magenta text-[10px] font-medium">{totalUnread}</span>}
+          </div>
+          <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors">
+            <Filter className="w-4 h-4 text-white/50" />
+          </button>
+        </div>
+
+        <div className="relative mb-3">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
+          <input
+            type="text"
+            placeholder="Search conversations..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2.5 rounded-lg bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50"
+          />
+        </div>
+
+        <div className="flex gap-1 overflow-x-auto pb-1 -mx-1 px-1">
+          {filters.map((f) => (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              className={`
+                px-3 py-2 rounded-lg text-xs whitespace-nowrap transition-all flex-shrink-0
+                ${filter === f ? 'bg-altyr-magenta/20 text-altyr-magenta border border-altyr-magenta/30' : 'text-white/50 hover:text-white/70 hover:bg-white/[0.03]'}
+              `}
+            >
+              {f}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-2 space-y-1">
+        {conversations.map((conversation) => (
+          <ConversationItem
+            key={conversation.id}
+            conversation={conversation}
+            isActive={activeConversation?.id === conversation.id}
+            onClick={() => {
+              onSelect(conversation)
+              trackEvent('Conversation Opened', {
+                conversation_id: conversation.id,
+                fan_id: conversation.fanId,
+                fan_status: conversation.fanStatus,
+                demo_type: 'creator',
+              })
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// Chat Panel
+function ChatPanel({ conversation, messages, suggestions, messageInput, setMessageInput, onBack, activeFan }) {
+  return (
+    <div className="flex-1 min-w-0 flex flex-col bg-altyr-bg overflow-hidden">
+      <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/[0.08] flex items-center justify-between">
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Back button - mobile only */}
+          <button
+            onClick={onBack}
+            className="lg:hidden p-2 -ml-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/70"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          
+          <div className="relative">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-altyr-magenta to-altyr-purple flex items-center justify-center text-sm font-medium text-white">
+              {conversation?.fanInitials}
+            </div>
+            {conversation?.isOnline && <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-altyr-bg" />}
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2">
+              <h3 className="text-white/90 font-medium truncate">{conversation?.fanName}</h3>
+              <StatusBadge status={conversation?.fanStatus} size="sm" />
+            </div>
+            <p className="text-xs text-white/40 truncate">{conversation?.isOnline ? 'Online' : 'Last seen ' + conversation?.lastMessageTime}</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-1 sm:gap-2">
+          <button className="hidden sm:flex p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
+            <Phone className="w-5 h-5" />
+          </button>
+          <button className="hidden sm:flex p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
+            <Video className="w-5 h-5" />
+          </button>
+          <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
+            <MoreVertical className="w-5 h-5" />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <AnimatePresence>
+          {messages.map((message) => (
+            <MessageBubble key={message.id} message={message} isCreator={message.sender === 'creator'} />
+          ))}
+        </AnimatePresence>
+      </div>
+
+      <div className="px-4 sm:px-6 py-2 flex gap-2 overflow-x-auto scrollbar-hide">
+        {suggestions.map((suggestion, index) => (
+          <button
+            key={index}
+            onClick={() => setMessageInput(suggestion)}
+            className="px-3 py-2 rounded-full glass-card hover:bg-white/[0.05] text-xs text-white/60 whitespace-nowrap transition-all flex-shrink-0"
+          >
+            {suggestion}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-3 sm:p-4 border-t border-white/[0.08]">
+        <div className="flex items-end gap-2 sm:gap-3">
+          <div className="hidden sm:flex gap-2">
+            <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
+              <Image className="w-5 h-5" />
+            </button>
+            <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
+              <Gift className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex-1 relative">
+            <input
+              type="text"
+              placeholder="Type a message..."
+              value={messageInput}
+              onChange={(e) => setMessageInput(e.target.value)}
+              className="w-full px-4 py-3 pr-12 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50 transition-colors text-sm sm:text-base"
+            />
+            <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors">
+              <Smile className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex gap-2">
+            <button className="hidden sm:flex p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
+              <Mic className="w-5 h-5" />
+            </button>
+            <button
+              onClick={() => {
+                if (messageInput.trim()) {
+                  trackEvent('Message Sent', {
+                    conversation_id: conversation?.id,
+                    fan_id: conversation?.fanId,
+                    message_length: messageInput.length,
+                    demo_type: 'creator',
+                  })
+                }
+              }}
+              className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
+            >
+              <Send className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Messaging() {
   const [activeConversation, setActiveConversation] = useState(mockConversations[0])
   const [messageInput, setMessageInput] = useState('')
   const [filter, setFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+  // Mobile view state: 'list' or 'chat'
+  const [mobileView, setMobileView] = useState('list')
 
   useEffect(() => {
     trackPageView('Creator Messaging', {
@@ -354,171 +535,70 @@ export default function Messaging() {
 
   const totalUnread = mockConversations.reduce((sum, c) => sum + c.unreadCount, 0)
 
+  const handleSelectConversation = (conversation) => {
+    setActiveConversation(conversation)
+    setMobileView('chat')
+  }
+
+  const handleBackToList = () => {
+    setMobileView('list')
+  }
+
   return (
-    <div className="-m-8 overflow-x-auto">
-      <div className="flex min-w-[1040px] h-[min(860px,calc(100vh-220px))]">
-      <div className="w-72 flex-shrink-0 border-r border-white/[0.08] bg-altyr-bg-dark/30 flex flex-col overflow-hidden">
-        <div className="p-4 border-b border-white/[0.08]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <MessageSquare className="w-5 h-5 text-altyr-magenta" />
-              <h2 className="text-lg font-light text-white/90">Messages</h2>
-              {totalUnread > 0 && <span className="px-2 py-0.5 rounded-full bg-altyr-magenta text-[10px] font-medium">{totalUnread}</span>}
-            </div>
-            <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors">
-              <Filter className="w-4 h-4 text-white/50" />
-            </button>
-          </div>
-
-          <div className="relative mb-3">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/40" />
-            <input
-              type="text"
-              placeholder="Search conversations..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 rounded-lg bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50"
-            />
-          </div>
-
-          <div className="flex gap-1 overflow-x-auto pb-1">
-            {filters.map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={`
-                  px-3 py-1.5 rounded-lg text-xs whitespace-nowrap transition-all
-                  ${filter === f ? 'bg-altyr-magenta/20 text-altyr-magenta border border-altyr-magenta/30' : 'text-white/50 hover:text-white/70 hover:bg-white/[0.03]'}
-                `}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-2 space-y-1">
-          {filteredConversations.map((conversation) => (
-            <ConversationItem
-              key={conversation.id}
-              conversation={conversation}
-              isActive={activeConversation?.id === conversation.id}
-              onClick={() => {
-                setActiveConversation(conversation)
-                trackEvent('Conversation Opened', {
-                  conversation_id: conversation.id,
-                  fan_id: conversation.fanId,
-                  fan_status: conversation.fanStatus,
-                  demo_type: 'creator',
-                })
-              }}
-            />
-          ))}
-        </div>
+    <div className="-m-4 lg:-m-8">
+      {/* Desktop: Three-column layout */}
+      <div className="hidden lg:flex h-[min(860px,calc(100vh-220px))]">
+        <ConversationListPanel
+          conversations={filteredConversations}
+          activeConversation={activeConversation}
+          onSelect={handleSelectConversation}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          filter={filter}
+          setFilter={setFilter}
+          filters={filters}
+          totalUnread={totalUnread}
+        />
+        
+        <ChatPanel
+          conversation={activeConversation}
+          messages={messages}
+          suggestions={suggestions}
+          messageInput={messageInput}
+          setMessageInput={setMessageInput}
+          onBack={handleBackToList}
+          activeFan={activeFan}
+        />
+        
+        <FanProfileSidebar fan={activeFan} conversation={activeConversation} />
       </div>
 
-      <div className="flex-1 min-w-0 flex flex-col bg-altyr-bg overflow-hidden">
-        <div className="px-6 py-4 border-b border-white/[0.08] flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-altyr-magenta to-altyr-purple flex items-center justify-center text-sm font-medium text-white">
-                {activeConversation?.fanInitials}
-              </div>
-              {activeConversation?.isOnline && <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-altyr-bg" />}
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h3 className="text-white/90 font-medium">{activeConversation?.fanName}</h3>
-                <StatusBadge status={activeConversation?.fanStatus} size="sm" />
-              </div>
-              <p className="text-xs text-white/40">{activeConversation?.isOnline ? 'Online' : 'Last seen ' + activeConversation?.lastMessageTime}</p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
-              <Phone className="w-5 h-5" />
-            </button>
-            <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
-              <Video className="w-5 h-5" />
-            </button>
-            <button className="p-2 rounded-lg hover:bg-white/[0.05] transition-colors text-white/50 hover:text-white/70">
-              <MoreVertical className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-
-        <div className="flex-1 overflow-y-auto p-6">
-          <AnimatePresence>
-            {messages.map((message) => (
-              <MessageBubble key={message.id} message={message} isCreator={message.sender === 'creator'} />
-            ))}
-          </AnimatePresence>
-        </div>
-
-        <div className="px-6 py-2 flex gap-2 overflow-x-auto">
-          {suggestions.map((suggestion, index) => (
-            <button
-              key={index}
-              onClick={() => setMessageInput(suggestion)}
-              className="px-3 py-1.5 rounded-full glass-card hover:bg-white/[0.05] text-xs text-white/60 whitespace-nowrap transition-all"
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
-
-        <div className="p-4 border-t border-white/[0.08]">
-          <div className="flex items-end gap-3">
-            <div className="flex gap-2">
-              <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
-                <Image className="w-5 h-5" />
-              </button>
-              <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
-                <Gift className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex-1 relative">
-              <input
-                type="text"
-                placeholder="Type a message..."
-                value={messageInput}
-                onChange={(e) => setMessageInput(e.target.value)}
-                className="w-full px-4 py-3 pr-12 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white placeholder:text-white/40 focus:outline-none focus:border-altyr-magenta/50 transition-colors"
-              />
-              <button className="absolute right-3 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors">
-                <Smile className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="flex gap-2">
-              <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
-                <Mic className="w-5 h-5" />
-              </button>
-              <button
-                onClick={() => {
-                  if (messageInput.trim()) {
-                    trackEvent('Message Sent', {
-                      conversation_id: activeConversation?.id,
-                      fan_id: activeConversation?.fanId,
-                      message_length: messageInput.length,
-                      demo_type: 'creator',
-                    })
-                  }
-                }}
-                className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
-              >
-                <Send className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <FanProfileSidebar fan={activeFan} conversation={activeConversation} />
+      {/* Mobile: Single-pane view */}
+      <div className="lg:hidden h-[calc(100vh-200px)] min-h-[500px]">
+        {mobileView === 'list' ? (
+          <ConversationListPanel
+            conversations={filteredConversations}
+            activeConversation={activeConversation}
+            onSelect={handleSelectConversation}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            filter={filter}
+            setFilter={setFilter}
+            filters={filters}
+            totalUnread={totalUnread}
+          />
+        ) : (
+          <ChatPanel
+            conversation={activeConversation}
+            messages={messages}
+            suggestions={suggestions}
+            messageInput={messageInput}
+            setMessageInput={setMessageInput}
+            onBack={handleBackToList}
+            activeFan={activeFan}
+          />
+        )}
       </div>
     </div>
   )
 }
-
