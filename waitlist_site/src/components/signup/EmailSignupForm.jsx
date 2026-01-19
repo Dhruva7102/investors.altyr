@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import { storeWaitlistEmail } from '@/api/airtable';
+import { identifyUser, trackEvent } from '@/lib/mixpanel';
 
 // X (Twitter) icon component
 const XIcon = ({ className }) => (
@@ -79,6 +80,23 @@ export default function EmailSignupForm({
         phone: phone || undefined,
         xHandle: isCreator ? xHandle : undefined
       }, type);
+    
+      // Identify user in Mixpanel if email is provided
+      if (email) {
+        identifyUser(email, {
+          user_type: type,
+          has_phone: !!phone,
+          has_x_handle: !!xHandle,
+        })
+      }
+    
+      // Track signup event
+      trackEvent('Waitlist Signup', {
+        user_type: type,
+        has_email: !!email,
+        has_phone: !!phone,
+        has_x_handle: !!xHandle,
+      })
     
       if (onSubmit) {
         await onSubmit({ email, phone, xHandle });

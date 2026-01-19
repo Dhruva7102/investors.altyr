@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Search, Filter, Users } from 'lucide-react'
 import { PageHeader } from '@/components/layout'
 import { GlassCard, FanListItem } from '@/components/shared'
 import { mockFans, getFansByStatus } from '@/data/mockFans'
+import { trackPageView } from '@/lib/mixpanel'
 
 const statusFilters = ['All', 'Superfan', 'VIP', 'Regular', 'Casual']
 
@@ -22,6 +23,12 @@ export default function FanCRM() {
   const navigate = useNavigate()
   const [activeFilter, setActiveFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
+
+  useEffect(() => {
+    trackPageView('Creator Fan CRM', {
+      demo_type: 'creator',
+    })
+  }, [])
 
   const filteredFans = useMemo(() => {
     return mockFans
@@ -92,7 +99,20 @@ export default function FanCRM() {
           <div className="p-4 space-y-2 max-h-[600px] overflow-y-auto">
             {filteredFans.length > 0 ? (
               filteredFans.map((fan, index) => (
-                <FanListItem key={fan.id} fan={fan} onClick={() => navigate(`/demo/creators/fans/${fan.id}`)} delay={index * 0.05} />
+                <FanListItem
+                  key={fan.id}
+                  fan={fan}
+                  onClick={() => {
+                    navigate(`/demo/creators/fans/${fan.id}`)
+                    trackEvent('Fan Profile Viewed', {
+                      fan_id: fan.id,
+                      fan_status: fan.status,
+                      demo_type: 'creator',
+                      source: 'fan_crm_list',
+                    })
+                  }}
+                  delay={index * 0.05}
+                />
               ))
             ) : (
               <div className="text-center py-12 text-white/40">No fans match your search</div>

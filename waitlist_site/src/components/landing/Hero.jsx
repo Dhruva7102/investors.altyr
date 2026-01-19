@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Sparkles, Heart, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { trackEvent } from '@/lib/mixpanel';
 
 export default function Hero() {
   return (
@@ -132,6 +133,12 @@ export default function Hero() {
         >
           <Link to="/demo/creators">
             <Button
+              onClick={() => {
+                trackEvent('Demo Started', {
+                  demo_type: 'creator',
+                  entry_point: 'hero_button',
+                })
+              }}
               className="group w-52 justify-center px-8 py-6 text-[15px] font-medium bg-gradient-to-r from-[#D4740C] to-[#B56A00] hover:from-[#E8840C] hover:to-[#C97A00] text-white border-0 rounded-full transition-all duration-500 hover:shadow-[0_0_60px_rgba(212,116,12,0.4)] hover:scale-[1.02]"
             >
               <Sparkles className="w-4 h-4 mr-2.5 opacity-90" />
@@ -141,6 +148,12 @@ export default function Hero() {
           
           <Link to="/demo/fans">
             <Button
+              onClick={() => {
+                trackEvent('Demo Started', {
+                  demo_type: 'fan',
+                  entry_point: 'hero_button',
+                })
+              }}
               className="group w-52 justify-center px-8 py-6 text-[15px] font-medium bg-white/[0.06] hover:bg-white/[0.1] text-white/90 border border-white/[0.12] hover:border-white/[0.2] rounded-full transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.08)] hover:scale-[1.02] backdrop-blur-sm"
             >
               <Heart className="w-4 h-4 mr-2.5 opacity-80" />

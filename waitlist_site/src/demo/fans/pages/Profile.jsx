@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { trackPageView } from '@/lib/mixpanel'
 import { Paintbrush, Shield, Sparkles, Check } from 'lucide-react'
 import { GlassCard, IconContainer } from '@/components/shared'
 import { demoFanProfile } from '@/data/mockGamification'
@@ -19,6 +20,12 @@ const effects = [
 export default function FanProfile() {
   const [border, setBorder] = useState(demoFanProfile.customization.avatarBorder)
   const [effect, setEffect] = useState(demoFanProfile.customization.usernameEffect)
+
+  useEffect(() => {
+    trackPageView('Fan Profile', {
+      demo_type: 'fan',
+    })
+  }, [])
 
   return (
     <div className="space-y-6">

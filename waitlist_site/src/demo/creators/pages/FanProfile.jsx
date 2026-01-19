@@ -1,13 +1,24 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { FanProfileHeader, InteractionTimeline, RelationshipScore, MemorySystem, SuggestedActions } from '@/components/crm'
 import { getFanById } from '@/data/mockFans'
+import { trackPageView } from '@/lib/mixpanel'
 
 export default function FanProfile() {
   const { id } = useParams()
   const navigate = useNavigate()
   const fan = getFanById(id)
+
+  useEffect(() => {
+    if (fan) {
+      trackPageView('Creator Fan Profile', {
+        demo_type: 'creator',
+        fan_id: fan.id,
+        fan_status: fan.status,
+      })
+    }
+  }, [fan])
 
   if (!fan) {
     return (

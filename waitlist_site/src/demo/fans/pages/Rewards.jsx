@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/mixpanel'
 import { Zap, Award, Calendar, Trophy, Eye, MessageSquare, CreditCard, Heart, Users, Star } from 'lucide-react'
 import { GlassCard, IconContainer, StatusBadge } from '@/components/shared'
 import { xpSources, levelRewards, badgeCategories, dailyLoginRewards, currentStreak, demoFanProfile } from '@/data/mockGamification'
@@ -14,6 +15,12 @@ const rarityColors = {
 }
 
 export default function FanRewards() {
+  useEffect(() => {
+    trackPageView('Fan Rewards', {
+      demo_type: 'fan',
+    })
+  }, [])
+
   return (
     <div className="space-y-6">
       <GlassCard className="bg-gradient-to-r from-altyr-magenta/10 to-altyr-purple/5">

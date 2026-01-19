@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { trackPageView } from '@/lib/mixpanel'
 import {
   AreaChart,
   Area,
@@ -23,6 +24,12 @@ const segmentColors = ['#FFD700', '#A855F7', '#3B82F6', '#6B7280']
 export default function RevenueDashboard() {
   const segments = Object.values(revenueBySegment)
   const activeOffers = getActiveOffers()
+
+  useEffect(() => {
+    trackPageView('Creator Revenue Dashboard', {
+      demo_type: 'creator',
+    })
+  }, [])
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {

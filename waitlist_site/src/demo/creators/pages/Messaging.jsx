@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { trackPageView } from '@/lib/mixpanel'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   Search,
@@ -330,6 +331,12 @@ export default function Messaging() {
   const [filter, setFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
 
+  useEffect(() => {
+    trackPageView('Creator Messaging', {
+      demo_type: 'creator',
+    })
+  }, [])
+
   const messages = getMessagesByConversationId(activeConversation?.id)
   const activeFan = getFanById(activeConversation?.fanId)
   const suggestions = quickReplies[activeConversation?.fanStatus] || []
@@ -392,7 +399,20 @@ export default function Messaging() {
 
         <div className="flex-1 overflow-y-auto p-2 space-y-1">
           {filteredConversations.map((conversation) => (
-            <ConversationItem key={conversation.id} conversation={conversation} isActive={activeConversation?.id === conversation.id} onClick={() => setActiveConversation(conversation)} />
+            <ConversationItem
+              key={conversation.id}
+              conversation={conversation}
+              isActive={activeConversation?.id === conversation.id}
+              onClick={() => {
+                setActiveConversation(conversation)
+                trackEvent('Conversation Opened', {
+                  conversation_id: conversation.id,
+                  fan_id: conversation.fanId,
+                  fan_status: conversation.fanStatus,
+                  demo_type: 'creator',
+                })
+              }}
+            />
           ))}
         </div>
       </div>
@@ -476,7 +496,19 @@ export default function Messaging() {
               <button className="p-2.5 rounded-xl glass-card hover:bg-white/[0.05] text-white/50 hover:text-white/70 transition-colors">
                 <Mic className="w-5 h-5" />
               </button>
-              <button className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity">
+              <button
+                onClick={() => {
+                  if (messageInput.trim()) {
+                    trackEvent('Message Sent', {
+                      conversation_id: activeConversation?.id,
+                      fan_id: activeConversation?.fanId,
+                      message_length: messageInput.length,
+                      demo_type: 'creator',
+                    })
+                  }
+                }}
+                className="p-2.5 rounded-xl bg-gradient-to-r from-altyr-magenta to-altyr-purple text-white hover:opacity-90 transition-opacity"
+              >
                 <Send className="w-5 h-5" />
               </button>
             </div>
