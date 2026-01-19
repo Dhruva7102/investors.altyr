@@ -107,7 +107,7 @@ export default function DemoControls({ mode = 'auto' }) {
   }, [inferredMode])
 
   return (
-    <div className="fixed bottom-4 sm:bottom-5 right-3 sm:right-5 z-50 max-w-[calc(100vw-24px)]">
+    <div className="fixed right-3 sm:right-5 z-50 max-w-[calc(100vw-24px)] pb-safe" style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))' }}>
       <div className="w-[260px] sm:w-[280px] rounded-2xl bg-white/[0.05] border border-white/[0.10] backdrop-blur-md shadow-2xl overflow-hidden">
         <button
           onClick={() => setOpen((v) => !v)}

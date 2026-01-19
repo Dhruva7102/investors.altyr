@@ -14,7 +14,7 @@ const DEMO_TOPBAR_OFFSET = 72
 
 export default function CreatorApp({ topOffset = DEMO_TOPBAR_OFFSET, mobileMenuOpen = false, setMobileMenuOpen }) {
   return (
-    <div className="demo-root min-h-screen bg-altyr-bg text-white" style={{ paddingTop: `${topOffset}px` }}>
+    <div className="demo-root min-h-dvh bg-altyr-bg text-white" style={{ paddingTop: `${topOffset}px` }}>
       {/* Desktop Sidebar */}
       <Sidebar topOffset={topOffset} />
       
@@ -25,7 +25,7 @@ export default function CreatorApp({ topOffset = DEMO_TOPBAR_OFFSET, mobileMenuO
         topOffset={topOffset}
       />
 
-      <main className="lg:ml-64 min-h-screen">
+      <main className="lg:ml-64 min-h-dvh">
         <div className="p-4 lg:p-8">
           <Routes>
             <Route path="/" element={<Navigate to="dashboard" replace />} />

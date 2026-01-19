@@ -314,7 +314,7 @@ export default function FanMessages() {
   return (
     <div className="-m-4 sm:-m-6">
       {/* Desktop: Three-column layout */}
-      <div className="hidden lg:flex h-[min(820px,calc(100vh-260px))]">
+      <div className="hidden lg:flex h-[min(820px,calc(100dvh-260px))]" style={{ height: 'min(820px, calc(100dvh - 260px))' }}>
         <ConversationListPanel
           conversations={filtered}
           activeConversation={activeConversation}
@@ -334,8 +334,8 @@ export default function FanMessages() {
         <FanStatusSidebar />
       </div>
 
-      {/* Mobile: Single-pane view */}
-      <div className="lg:hidden h-[calc(100vh-220px)] min-h-[450px]">
+      {/* Mobile: Single-pane view - use dvh for iOS Safari */}
+      <div className="lg:hidden min-h-[350px]" style={{ height: 'calc(100dvh - 220px)' }}>
         {mobileView === 'list' ? (
           <ConversationListPanel
             conversations={filtered}

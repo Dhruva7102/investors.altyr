@@ -158,6 +158,40 @@ button:focus-visible {
 }
 
 @layer utilities {
+  /* Dynamic viewport height with fallback for iOS Safari */
+  .h-dvh {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .min-h-dvh {
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
+  /* Safe area utilities for iOS notch and home indicator */
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .px-safe {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+  }
+
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* Bottom position with safe area */
+  .bottom-safe {
+    bottom: env(safe-area-inset-bottom, 0px);
+  }
+
   .text-gradient {
     @apply text-transparent bg-clip-text bg-gradient-to-r from-altyr-magenta via-altyr-purple-light to-altyr-purple;
   }

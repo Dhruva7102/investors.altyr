@@ -63,7 +63,7 @@ function DemoTopBar({ title, onMenuClick }) {
 function CreatorDemoShell({ children, mobileMenuOpen, setMobileMenuOpen }) {
   return (
     <DemoStateProvider>
-      <div className="demo-root min-h-screen bg-[#18021A] text-white">
+      <div className="demo-root min-h-dvh bg-[#18021A] text-white pb-safe">
       <DemoTopBar title="Creator Demo" onMenuClick={() => setMobileMenuOpen(true)} />
 
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">

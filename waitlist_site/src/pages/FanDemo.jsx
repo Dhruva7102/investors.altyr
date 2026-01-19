@@ -64,7 +64,7 @@ function FanDemoShell({ children }) {
 
   return (
     <DemoStateProvider>
-      <div className="demo-root min-h-screen bg-[#18021A] text-white">
+      <div className="demo-root min-h-dvh bg-[#18021A] text-white pb-safe">
         <DemoTopBar title="Fan Demo" />
 
         <div className="demo-container max-w-7xl mx-auto px-4 sm:px-6 py-4 sm:py-6">

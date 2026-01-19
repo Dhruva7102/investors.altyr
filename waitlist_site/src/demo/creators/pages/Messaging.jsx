@@ -547,7 +547,7 @@ export default function Messaging() {
   return (
     <div className="-m-4 lg:-m-8">
       {/* Desktop: Three-column layout */}
-      <div className="hidden lg:flex h-[min(860px,calc(100vh-220px))]">
+      <div className="hidden lg:flex h-[min(860px,calc(100dvh-220px))]" style={{ height: 'min(860px, calc(100dvh - 220px))' }}>
         <ConversationListPanel
           conversations={filteredConversations}
           activeConversation={activeConversation}
@@ -573,8 +573,8 @@ export default function Messaging() {
         <FanProfileSidebar fan={activeFan} conversation={activeConversation} />
       </div>
 
-      {/* Mobile: Single-pane view */}
-      <div className="lg:hidden h-[calc(100vh-200px)] min-h-[500px]">
+      {/* Mobile: Single-pane view - use dvh for iOS Safari */}
+      <div className="lg:hidden min-h-[400px]" style={{ height: 'calc(100dvh - 200px)' }}>
         {mobileView === 'list' ? (
           <ConversationListPanel
             conversations={filteredConversations}
