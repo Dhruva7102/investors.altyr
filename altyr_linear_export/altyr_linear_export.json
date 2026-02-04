@@ -1,0 +1,193 @@
+{
+  "team": {
+    "id": "7d037f5f-e5da-4f31-a8b0-2ed77c2b9642",
+    "name": "Altyr",
+    "icon": "Calendar",
+    "createdAt": "2025-12-19T20:04:41.013Z",
+    "updatedAt": "2026-01-12T21:16:40.659Z"
+  },
+  "project": {
+    "id": "bcb7f32e-6cd7-4be0-a4db-7ac9e7a4a6ae",
+    "name": "Launch",
+    "summary": "120 Dev hours till launch, we want to lead with the most impactful features first",
+    "url": "https://linear.app/traderflow/project/launch-02d8f6165de3",
+    "status": "Backlog"
+  },
+  "statuses": [
+    { "id": "d1d2c10f-b796-4cec-9e2a-0e45b514f03b", "type": "completed", "name": "Done" },
+    { "id": "a2c416f0-78c3-48e5-8747-f2e3a8b0de71", "type": "started", "name": "In Progress" },
+    { "id": "9e91f5cc-2e0d-4641-8506-2ef1b97ef83d", "type": "unstarted", "name": "Todo" },
+    { "id": "78e43a59-664b-4b60-bb96-71dc64f85e20", "type": "canceled", "name": "Duplicate" },
+    { "id": "72202a5b-f5cc-4a56-9b7a-f3c943183f6a", "type": "backlog", "name": "Backlog" },
+    { "id": "4078417a-b993-4ce9-9e2d-1eb585aa46f4", "type": "canceled", "name": "Canceled" }
+  ],
+  "labels": [
+    { "id": "9769eecd-5745-4a2c-8fce-d789e1a08594", "name": "backend", "color": "#6B7280", "description": "Backend/API work including services, data processing, and business logic" },
+    { "id": "b218af0a-729f-4a78-83a0-78352f1a48fa", "name": "frontend", "color": "#EC4899", "description": "Frontend/UI work including user interface, components, and user experience" },
+    { "id": "3e02e022-8aa2-47ac-bbd0-906c755e5d66", "name": "Bug", "color": "#EB5757" },
+    { "id": "930517ed-92b4-4347-bb68-d3e82c8edea0", "name": "website", "color": "#3B82F6", "description": "Website-related features including signup flow, authentication, and user registration" },
+    { "id": "01a4747d-1f97-47d0-b9e1-0728001d3690", "name": "broker-integration", "color": "#F97316", "description": "Broker connectivity including IBKR, Tradestation, and other broker integrations" },
+    { "id": "65d403c2-8cfa-488d-9a27-90c033512aa9", "name": "Feature", "color": "#BB87FC" },
+    { "id": "0342f82c-5e69-4f5c-bee4-a03961de06c0", "name": "Improvement", "color": "#4EA7FC" },
+    { "id": "f9836918-0b52-4de8-ae00-c46c5eaa4a22", "name": "infrastructure", "color": "#14B8A6", "description": "Infrastructure/DevOps work including deployment, monitoring, and system administration" }
+  ],
+  "issues": [
+    {
+      "id": "ec0bfb42-4466-43c1-a388-0746a8842946",
+      "identifier": "ALTYR-1",
+      "title": "Form 2257 model release flow",
+      "description": "[https://form.jotform.com/222776518165160](https://form.jotform.com/222776518165160)\n\nform 2257 model release flow\n\nLink to OF implementation: [https://onlyfans.com/my/release-forms](https://onlyfans.com/my/release-forms)\n\nOnlyFans primarily detects the need for a model release form through\n\n**user tagging**\n\nand a combination of **automated content moderation systems** and **human review**\n\nIf unverified individuals appear in content, the system flags it for review and requires the creator to provide documentation.\n\n**OnlyFans Detection Process**\n\n* **Verified Collaborator Tagging:** The primary method is a built-in system where creators tag the verified accounts of other models in their content. This tag automatically confirms the collaborator's age (18+) and consent, negating the need for a separate form.\n* **Automated Content Scanning:** OnlyFans employs \"state-of-the-art digital technologies\" (including AI and computer vision) to pre-screen all uploaded content for restricted material and unverified faces.\n* **Human Moderation & Flagging:** Content that passes the initial AI scan is manually reviewed by trained human moderators. These moderators identify and escalate any content featuring individuals who are not verified or lack a signed release form.\n* **Reactive Measures:** If unverified content is posted, OnlyFans flags it and typically gives the creator 48 hours to submit the proper documentation. Failure to comply results in content removal or account suspension.\n\n**Content Flagging and Moderation Software for Your Platform**\n\nFor your own platform, you will need a robust content moderation system that likely combines AI-powered tools and a workflow for human review.\n\nHere is software available for content flagging, moderation, and managing digital forms:\n\n| **Category** | **Software Name** | **Description** | **Key Features for Your Use Case** |\n| -- | -- | -- | -- |\n| **Content Moderation Platforms** | **Sightengine** | A platform focused on AI-powered image and video analysis and content moderation. | Detects adult, violent, or graphic content, and can perform image forensics to detect tampering of documents/IDs. |\n|  | **Amazon Rekognition**(AWS) | A deep learning-based image and video analysis service. | Can detect inappropriate content, recognize faces, and verify identities (useful for ID checks). |\n|  | **Azure AI Content Safety**(Microsoft) | AI-powered content moderation service that detects harmful text and images. | Classifier models detect various harm categories and can be integrated into custom platforms. |\n|  | **Perspective API**(Google) | Uses machine learning models to identify toxic or harmful language in text. | Useful for moderating comments or user input fields. |\n| **Digital Release Forms** | **DocuSign** | A widely used e-signature and digital document management solution. | Facilitates secure, legally binding electronic signatures for model release forms and ID collection. |\n|  | **Adobe Acrobat Sign** | Provides electronic signature and form management, integrated with other Adobe services. | Allows for creation, sending, and tracking of model release forms with e-signatures. |\n|  | **PandaDoc / Zoho Sign** | Other alternatives for creating, sharing, and e-signing business documents and contracts. | User-friendly interfaces for collecting necessary legal consents. |\n\n1. **Implement a Forms Workflow:** Use a service like DocuSign or Adobe Sign to manage the collection of legally compliant model release forms and ID verification from collaborators.\n2. **Create a Verification System:** Tie the submitted forms and ID verification to user accounts in your database, allowing creators to \"tag\" verified users to bypass moderation flags for approved content.",
+      "url": "https://linear.app/traderflow/issue/ALTYR-1/form-2257-model-release-flow",
+      "gitBranchName": "solandennis/altyr-1-form-2257-model-release-flow",
+      "status": "Backlog",
+      "assignee": "dhruva7102@gmail.com",
+      "project": "Launch",
+      "createdAt": "2025-12-19T20:08:41.957Z",
+      "updatedAt": "2026-01-05T20:00:20.576Z"
+    },
+    {
+      "id": "c2fed1fc-a5be-40ad-a37c-7f388a8fe9a4",
+      "identifier": "ALTYR-2",
+      "title": "Hide UI behind feature flags",
+      "description": "Reels\nAgency\nStories\nLivestreams\n\n\nfeatures like this come with the app we purchased, but we want the ability to hide these features on lauch, this way we have a site that isnt too confusing for new joiners and we can easily turn them back on later",
+      "url": "https://linear.app/traderflow/issue/ALTYR-2/hide-ui-behind-feature-flags",
+      "gitBranchName": "solandennis/altyr-2-hide-ui-behind-feature-flags",
+      "status": "Todo",
+      "project": "Launch",
+      "createdAt": "2025-12-19T20:11:09.442Z",
+      "updatedAt": "2026-01-17T02:51:06.235Z"
+    },
+    {
+      "id": "83f4dc85-f0a7-4b11-9185-8bc981013077",
+      "identifier": "ALTYR-3",
+      "title": "Altyr Colors/Gradients/Fonts",
+      "description": "use out styling guide and reference our waitlist for understanding how to style the site to our spec,",
+      "url": "https://linear.app/traderflow/issue/ALTYR-3/altyr-colorsgradientsfonts",
+      "gitBranchName": "solandennis/altyr-3-altyr-colorsgradientsfonts",
+      "status": "Todo",
+      "project": "Launch",
+      "createdAt": "2025-12-19T20:14:40.508Z",
+      "updatedAt": "2026-01-17T02:51:09.781Z"
+    },
+    {
+      "id": "429ad6a6-10f3-47a3-a824-91af03143170",
+      "identifier": "ALTYR-4",
+      "title": "Creator Collab Features",
+      "description": "a creator discoverability network and dedicated chat space for creators to meet and plan collabs",
+      "url": "https://linear.app/traderflow/issue/ALTYR-4/creator-collab-features",
+      "gitBranchName": "solandennis/altyr-4-creator-collab-features",
+      "status": "Backlog",
+      "createdAt": "2025-12-19T20:16:06.611Z",
+      "updatedAt": "2025-12-19T20:16:06.611Z"
+    },
+    {
+      "id": "0a7dc3cf-2747-470e-9e40-d85584f0f3f9",
+      "identifier": "ALTYR-5",
+      "title": "Profile badges",
+      "description": "Bades that can be displayed on the users profile to indicate an accolade on the user account,\n\n\nDesings for these badges to be provided",
+      "url": "https://linear.app/traderflow/issue/ALTYR-5/profile-badges",
+      "gitBranchName": "solandennis/altyr-5-profile-badges",
+      "status": "Backlog",
+      "project": "Launch",
+      "createdAt": "2025-12-19T20:17:05.802Z",
+      "updatedAt": "2026-01-06T02:18:35.959Z"
+    },
+    {
+      "id": "070e6680-18a5-4df5-8970-456494ad4fd5",
+      "identifier": "ALTYR-6",
+      "title": "Altyr Tokens",
+      "description": "## Altyr Tokens payment processor\n\ncredits/tokens/ something else",
+      "url": "https://linear.app/traderflow/issue/ALTYR-6/altyr-tokens",
+      "gitBranchName": "solandennis/altyr-6-altyr-tokens",
+      "status": "Backlog",
+      "assignee": "dhruva7102@gmail.com",
+      "createdAt": "2025-12-21T18:04:13.673Z",
+      "updatedAt": "2025-12-29T05:31:37.490Z"
+    },
+    {
+      "id": "0bf21fbf-e7a9-4481-975a-bfb21041dcd7",
+      "identifier": "ALTYR-7",
+      "title": "Auto Content Moderation",
+      "description": "1. **Integrate Content Moderation APIs:** Use an API like Sightengine or AWS Rekognition to scan all uploaded media in real-time.\n2. **Develop Flagging Logic:** Write code that flags content for human review if the AI models detect unverified individuals or potentially inappropriate content.",
+      "url": "https://linear.app/traderflow/issue/ALTYR-7/auto-content-moderation",
+      "gitBranchName": "solandennis/altyr-7-auto-content-moderation",
+      "status": "Backlog",
+      "createdAt": "2025-12-21T18:33:57.152Z",
+      "updatedAt": "2025-12-21T18:33:57.381Z"
+    },
+    {
+      "id": "4b1c2935-69fb-4491-9d2a-bd1ecf6ad8be",
+      "identifier": "ALTYR-8",
+      "title": "Creator Storefront",
+      "description": "A store page for each creator where you can go and browse all the paid content a creator has to offer and buy them directly on the wall.",
+      "url": "https://linear.app/traderflow/issue/ALTYR-8/creator-storefront",
+      "gitBranchName": "solandennis/altyr-8-creator-storefront",
+      "status": "Backlog",
+      "assignee": "dhruva7102@gmail.com",
+      "createdAt": "2025-12-21T20:52:13.345Z",
+      "updatedAt": "2025-12-21T20:52:13.345Z"
+    },
+    {
+      "id": "d44fc807-2912-4a12-a1d3-8680e4141b2c",
+      "identifier": "ALTYR-9",
+      "title": "White-Glove Onboarding tool",
+      "description": "We want an import tool from onlyfans to Altyr, a tool that simplifies the process as much as humanly possible,\n\nhow can we do this?",
+      "url": "https://linear.app/traderflow/issue/ALTYR-9/white-glove-onboarding-tool",
+      "gitBranchName": "solandennis/altyr-9-white-glove-onboarding-tool",
+      "status": "In Progress",
+      "assignee": "dhruva7102@gmail.com",
+      "project": "Launch",
+      "createdAt": "2025-12-21T20:53:53.736Z",
+      "updatedAt": "2025-12-29T05:31:22.650Z"
+    },
+    {
+      "id": "34e6b862-a949-47a2-a2f1-6391268e7776",
+      "identifier": "ALTYR-11",
+      "title": "Collab Network",
+      "description": "Build a collaboration network for creators\n\nChat space specific for creator to creator chat, this allows creators to plan collabs, coordinate marketing efforts, co-promote, etc.",
+      "url": "https://linear.app/traderflow/issue/ALTYR-11/collab-network",
+      "gitBranchName": "solandennis/altyr-11-collab-network",
+      "status": "Backlog",
+      "project": "Launch",
+      "createdAt": "2026-01-05T20:02:44.635Z",
+      "updatedAt": "2026-01-05T20:02:44.905Z"
+    },
+    {
+      "id": "72e0299c-e326-4aa5-91d9-8a2c82650135",
+      "identifier": "ALTYR-12",
+      "title": "Global XP System",
+      "description": "",
+      "url": "https://linear.app/traderflow/issue/ALTYR-12/global-xp-system",
+      "gitBranchName": "solandennis/altyr-12-global-xp-system",
+      "status": "Backlog",
+      "project": "Launch",
+      "createdAt": "2026-01-05T20:05:22.425Z",
+      "updatedAt": "2026-01-05T20:05:35.560Z"
+    },
+    {
+      "id": "79e673f8-092a-480b-b23d-7380a998de08",
+      "identifier": "ALTYR-13",
+      "title": "Deploy App to our Infrastructure",
+      "description": "",
+      "url": "https://linear.app/traderflow/issue/ALTYR-13/deploy-app-to-our-infrastructure",
+      "gitBranchName": "solandennis/altyr-13-deploy-app-to-our-infrastructure",
+      "status": "In Progress",
+      "project": "Launch",
+      "createdAt": "2026-01-06T02:17:51.800Z",
+      "updatedAt": "2026-01-08T17:32:30.097Z"
+    },
+    {
+      "id": "ae66b45d-3e43-40ed-a0af-5883d5ce4596",
+      "identifier": "ALTYR-14",
+      "title": "Add Tracking and Analytics for the app",
+      "description": "mixpanel, google analytics, trackable links, deeplinking.\n\nso we can track marketing spend agaisnt performance to optimize our marketing outlook.",
+      "url": "https://linear.app/traderflow/issue/ALTYR-14/add-tracking-and-analytics-for-the-app",
+      "gitBranchName": "solandennis/altyr-14-add-tracking-and-analytics-for-the-app",
+      "status": "Todo",
+      "project": "Launch",
+      "createdAt": "2026-01-12T17:49:49.036Z",
+      "updatedAt": "2026-01-12T17:49:49.036Z"
+    }
+  ],
+  "exportedAt": "2026-01-27T00:00:00.000Z"
+}

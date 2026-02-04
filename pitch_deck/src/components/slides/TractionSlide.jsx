@@ -68,18 +68,22 @@ export default function TractionSlide() {
 
         {/* Key metrics */}
         <motion.div
-          className="flex items-center justify-center gap-16 mb-16"
+          className="flex items-center justify-center gap-12 md:gap-16 mb-16"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="text-center">
-            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">15</div>
+            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">45</div>
             <div className="text-sm text-white/50 font-light">Creators</div>
           </div>
           <div className="text-center">
-            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">12M</div>
+            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">17.2M</div>
             <div className="text-sm text-white/50 font-light">Total Followers</div>
+          </div>
+          <div className="text-center">
+            <div className="text-5xl md:text-6xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-[#b8860b] mb-2">15</div>
+            <div className="text-sm text-[#d4af37]/70 font-light">Inner Circle</div>
           </div>
         </motion.div>
 

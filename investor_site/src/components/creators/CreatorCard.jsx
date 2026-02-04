@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check } from 'lucide-react';
+import { Check, Crown } from 'lucide-react';
 import { formatFollowerCount } from '@/data/creators';
 
 /**
@@ -8,7 +8,7 @@ import { formatFollowerCount } from '@/data/creators';
  * Optimized for horizontal scrolling with 2-row layout
  */
 export default function CreatorCard({ creator }) {
-  const { handle, name, followers, verified, avatarUrl } = creator;
+  const { handle, name, followers, verified, avatarUrl, innerCircle } = creator;
 
   const initial = (name || handle || '?').trim().charAt(0).toUpperCase();
   
@@ -17,7 +17,11 @@ export default function CreatorCard({ creator }) {
       href={`https://x.com/${handle}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative flex flex-col justify-between p-4 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#AC0064]/50 transition-all duration-300 cursor-pointer"
+      className={`group relative flex flex-col justify-between p-4 rounded-2xl backdrop-blur-sm transition-all duration-300 cursor-pointer ${
+        innerCircle 
+          ? 'bg-gradient-to-br from-[#d4af37]/10 to-white/5 border-2 border-[#d4af37]/50 hover:border-[#d4af37]' 
+          : 'bg-white/5 border border-white/10 hover:border-[#AC0064]/50'
+      }`}
       style={{
         minWidth: '220px',
         maxWidth: '220px',
@@ -34,7 +38,9 @@ export default function CreatorCard({ creator }) {
       <motion.div
         className="absolute inset-0 rounded-2xl blur-xl opacity-0 group-hover:opacity-40 transition-opacity duration-300 -z-10"
         style={{
-          background: 'linear-gradient(135deg, #AC0064, #64109A)',
+          background: innerCircle 
+            ? 'linear-gradient(135deg, #d4af37, #b8860b)' 
+            : 'linear-gradient(135deg, #AC0064, #64109A)',
         }}
       />
 
@@ -79,6 +85,16 @@ export default function CreatorCard({ creator }) {
                 <Check className="w-3 h-3 text-white" strokeWidth={3} />
               </span>
             )}
+            {innerCircle && (
+              <span
+                className="inline-flex items-center justify-center w-4 h-4 rounded-full flex-shrink-0"
+                style={{ backgroundColor: '#d4af37' }}
+                aria-label="Inner Circle"
+                title="Inner Circle"
+              >
+                <Crown className="w-2.5 h-2.5 text-black" strokeWidth={2.5} />
+              </span>
+            )}
           </div>
 
           {/* Name */}
@@ -103,7 +119,9 @@ export default function CreatorCard({ creator }) {
         <div 
           className="w-2 h-2 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
           style={{
-            background: 'linear-gradient(135deg, #AC0064, #64109A)',
+            background: innerCircle 
+              ? 'linear-gradient(135deg, #d4af37, #b8860b)' 
+              : 'linear-gradient(135deg, #AC0064, #64109A)',
           }}
         />
       </div>

@@ -1,0 +1,14 @@
+Identifier,Title,Status,Assignee,Project,URL,Git Branch,Created,Updated
+ALTYR-1,Form 2257 model release flow,Backlog,dhruva7102@gmail.com,Launch,https://linear.app/traderflow/issue/ALTYR-1/form-2257-model-release-flow,solandennis/altyr-1-form-2257-model-release-flow,2025-12-19,2026-01-05
+ALTYR-2,Hide UI behind feature flags,Todo,,Launch,https://linear.app/traderflow/issue/ALTYR-2/hide-ui-behind-feature-flags,solandennis/altyr-2-hide-ui-behind-feature-flags,2025-12-19,2026-01-17
+ALTYR-3,Altyr Colors/Gradients/Fonts,Todo,,Launch,https://linear.app/traderflow/issue/ALTYR-3/altyr-colorsgradientsfonts,solandennis/altyr-3-altyr-colorsgradientsfonts,2025-12-19,2026-01-17
+ALTYR-4,Creator Collab Features,Backlog,,,https://linear.app/traderflow/issue/ALTYR-4/creator-collab-features,solandennis/altyr-4-creator-collab-features,2025-12-19,2025-12-19
+ALTYR-5,Profile badges,Backlog,,Launch,https://linear.app/traderflow/issue/ALTYR-5/profile-badges,solandennis/altyr-5-profile-badges,2025-12-19,2026-01-06
+ALTYR-6,Altyr Tokens,Backlog,dhruva7102@gmail.com,,https://linear.app/traderflow/issue/ALTYR-6/altyr-tokens,solandennis/altyr-6-altyr-tokens,2025-12-21,2025-12-29
+ALTYR-7,Auto Content Moderation,Backlog,,,https://linear.app/traderflow/issue/ALTYR-7/auto-content-moderation,solandennis/altyr-7-auto-content-moderation,2025-12-21,2025-12-21
+ALTYR-8,Creator Storefront,Backlog,dhruva7102@gmail.com,,https://linear.app/traderflow/issue/ALTYR-8/creator-storefront,solandennis/altyr-8-creator-storefront,2025-12-21,2025-12-21
+ALTYR-9,White-Glove Onboarding tool,In Progress,dhruva7102@gmail.com,Launch,https://linear.app/traderflow/issue/ALTYR-9/white-glove-onboarding-tool,solandennis/altyr-9-white-glove-onboarding-tool,2025-12-21,2025-12-29
+ALTYR-11,Collab Network,Backlog,,Launch,https://linear.app/traderflow/issue/ALTYR-11/collab-network,solandennis/altyr-11-collab-network,2026-01-05,2026-01-05
+ALTYR-12,Global XP System,Backlog,,Launch,https://linear.app/traderflow/issue/ALTYR-12/global-xp-system,solandennis/altyr-12-global-xp-system,2026-01-05,2026-01-05
+ALTYR-13,Deploy App to our Infrastructure,In Progress,,Launch,https://linear.app/traderflow/issue/ALTYR-13/deploy-app-to-our-infrastructure,solandennis/altyr-13-deploy-app-to-our-infrastructure,2026-01-06,2026-01-08
+ALTYR-14,Add Tracking and Analytics for the app,Todo,,Launch,https://linear.app/traderflow/issue/ALTYR-14/add-tracking-and-analytics-for-the-app,solandennis/altyr-14-add-tracking-and-analytics-for-the-app,2026-01-12,2026-01-12

@@ -19,41 +19,56 @@
  *   - Category (text, optional) - Creator category
  */
 
+import { creators as mockCreators } from '@/data/creators';
+
 export async function fetchCreators() {
-  const res = await fetch('/api/creators', {
-    method: 'GET',
-    headers: { 'Accept': 'application/json' },
-  });
+  try {
+    const res = await fetch('/api/creators', {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' },
+    });
 
-  if (!res.ok) {
-    let errorMessage = `API error: ${res.status}`;
-    
-    try {
-      const errorData = await res.json();
-      errorMessage = errorData.error || errorData.message || errorMessage;
-    } catch (e) {
-      // If JSON parsing fails, try to get text
+    if (!res.ok) {
+      let errorMessage = `API error: ${res.status}`;
+      
       try {
-        const text = await res.text();
-        if (text) errorMessage = text;
-      } catch (e2) {
-        // Fall back to status code message
+        const errorData = await res.json();
+        errorMessage = errorData.error || errorData.message || errorMessage;
+      } catch (e) {
+        // If JSON parsing fails, try to get text
+        try {
+          const text = await res.text();
+          if (text) errorMessage = text;
+        } catch (e2) {
+          // Fall back to status code message
+        }
       }
+      
+      // Handle rate limit errors with a more user-friendly message
+      if (res.status === 429) {
+        throw new Error('X API rate limit exceeded. Profiles will load automatically once the limit resets.');
+      }
+      
+      throw new Error(errorMessage);
     }
+
+    const data = await res.json();
     
-    // Handle rate limit errors with a more user-friendly message
-    if (res.status === 429) {
-      throw new Error('X API rate limit exceeded. Profiles will load automatically once the limit resets.');
+    if (!Array.isArray(data)) {
+      throw new Error('Invalid API response format');
     }
-    
-    throw new Error(errorMessage);
-  }
 
-  const data = await res.json();
-  
-  if (!Array.isArray(data)) {
-    throw new Error('Invalid API response format');
+    return data;
+  } catch (err) {
+    // In local development, fall back to mock data if API is unavailable
+    if (import.meta.env.DEV) {
+      console.warn('API unavailable, using mock data for local development:', err.message);
+      // Add innerCircle to some mock creators for testing
+      return mockCreators.map((c, i) => ({
+        ...c,
+        innerCircle: i < 3, // First 3 creators are "Inner Circle" for testing
+      }));
+    }
+    throw err;
   }
-
-  return data;
 }

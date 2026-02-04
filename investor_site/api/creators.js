@@ -144,6 +144,13 @@ export default async function handler(req, res) {
           console.log('First record followers value (parsed):', followers);
         }
 
+        // Check for Inner Circle status (checkbox field in Airtable)
+        const innerCircle = fields['Inner Circle'] 
+          || fields['inner circle'] 
+          || fields['InnerCircle'] 
+          || fields.innerCircle 
+          || false;
+
         return {
           handle: handle.replace('@', ''), // Remove @ if present
           name: fields.Name || fields.name || handle,
@@ -151,6 +158,7 @@ export default async function handler(req, res) {
           followers: followers,
           verified: fields.Verified || fields.verified || false,
           category: fields.Category || fields.category || null,
+          innerCircle: Boolean(innerCircle),
         };
       })
       .filter(Boolean); // Remove null entries
