@@ -12,6 +12,7 @@ import Terms from "./Terms";
 
 import CreatorDemo from "./CreatorDemo";
 import FanDemo from "./FanDemo";
+import RedirectLanding from "./RedirectLanding";
 
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
@@ -55,9 +56,8 @@ function PagesContent() {
         <Layout currentPageName={currentPage}>
             <Routes>            
                 
-                    <Route path="/" element={<Home />} />
-                
-                
+                    <Route path="/g/:slug" element={<RedirectLanding />} />
+                <Route path="/" element={<Home />} />
                 <Route path="/Home" element={<Home />} />
                 
                 <Route path="/CreatorSignup" element={<CreatorSignup />} />

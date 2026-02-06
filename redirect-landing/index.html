@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altyr — Choose your destination</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Background layer: orbs + noise (match waitlist_site Hero) -->
+  <div class="bg-layer" aria-hidden="true">
+    <div class="orb orb-center"></div>
+    <div class="orb orb-bottom-left"></div>
+    <div class="orb orb-top-right"></div>
+    <div class="noise"></div>
+  </div>
+  <div id="app">
+    <div id="loading" class="screen">
+      <div class="loader"></div>
+      <p class="text-muted">Loading…</p>
+    </div>
+    <div id="error" class="screen hidden">
+      <img src="/logo.svg" alt="Altyr" class="logo-img" />
+      <p class="text-body">This link is invalid or has expired.</p>
+      <a href="https://dev.altyr.com" class="btn btn-primary">Go to Altyr</a>
+    </div>
+    <div id="choice" class="screen hidden">
+      <img src="/logo.svg" alt="Altyr" class="logo-img" />
+      <p class="headline">Where would you like to go?</p>
+      <p class="text-body">You can continue to OnlyFans or try Altyr — the next generation of exclusive content.</p>
+      <div class="buttons">
+        <button type="button" id="btn-onlyfans" class="btn btn-secondary">Go to OnlyFans</button>
+        <button type="button" id="btn-altyr" class="btn btn-primary">Go to Altyr</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    window.REDIRECT_API_BASE = window.REDIRECT_API_BASE || 'http://localhost:3000/v1';
+  </script>
+  <script src="/redirect.js"></script>
+</body>
+</html>

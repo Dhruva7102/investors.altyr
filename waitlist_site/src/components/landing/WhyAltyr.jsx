@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const statements = [
+const defaultStatements = [
   {
     text: "The industry leader stopped innovating.",
     accent: "stopped innovating",
@@ -19,7 +19,7 @@ const statements = [
   }
 ];
 
-export default function WhyAltyr() {
+export default function WhyAltyr({ statements = defaultStatements }) {
   return (
     <section id="why-altyr" className="relative py-16 md:py-20">
       {/* Subtle gradient accent */}
