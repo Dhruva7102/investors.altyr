@@ -9,7 +9,7 @@ import {
   MessageSquare 
 } from 'lucide-react';
 
-const features = [
+const defaultFeatures = [
   {
     icon: Zap,
     title: "Lower Fees, Faster Payouts",
@@ -42,7 +42,7 @@ const features = [
   }
 ];
 
-export default function FeatureCards() {
+export default function FeatureCards({ features = defaultFeatures }) {
   return (
     <section className="relative py-16 md:py-20">
       {/* Background accent */}
