@@ -4,9 +4,9 @@
 
   function getApiBase() {
     var el = document.getElementById('apiBase');
-    var defaultBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    var defaultBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
       ? 'http://localhost:3000/v1'
-      : (window.location.origin + '/v1');
+      : ''; // Production: no same-origin API; user must set node-service URL in Settings
     return (el && el.value.trim()) || sessionStorage.getItem(API_BASE_KEY) || window.REDIRECT_API_BASE || defaultBase;
   }
 
@@ -82,9 +82,20 @@
       body: JSON.stringify(body)
     })
       .then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok) throw new Error(data.message || res.statusText);
-          return data;
+        return res.text().then(function (text) {
+          var ct = res.headers.get('content-type');
+          if (!ct || ct.indexOf('application/json') === -1) {
+            var preview = text.slice(0, 80).replace(/</g, '&lt;');
+            throw new Error('Server returned non-JSON (status ' + res.status + '). Preview: ' + (preview || '(empty)') + '. Set API base in Settings to the node-service that has redirect-links (not the waitlist URL).');
+          }
+          try {
+            var data = JSON.parse(text);
+            if (!res.ok) throw new Error(data.message || res.statusText);
+            return data;
+          } catch (e) {
+            var preview = text.slice(0, 80).replace(/</g, '&lt;');
+            throw new Error('Invalid JSON from server. Preview: ' + preview + '. Wrong API base URL?');
+          }
         });
       })
       .then(function (data) {
@@ -119,9 +130,20 @@
       headers: headers()
     })
       .then(function (res) {
-        return res.json().then(function (data) {
-          if (!res.ok) throw new Error(data.message || res.statusText);
-          return data;
+        return res.text().then(function (text) {
+          var ct = res.headers.get('content-type');
+          if (!ct || ct.indexOf('application/json') === -1) {
+            var preview = text.slice(0, 80).replace(/</g, '&lt;');
+            throw new Error('Server returned non-JSON (status ' + res.status + '). Preview: ' + (preview || '(empty)') + '. Set API base to the node-service that has redirect-links.');
+          }
+          try {
+            var data = JSON.parse(text);
+            if (!res.ok) throw new Error(data.message || res.statusText);
+            return data;
+          } catch (e) {
+            var preview = text.slice(0, 80).replace(/</g, '&lt;');
+            throw new Error('Invalid JSON from server. Preview: ' + preview + '. Wrong API base URL?');
+          }
         });
       })
       .then(function (data) {
@@ -154,9 +176,9 @@
     panel.classList.toggle('hidden');
   });
 
-  var defaultBase = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  var defaultBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:3000/v1'
-    : (window.location.origin + '/v1');
+    : '';
   var apiBaseEl = document.getElementById('apiBase');
   if (apiBaseEl) {
     apiBaseEl.value = sessionStorage.getItem(API_BASE_KEY) || window.REDIRECT_API_BASE || defaultBase;

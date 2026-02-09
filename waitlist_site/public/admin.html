@@ -127,8 +127,8 @@
     <div class="settings-panel hidden" id="settingsPanel">
       <div class="form-group">
         <label for="apiBase">API base URL</label>
-        <input type="text" id="apiBase" placeholder="http://localhost:3000/v1" />
-        <p class="auth-hint">Default: localhost uses http://localhost:3000/v1</p>
+        <input type="text" id="apiBase" placeholder="https://your-node-service.altyr.com/v1" />
+        <p class="auth-hint">Required when not on localhost. Use your node-service API base (e.g. dev/staging URL ending in /v1).</p>
       </div>
       <div class="form-group">
         <label for="adminSecret">Admin password (optional)</label>
@@ -144,7 +144,7 @@
     </div>
   </div>
   <script>
-    window.REDIRECT_API_BASE = window.REDIRECT_API_BASE || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000/v1' : (window.location.origin + '/v1'));
+    window.REDIRECT_API_BASE = window.REDIRECT_API_BASE || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:3000/v1' : '');
   </script>
   <script src="/admin.js"></script>
 </body>
