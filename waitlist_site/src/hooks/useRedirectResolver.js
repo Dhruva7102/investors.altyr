@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 
-const API_BASE = import.meta.env.VITE_REDIRECT_API_BASE || 'http://localhost:3000/v1';
+// Build-time: set VITE_REDIRECT_API_BASE in Vercel (or .env) to the API that has redirect-links.
+// When unset: dev (localhost) uses localhost:3000; production uses dev-api so links work once that API has the routes.
+const API_BASE =
+  import.meta.env.VITE_REDIRECT_API_BASE ||
+  (import.meta.env.DEV ? 'http://localhost:3000/v1' : 'https://dev-api.altyr.com/v1');
 
 export function useRedirectResolver(slug) {
   const [loading, setLoading] = useState(Boolean(slug));
