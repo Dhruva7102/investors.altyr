@@ -70,6 +70,10 @@
       showMessage('createMessage', 'OnlyFans URL is required.', true);
       return;
     }
+    if (window.location.protocol === 'https:' && apiBase.indexOf('http://') === 0) {
+      showMessage('createMessage', 'Mixed content: this page is HTTPS but the API URL is HTTP. Browsers block that. Use this admin from an HTTP page (e.g. http://localhost:5173/admin.html) or use an HTTPS API URL.', true);
+      return;
+    }
 
     setStored();
 
