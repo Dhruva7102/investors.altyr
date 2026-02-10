@@ -6,7 +6,7 @@
     var el = document.getElementById('apiBase');
     var defaultBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
       ? 'http://localhost:3000/v1'
-      : ''; // Production: no same-origin API; user must set node-service URL in Settings
+      : 'https://dev-api.altyr.com/v1'; // Same as dev.altyr.com app: gateway routes to node-service
     return (el && el.value.trim()) || sessionStorage.getItem(API_BASE_KEY) || window.REDIRECT_API_BASE || defaultBase;
   }
 
@@ -126,6 +126,10 @@
       listResult.innerHTML = '<p class="url">Set API base in Settings, then click Refresh list.</p>';
       return;
     }
+    if (window.location.protocol === 'https:' && apiBase.indexOf('http://') === 0) {
+      listResult.innerHTML = '<p class="url">Mixed content: this page is HTTPS but the API URL is HTTP. Use <a href="http://localhost:5173/admin.html" target="_blank" rel="noopener">http://localhost:5173/admin.html</a> (with the waitlist dev server running) and set API base to <code>http://5.78.146.122:3006/v1</code>.</p>';
+      return;
+    }
 
     setStored();
 
@@ -182,7 +186,7 @@
 
   var defaultBase = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
     ? 'http://localhost:3000/v1'
-    : '';
+    : 'https://dev-api.altyr.com/v1';
   var apiBaseEl = document.getElementById('apiBase');
   if (apiBaseEl) {
     apiBaseEl.value = sessionStorage.getItem(API_BASE_KEY) || window.REDIRECT_API_BASE || defaultBase;
