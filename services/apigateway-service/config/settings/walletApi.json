@@ -1,0 +1,1862 @@
+{
+    "endpoints": [
+        {
+            "endpoint": "/v1/activePendingTransactionLogs",
+            "method": "GET",
+            "querystring_params": [
+                "walletId",
+                "txnType",
+                "txnState",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/activePendingTransactionLogs",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bank",
+            "method": "GET",
+            "querystring_params": [
+                "userId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bank",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankById",
+            "method": "GET",
+            "querystring_params": [
+                "bankId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankById",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankFields",
+            "method": "GET",
+            "querystring_params": [
+                "pgId",
+                "countryCode",
+                "fieldId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankFields",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/chargeback",
+            "method": "GET",
+            "querystring_params": [
+                "offset",
+                "limit",
+                "status"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/chargeback",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/currencyExchangeRate",
+            "method": "GET",
+            "querystring_params": [
+                "from_currency",
+                "to_currency",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/currencyExchangeRate",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentGateway",
+            "method": "GET",
+            "querystring_params": [
+                "pgId",
+                "status"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentGateway",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentLog",
+            "method": "GET",
+            "querystring_params": [
+                "userId",
+                "userType",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentLog",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/payoutlog",
+            "method": "GET",
+            "querystring_params": [
+                "fromDate",
+                "toDate",
+                "mode",
+                "userType",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/payoutlog",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/transferLog",
+            "method": "GET",
+            "querystring_params": [
+                "fromUserId",
+                "fromUserType",
+                "toUserId",
+                "toUserType",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/transferLog",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet",
+            "method": "GET",
+            "querystring_params": [
+                "userId",
+                "userType",
+                "countryCodeName"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/walletTransaction",
+            "method": "GET",
+            "querystring_params": [
+                "walletId",
+                "userId",
+                "userType",
+                "fromDate",
+                "toDate",
+                "txnType",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/walletTransaction",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw",
+            "method": "GET",
+            "querystring_params": [
+                "userId",
+                "userType",
+                "pageState",
+                "fetchSize",
+                "status",
+                "autoPayout"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/amounts",
+            "method": "GET",
+            "querystring_params": [
+                "country_name"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/amounts",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin",
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/link",
+            "method": "GET",
+            "querystring_params": [
+                "pgLinkId",
+                "countryCode",
+                "offset",
+                "limit"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/link",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentLog/all",
+            "method": "GET",
+            "querystring_params": [
+                "fromDate",
+                "toDate",
+                "searchText",
+                "mode",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentLog/all",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/transferLog/all",
+            "method": "GET",
+            "querystring_params": [
+                "fromDate",
+                "toDate",
+                "searchText",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/transferLog/all",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/transferLog/byId",
+            "method": "GET",
+            "querystring_params": [
+                "txnId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/transferLog/byId",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/byCurrency",
+            "method": "GET",
+            "querystring_params": [
+                "userId",
+                "userType",
+                "currency"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/byCurrency",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/country",
+            "method": "GET",
+            "querystring_params": [
+                "searchText",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/country",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/pg",
+            "method": "GET",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/pg",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/walletTransaction/estimate",
+            "method": "GET",
+            "querystring_params": [
+                "fromCurrency",
+                "toCurrency",
+                "amount"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/walletTransaction/estimate",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw/all",
+            "method": "GET",
+            "querystring_params": [
+                "status",
+                "autoPayout",
+                "searchText",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw/all",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw/details",
+            "method": "GET",
+            "querystring_params": [
+                "withdrawId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw/details",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw/withdrawAmt",
+            "method": "GET",
+            "querystring_params": [
+                "walletId",
+                "withdrawCurrency",
+                "countryCode",
+                "type",
+                "amount"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw/withdrawAmt",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/amounts/all",
+            "method": "GET",
+            "querystring_params": [
+                "searchText",
+                "pageState",
+                "fetchSize"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/amounts/all",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/pg/country",
+            "method": "GET",
+            "querystring_params": [
+                "pgId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/pg/country",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bank",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bank",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankFields",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankFields",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/chargeback",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/chargeback",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/currencyExchangeRate",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/currencyExchangeRate",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/payment",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/payment",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentGateway",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentGateway",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentLog",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentLog",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/walletTransaction",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/walletTransaction",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/amount",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/amount",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin",
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/link",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/link",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/country",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/country",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/walletTransaction/transfer",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/walletTransaction/transfer",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw/money",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw/money",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bank",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bank",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankFields",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankFields",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/chargeback",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/chargeback",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/currencyExchangeRate",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/currencyExchangeRate",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentGateway",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentGateway",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/link",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/link",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/country",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/country",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bank",
+            "method": "DELETE",
+            "querystring_params": [
+                "bankId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bank",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankFields",
+            "method": "DELETE",
+            "querystring_params": [
+                "pgId",
+                "countryCode",
+                "fieldId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankFields",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentGateway",
+            "method": "DELETE",
+            "querystring_params": [
+                "pgId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentGateway",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/withdraw",
+            "method": "DELETE",
+            "querystring_params": [
+                "withdrawId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/withdraw",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/country/link",
+            "method": "DELETE",
+            "querystring_params": [
+                "pgLinkId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/country/link",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/wallet/country",
+            "method": "DELETE",
+            "querystring_params": [
+                "country_id"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/wallet/country",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/paymentGateway",
+            "method": "PUT",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/paymentGateway",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/bankFields/reorder",
+            "method": "PUT",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/bankFields/reorder",
+                    "encoding": "no-op",
+                    "host": [
+                        "wallet-service:5656"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        }
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "200": "Success.",
+    "400": "Problem in requested data.",
+    "401": "Unauthorized.",
+    "404": "Token Not found.",
+    "405": "Not allowed for Basic auth.",
+    "406": "Token Expired.",
+    "407": "Token Not Expired.",
+    "417": "Invalid Refresh Token Passed.",
+    "500": "Internal Server Error."
+}

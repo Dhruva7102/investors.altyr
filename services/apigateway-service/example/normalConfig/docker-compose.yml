@@ -1,0 +1,29 @@
+version: "2" 
+
+networks:
+  app-tier:
+    driver: bridge 
+
+services:
+  krakend:
+    image: appscrip007/api-gateway
+    restart: always
+    environment:
+      - FC_ENABLE=1
+      - logLevel=ERROR
+      - Debug=false
+      - GIN_MODE=release
+    volumes:
+      - ./locales:/locales
+      - ./certs:/app/certs
+      - ./config:/app/config
+      - ./krakend.json:/app/krakend.json
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    networks:
+      - app-tier 
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "3"

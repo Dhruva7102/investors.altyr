@@ -1,0 +1,402 @@
+{
+    "version": 2,
+    "name": "{{ .service.name }}",
+    "port": {{ .service.port }},
+    "cache_ttl": "{{ .service.cache_ttl }}",
+    "timeout": "{{ .service.timeout }}",
+    "extra_config": {{ marshal .service.extra_config }},
+    "endpoints": [
+        {{ range .nodeApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .smsService.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .emailService.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .cashFreeApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .razorpayApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .referralapi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .loyalityApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .quotationApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .pythonApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .walletApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .stripeApi.endpoints }}
+        {
+            "endpoint": "stripe{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .serviceApi.endpoints }}
+        {
+            "endpoint": "service/{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .rideApi.endpoints }}
+        {
+            "endpoint": "/v1/ride/{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .dispatcherApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .ghostApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+		{{ range .chatApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+		{{ range .analyticsApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "querystring_params": {{ marshal .querystring_params }},
+            "headers_to_pass": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            "auth": {{ marshal .extra_config.auth }},
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {
+            "endpoint": "/health",
+            "extra_config": {
+                "github.com/devopsfaith/krakend/proxy": {
+                    "static": {
+                        "data": {
+                            "status": "OK"
+                        },
+                        "strategy": "always"
+                    }
+                }
+            },
+            "backend": [
+                {
+                    "url_pattern": "/"
+                }
+            ]
+        }
+    ]
+}

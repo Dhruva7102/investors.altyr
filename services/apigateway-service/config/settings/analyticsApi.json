@@ -1,0 +1,810 @@
+{
+    "endpoints": [
+        {
+            "endpoint": "/v1/analytics/dashboard/total-earning",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/dashboard/total-earning",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/total-earning",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/total-earning",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/top-n-posts",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/dashboard/top-n-posts",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/top-n-subscriptions",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/dashboard/top-n-subscriptions",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/top-n-subscriptions",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/top-n-subscriptions",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/top-n-posts",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/top-n-posts",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/top-creators",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/dashboard/top-creators",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/no-of-creators",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/no-of-creators",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/user-signups",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/user-signups",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/total-users",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/total-users",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/user-session-logs",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/user-session-logs",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/top-n-creators",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/top-n-creators",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/top-n-chats",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/detailed_charts/top-n-chats",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/top-n-chats",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/analytics/dashboard/top-n-chats",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-count",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-count",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-subscribe-status",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-subscribe-status",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-vip-plan",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-vip-plan",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-tip",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-tip",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/total-vip-plan",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/detailed_charts/total-vip-plan",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/top-n-tip",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/detailed_charts/top-n-tip",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-subscribe-plans",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-subscribe-plans",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-users-country",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-users-country",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-users-spent",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-users-spent",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/total-wallet-recharge",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/detailed_charts/total-wallet-recharge",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/detailed_charts/total-purchase-overview",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/detailed_charts/total-purchase-overview",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/v1/analytics/dashboard/total-livestream-earning",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Authorization"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "analytics/dashboard/total-livestream-earning",
+                    "encoding": "no-op",
+                    "host": [
+                        "analytics-service:8001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        }
+    ]
+}

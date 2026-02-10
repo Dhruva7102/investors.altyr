@@ -1,0 +1,542 @@
+{
+    "endpoints": [
+        {
+            "endpoint": "/video-call-api/dailyAvailability",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/dailyAvailability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/dailyAvailability",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/dailyAvailability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/userSlotBook",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/userSlotBook",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/userAvailability",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/userAvailability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/dailyAvailability",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/dailyAvailability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/slotSizeForService",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/slotSizeForService",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/slotSizeForService",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/slotSizeForService",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/availability",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/availability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/availability",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/availability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/availability",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/availability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/availability",
+            "method": "DELETE",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/availability",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/slots",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/slots",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/users/slots",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/users/slots",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/users/all/available/dates",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/users/all/available/dates",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/users/slot/extension/details",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/users/slot/extension/details",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        },
+        {
+            "endpoint": "/video-call-api/slots/change-weekday-status",
+            "method": "PATCH",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "Content-Length",
+                "Authorization",
+                "Content-Length",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/slots/change-weekday-status",
+                    "encoding": "no-op",
+                    "host": [
+                        "availability-service:8002"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 0,
+                            "capacity": 0,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "no-op"
+        }
+    ]
+}

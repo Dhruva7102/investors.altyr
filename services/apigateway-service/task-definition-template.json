@@ -1,0 +1,62 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "api-gateway",
+            "image": "${IMAGE_NAME}",
+            "cpu": 256,
+            "portMappings": [
+                {
+                    "containerPort": 8081,
+                    "hostPort": 0,
+                    "protocol": "tcp"
+                }
+            ],
+            "essential": true,
+            "command": [],
+            "environment": [
+                {
+                    "name": "FC_ENABLE",
+                    "value": "0"
+                },
+                {
+                    "name": "logLevel",
+                    "value": "DEBUG"
+                },
+                {
+                    "name": "Debug",
+                    "value": "false"
+                },
+                {
+                    "name": "GIN_MODE",
+                    "value": "release"
+                },
+                {
+                    "name": "DEFAULT_LANGUAGE",
+                    "value": "en"
+                },
+                {
+                    "name": "LANGUAGES",
+                    "value": "en"
+                },
+                {
+                    "name": "LANGUAGE_HEADER_FIELD",
+                    "value": "language"
+                },
+                {
+                    "name": "API_KEY_VALIDATOR",
+                    "value": "http://internal-hospice-internal-elb-760091756.us-west-1.elb.amazonaws.com:8002/v1/api-key-manager/validate"
+                }
+            ],
+            "mountPoints":  [],
+            "volumesFrom": [],
+            "extraHosts": []
+        }
+    ],
+    "family": "Hospice-api-gateway",
+    "volumes": [],
+    "placementConstraints": [],
+    "requiresCompatibilities": [
+        "EC2"
+    ],
+    "memory": "1024"
+}

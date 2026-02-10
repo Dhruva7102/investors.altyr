@@ -1,0 +1,824 @@
+{
+    "endpoints": [
+        {
+            "endpoint": "/v1/collection",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/collection",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/featuredCollection",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/featuredCollection",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "guest"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/follow",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/follow",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/reels",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/reels",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/stories",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/stories",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/featuredCollection/details",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/featuredCollection/details",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "guest"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/follow/count",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/follow/count",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag/admin",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag/admin",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag/posts",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag/posts",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/bookmark",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/bookmark",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/detail",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/detail",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/likes",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/likes",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/locked",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/locked",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/purchase",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/purchase",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/subscribed",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/subscribed",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/posts/tagged",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/posts/tagged",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/stories/detail",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/stories/detail",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "guest",
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/tagging/users",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/tagging/users",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/user/relation",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/user/relation",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag/follow/users",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag/follow/users",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag/posts/admin",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag/posts/admin",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/user/relation/count",
+            "method": "GET",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/user/relation/count",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/hashTag/admin",
+            "method": "POST",
+            "querystring_params": [
+                "*"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/hashTag/admin",
+                    "encoding": "no-op",
+                    "host": [
+                        "social-service:3001"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        }
+    ]
+}
