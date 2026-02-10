@@ -1,0 +1,230 @@
+{
+    "version": 3,
+    "name": "{{ .service.name }}",
+    "port": {{ .service.port }},
+    "cache_ttl": "{{ .service.cache_ttl }}",
+    "timeout": "{{ .service.timeout }}",
+    "extra_config": {{ marshal .service.extra_config }},
+    "endpoints": [
+		{{ range .nodeApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .input_query_strings }},
+            "input_headers": {{ marshal .input_headers }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {{ marshal .extra_config}}
+                    }
+                {{ end }}
+            ],
+            "extra_config": {{ marshal .extra_config }},
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+                {{ range .availabilityApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+                {{ range .pythonApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .walletApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .netbillingApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+		{{ range .socialMedia.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .analyticsApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {{ range .streamApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .querystring_params }},
+            "input_headers": {{ marshal .headers_to_pass }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }},
+                        "extra_config": {
+                            {{ include "rate_limit.tmpl" }}
+                        }
+                    }
+                {{ end }}
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": {{ marshal (index .backend 0).extra_config.auth }}
+                }
+            },
+            "output_encoding": "no-op"
+        },
+        {{ end }}
+        {
+            "endpoint": "/health",
+            "extra_config": {
+                "github.com/devopsfaith/krakend/proxy": {
+                    "static": {
+                        "data": {
+                            "status": "OK"
+                        },
+                        "strategy": "always"
+                    }
+                }
+            },
+            "backend": [
+                {
+                    "url_pattern": "/"
+                }
+            ]
+        }
+    ]
+}

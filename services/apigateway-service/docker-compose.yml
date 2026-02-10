@@ -1,0 +1,29 @@
+services:
+  api-gateway-service:
+    image: appscrip007/api-gateway:2.4.3
+    container_name: apigateway-service
+    restart: always
+    environment:
+      - FC_ENABLE=1
+      - GIN_MODE=release
+      - logLevel=DEBUG
+      - Debug=false
+      - REDIS_DB=1
+      - REDIS_URL=redis:6379
+      - REDIS_PASS=3EVi26A73EC4Gbcho61vuc
+      - BASIC_AUTH_altyr=admin@altyr.com
+    volumes:
+      - ./certs:/etc/krakend/certs
+      - ./config:/etc/krakend/config
+    ports:
+      - "8080:8080"
+      - "8090:8090"
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "3"
+    networks:
+      - altyr_network
+networks:
+  altyr_network:
+    external: true

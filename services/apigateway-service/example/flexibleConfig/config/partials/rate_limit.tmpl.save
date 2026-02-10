@@ -1,0 +1,5 @@
+rate_limit.tmpl "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+    "maxRate": "0",
+    "capacity": "0",
+    "strategy": "ip"
+}

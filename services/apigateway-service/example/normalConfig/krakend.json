@@ -1,0 +1,170 @@
+{
+    "version": 2,
+    "name": "API Gateway",
+    "port": 8080,
+    "cache_ttl": "3600s",
+    "timeout": "20000ms",
+    "extra_config": {
+        "authConfig": {
+            "Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+            "Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE",
+            "Access-Control-Allow-Origin": "*",
+            "accessTTL": "180h",
+            "allowOrigins": [
+                "*"
+            ],
+            "basicAuth": true,
+            "basicAuthCreds": {
+                "test": "test"
+            },
+            "defaultLanguage": "en",
+            "jwtEndpoint": "accessKeys",
+            "jwtIssuer": "http://example.com/",
+            "jwtPort": 8090,
+            "keyName": "id_rsa",
+            "language": [
+                "en"
+            ],
+            "languageHeaderField": "language",
+            "redisDB": 4,
+            "redisPass": "PASS",
+            "redisUrl": "REDIS_IP:6379",
+            "refreshTTL": "360h"
+        },
+        "github_com/devopsfaith/krakend-cors": {
+            "allow_headers": [
+                "Accept",
+                "Cache-Control",
+                "Referer",
+                "User-Agent",
+                "X-Requested-With",
+                "appName",
+                "userType",
+                "notificationType",
+                "notificationId",
+                "limit",
+                "authority",
+                "method",
+                "path",
+                "scheme",
+                "accept",
+                "accept-encoding",
+                "accept-language",
+                "access-control-request-headers",
+                "access-control-request-method",
+                "origin",
+                "referer",
+                "sec-fetch-dest",
+                "sec-fetch-mode",
+                "appName",
+                "userType",
+                "notificationType",
+                "notificationId",
+                "limit",
+                "sec-fetch-site",
+                "user-agent",
+                "Origin",
+                "Authorization",
+                "Content-Type",
+                "x-csrftoken",
+                "x-requested-with",
+                "language",
+                "lang",
+                "lan",
+                "level",
+                "filterType",
+                "searchedItem",
+                "startdate",
+                "enddate",
+                "popularStatus",
+                "type",
+                "from",
+                "to",
+                "supplierId",
+                "supplierName",
+                "storeId",
+                "platform",
+                "cityId",
+                "currencysymbol",
+                "currencycode",
+                "storetype",
+                "skip",
+                "limit",
+                "ipaddress",
+                "latitude",
+                "longitude",
+                "searchType",
+                "city",
+                "country",
+                "loginType",
+                "categoryId",
+                "keyword",
+                "subCategoryId",
+                "storeCategoryId",
+                "text",
+                "size",
+                "sorttype",
+                "zoneid",
+                "page",
+                "searchIn",
+                "appName",
+                "authorization",
+                "X-WC-Webhook-Resource",
+                "X-WC-Webhook-Event"
+            ],
+            "allow_methods": [
+                "POST",
+                "GET",
+                "PUT",
+                "PATCH",
+                "DELETE"
+            ],
+            "allow_origins": [
+                "*"
+            ],
+            "expose_headers": [
+                "Content-Length"
+            ],
+            "max_age": "12h"
+        },
+        "github_com/devopsfaith/krakend-gologging": {
+            "level": "DEBUG",
+            "prefix": "[API]",
+            "stdout": true,
+            "syslog": true
+        },
+        "github_com/devopsfaith/krakend-metrics": {
+            "backend_disabled": false,
+            "collection_time": "60s",
+            "endpoint_disabled": false,
+            "listen_address": ":8099",
+            "proxy_disabled": false,
+            "router_disabled": false
+        },
+        "github_com/devopsfaith/krakend-ratelimit/juju/router": {
+            "clientMaxRate": 0,
+            "maxRate": 0,
+            "strategy": "ip"
+        }
+    },
+    "endpoints": [
+        {
+            "endpoint": "/health",
+            "extra_config": {
+                "github.com/devopsfaith/krakend/proxy": {
+                    "static": {
+                        "data": {
+                            "status": "OK"
+                        },
+                        "strategy": "always"
+                    }
+                }
+            },
+            "backend": [
+                {
+                    "url_pattern": "/"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,150 @@
+{
+	"version": 2,
+	"name": "API Gateway",
+	"port": 8080,
+	"cache_ttl": "3600s",
+	"timeout": "20000ms",
+	"extra_config": {
+		"authConfig": {
+			"allowOrigins": [
+				"*"
+			],
+			"Access-Control-Allow-Origin": "*",
+			"Access-Control-Allow-Methods": "HEAD, GET, POST, PUT, PATCH, DELETE",
+			"Access-Control-Allow-Headers": "Origin, Content-Type, X-Auth-Token",
+			"keyName": "id_rsa",
+			"jwtIssuer": "http://example.com/",
+			"jwtPort": 8090,
+			"jwtEndpoint": "accessKeys",
+			"accessTTL": "180h",
+			"refreshTTL": "360h",
+			"language": [
+				"en"
+			],
+			"defaultLanguage": "en",
+			"languageHeaderField": "language",
+			"basicAuth": true,
+			"basicAuthCreds": {
+				"test": "test"
+			},
+			"redisUrl": "REDIS_IP:6379",
+			"redisPass": "PASS",
+			"redisDB": 4
+		},
+		"github_com/devopsfaith/krakend-gologging": {
+			"level": "DEBUG",
+			"prefix": "[API]",
+			"syslog": true,
+			"stdout": true
+		},
+		"github_com/devopsfaith/krakend-metrics": {
+			"collection_time": "60s",
+			"proxy_disabled": false,
+			"router_disabled": false,
+			"backend_disabled": false,
+			"endpoint_disabled": false,
+			"listen_address": ":8099"
+		},
+		"github_com/devopsfaith/krakend-ratelimit/juju/router": {
+			"maxRate": 0,
+			"clientMaxRate": 0,
+			"strategy": "ip"
+		},
+		"github_com/devopsfaith/krakend-cors": {
+			"allow_origins": [
+				"*"
+			],
+			"allow_methods": [
+				"POST",
+				"GET",
+				"PUT",
+				"PATCH",
+				"DELETE"
+			],
+			"allow_headers": [
+				"Accept",
+				"Cache-Control",
+				"Referer",
+				"User-Agent",
+				"X-Requested-With",
+				"appName",
+				"userType",
+				"notificationType",
+				"notificationId",
+				"limit",
+				"authority",
+				"method",
+				"path",
+				"scheme",
+				"accept",
+				"accept-encoding",
+				"accept-language",
+				"access-control-request-headers",
+				"access-control-request-method",
+				"origin",
+				"referer",
+				"sec-fetch-dest",
+				"sec-fetch-mode",
+				"appName",
+				"userType",
+				"notificationType",
+				"notificationId",
+				"limit",
+				"sec-fetch-site",
+				"user-agent",
+				"Origin",
+				"Authorization",
+				"Content-Type",
+				"x-csrftoken",
+				"x-requested-with",
+				"language",
+				"lang",
+				"lan",
+				"level",
+				"filterType",
+				"searchedItem",
+				"startdate",
+				"enddate",
+				"popularStatus",
+				"type",
+				"from",
+				"to",
+				"supplierId",
+				"supplierName",
+				"storeId",
+				"platform",
+				"cityId",
+				"currencysymbol",
+				"currencycode",
+				"storetype",
+				"skip",
+				"limit",
+				"ipaddress",
+				"latitude",
+				"longitude",
+				"searchType",
+				"city",
+				"country",
+				"loginType",
+				"categoryId",
+				"keyword",
+				"subCategoryId",
+				"storeCategoryId",
+				"text",
+				"size",
+				"sorttype",
+				"zoneid",
+				"page",
+				"searchIn",
+				"appName",
+				"authorization",
+				"X-WC-Webhook-Resource",
+				"X-WC-Webhook-Event"
+			],
+			"expose_headers": [
+				"Content-Length"
+			],
+			"max_age": "12h"
+		}
+	}
+}

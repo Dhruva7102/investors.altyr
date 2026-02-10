@@ -1,0 +1,276 @@
+{
+    "endpoints": [
+        {
+            "endpoint": "/v1/card",
+            "method": "GET",
+            "querystring_params": [
+                "userId"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/card",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/netbilling/stateLists",
+            "method": "GET",
+            "querystring_params": [
+                "countryCode"
+            ],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/netbilling/stateLists",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/card",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/card",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/charge/capture",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/charge/capture",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/charge/refund",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/charge/refund",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/netbilling/webhook",
+            "method": "POST",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/netbilling/webhook",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": false,
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/card",
+            "method": "PATCH",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/card",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/card",
+            "method": "DELETE",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/card",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user",
+                            "Admin"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/card",
+            "method": "PUT",
+            "querystring_params": [],
+            "headers_to_pass": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/card",
+                    "encoding": "no-op",
+                    "host": [
+                        "netbilling-service:5659"
+                    ],
+                    "extra_config": {
+                        "auth": [
+                            "user"
+                        ],
+                        "github.com/devopsfaith/krakend-ratelimit/juju/proxy": {
+                            "maxRate": 1,
+                            "capacity": 1,
+                            "strategy": "ip"
+                        }
+                    }
+                }
+            ],
+            "output_encoding": "NoTransformRender"
+        }
+    ]
+}
