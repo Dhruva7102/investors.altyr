@@ -130,16 +130,16 @@
     <div id="createMessage" class="message hidden"></div>
     <div id="createResult" class="result-url hidden"></div>
 
-    <p class="toggle-settings" id="toggleSettings">Settings (API URL, admin password)</p>
+    <p class="toggle-settings" id="toggleSettings">Settings (API URL)</p>
     <div class="settings-panel hidden" id="settingsPanel">
       <div class="form-group">
         <label for="apiBase">API base URL</label>
-        <input type="text" id="apiBase" placeholder="https://your-node-service.altyr.com/v1" />
-        <p class="auth-hint">Required when not on localhost. Use your node-service API base (e.g. dev/staging URL ending in /v1).</p>
+        <input type="text" id="apiBase" placeholder="https://dev-api.altyr.com/v1" />
+        <p class="auth-hint">Leave blank to use https://dev-api.altyr.com/v1. Create and list use Basic auth (altyr / admin@altyr.com).</p>
       </div>
       <div class="form-group">
-        <label for="adminSecret">Admin password (optional)</label>
-        <input type="password" id="adminSecret" placeholder="Only if your server requires REDIRECT_ADMIN_SECRET" />
+        <label for="adminSecret">Admin password (optional, legacy)</label>
+        <input type="password" id="adminSecret" placeholder="Not used when using dev-api Basic auth" />
       </div>
     </div>
 
