@@ -1,6 +1,8 @@
 (function () {
   var API_BASE_KEY = 'redirect_admin_api_base';
   var SECRET_KEY = 'redirect_admin_secret';
+  // Basic auth for dev-api (same as website-frontend-service creds)
+  var BASIC_AUTH = 'Basic ' + (typeof btoa !== 'undefined' ? btoa('altyr:admin@altyr.com') : '');
 
   function getApiBase() {
     var el = document.getElementById('apiBase');
@@ -23,9 +25,7 @@
   }
 
   function headers() {
-    var h = { 'Content-Type': 'application/json' };
-    var secret = getSecret();
-    if (secret) h['X-Redirect-Admin-Secret'] = secret;
+    var h = { 'Content-Type': 'application/json', 'Authorization': BASIC_AUTH };
     return h;
   }
 
