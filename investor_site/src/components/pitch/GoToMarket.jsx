@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Target, Building2, Rocket } from 'lucide-react';
+import { Users, Building2 } from 'lucide-react';
 import CreatorShowcase from '@/components/creators/CreatorShowcase';
 
 const steps = [
@@ -11,22 +11,10 @@ const steps = [
     description: "Hand-selected top and rising creators receive white-glove setup, migration, direct roadmap access, and permanent Founder badges."
   },
   {
-    icon: Target,
-    number: "02",
-    title: "Deep Implementation & Case Studies",
-    description: "Focus on small initial cohort to demonstrate higher LTV per fan, more fans in VIP tiers, and improved retention and earnings stability."
-  },
-  {
     icon: Building2,
-    number: "03",
+    number: "02",
     title: "Agencies & Managers",
     description: "Partner with managers and agencies to bring rosters of creators onto Altyr with minimal operational overhead."
-  },
-  {
-    icon: Rocket,
-    number: "04",
-    title: "Product-Led Growth",
-    description: "Use transparent analytics, public case studies, and creator testimonials to drive inbound interest from serious earners."
   }
 ];
 

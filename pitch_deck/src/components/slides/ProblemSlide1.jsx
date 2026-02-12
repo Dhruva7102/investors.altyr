@@ -1,29 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building2, ShieldCheck, TrendingUp, Wrench } from 'lucide-react';
-
-const statusQuo = [
-  {
-    icon: TrendingUp,
-    title: 'Billions in GMV',
-    description: 'Demand is proven at scale. This is no longer a speculative market—it is a profitable industry.',
-  },
-  {
-    icon: ShieldCheck,
-    title: '20% take rates accepted',
-    description: 'Creators tolerate commission when outcomes are predictable and payouts are reliable.',
-  },
-  {
-    icon: Building2,
-    title: 'Strong retention',
-    description: 'Spend behavior is repeatable and compounding when creators are consistent.',
-  },
-  {
-    icon: Wrench,
-    title: 'Tooling is primitive',
-    description: 'Platforms still feel first-generation: outdated UX, no CRM, no monetization design, limited analytics.',
-  },
-];
 
 export default function ProblemSlide1() {
   return (
@@ -52,13 +28,13 @@ export default function ProblemSlide1() {
 
         {/* Big stat */}
         <motion.div
-          className="text-center mb-10"
+          className="text-center mb-12 mt-4"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
         >
           <div className="relative inline-block">
-            <h2 className="text-4xl md:text-5xl font-extralight text-white/90 mb-2">
+            <h2 className="text-5xl md:text-7xl lg:text-8xl font-extralight text-white/90 mb-2">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
                 $50+ Billion
               </span>
@@ -88,7 +64,7 @@ export default function ProblemSlide1() {
 
         {/* Narrative */}
         <motion.div
-          className="text-center text-base md:text-lg text-white/60 font-light max-w-5xl mx-auto leading-relaxed mb-12 space-y-6"
+          className="text-center text-base md:text-lg text-white/60 font-light max-w-5xl mx-auto leading-relaxed space-y-6"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.15 }}
@@ -97,40 +73,6 @@ export default function ProblemSlide1() {
             Creator monetization is already a multi-billion-dollar, high-margin industry—but it is still being run on first-generation infrastructure. That gap cannot persist. OnlyFans didn't invent creator monetization. It proved it at scale. What's speculative is the assumption that platforms can keep extracting 20% while offering outdated UX, no analytics, no CRM, and no monetization design.
           </p>
         </motion.div>
-
-        {/* Status quo cards */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {statusQuo.map((item, index) => (
-            <motion.div
-              key={index}
-              className="relative group"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.7, 
-                delay: index * 0.1,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
-            >
-              <div className="h-full p-6 rounded-xl bg-white/[0.02] border border-white/[0.08] hover:bg-white/[0.03] hover:border-white/[0.12] transition-all duration-300">
-                <div className="relative">
-                  {/* Icon */}
-                  <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                    <item.icon className="w-5 h-5 text-[#AC0064]" />
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className="text-lg font-light text-white/90 mb-2 tracking-wide">
-                    {item.title}
-                  </h3>
-                  <p className="text-sm text-white/50 font-light leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { AlertTriangle, Shield, TrendingUp, Users, Target, Eye } from 'lucide-react';
+import { AlertTriangle, Shield, TrendingUp, Target, Eye, ScanSearch } from 'lucide-react';
 
 const risks = [
   {
@@ -19,9 +19,9 @@ const risks = [
     mitigation: "Deeply integrating creator feedback into the product roadmap and offering exclusive tools and insights they can't get elsewhere."
   },
   {
-    icon: Users,
-    title: "Male Skewed Gender Imbalance",
-    mitigation: "We recognise our most network is most powerful in Gay Male space. We are pursuing every venue to diversify into female creators"
+    icon: ScanSearch,
+    title: "Content Moderation",
+    mitigation: "Human review and AI review from day one. We are actively seeking a more scalable solution with no trade-offs on safety or quality."
   },
   {
     icon: Target,
