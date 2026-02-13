@@ -27,7 +27,7 @@ export default function AltyrInsightSlide() {
           <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
         </motion.div>
 
-        {/* Main insight */}
+        {/* Main insight - two-tone: access vs engagement */}
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -35,9 +35,9 @@ export default function AltyrInsightSlide() {
           transition={{ duration: 0.7 }}
         >
           <h2 className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/90 tracking-wide mb-6">
-            Monetization is not a payment problem.
+            We don't monetize access.
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A]">It is a design problem.</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A]">We monetize engagement.</span>
           </h2>
         </motion.div>
 
