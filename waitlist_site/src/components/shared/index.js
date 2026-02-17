@@ -6,4 +6,6 @@ export { default as ConnectionScoreBar } from './ConnectionScoreBar'
 export { default as FanListItem } from './FanListItem'
 export { default as MetricCard } from './MetricCard'
 export { default as TimelineItem } from './TimelineItem'
+export { default as BadgeCardV2 } from './BadgeCardV2'
+export { default as BadgePillV2, BadgeStackV2 } from './BadgePillV2'
 

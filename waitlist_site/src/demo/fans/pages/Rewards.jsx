@@ -2,17 +2,11 @@ import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { trackPageView } from '@/lib/mixpanel'
 import { Zap, Award, Calendar, Trophy, Eye, MessageSquare, CreditCard, Heart, Users, Star } from 'lucide-react'
-import { GlassCard, IconContainer, StatusBadge } from '@/components/shared'
+import { GlassCard, IconContainer, BadgeCardV2 } from '@/components/shared'
 import { xpSources, levelRewards, badgeCategories, dailyLoginRewards, currentStreak, demoFanProfile } from '@/data/mockGamification'
 
 const iconMap = { Zap, Eye, MessageSquare, Heart, Star, CreditCard, Users, Award }
 
-const rarityColors = {
-  bronze: { bg: 'bg-badge-bronze/20', border: 'border-badge-bronze/40', text: 'text-badge-bronze' },
-  silver: { bg: 'bg-badge-silver/20', border: 'border-badge-silver/40', text: 'text-badge-silver' },
-  gold: { bg: 'bg-badge-gold/20', border: 'border-badge-gold/40', text: 'text-badge-gold' },
-  platinum: { bg: 'bg-badge-platinum/20', border: 'border-badge-platinum/40', text: 'text-badge-platinum' },
-}
 
 export default function FanRewards() {
   useEffect(() => {
@@ -157,26 +151,21 @@ export default function FanRewards() {
                   <span className="text-sm font-medium text-white/80">{category.name}</span>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-                  {category.badges.map((badge, index) => {
-                    const colors = rarityColors[badge.rarity]
-                    return (
-                      <motion.div
-                        key={badge.name}
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: catIndex * 0.1 + index * 0.05 }}
-                        className={`
-                          p-4 rounded-xl text-center
-                          ${badge.unlocked ? `${colors.bg} border ${colors.border}` : 'bg-white/[0.02] border border-white/[0.06] opacity-50'}
-                        `}
-                      >
-                        <div className={`text-2xl mb-2 ${badge.unlocked ? colors.text : 'text-white/20'}`}>🏆</div>
-                        <p className={`text-xs font-medium mb-1 ${badge.unlocked ? 'text-white/90' : 'text-white/40'}`}>{badge.name}</p>
-                        <StatusBadge status={badge.rarity} type="rarity" size="xs" />
-                        <p className="text-[10px] text-white/30 mt-2">{badge.requirement}</p>
-                      </motion.div>
-                    )
-                  })}
+                  {category.badges.map((badge, index) => (
+                    <motion.div
+                      key={badge.name}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: catIndex * 0.1 + index * 0.05 }}
+                    >
+                      <BadgeCardV2
+                        name={badge.name}
+                        rarity={badge.rarity}
+                        requirement={badge.requirement}
+                        unlocked={badge.unlocked}
+                      />
+                    </motion.div>
+                  ))}
                 </div>
               </div>
             )

@@ -2,7 +2,7 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Zap, Sparkles, Trophy, Gift, CheckCircle2 } from 'lucide-react'
-import { GlassCard, IconContainer } from '@/components/shared'
+import { GlassCard, IconContainer, BadgeStackV2 } from '@/components/shared'
 import { demoFanProfile, currentStreak } from '@/data/mockGamification'
 import { demoCreator, demoQuests, demoStoreItems } from '@/data/mockFanLoop'
 import { trackPageView, trackEvent } from '@/lib/mixpanel'
@@ -37,6 +37,12 @@ export default function FanHome() {
             <div className="min-w-0">
               <p className="text-xs sm:text-sm text-white/50">Your status</p>
               <p className="text-lg sm:text-xl font-light text-white/90">Level {demoFanProfile.level} • {demoCreator.tier}</p>
+              <BadgeStackV2
+                badgeIds={['founder', 'superfan', 'first_tip']}
+                max={3}
+                size="sm"
+                className="mt-1 mb-1"
+              />
               <p className="text-xs text-white/40 truncate">
                 <Link to="/demo/fans/creator#store" className="text-white/70 hover:text-white/90 underline underline-offset-4">
                   {demoCreator.name}

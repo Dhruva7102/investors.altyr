@@ -29,6 +29,13 @@ module.exports = {
   			'badge-silver': '#C0C0C0',
   			'badge-gold': '#FFD700',
   			'badge-platinum': '#E5E4E2',
+  			'tier-superfan': '#FFD700',
+  			'tier-devotee': '#A855F7',
+  			'tier-angel': '#60A5FA',
+  			'tier-archangel': '#E5E4E2',
+  			'badge-founder': '#AC0064',
+  			'badge-anniversary': '#F59E0B',
+  			'badge-early': '#10B981',
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
@@ -96,11 +103,35 @@ module.exports = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+  			'badge-glow': {
+  				'0%, 100%': { boxShadow: '0 0 6px 0 var(--badge-glow-color, rgba(255,215,0,0.15))' },
+  				'50%': { boxShadow: '0 0 12px 2px var(--badge-glow-color, rgba(255,215,0,0.3))' },
+  			},
+  			'badge-aurora': {
+  				'0%': { borderColor: '#06B6D4' },
+  				'33%': { borderColor: '#8B5CF6' },
+  				'66%': { borderColor: '#EC4899' },
+  				'100%': { borderColor: '#06B6D4' },
+  			},
+  			'badge-flame': {
+  				'0%, 100%': { boxShadow: '0 0 8px 1px rgba(245,158,11,0.2)' },
+  				'33%': { boxShadow: '0 0 12px 2px rgba(239,68,68,0.25)' },
+  				'66%': { boxShadow: '0 0 10px 2px rgba(172,0,100,0.2)' },
+  			},
+  			'badge-earn': {
+  				'0%': { transform: 'scale(0.5)', opacity: '0' },
+  				'60%': { transform: 'scale(1.15)', opacity: '1' },
+  				'100%': { transform: 'scale(1)', opacity: '1' },
+  			},
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'badge-glow': 'badge-glow 2s ease-in-out infinite',
+  			'badge-aurora': 'badge-aurora 8s linear infinite',
+  			'badge-flame': 'badge-flame 3s ease-in-out infinite',
+  			'badge-earn': 'badge-earn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards',
   		}
   	}
   },

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { trackPageView } from '@/lib/mixpanel'
 import { Paintbrush, Shield, Sparkles, Check } from 'lucide-react'
-import { GlassCard, IconContainer } from '@/components/shared'
+import { GlassCard, IconContainer, BadgeStackV2 } from '@/components/shared'
 import { demoFanProfile } from '@/data/mockGamification'
 
 const borders = [
@@ -37,7 +37,11 @@ export default function FanProfile() {
           <div className="flex-1">
             <p className="text-sm text-white/50">Profile</p>
             <p className="text-xl font-light text-white/90">Customize your identity</p>
-            <p className="text-xs text-white/40">Cosmetic unlocks are tied to level, streak, and badges.</p>
+            <p className="text-xs text-white/40 mb-2">Cosmetic unlocks are tied to level, streak, and badges.</p>
+            <BadgeStackV2
+              badgeIds={['founder', 'superfan', 'early_supporter', 'first_tip']}
+              max={3}
+            />
           </div>
         </div>
       </GlassCard>
