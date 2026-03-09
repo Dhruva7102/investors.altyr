@@ -522,6 +522,93 @@
             "output_encoding": "NoTransformRender"
         },
         {
+            "endpoint": "/v1/crm/fans/{fanId}/memory",
+            "method": "GET",
+            "input_query_strings": [
+                "userId"
+            ],
+            "input_headers": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/crm/fans/{fanId}/memory",
+                    "encoding": "no-op",
+                    "host": [
+                        "node-service:3006"
+                    ]
+                }
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": [
+                        "user"
+                    ]
+                }
+            },
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/crm/fans/{fanId}/memory",
+            "method": "PATCH",
+            "input_query_strings": [
+                "userId"
+            ],
+            "input_headers": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/crm/fans/{fanId}/memory",
+                    "encoding": "no-op",
+                    "host": [
+                        "node-service:3006"
+                    ]
+                }
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": [
+                        "user"
+                    ]
+                }
+            },
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/crm/fans/{fanId}/memory",
+            "method": "DELETE",
+            "input_query_strings": [
+                "userId"
+            ],
+            "input_headers": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/crm/fans/{fanId}/memory",
+                    "encoding": "no-op",
+                    "host": [
+                        "node-service:3006"
+                    ]
+                }
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": [
+                        "user"
+                    ]
+                }
+            },
+            "output_encoding": "NoTransformRender"
+        },
+        {
             "endpoint": "/v1/customerLists",
             "method": "GET",
             "input_query_strings": [
