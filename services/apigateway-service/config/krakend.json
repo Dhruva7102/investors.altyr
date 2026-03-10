@@ -208,6 +208,25 @@
             "output_encoding": "no-op"
         },
         {{ end }}
+        {{ range .gamificationApi.endpoints }}
+        {
+            "endpoint": "{{ .endpoint }}",
+            "method": "{{ .method }}",
+            "input_query_strings": {{ marshal .input_query_strings }},
+            "input_headers": {{ marshal .input_headers }},
+            "backend": [
+                {{ range .backend }}
+                    {
+                        "url_pattern": "{{ .url_pattern }}",
+                        "encoding": "no-op",
+                        "host": {{ marshal .host }}
+                    }
+                {{ end }}
+            ],
+            "extra_config": {{ marshal .extra_config }},
+            "output_encoding": "NoTransformRender"
+        },
+        {{ end }}
         {
             "endpoint": "/health",
             "extra_config": {

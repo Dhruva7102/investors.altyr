@@ -94,6 +94,85 @@ If you don’t know the API base URL for the admin (e.g. for a deployed/staging 
    - Search the repo for `API_URL`, `dev-api`, `api.altyr.com`, or `baseURL` (e.g. in `website-frontend-service`, config files).  
    - Or ask the team for the “node-service” or “backend API” base URL (dev/staging).
 
+## Testing the redirect flow (Basic auth at gateway)
+
+After deploying API Gateway, node-service, and the waitlist (admin + landing), use these checks. All use **https://dev-api.altyr.com/v1** unless you override for local dev.
+
+### 1. Public endpoints (no auth)
+
+**Resolve a slug** (same as the redirect landing page):
+
+```bash
+curl -s "https://dev-api.altyr.com/v1/redirect-links/resolve/YOUR_SLUG"
+```
+
+- Success: JSON with `platform`, `targetUrl`, `slug`, etc.
+- 404: no link for that slug or API not deployed.
+
+**Record a click** (optional, for analytics):
+
+```bash
+curl -s -X POST "https://dev-api.altyr.com/v1/redirect-links/record-click" \
+  -H "Content-Type: application/json" \
+  -d '{"slug":"YOUR_SLUG"}'
+```
+
+### 2. Admin endpoints (Basic auth)
+
+Gateway requires **Basic auth** for list and create. Credentials: **`altyr`** / **`admin@altyr.com`** (same as website-frontend-service).
+
+**List links:**
+
+```bash
+curl -s -u "altyr:admin@altyr.com" "https://dev-api.altyr.com/v1/redirect-links/simple?skip=0&limit=10"
+```
+
+- Success: JSON array of links.
+- 401: wrong/missing auth.
+
+**Create a link:**
+
+```bash
+curl -s -X POST "https://dev-api.altyr.com/v1/redirect-links/simple" \
+  -u "altyr:admin@altyr.com" \
+  -H "Content-Type: application/json" \
+  -d '{"platform":"onlyfans","targetUrl":"https://onlyfans.com/creator","slug":"mytest12"}'
+```
+
+- Success: JSON with the created link (including `slug`).
+- 401: wrong/missing auth.
+- 400/409: validation or slug already exists.
+
+### 3. Admin UI (browser)
+
+1. Open **https://onlyfans.altyr.com/admin.html** (or your waitlist deploy).
+2. **Settings:** Leave **API base URL** blank → it uses **https://dev-api.altyr.com/v1**.
+3. **Admin password:** Leave blank (not used with dev-api Basic auth).
+4. **Save settings**, then:
+   - **List links** – should show existing links (uses Basic auth under the hood).
+   - **Create link** – fill platform, target URL, optional slug → Create. Should succeed and appear in the list.
+
+If list/create fail with 401, the gateway may not be deployed with the Basic auth config for `/v1/redirect-links/simple`.
+
+### 4. Redirect landing page (end-to-end)
+
+1. Create a link in the admin (or via curl) and note the **slug**.
+2. Open **https://onlyfans.altyr.com/g/<slug>** in a browser (or **http://localhost:5173/g/<slug>** if testing locally with the same API).
+3. You should see the “OnlyFans or Altyr?” style landing, then (depending on the app) a redirect or link to the `targetUrl`.
+4. If you see “This link is invalid or expired”, the page is calling an API that doesn’t have that slug (or the API base is wrong). Ensure the deployed waitlist uses **https://dev-api.altyr.com/v1** (default when `VITE_REDIRECT_API_BASE` is unset).
+
+### Quick checklist
+
+| Check | Command or action |
+|-------|--------------------|
+| Resolve (public) | `curl -s "https://dev-api.altyr.com/v1/redirect-links/resolve/SLUG"` |
+| List (Basic auth) | `curl -s -u "altyr:admin@altyr.com" "https://dev-api.altyr.com/v1/redirect-links/simple?limit=5"` |
+| Create (Basic auth) | `curl -s -X POST ... -u "altyr:admin@altyr.com" ... /v1/redirect-links/simple` |
+| Admin UI | onlyfans.altyr.com/admin.html → List / Create with API base blank |
+| Landing | onlyfans.altyr.com/g/SLUG → landing then redirect |
+
+---
+
 ## Scaling: how many links?
 
 - **No hard limit.** Each link is one document keyed by an 8-character alphanumeric slug.

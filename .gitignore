@@ -1,2 +1,5 @@
 .vercel
 .env*.local
+
+# PEM keys (never commit)
+*.pem
