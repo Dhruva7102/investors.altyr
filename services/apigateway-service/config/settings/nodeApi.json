@@ -609,6 +609,67 @@
             "output_encoding": "NoTransformRender"
         },
         {
+            "endpoint": "/v1/crm/fans/{fanId}/churn-risk",
+            "method": "GET",
+            "input_query_strings": [
+                "userId"
+            ],
+            "input_headers": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/crm/fans/{fanId}/churn-risk",
+                    "encoding": "no-op",
+                    "host": [
+                        "node-service:3006"
+                    ]
+                }
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": [
+                        "user"
+                    ]
+                }
+            },
+            "output_encoding": "NoTransformRender"
+        },
+        {
+            "endpoint": "/v1/crm/churn-risk",
+            "method": "GET",
+            "input_query_strings": [
+                "userId",
+                "risk",
+                "limit",
+                "offset"
+            ],
+            "input_headers": [
+                "authorization",
+                "lan",
+                "Content-Type"
+            ],
+            "backend": [
+                {
+                    "url_pattern": "/v1/crm/churn-risk",
+                    "encoding": "no-op",
+                    "host": [
+                        "node-service:3006"
+                    ]
+                }
+            ],
+            "extra_config": {
+                "plugin/auth-custom": {
+                    "auth": [
+                        "user"
+                    ]
+                }
+            },
+            "output_encoding": "NoTransformRender"
+        },
+        {
             "endpoint": "/v1/crm/fans/{fanId}/timeline",
             "method": "GET",
             "input_query_strings": [
