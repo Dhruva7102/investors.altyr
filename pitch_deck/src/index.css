@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ~browser 120% zoom: scales rem-based Tailwind spacing & typography */
+html {
+  font-size: 120%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

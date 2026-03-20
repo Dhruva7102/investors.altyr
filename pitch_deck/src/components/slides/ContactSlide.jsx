@@ -34,7 +34,7 @@ export default function ContactSlide() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
+      <div className="relative z-10 max-w-6xl mx-auto px-5 md:px-8 text-center">
         {/* Logo wordmark */}
         <motion.div
           className="mb-16"
@@ -104,7 +104,20 @@ export default function ContactSlide() {
             Thank You
           </h2>
           <p className="text-lg md:text-xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
-            Let's build the future of creator monetization, together.
+            Let&apos;s build the future of creator monetization, together.
+          </p>
+          <p className="text-base md:text-lg text-white/55 font-light pt-2">
+            <a
+              href="https://dev.altyr.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-[#AC0064] hover:text-[#c91a72] transition-colors underline-offset-4 hover:underline"
+            >
+              Explore the demo
+              <ExternalLink className="w-4 h-4 shrink-0 opacity-80" />
+            </a>
+            <span className="text-white/40"> — </span>
+            <span className="text-white/50">dev.altyr.com</span>
           </p>
         </motion.div>
 

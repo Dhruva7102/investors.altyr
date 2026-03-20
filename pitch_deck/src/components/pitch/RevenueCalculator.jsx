@@ -62,7 +62,8 @@ function SliderRow({
 }
 
 export default function RevenueCalculator() {
-  const COMMISSION_RATE = 0.2;
+  /** Net take after payment processing (~15% vs headline 20%) */
+  const COMMISSION_RATE = 0.15;
   const FORECAST_MONTHS = 12;
 
   const [creators, setCreators] = useState(100);
@@ -70,6 +71,7 @@ export default function RevenueCalculator() {
   const [subscriptionPrice, setSubscriptionPrice] = useState(12);
   const [ppvSpendPerSubscriberPerMonth, setPpvSpendPerSubscriberPerMonth] = useState(14);
   const [monthlyGrowthRatePct, setMonthlyGrowthRatePct] = useState(15);
+  const [monthlyChurnPct, setMonthlyChurnPct] = useState(10);
 
   const base = useMemo(() => {
     const totalSubscribers = creators * subsPerCreator;
@@ -90,12 +92,15 @@ export default function RevenueCalculator() {
 
   const forecast = useMemo(() => {
     const r = clampNumber(monthlyGrowthRatePct, 0, 50) / 100;
+    const churn = clampNumber(monthlyChurnPct, 0, 40) / 100;
+    const retentionPerMonth = Math.max(0, 1 - churn);
     const months = Array.from({ length: FORECAST_MONTHS + 1 }, (_, i) => i);
 
     return months.map((m) => {
       const growthMultiplier = Math.pow(1 + r, m);
       const creatorsM = Math.round(creators * growthMultiplier);
-      const totalSubscribersM = creatorsM * subsPerCreator;
+      const rawSubs = creatorsM * subsPerCreator;
+      const totalSubscribersM = Math.round(rawSubs * Math.pow(retentionPerMonth, m));
 
       const subscriptionGMV = totalSubscribersM * subscriptionPrice;
       const ppvGMV = totalSubscribersM * ppvSpendPerSubscriberPerMonth;
@@ -116,13 +121,14 @@ export default function RevenueCalculator() {
     subscriptionPrice,
     ppvSpendPerSubscriberPerMonth,
     monthlyGrowthRatePct,
+    monthlyChurnPct,
   ]);
 
   const month0 = forecast[0];
   const month12 = forecast[forecast.length - 1];
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-6">
+    <div className="w-full max-w-7xl mx-auto px-5 md:px-8">
       {/* Section label */}
       <motion.div
         className="flex items-center justify-center gap-6 mb-12"
@@ -144,11 +150,12 @@ export default function RevenueCalculator() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9 }}
       >
-        <h2 className="text-2xl md:text-3xl font-extralight text-white/90 mb-3">
+        <h2 className="text-3xl md:text-4xl font-extralight text-white/90 mb-3">
           Revenue forecasting and projections
         </h2>
-        <p className="text-base text-white/60 font-light max-w-3xl mx-auto leading-relaxed">
+        <p className="text-lg text-white/60 font-light max-w-3xl mx-auto leading-relaxed">
           Adjust the inputs to see how quickly platform revenue scales as creators onboard and monetize through subscriptions + pay-per-view.
+          Take rate reflects payment processing; churn compounds monthly on modeled subscribers.
         </p>
       </motion.div>
 
@@ -224,6 +231,16 @@ export default function RevenueCalculator() {
               displayValue={`${monthlyGrowthRatePct}%`}
               onChange={(v) => setMonthlyGrowthRatePct(clampNumber(v, 0, 50))}
             />
+
+            <SliderRow
+              label="Monthly subscriber churn"
+              value={monthlyChurnPct}
+              min={0}
+              max={40}
+              step={1}
+              displayValue={`${monthlyChurnPct}%`}
+              onChange={(v) => setMonthlyChurnPct(clampNumber(v, 0, 40))}
+            />
           </div>
         </motion.div>
 
@@ -244,7 +261,7 @@ export default function RevenueCalculator() {
                   Snapshot (Month 0)
                 </div>
                 <div className="text-xs text-white/50 font-light">
-                  Commission rate: {(COMMISSION_RATE * 100).toFixed(0)}%
+                  Net take rate: {(COMMISSION_RATE * 100).toFixed(0)}% (after payment processing)
                 </div>
               </div>
             </div>
@@ -290,7 +307,10 @@ export default function RevenueCalculator() {
             <div className="mt-3 text-xs text-white/50 font-light leading-relaxed">
               GMV includes <span className="text-white/75">subscriptions</span> and{' '}
               <span className="text-white/75">pay-per-view</span>. Platform revenue is{' '}
-              <span className="text-white/80 font-medium">GMV × 20%</span>.
+              <span className="text-white/80 font-medium">
+                GMV × {(COMMISSION_RATE * 100).toFixed(0)}%
+              </span>{' '}
+              (net of processing). Forecast subscribers compound monthly churn on top of creator growth.
             </div>
           </div>
 
@@ -301,7 +321,7 @@ export default function RevenueCalculator() {
                   12-Month Projection
                 </div>
                 <div className="text-xs text-white/50 font-light">
-                  Growth applied to creators at {monthlyGrowthRatePct}% MoM
+                  Creators {monthlyGrowthRatePct}% MoM · subscribers {monthlyChurnPct}% monthly churn
                 </div>
               </div>
               <div className="text-right">

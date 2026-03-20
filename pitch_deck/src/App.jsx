@@ -18,7 +18,6 @@ import TeamSlide from '@/components/slides/TeamSlide';
 import TractionSlide from '@/components/slides/TractionSlide';
 import RaiseSlide from '@/components/slides/RaiseSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
-import V2DividendsSlide from '@/components/slides/V2DividendsSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
 import FinancialAssumptionsSlide from '@/components/slides/FinancialAssumptionsSlide';
@@ -37,10 +36,10 @@ const slides = [
   AltyrInsightSlide,
   AltyrSolutionSlide,
   GoToMarketSlide,
-  TeamSlide,
   TractionSlide,
+  TeamSlide,
   RaiseSlide,
-  V2DividendsSlide,
+  RevenueCalculatorSlide,
   ContactSlide,
   FinancialAssumptionsSlide,
   BaseCaseRunwaySlide,
@@ -48,7 +47,6 @@ const slides = [
   OptimisticCaseSlide,
   CostBreakdownTableSlide,
   UseOfFundsSlide,
-  RevenueCalculatorSlide,
   RisksSlide,
 ];
 
