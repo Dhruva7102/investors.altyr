@@ -1,14 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import {
-  Crown,
+  ArrowRight,
+  ChevronLeft,
+  Clock,
   ExternalLink,
   Flame,
+  Gift,
   Heart,
   MessageSquare,
   Search,
   Sparkles,
-  TrendingUp,
   Users,
   Zap,
 } from 'lucide-react';
@@ -51,7 +53,7 @@ function MockShell({ children, className = '' }) {
 
 function ConnectionBar({ pct }) {
   return (
-    <div className="h-1.5 rounded-full bg-white/[0.07] overflow-hidden w-[68px]">
+    <div className="h-1.5 rounded-full bg-white/[0.07] overflow-hidden w-[76px]">
       <motion.div
         className="h-full rounded-full bg-gradient-to-r from-[#AC0064] via-[#c9076f] to-[#9B4DCA]"
         initial={{ width: 0 }}
@@ -127,8 +129,10 @@ function CreatorCrmMock() {
                 </div>
                 <div className="text-[10px] text-white/40 mt-0.5">LTV {f.ltv} · Active today</div>
               </div>
-              <div className="shrink-0 text-right">
-                <div className="text-[9px] text-white/35 mb-0.5">Score</div>
+              <div className="shrink-0 text-right flex flex-col items-end gap-1">
+                <div className="text-[8px] leading-tight text-white/35 max-w-[4.5rem]">
+                  Relationship score
+                </div>
                 <ConnectionBar pct={f.score} />
               </div>
               <MessageSquare className="w-3.5 h-3.5 text-white/30 shrink-0" />
@@ -140,68 +144,99 @@ function CreatorCrmMock() {
   );
 }
 
-function MiniMetric({ label, value, delta, up }) {
+function TimelineRow({ title, sub, last }) {
   return (
-    <div className="p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-      <div className="text-[9px] text-white/40 font-light mb-1 leading-tight">{label}</div>
-      <div className="text-lg font-extralight text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-white/80">
-        {value}
+    <div className="flex gap-2.5">
+      <div className="flex flex-col items-center shrink-0 w-4 pt-0.5">
+        <div className="w-2 h-2 rounded-full bg-gradient-to-br from-[#AC0064] to-[#9B4DCA] ring-2 ring-[#AC0064]/25" />
+        {!last ? <div className="w-px flex-1 min-h-[20px] bg-gradient-to-b from-white/25 to-white/[0.06]" /> : null}
       </div>
-      <div className={`text-[10px] font-medium mt-0.5 flex items-center gap-0.5 ${up ? 'text-emerald-400/90' : 'text-white/35'}`}>
-        {up ? <TrendingUp className="w-3 h-3" /> : null}
-        {delta}
+      <div className="pb-3 min-w-0 flex-1">
+        <div className="text-[11px] font-medium text-white/88 leading-snug">{title}</div>
+        <div className="text-[9px] text-white/40 mt-0.5">{sub}</div>
       </div>
     </div>
   );
 }
 
-function CreatorRevenueMock() {
+function CreatorTimelineActionsMock() {
+  const timeline = [
+    { title: 'Tip · $50', sub: '2 hours ago · Positive sentiment' },
+    { title: 'Unlocked PPV bundle', sub: 'Yesterday · High intent' },
+    { title: 'Subscription renewed', sub: '4 days ago' },
+  ];
+  const actions = [
+    {
+      title: 'Send personalized thank-you',
+      reason: 'Peak engagement after last drop — lock in loyalty.',
+      priority: true,
+      icon: MessageSquare,
+    },
+    {
+      title: 'Offer early access to next set',
+      reason: 'Top 10% spender this month.',
+      priority: false,
+      icon: Gift,
+    },
+  ];
+
   return (
     <MockShell>
-      <WindowChrome title="Revenue — Live pulse" />
-      <div className="p-3">
-        <div className="grid grid-cols-2 gap-2 mb-3">
-          <MiniMetric label="Net MRR" value="$48.2k" delta="+12.4%" up />
-          <MiniMetric label="Blended LTV" value="$186" delta="+8.1%" up />
-          <MiniMetric label="Top-fan share" value="34%" delta="Whales" up={false} />
-          <MiniMetric label="PPV attach" value="61%" delta="Subs + PPV" up={false} />
+      <WindowChrome title="Fan profile — Timeline & next steps" />
+      <div className="divide-y divide-white/[0.06]">
+        <div className="p-3">
+          <div className="flex items-center justify-between mb-2">
+            <div className="flex items-center gap-2">
+              <Clock className="w-3.5 h-3.5 text-[#AC0064]" />
+              <span className="text-xs font-medium text-white/90">Interaction timeline</span>
+            </div>
+            <span className="text-[9px] text-white/35">Recent activity</span>
+          </div>
+          <div className="pl-0.5">
+            {timeline.map((row, i) => (
+              <TimelineRow key={row.title} {...row} last={i === timeline.length - 1} />
+            ))}
+          </div>
         </div>
-        <div className="rounded-lg bg-black/30 border border-white/[0.06] px-2 py-2">
-          <svg viewBox="0 0 120 36" className="w-full h-[36px]" preserveAspectRatio="none">
-            <defs>
-              <linearGradient id="solGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#AC0064" stopOpacity="0.5" />
-                <stop offset="100%" stopColor="#64109A" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <motion.path
-              d="M0,28 L20,24 L40,26 L55,18 L72,20 L88,12 L100,14 L120,6 L120,36 L0,36 Z"
-              fill="url(#solGrad)"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8 }}
-            />
-            <motion.polyline
-              points="0,28 20,24 40,26 55,18 72,20 88,12 100,14 120,6"
-              fill="none"
-              stroke="url(#solLine)"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={{ pathLength: 1 }}
-              transition={{ duration: 1.2, ease: 'easeOut' }}
-            />
-            <defs>
-              <linearGradient id="solLine" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#AC0064" />
-                <stop offset="100%" stopColor="#9B4DCA" />
-              </linearGradient>
-            </defs>
-          </svg>
-          <div className="flex justify-between text-[9px] text-white/35 px-0.5">
-            <span>7d</span>
-            <span className="text-white/50">GMV trajectory</span>
-            <span>Now</span>
+        <div className="p-3 bg-white/[0.02]">
+          <div className="flex items-center justify-between mb-2.5">
+            <div className="flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-[#AC0064]" />
+              <span className="text-xs font-medium text-white/90">Suggested actions</span>
+            </div>
+            <span className="text-[9px] px-2 py-0.5 rounded-full bg-[#AC0064]/20 text-[#ffb8d9] border border-[#AC0064]/30">
+              AI
+            </span>
+          </div>
+          <div className="space-y-2">
+            {actions.map((a) => {
+              const Icon = a.icon;
+              return (
+                <div
+                  key={a.title}
+                  className={`
+                    group flex gap-2.5 p-2.5 rounded-xl border transition-colors cursor-default
+                    ${a.priority
+                      ? 'bg-gradient-to-r from-[#AC0064]/15 to-[#64109A]/10 border-[#AC0064]/25'
+                      : 'bg-white/[0.03] border-white/[0.07]'}
+                  `}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-black/25 border border-white/[0.08] flex items-center justify-center shrink-0">
+                    <Icon className="w-3.5 h-3.5 text-[#AC0064]" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5 flex-wrap">
+                      <span className="text-[11px] font-medium text-white/90">{a.title}</span>
+                      {a.priority ? (
+                        <span className="text-[8px] px-1 py-0.5 rounded bg-[#AC0064]/30 text-[#ffc4e0]">Priority</span>
+                      ) : null}
+                    </div>
+                    <p className="text-[9px] text-white/45 mt-0.5 leading-snug">{a.reason}</p>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#AC0064]/50 shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block" />
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -290,53 +325,61 @@ function FanRewardsMock() {
   );
 }
 
-function FanVipMock() {
+function FanMessagesMock() {
   return (
     <MockShell>
-      <WindowChrome title="Moments — Status & recognition" />
-      <div className="p-3 space-y-3">
-        <motion.div
-          className="relative overflow-hidden rounded-xl border border-[#AC0064]/30 bg-gradient-to-r from-[#AC0064]/20 via-[#64109A]/15 to-[#9B4DCA]/10 px-3 py-3"
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={spring}
-        >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.12),transparent_55%)] pointer-events-none" />
-          <div className="relative flex items-start gap-2.5">
-            <div className="p-2 rounded-lg bg-black/30 border border-white/10">
-              <Crown className="w-4 h-4 text-amber-300" />
-            </div>
-            <div>
-              <div className="text-xs font-medium text-white/95">Inner Circle unlocked</div>
-              <div className="text-[10px] text-white/55 mt-0.5 leading-snug">
-                Exclusive drops, priority replies, and a visible crown on your profile.
-              </div>
-              <button
-                type="button"
-                className="mt-2.5 px-3 py-1.5 rounded-lg text-[10px] font-medium bg-gradient-to-r from-[#AC0064] to-[#64109A] text-white shadow-[0_0_24px_-8px_rgba(172,0,100,0.9)]"
-              >
-                Enter lounge
-              </button>
-            </div>
+      <WindowChrome title="Messages" />
+      <div className="flex items-center gap-2.5 px-3 py-2.5 border-b border-white/[0.07] bg-black/15">
+        <button type="button" className="p-1 rounded-lg hover:bg-white/[0.06] text-white/45">
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#AC0064]/50 to-[#64109A]/45 border border-[#AC0064]/40 flex items-center justify-center text-[10px] font-medium text-white">
+          SK
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-xs font-medium text-white/90 truncate">Sasha Kim</div>
+          <div className="text-[9px] text-emerald-400/90 flex items-center gap-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.7)]" />
+            Active now
           </div>
-        </motion.div>
-        <div className="space-y-2">
-          <div className="flex justify-end">
-            <div className="max-w-[85%] rounded-2xl rounded-tr-md px-3 py-2 bg-white/[0.08] border border-white/[0.08] text-[11px] text-white/75">
-              That drop was insane — already unlocked the bonus set 🔥
-            </div>
+        </div>
+      </div>
+      <div className="p-3 space-y-2.5 min-h-[168px]">
+        <div className="flex justify-center">
+          <span className="text-[9px] text-white/30 px-2 py-0.5 rounded-full bg-white/[0.04]">Today</span>
+        </div>
+        <div className="flex justify-start">
+          <div className="max-w-[90%] rounded-2xl rounded-tl-sm px-3 py-2 bg-gradient-to-br from-[#AC0064]/22 to-[#64109A]/18 border border-[#AC0064]/22">
+            <div className="text-[9px] text-[#ffb8d9] font-medium mb-0.5">Creator</div>
+            <p className="text-[11px] text-white/85 leading-snug">
+              New set drops tonight — VIPs get 20 min early access.
+            </p>
+            <p className="text-[9px] text-white/35 mt-1">2:14 PM</p>
           </div>
-          <div className="flex justify-start">
-            <div className="max-w-[88%] rounded-2xl rounded-tl-md px-3 py-2 bg-gradient-to-br from-[#AC0064]/25 to-[#64109A]/20 border border-[#AC0064]/25 text-[11px] text-white/85">
-              <span className="inline-flex items-center gap-1 text-[#ffb8d9] font-medium">
-                <Sparkles className="w-3 h-3" /> Creator
-              </span>
-              <span className="block mt-1 text-white/80">
-                Love it. You just hit <span className="text-amber-200/95">Top 50 fans</span> — new badge live on your
-                profile.
-              </span>
-            </div>
+        </div>
+        <div className="flex justify-end">
+          <div className="max-w-[88%] rounded-2xl rounded-tr-sm px-3 py-2 bg-white/[0.09] border border-white/[0.1]">
+            <p className="text-[11px] text-white/80 leading-snug">Already subscribed — counting down ⏳</p>
+            <p className="text-[9px] text-white/35 mt-1 text-right">2:16 PM</p>
           </div>
+        </div>
+        <div className="flex justify-start">
+          <div className="max-w-[90%] rounded-2xl rounded-tl-sm px-3 py-2 bg-gradient-to-br from-[#AC0064]/22 to-[#64109A]/18 border border-[#AC0064]/22">
+            <div className="text-[9px] text-[#ffb8d9] font-medium mb-0.5 flex items-center gap-1">
+              <Sparkles className="w-2.5 h-2.5" /> Creator
+            </div>
+            <p className="text-[11px] text-white/85 leading-snug">
+              You&apos;re in the <span className="text-amber-200/95">top spenders</span> this week — thank you. Want a
+              custom voice note?
+            </p>
+            <p className="text-[9px] text-white/35 mt-1">2:18 PM</p>
+          </div>
+        </div>
+      </div>
+      <div className="px-3 py-2 border-t border-white/[0.07] bg-black/20">
+        <div className="flex items-center gap-2 rounded-xl bg-white/[0.05] border border-white/[0.08] px-3 py-2">
+          <MessageSquare className="w-3.5 h-3.5 text-white/25 shrink-0" />
+          <span className="text-[10px] text-white/35 font-light">Write a message…</span>
         </div>
       </div>
     </MockShell>
@@ -377,21 +420,17 @@ export default function AltyrSolutionSlide() {
         </motion.div>
 
         <motion.div
-          className="text-center max-w-3xl mx-auto mb-10 md:mb-12"
+          className="text-center max-w-3xl mx-auto mb-8 md:mb-10"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.75 }}
         >
-          <h2 className="text-2xl md:text-4xl font-extralight text-white/95 tracking-tight mb-3">
+          <h2 className="text-2xl md:text-4xl font-extralight text-white/95 tracking-tight">
             Show, don&apos;t tell —{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#ff8ec4] to-[#9B4DCA]">
               product you can feel
             </span>
           </h2>
-          <p className="text-sm md:text-base text-white/50 font-light leading-relaxed">
-            Pulled from the same interaction patterns as our live demo: CRM depth for creators, and progression +
-            recognition loops fans actually want to complete.
-          </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
@@ -405,11 +444,8 @@ export default function AltyrSolutionSlide() {
               <Users className="w-4 h-4" />
               Creators
             </div>
-            <p className="text-xs text-white/45 font-light -mt-2 mb-1 max-w-md">
-              Know who matters, why they stay, and what to do next — before the spreadsheet does.
-            </p>
             <CreatorCrmMock />
-            <CreatorRevenueMock />
+            <CreatorTimelineActionsMock />
           </motion.div>
 
           <motion.div
@@ -422,11 +458,8 @@ export default function AltyrSolutionSlide() {
               <Sparkles className="w-4 h-4" />
               Fans
             </div>
-            <p className="text-xs text-white/45 font-light -mt-2 mb-1 max-w-md">
-              Clear tiers, visible status, and dopamine that isn&apos;t a cheap dark pattern — it&apos;s the product.
-            </p>
             <FanRewardsMock />
-            <FanVipMock />
+            <FanMessagesMock />
           </motion.div>
         </div>
 
