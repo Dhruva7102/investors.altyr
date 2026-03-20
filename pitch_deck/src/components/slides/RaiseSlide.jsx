@@ -58,7 +58,7 @@ const RAISE_USD = 1_500_000;
 
 export default function RaiseSlide() {
   return (
-    <section className="relative w-full min-h-screen overflow-hidden bg-[#18021A] py-16 md:py-20">
+    <section className="relative w-full min-h-screen overflow-x-hidden overflow-y-visible bg-[#18021A] py-16 md:py-20">
       <div
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1000px,95vw)] h-[min(600px,70vh)] opacity-[0.28]"
         style={{
@@ -140,11 +140,11 @@ export default function RaiseSlide() {
               <p className="text-xs text-white/40 font-light mt-1">Allocation reflects how we deploy the raise — not a day-by-day budget.</p>
             </div>
 
-            <div className="flex flex-col xl:flex-row items-center xl:items-start gap-8 xl:gap-6">
-              <div className="shrink-0">
+            <div className="flex flex-col xl:flex-row items-center xl:items-start gap-8 xl:gap-6 overflow-visible">
+              <div className="shrink-0 w-full max-w-[min(100%,420px)] xl:max-w-none flex justify-center overflow-visible px-1">
                 <PieChart
                   data={useOfFunds}
-                  size={300}
+                  size={280}
                   gapDeg={2.4}
                   centerTitle="$1.5M"
                   centerSubtitle="allocated"

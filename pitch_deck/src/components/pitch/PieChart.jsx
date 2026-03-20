@@ -39,35 +39,40 @@ function shadeColor(hex, amount) {
 }
 
 /**
- * @param {Array<{ value: number, color: string, title?: string, shortTitle?: string, subdivisions?: Array<{ value: number, label?: string }> }>} data
+ * Donut only — labels sit outside the SVG ring with leader lines (no clipped text).
  */
 export default function PieChart({
   data,
-  size = 320,
-  gapDeg = 2.25,
+  size = 300,
+  gapDeg = 2.2,
   centerTitle = 'Raise',
   centerSubtitle,
 }) {
   const [hoveredKey, setHoveredKey] = useState(null);
-  const center = size / 2;
-  const rOuter = size * 0.38;
-  const rInnerBase = size * 0.2;
+
+  const labelPad = Math.round(size * 0.28);
+  const vb = size + 2 * labelPad;
+  const cx = vb / 2;
+  const cy = vb / 2;
+  const rOuter = size * 0.33;
+  const rInnerBase = size * 0.19;
 
   const total = useMemo(() => data.reduce((s, d) => s + d.value, 0), [data]);
 
-  const { ringSegments, gradientNodes, sliceMidAngles } = useMemo(() => {
+  const { ringSegments, gradientNodes, slices } = useMemo(() => {
     const n = data.length;
     const available = 360 - n * gapDeg;
     let cursor = -90 + gapDeg / 2;
     const segs = [];
     const gradients = [];
-    const mids = [];
+    const sliceMeta = [];
 
     data.forEach((item, index) => {
       const sliceAngle = (item.value / total) * available;
       const a0 = cursor;
       const a1 = cursor + sliceAngle;
-      mids.push({ index, mid: (a0 + a1) / 2, pct: (item.value / total) * 100, item });
+      const mid = (a0 + a1) / 2;
+      const pct = (item.value / total) * 100;
 
       const subs = item.subdivisions?.length
         ? item.subdivisions
@@ -83,57 +88,70 @@ export default function PieChart({
           subs.length > 1
             ? si === 0
               ? item.color
-              : shadeColor(item.color, 0.2 + si * 0.07)
+              : shadeColor(item.color, 0.18 + si * 0.06)
             : item.color;
 
         const gid = `pie-grad-${index}-${si}`;
-        const midRad = ((a0 + a1) / 2) * RAD;
-        const gx0 = center + rLo * Math.cos(midRad);
-        const gy0 = center + rLo * Math.sin(midRad);
-        const gx1 = center + rHi * Math.cos(midRad);
-        const gy1 = center + rHi * Math.sin(midRad);
+        const midRad = mid * RAD;
+        const gx0 = cx + rLo * Math.cos(midRad);
+        const gy0 = cy + rLo * Math.sin(midRad);
+        const gx1 = cx + rHi * Math.cos(midRad);
+        const gy1 = cy + rHi * Math.sin(midRad);
 
         gradients.push(
           <linearGradient key={gid} id={gid} gradientUnits="userSpaceOnUse" x1={gx0} y1={gy0} x2={gx1} y2={gy1}>
-            <stop offset="0%" stopColor={shadeColor(subColor, 0.1)} stopOpacity={1} />
-            <stop offset="100%" stopColor={subColor} stopOpacity={1} />
+            <stop offset="0%" stopColor={subColor} stopOpacity={0.92} />
+            <stop offset="100%" stopColor={shadeColor(subColor, 0.08)} stopOpacity={1} />
           </linearGradient>
         );
 
         segs.push({
           key: `${index}-${si}`,
-          path: donutPath(center, center, rLo, rHi, a0, a1),
+          path: donutPath(cx, cy, rLo, rHi, a0, a1),
           fill: `url(#${gid})`,
         });
 
         rHi = rLo;
       });
 
+      sliceMeta.push({ index, mid, pct, item, a0, a1 });
       cursor = a1 + gapDeg;
     });
 
-    return { ringSegments: segs, gradientNodes: gradients, sliceMidAngles: mids };
-  }, [data, total, center, rOuter, rInnerBase, gapDeg]);
+    return { ringSegments: segs, gradientNodes: gradients, slices: sliceMeta };
+  }, [data, total, cx, cy, rOuter, rInnerBase, gapDeg]);
 
-  const labelRadius = (rOuter + rInnerBase) / 2;
+  const kink = 18;
+  const arm = 52;
+  const titleSize = Math.max(11, size * 0.038);
+  const pctSize = Math.max(10, size * 0.034);
 
   return (
-    <div className="relative mx-auto" style={{ width: size, height: size }}>
-      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="overflow-visible">
+    <div
+      className="relative mx-auto overflow-visible aspect-square"
+      style={{ width: `min(100%, ${vb}px)`, maxWidth: `${vb}px` }}
+    >
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${vb} ${vb}`}
+        preserveAspectRatio="xMidYMid meet"
+        className="overflow-visible"
+      >
         <defs>
-          <radialGradient id="pie-center-fade" cx="50%" cy="38%" r="70%">
-            <stop offset="0%" stopColor="rgba(172,0,100,0.22)" />
+          <radialGradient id="pie-center-fade" cx="50%" cy="40%" r="65%">
+            <stop offset="0%" stopColor="rgba(172,0,100,0.2)" />
             <stop offset="100%" stopColor="transparent" />
           </radialGradient>
           {gradientNodes}
         </defs>
 
         <circle
-          cx={center}
-          cy={center}
-          r={rOuter + 6}
+          cx={cx}
+          cy={cy}
+          r={rOuter + 5}
           fill="none"
-          stroke="rgba(255,255,255,0.06)"
+          stroke="rgba(255,255,255,0.07)"
           strokeWidth={1}
         />
 
@@ -149,93 +167,119 @@ export default function PieChart({
               <motion.path
                 d={seg.path}
                 fill={seg.fill}
-                stroke="rgba(24,2,26,0.88)"
-                strokeWidth={1.25}
-                initial={{ opacity: 0, scale: 0.92 }}
+                stroke="rgba(18,2,20,0.75)"
+                strokeWidth={1.15}
+                initial={{ opacity: 0, scale: 0.94 }}
                 animate={{
                   opacity: 1,
-                  scale: isHovered ? 1.035 : 1,
-                  filter: isHovered ? 'brightness(1.14)' : 'brightness(1)',
+                  scale: isHovered ? 1.03 : 1,
+                  filter: isHovered ? 'brightness(1.12)' : 'brightness(1)',
                 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: `${center}px ${center}px` }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                style={{ transformOrigin: `${cx}px ${cy}px` }}
               />
             </g>
           );
         })}
 
-        <circle cx={center} cy={center} r={rInnerBase - 2} fill="#120214" stroke="rgba(255,255,255,0.09)" strokeWidth={1} />
-        <circle cx={center} cy={center} r={rInnerBase - 2} fill="url(#pie-center-fade)" />
+        <circle cx={cx} cy={cy} r={rInnerBase - 1.5} fill="#140818" stroke="rgba(255,255,255,0.1)" strokeWidth={1} />
+        <circle cx={cx} cy={cy} r={rInnerBase - 1.5} fill="url(#pie-center-fade)" />
 
         <text
-          x={center}
-          y={centerSubtitle ? center - size * 0.012 : center + size * 0.018}
+          x={cx}
+          y={centerSubtitle ? cy - size * 0.015 : cy + size * 0.02}
           textAnchor="middle"
-          className="fill-white/90 font-extralight tracking-wide"
-          style={{ fontSize: Math.max(11, size * 0.045) }}
+          fill="#f4f4f5"
+          className="font-extralight tracking-wide"
+          style={{ fontSize: Math.max(12, size * 0.048) }}
         >
           {centerTitle}
         </text>
         {centerSubtitle ? (
           <text
-            x={center}
-            y={center + size * 0.052}
+            x={cx}
+            y={cy + size * 0.055}
             textAnchor="middle"
-            className="fill-white/45 font-light"
-            style={{ fontSize: Math.max(9, size * 0.028) }}
+            fill="rgba(255,255,255,0.5)"
+            className="font-light"
+            style={{ fontSize: Math.max(9, size * 0.03) }}
           >
             {centerSubtitle}
           </text>
         ) : null}
 
-        {sliceMidAngles.map(({ index, mid, pct, item }) => {
+        {/* Outside labels + elbow leaders — text on “page” background, not on slices */}
+        {slices.map(({ index, mid, pct, item }) => {
           const midRad = mid * RAD;
-          const lx = center + labelRadius * Math.cos(midRad);
-          const ly = center + labelRadius * Math.sin(midRad);
-          const pctRounded = Math.round(pct);
-          const pctFont = Math.max(9, Math.min(19, 8 + pct * 0.38));
-          const titleFont = Math.max(7, Math.min(12, 5.5 + pct * 0.22));
-          const short = item.shortTitle || item.title?.split(' ').slice(0, 2).join(' ') || '';
-          const showTitle = pct >= 20 && short.length > 0;
+          const cos = Math.cos(midRad);
+          const sin = Math.sin(midRad);
+          const onEdgeX = cx + (rOuter + 2) * cos;
+          const onEdgeY = cy + (rOuter + 2) * sin;
+          const kinkX = cx + (rOuter + kink) * cos;
+          const kinkY = cy + (rOuter + kink) * sin;
+          const rightSide = cos >= 0;
+          const labelX = rightSide ? cx + rOuter + kink + arm : cx - rOuter - kink - arm;
+          const lineEndX = labelX + (rightSide ? -4 : 4);
 
-          if (pct < 6) return null;
+          const short = item.shortTitle || item.title || '';
+          const label = short.length > 22 ? `${short.slice(0, 20)}…` : short;
+          const pctRounded = Math.round(pct);
 
           return (
-            <g key={`lbl-${index}`} className="pointer-events-none select-none">
-              <motion.text
-                x={lx}
-                y={ly - (showTitle ? pctFont * 0.38 : 0)}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                className="fill-white font-semibold"
+            <g key={`out-${index}`} className="pointer-events-none select-none">
+              <motion.polyline
+                fill="none"
+                stroke="rgba(255,255,255,0.28)"
+                strokeWidth={1}
+                points={`${onEdgeX},${onEdgeY} ${kinkX},${kinkY} ${lineEndX},${kinkY}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.45, delay: 0.06 + index * 0.05 }}
+              />
+              <motion.circle
+                cx={onEdgeX}
+                cy={onEdgeY}
+                r={2.5}
+                fill={item.color}
+                stroke="rgba(0,0,0,0.35)"
+                strokeWidth={0.75}
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.2 + index * 0.05, type: 'spring', stiffness: 400, damping: 22 }}
+              />
+              <text
+                x={rightSide ? labelX + 6 : labelX - 6}
+                y={kinkY - 5}
+                textAnchor={rightSide ? 'start' : 'end'}
+                fill="#f4f4f5"
                 style={{
-                  fontSize: pctFont,
-                  textShadow: '0 1px 3px rgba(0,0,0,0.9), 0 0 14px rgba(0,0,0,0.45)',
+                  fontSize: titleSize,
+                  fontWeight: 500,
+                  paintOrder: 'stroke',
+                  stroke: 'rgba(8,2,12,0.92)',
+                  strokeWidth: 4,
+                  strokeLinejoin: 'round',
                 }}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.12 + index * 0.06, duration: 0.45 }}
               >
-                {pctRounded}%
-              </motion.text>
-              {showTitle ? (
-                <motion.text
-                  x={lx}
-                  y={ly + pctFont * 0.44}
-                  textAnchor="middle"
-                  dominantBaseline="middle"
-                  className="fill-white/78 font-light"
-                  style={{
-                    fontSize: titleFont,
-                    textShadow: '0 1px 2px rgba(0,0,0,0.95)',
-                  }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 0.95 }}
-                  transition={{ delay: 0.22 + index * 0.06, duration: 0.4 }}
-                >
-                  {short.length > 20 ? `${short.slice(0, 18)}…` : short}
-                </motion.text>
-              ) : null}
+                {label}
+              </text>
+              <text
+                x={rightSide ? labelX + 6 : labelX - 6}
+                y={kinkY + 11}
+                textAnchor={rightSide ? 'start' : 'end'}
+                fill="rgba(255,255,255,0.55)"
+                style={{
+                  fontSize: pctSize,
+                  fontWeight: 400,
+                  fontVariantNumeric: 'tabular-nums',
+                  paintOrder: 'stroke',
+                  stroke: 'rgba(8,2,12,0.9)',
+                  strokeWidth: 3,
+                  strokeLinejoin: 'round',
+                }}
+              >
+                {pctRounded}% of round
+              </text>
             </g>
           );
         })}
