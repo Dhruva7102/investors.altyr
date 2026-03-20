@@ -74,7 +74,7 @@ export default function TeamSlide() {
         </motion.div>
 
         {/* Team members */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           {team.map((member, index) => (
             <motion.div
               key={index}
@@ -134,20 +134,6 @@ export default function TeamSlide() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom statement */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <div className="inline-block px-8 py-4 rounded-xl bg-white/[0.03] border border-white/[0.08] max-w-3xl">
-            <p className="text-base md:text-lg text-white/70 font-light">
-              Technical execution + creator credibility is the minimum bar—not a nice-to-have—in this category.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

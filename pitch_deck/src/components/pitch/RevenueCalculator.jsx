@@ -19,10 +19,10 @@ function formatCurrencyCompact(value) {
 
 function SliderRow({ label, value, min, max, step, displayValue, onChange }) {
   return (
-    <div className="space-y-1">
-      <div className="flex items-center justify-between gap-2 text-[11px] md:text-xs text-white/65 font-light">
-        <span className="truncate">{label}</span>
-        <span className="font-medium text-white/85 tabular-nums shrink-0">{displayValue ?? value}</span>
+    <div className="space-y-2">
+      <div className="flex items-center justify-between gap-3 text-sm text-white/70 font-light">
+        <span className="leading-snug">{label}</span>
+        <span className="font-medium text-white/90 tabular-nums shrink-0">{displayValue ?? value}</span>
       </div>
       <input
         type="range"
@@ -31,7 +31,7 @@ function SliderRow({ label, value, min, max, step, displayValue, onChange }) {
         step={step}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full h-1.5 accent-[#AC0064] rounded-full"
+        className="w-full accent-[#AC0064]"
       />
     </div>
   );
@@ -80,49 +80,54 @@ export default function RevenueCalculator() {
   const month12 = forecast[forecast.length - 1];
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 md:px-6">
+    <div className="w-full max-w-7xl mx-auto px-5 md:px-8">
       <motion.div
-        className="flex items-center justify-center gap-4 mb-3"
+        className="flex items-center justify-center gap-6 mb-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
+        transition={{ duration: 0.7 }}
       >
-        <span className="w-10 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
-        <span className="text-[10px] tracking-[0.3em] text-[#AC0064]/80 uppercase font-medium">
+        <span className="w-14 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
+        <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">
           Revenue forecast
         </span>
-        <span className="w-10 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
+        <span className="w-14 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
       </motion.div>
 
-      <motion.h2
-        className="text-center text-xl md:text-2xl font-extralight text-white/90 mb-4 md:mb-5"
-        initial={{ opacity: 0, y: 8 }}
+      <motion.div
+        className="text-center mb-6 md:mb-8"
+        initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65 }}
+        transition={{ duration: 0.75 }}
       >
-        Interactive model
-      </motion.h2>
+        <h2 className="text-2xl md:text-3xl font-extralight text-white/90 mb-2">
+          Revenue forecasting and projections
+        </h2>
+        <p className="text-sm md:text-base text-white/55 font-light max-w-2xl mx-auto leading-relaxed">
+          Stress-test platform revenue with the sliders. Definitions and formulas are in the appendix.
+        </p>
+      </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-3 md:gap-4 items-stretch">
+      <div className="grid lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
         <motion.div
-          className="p-3 md:p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] flex flex-col"
-          initial={{ opacity: 0, y: 12 }}
+          className="p-5 md:p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex flex-col"
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.65 }}
         >
-          <div className="flex items-center gap-2 mb-3">
-            <div className="p-1.5 rounded-md bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/25">
-              <TrendingUp className="w-3.5 h-3.5 text-[#AC0064]" />
+          <div className="flex items-center gap-3 mb-5">
+            <div className="p-2.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+              <TrendingUp className="w-4 h-4 text-[#AC0064]" />
             </div>
             <div>
-              <div className="text-sm font-light text-white/90">Assumptions</div>
-              <div className="text-[10px] text-white/45 font-light">Monthly inputs</div>
+              <div className="text-base font-light text-white/90 tracking-wide">Assumptions</div>
+              <div className="text-xs text-white/50 font-light">Monthly inputs unless noted</div>
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
+          <div className="grid sm:grid-cols-2 gap-x-5 gap-y-4">
             <SliderRow
-              label="Creators"
+              label="Creators on platform"
               value={creators}
               min={10}
               max={5000}
@@ -131,7 +136,7 @@ export default function RevenueCalculator() {
               onChange={(v) => setCreators(clampNumber(v, 10, 5000))}
             />
             <SliderRow
-              label="Subs / creator"
+              label="Avg subscribers per creator"
               value={subsPerCreator}
               min={25}
               max={2000}
@@ -140,7 +145,7 @@ export default function RevenueCalculator() {
               onChange={(v) => setSubsPerCreator(clampNumber(v, 25, 2000))}
             />
             <SliderRow
-              label="Sub price"
+              label="Average subscription price"
               value={subscriptionPrice}
               min={5}
               max={30}
@@ -149,7 +154,7 @@ export default function RevenueCalculator() {
               onChange={(v) => setSubscriptionPrice(clampNumber(v, 5, 30))}
             />
             <SliderRow
-              label="PPV / sub / mo"
+              label="PPV spend per subscriber / mo"
               value={ppvSpendPerSubscriberPerMonth}
               min={0}
               max={100}
@@ -158,7 +163,7 @@ export default function RevenueCalculator() {
               onChange={(v) => setPpvSpendPerSubscriberPerMonth(clampNumber(v, 0, 100))}
             />
             <SliderRow
-              label="Creator growth MoM"
+              label="Monthly creator growth (MoM)"
               value={monthlyGrowthRatePct}
               min={0}
               max={50}
@@ -167,7 +172,7 @@ export default function RevenueCalculator() {
               onChange={(v) => setMonthlyGrowthRatePct(clampNumber(v, 0, 50))}
             />
             <SliderRow
-              label="Subscriber churn MoM"
+              label="Monthly subscriber churn"
               value={monthlyChurnPct}
               min={0}
               max={40}
@@ -179,69 +184,82 @@ export default function RevenueCalculator() {
         </motion.div>
 
         <motion.div
-          className="flex flex-col gap-2.5 min-h-0"
-          initial={{ opacity: 0, y: 12 }}
+          className="flex flex-col gap-4"
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.04 }}
+          transition={{ duration: 0.65, delay: 0.05 }}
         >
-          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
-            <div className="flex items-center justify-between gap-2 mb-2">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 rounded-md bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/25">
-                  <DollarSign className="w-3.5 h-3.5 text-[#AC0064]" />
-                </div>
-                <div className="text-sm font-light text-white/90">Month 0</div>
+          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                <DollarSign className="w-4 h-4 text-[#AC0064]" />
               </div>
-              <div className="text-[10px] text-white/45 font-light">
-                Net {(COMMISSION_RATE * 100).toFixed(0)}% take
+              <div>
+                <div className="text-base font-light text-white/90 tracking-wide">Snapshot (month 0)</div>
+                <div className="text-xs text-white/50 font-light">
+                  Net take {(COMMISSION_RATE * 100).toFixed(0)}% (after processing)
+                </div>
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-1.5">
+            <div className="grid sm:grid-cols-2 gap-3">
               {[
-                ['Subs', new Intl.NumberFormat('en-US').format(base.totalSubscribers)],
-                ['GMV/mo', formatCurrencyCompact(base.totalGMV)],
-                ['Platform rev/mo', formatCurrencyCompact(base.platformRevenue)],
-                ['Annualized', formatCurrencyCompact(base.annualPlatformRevenue)],
+                ['Total subscribers', new Intl.NumberFormat('en-US').format(base.totalSubscribers)],
+                ['GMV (monthly)', formatCurrencyCompact(base.totalGMV)],
+                ['Platform rev (monthly)', formatCurrencyCompact(base.platformRevenue)],
+                ['Platform rev (annualized)', formatCurrencyCompact(base.annualPlatformRevenue)],
               ].map(([k, v]) => (
-                <div key={k} className="px-2 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.05]">
-                  <div className="text-[9px] tracking-[0.12em] text-white/40 uppercase">{k}</div>
-                  <div className="text-xs font-light text-white/88 tabular-nums truncate">{v}</div>
+                <div key={k} className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
+                  <div className="text-[10px] tracking-[0.18em] text-white/45 uppercase">{k}</div>
+                  <div className="mt-1 text-base md:text-lg font-light text-white/90 tabular-nums">
+                    {k.includes('Platform rev (monthly)') ? (
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
+                        {v}
+                      </span>
+                    ) : (
+                      v
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex-1 flex flex-col min-h-0">
-            <div className="flex items-end justify-between gap-2 mb-2">
-              <div className="text-sm font-light text-white/90">12-mo projection</div>
+          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex-1 flex flex-col">
+            <div className="flex items-end justify-between gap-4 mb-3">
+              <div>
+                <div className="text-base font-light text-white/90 tracking-wide">12-month projection</div>
+                <div className="text-xs text-white/50 font-light">
+                  Creators {monthlyGrowthRatePct}% MoM · churn {monthlyChurnPct}% · +subs from new creators
+                </div>
+              </div>
               <div className="text-right">
-                <div className="text-[9px] tracking-[0.15em] text-white/40 uppercase">M12 rev</div>
-                <div className="text-sm font-light text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] tabular-nums">
+                <div className="text-[10px] tracking-[0.2em] text-white/45 uppercase">Month 12 rev</div>
+                <div className="mt-0.5 text-lg font-light text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A] tabular-nums">
                   {formatCurrencyCompact(month12.platformRevenue)}
                 </div>
               </div>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-[10px] md:text-xs">
+              <table className="w-full text-left text-sm">
                 <thead>
-                  <tr className="text-white/45 border-b border-white/[0.07]">
-                    <th className="py-1 pr-2 font-light">Mo</th>
-                    <th className="py-1 pr-2 font-light text-right">Cr</th>
-                    <th className="py-1 pr-2 font-light text-right">Subs</th>
-                    <th className="py-1 font-light text-right">Rev</th>
+                  <tr className="text-white/50">
+                    <th className="py-1.5 pr-3 font-light">Month</th>
+                    <th className="py-1.5 pr-3 font-light">Creators</th>
+                    <th className="py-1.5 pr-3 font-light">Subscribers</th>
+                    <th className="py-1.5 font-light">Platform rev</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[month0, forecast[6], month12].map((row) => (
-                    <tr key={row.month} className="border-t border-white/[0.05] text-white/70">
-                      <td className="py-1 pr-2 tabular-nums">{row.month}</td>
-                      <td className="py-1 pr-2 text-right tabular-nums">
+                  {[month0, forecast[3], forecast[6], forecast[9], month12].map((row) => (
+                    <tr key={row.month} className="border-t border-white/[0.06]">
+                      <td className="py-1.5 pr-3 text-white/70 tabular-nums">{row.month}</td>
+                      <td className="py-1.5 pr-3 text-white/70 tabular-nums">
                         {new Intl.NumberFormat('en-US').format(row.creators)}
                       </td>
-                      <td className="py-1 pr-2 text-right tabular-nums">
+                      <td className="py-1.5 pr-3 text-white/70 tabular-nums">
                         {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
                       </td>
-                      <td className="py-1 text-right tabular-nums text-white/85">
+                      <td className="py-1.5 text-white/90 tabular-nums">
                         {formatCurrencyCompact(row.platformRevenue)}
                       </td>
                     </tr>
@@ -249,8 +267,8 @@ export default function RevenueCalculator() {
                 </tbody>
               </table>
             </div>
-            <p className="mt-2 text-[9px] text-white/38 font-light leading-snug">
-              Illustrative only · appendix defines math
+            <p className="mt-3 text-xs text-white/45 font-light">
+              Illustrative model only — not a promise. See appendix for exact math.
             </p>
           </div>
         </motion.div>
