@@ -17,24 +17,12 @@ function formatCurrencyCompact(value) {
   }).format(value);
 }
 
-function SliderRow({
-  label,
-  value,
-  min,
-  max,
-  step,
-  displayValue,
-  onChange,
-}) {
+function SliderRow({ label, value, min, max, step, displayValue, onChange }) {
   return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between gap-4">
-        <div className="text-sm md:text-base text-white/70 font-light">
-          {label}
-        </div>
-        <div className="text-sm md:text-base font-medium text-white/90 tabular-nums">
-          {displayValue ?? value}
-        </div>
+    <div className="space-y-1">
+      <div className="flex items-center justify-between gap-2 text-[11px] md:text-xs text-white/65 font-light">
+        <span className="truncate">{label}</span>
+        <span className="font-medium text-white/85 tabular-nums shrink-0">{displayValue ?? value}</span>
       </div>
       <input
         type="range"
@@ -43,12 +31,8 @@ function SliderRow({
         step={step}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full accent-[#AC0064]"
+        className="w-full h-1.5 accent-[#AC0064] rounded-full"
       />
-      <div className="flex items-center justify-between text-xs text-white/35 font-light tabular-nums">
-        <span>{min}</span>
-        <span>{max}</span>
-      </div>
     </div>
   );
 }
@@ -96,60 +80,49 @@ export default function RevenueCalculator() {
   const month12 = forecast[forecast.length - 1];
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-5 md:px-8">
+    <div className="w-full max-w-6xl mx-auto px-4 md:px-6">
       <motion.div
-        className="flex items-center justify-center gap-6 mb-12"
+        className="flex items-center justify-center gap-4 mb-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
+        transition={{ duration: 0.6 }}
       >
-        <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
-        <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">
-          Revenue Forecast
+        <span className="w-10 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
+        <span className="text-[10px] tracking-[0.3em] text-[#AC0064]/80 uppercase font-medium">
+          Revenue forecast
         </span>
-        <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
+        <span className="w-10 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
       </motion.div>
 
-      <motion.div
-        className="text-center mb-10"
-        initial={{ opacity: 0, y: 16 }}
+      <motion.h2
+        className="text-center text-xl md:text-2xl font-extralight text-white/90 mb-4 md:mb-5"
+        initial={{ opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
+        transition={{ duration: 0.65 }}
       >
-        <h2 className="text-3xl md:text-4xl font-extralight text-white/90 mb-3">
-          Revenue forecasting and projections
-        </h2>
-        <p className="text-lg text-white/60 font-light max-w-3xl mx-auto leading-relaxed">
-          Adjust the inputs to see how platform revenue scales. Take rate is net of payment processing.
-          Subscriber count applies <span className="text-white/75">churn to the prior month</span> and adds{' '}
-          <span className="text-white/75">new fans from net-new creators</span> (see appendix for formulas).
-        </p>
-      </motion.div>
+        Interactive model
+      </motion.h2>
 
-      <div className="grid lg:grid-cols-2 gap-8 items-stretch">
+      <div className="grid lg:grid-cols-2 gap-3 md:gap-4 items-stretch">
         <motion.div
-          className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex flex-col"
-          initial={{ opacity: 0, y: 24 }}
+          className="p-3 md:p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] flex flex-col"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-              <TrendingUp className="w-4 h-4 text-[#AC0064]" />
+          <div className="flex items-center gap-2 mb-3">
+            <div className="p-1.5 rounded-md bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/25">
+              <TrendingUp className="w-3.5 h-3.5 text-[#AC0064]" />
             </div>
             <div>
-              <div className="text-base font-light text-white/90 tracking-wide">
-                Assumptions
-              </div>
-              <div className="text-xs text-white/50 font-light">
-                All values are monthly unless noted.
-              </div>
+              <div className="text-sm font-light text-white/90">Assumptions</div>
+              <div className="text-[10px] text-white/45 font-light">Monthly inputs</div>
             </div>
           </div>
 
-          <div className="space-y-6 flex-1 flex flex-col justify-between">
+          <div className="grid sm:grid-cols-2 gap-x-4 gap-y-2.5">
             <SliderRow
-              label="Creators on platform"
+              label="Creators"
               value={creators}
               min={10}
               max={5000}
@@ -157,9 +130,8 @@ export default function RevenueCalculator() {
               displayValue={new Intl.NumberFormat('en-US').format(creators)}
               onChange={(v) => setCreators(clampNumber(v, 10, 5000))}
             />
-
             <SliderRow
-              label="Avg subscribers per creator"
+              label="Subs / creator"
               value={subsPerCreator}
               min={25}
               max={2000}
@@ -167,9 +139,8 @@ export default function RevenueCalculator() {
               displayValue={new Intl.NumberFormat('en-US').format(subsPerCreator)}
               onChange={(v) => setSubsPerCreator(clampNumber(v, 25, 2000))}
             />
-
             <SliderRow
-              label="Average subscription price"
+              label="Sub price"
               value={subscriptionPrice}
               min={5}
               max={30}
@@ -177,9 +148,8 @@ export default function RevenueCalculator() {
               displayValue={formatCurrencyCompact(subscriptionPrice)}
               onChange={(v) => setSubscriptionPrice(clampNumber(v, 5, 30))}
             />
-
             <SliderRow
-              label="Total spent on PPV per subscriber (per month)"
+              label="PPV / sub / mo"
               value={ppvSpendPerSubscriberPerMonth}
               min={0}
               max={100}
@@ -187,9 +157,8 @@ export default function RevenueCalculator() {
               displayValue={formatCurrencyCompact(ppvSpendPerSubscriberPerMonth)}
               onChange={(v) => setPpvSpendPerSubscriberPerMonth(clampNumber(v, 0, 100))}
             />
-
             <SliderRow
-              label="Monthly growth rate (creators)"
+              label="Creator growth MoM"
               value={monthlyGrowthRatePct}
               min={0}
               max={50}
@@ -197,9 +166,8 @@ export default function RevenueCalculator() {
               displayValue={`${monthlyGrowthRatePct}%`}
               onChange={(v) => setMonthlyGrowthRatePct(clampNumber(v, 0, 50))}
             />
-
             <SliderRow
-              label="Monthly subscriber churn"
+              label="Subscriber churn MoM"
               value={monthlyChurnPct}
               min={0}
               max={40}
@@ -211,113 +179,69 @@ export default function RevenueCalculator() {
         </motion.div>
 
         <motion.div
-          className="space-y-4 flex flex-col"
-          initial={{ opacity: 0, y: 24 }}
+          className="flex flex-col gap-2.5 min-h-0"
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.05 }}
+          transition={{ duration: 0.6, delay: 0.04 }}
         >
-          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                <DollarSign className="w-4 h-4 text-[#AC0064]" />
+          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-md bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/25">
+                  <DollarSign className="w-3.5 h-3.5 text-[#AC0064]" />
+                </div>
+                <div className="text-sm font-light text-white/90">Month 0</div>
               </div>
-              <div>
-                <div className="text-base font-light text-white/90 tracking-wide">
-                  Snapshot (Month 0)
-                </div>
-                <div className="text-xs text-white/50 font-light">
-                  Net take rate: {(COMMISSION_RATE * 100).toFixed(0)}% (after payment processing)
-                </div>
+              <div className="text-[10px] text-white/45 font-light">
+                Net {(COMMISSION_RATE * 100).toFixed(0)}% take
               </div>
             </div>
-
-            <div className="grid sm:grid-cols-2 gap-3">
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xs tracking-[0.2em] text-white/45 uppercase">
-                  Total Subscribers
+            <div className="grid grid-cols-2 gap-1.5">
+              {[
+                ['Subs', new Intl.NumberFormat('en-US').format(base.totalSubscribers)],
+                ['GMV/mo', formatCurrencyCompact(base.totalGMV)],
+                ['Platform rev/mo', formatCurrencyCompact(base.platformRevenue)],
+                ['Annualized', formatCurrencyCompact(base.annualPlatformRevenue)],
+              ].map(([k, v]) => (
+                <div key={k} className="px-2 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.05]">
+                  <div className="text-[9px] tracking-[0.12em] text-white/40 uppercase">{k}</div>
+                  <div className="text-xs font-light text-white/88 tabular-nums truncate">{v}</div>
                 </div>
-                <div className="mt-1 text-lg font-light text-white/90 tabular-nums">
-                  {new Intl.NumberFormat('en-US').format(base.totalSubscribers)}
-                </div>
-              </div>
-
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xs tracking-[0.2em] text-white/45 uppercase">
-                  Total GMV (Monthly)
-                </div>
-                <div className="mt-1 text-lg font-light text-white/90 tabular-nums">
-                  {formatCurrencyCompact(base.totalGMV)}
-                </div>
-              </div>
-
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xs tracking-[0.2em] text-white/45 uppercase">
-                  Platform Revenue (Monthly)
-                </div>
-                <div className="mt-1 text-lg font-light text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A] tabular-nums">
-                  {formatCurrencyCompact(base.platformRevenue)}
-                </div>
-              </div>
-
-              <div className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
-                <div className="text-xs tracking-[0.2em] text-white/45 uppercase">
-                  Platform Revenue (Annualized)
-                </div>
-                <div className="mt-1 text-lg font-light text-white/90 tabular-nums">
-                  {formatCurrencyCompact(base.annualPlatformRevenue)}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-3 text-xs text-white/50 font-light leading-relaxed">
-              GMV = subscriptions + PPV. Platform revenue ={' '}
-              <span className="text-white/80 font-medium">GMV × {(COMMISSION_RATE * 100).toFixed(0)}%</span> net
-              of processing.
+              ))}
             </div>
           </div>
 
-          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex-1 flex flex-col">
-            <div className="flex items-end justify-between gap-4 mb-4">
-              <div>
-                <div className="text-base font-light text-white/90 tracking-wide">
-                  12-Month Projection
-                </div>
-                <div className="text-xs text-white/50 font-light">
-                  Creators {monthlyGrowthRatePct}% MoM · churn {monthlyChurnPct}% on prior subs · +subs from
-                  net-new creators
-                </div>
-              </div>
+          <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] flex-1 flex flex-col min-h-0">
+            <div className="flex items-end justify-between gap-2 mb-2">
+              <div className="text-sm font-light text-white/90">12-mo projection</div>
               <div className="text-right">
-                <div className="text-xs tracking-[0.2em] text-white/45 uppercase">
-                  Month 12 Platform Rev
-                </div>
-                <div className="mt-0.5 text-lg font-light text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A] tabular-nums">
+                <div className="text-[9px] tracking-[0.15em] text-white/40 uppercase">M12 rev</div>
+                <div className="text-sm font-light text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] to-[#64109A] tabular-nums">
                   {formatCurrencyCompact(month12.platformRevenue)}
                 </div>
               </div>
             </div>
-
-            <div className="overflow-x-auto flex-1">
-              <table className="w-full text-left text-sm">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-[10px] md:text-xs">
                 <thead>
-                  <tr className="text-white/50">
-                    <th className="py-1 pr-3 font-light">Month</th>
-                    <th className="py-1 pr-3 font-light">Creators</th>
-                    <th className="py-1 pr-3 font-light">Subscribers</th>
-                    <th className="py-1 pr-3 font-light">Platform Rev</th>
+                  <tr className="text-white/45 border-b border-white/[0.07]">
+                    <th className="py-1 pr-2 font-light">Mo</th>
+                    <th className="py-1 pr-2 font-light text-right">Cr</th>
+                    <th className="py-1 pr-2 font-light text-right">Subs</th>
+                    <th className="py-1 font-light text-right">Rev</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {[month0, forecast[3], forecast[6], forecast[9], month12].map((row) => (
-                    <tr key={row.month} className="border-t border-white/[0.06]">
-                      <td className="py-1 pr-3 text-white/70 tabular-nums">{row.month}</td>
-                      <td className="py-1 pr-3 text-white/70 tabular-nums">
+                  {[month0, forecast[6], month12].map((row) => (
+                    <tr key={row.month} className="border-t border-white/[0.05] text-white/70">
+                      <td className="py-1 pr-2 tabular-nums">{row.month}</td>
+                      <td className="py-1 pr-2 text-right tabular-nums">
                         {new Intl.NumberFormat('en-US').format(row.creators)}
                       </td>
-                      <td className="py-1 pr-3 text-white/70 tabular-nums">
+                      <td className="py-1 pr-2 text-right tabular-nums">
                         {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
                       </td>
-                      <td className="py-1 pr-3 text-white/90 tabular-nums">
+                      <td className="py-1 text-right tabular-nums text-white/85">
                         {formatCurrencyCompact(row.platformRevenue)}
                       </td>
                     </tr>
@@ -325,10 +249,9 @@ export default function RevenueCalculator() {
                 </tbody>
               </table>
             </div>
-
-            <div className="mt-3 text-xs text-white/45 font-light">
-              Simplified investor model—not a promise. See appendix for exact formulas.
-            </div>
+            <p className="mt-2 text-[9px] text-white/38 font-light leading-snug">
+              Illustrative only · appendix defines math
+            </p>
           </div>
         </motion.div>
       </div>

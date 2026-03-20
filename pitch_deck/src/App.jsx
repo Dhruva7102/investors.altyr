@@ -20,10 +20,8 @@ import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
 import FinancialAssumptionsSlide from '@/components/slides/FinancialAssumptionsSlide';
-import BaseCaseRunwaySlide from '@/components/slides/BaseCaseRunwaySlide';
-import ConservativeCaseSlide from '@/components/slides/ConservativeCaseSlide';
-import OptimisticCaseSlide from '@/components/slides/OptimisticCaseSlide';
 import CostBreakdownTableSlide from '@/components/slides/CostBreakdownTableSlide';
+import RunwayScenariosSlide from '@/components/slides/RunwayScenariosSlide';
 import UseOfFundsSlide from '@/components/slides/UseOfFundsSlide';
 import RevenueCalculatorMethodologySlide from '@/components/slides/RevenueCalculatorMethodologySlide';
 import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
@@ -44,10 +42,8 @@ const slides = [
   FinancialAssumptionsSlide,
   RevenueCalculatorMethodologySlide,
   V2AdjacentIndustriesSlide,
-  BaseCaseRunwaySlide,
-  ConservativeCaseSlide,
-  OptimisticCaseSlide,
   CostBreakdownTableSlide,
+  RunwayScenariosSlide,
   UseOfFundsSlide,
   RisksSlide,
 ];
