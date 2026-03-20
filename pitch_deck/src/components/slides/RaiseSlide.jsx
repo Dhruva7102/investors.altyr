@@ -1,261 +1,218 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Layers, BarChart, Users as UsersIcon, Shield, Target, Sparkles } from 'lucide-react';
+import { Layers, BarChart, Users as UsersIcon, Shield, Target } from 'lucide-react';
 import PieChart from '@/components/pitch/PieChart';
+
+const RAISE_USD = 1_500_000;
+const MAX_SLICE = 30;
 
 const useOfFunds = [
   {
     icon: Target,
-    shortTitle: 'Acquisition',
+    shortLabel: 'Growth',
     title: 'Customer Acquisition Incentives',
-    description: 'Incentives for users and creators to drive early growth and network effects.',
+    description:
+      'Incentives for users and creators to drive early growth and network effects.',
     value: 30,
     color: '#AC0064',
-    subdivisions: [
-      { value: 18, label: 'Creator incentives' },
-      { value: 12, label: 'Fan growth & promos' },
-    ],
   },
   {
     icon: Shield,
-    shortTitle: 'Trust & rails',
+    shortLabel: 'Trust',
     title: 'Payments, Compliance, Legal & Risk',
-    description: 'Invest in robust payment infrastructure, compliance, legal, and risk systems appropriate for the category.',
+    description:
+      'Invest in robust payment infrastructure, compliance, legal, and risk systems appropriate for the category.',
     value: 25,
     color: '#9B4DCA',
-    subdivisions: [
-      { value: 15, label: 'Payments & payouts' },
-      { value: 10, label: 'Compliance & legal' },
-    ],
   },
   {
     icon: BarChart,
-    shortTitle: 'CRM & XP',
+    shortLabel: 'Product',
     title: 'Build Analytics, CRM & Gamification',
-    description: 'Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine.',
+    description:
+      'Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine.',
     value: 15,
     color: '#64109A',
   },
   {
     icon: UsersIcon,
-    shortTitle: 'Founding creators',
+    shortLabel: 'Creators',
     title: 'Onboard Founding Creators',
-    description: 'Deeply support an Inner Circle of founding creators and early agency partners with white-glove service.',
+    description:
+      'Deeply support an Inner Circle of founding creators and early agency partners with white-glove service.',
     value: 15,
     color: '#7C3AED',
   },
   {
     icon: Layers,
-    shortTitle: 'Core platform',
+    shortLabel: 'Platform',
     title: 'Finalize Core Platform',
-    description: 'Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.',
+    description:
+      'Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.',
     value: 15,
     color: '#A855F7',
   },
 ];
 
-const RAISE_USD = 1_500_000;
+function titleScaleClass(pct) {
+  if (pct >= 28) return 'text-[15px] sm:text-base md:text-[17px]';
+  if (pct >= 22) return 'text-sm sm:text-[15px]';
+  return 'text-xs sm:text-sm';
+}
 
 export default function RaiseSlide() {
   return (
-    <section className="relative w-full min-h-screen overflow-x-hidden overflow-y-visible bg-[#18021A] py-16 md:py-20">
+    <section className="relative w-full min-h-screen overflow-y-auto bg-[#18021A] py-16 md:py-20 lg:py-24">
       <div
-        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(1000px,95vw)] h-[min(600px,70vh)] opacity-[0.28]"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(100vw,1000px)] h-[min(70vh,600px)] opacity-30"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(172,0,100,0.5) 0%, rgba(100,16,154,0.28) 42%, transparent 72%)',
+          background:
+            'radial-gradient(ellipse at center, rgba(172,0,100,0.5) 0%, rgba(100,16,154,0.3) 40%, transparent 70%)',
           filter: 'blur(100px)',
         }}
       />
 
-      <div className="relative z-10 max-w-6xl xl:max-w-7xl mx-auto px-5 md:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-5 md:px-8">
         <motion.div
           className="flex items-center justify-center gap-5 md:gap-6 mb-8 md:mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.75 }}
+          transition={{ duration: 0.8 }}
         >
-          <span className="w-14 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
+          <span className="w-14 md:w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
           <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">The Ask</span>
-          <span className="w-14 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
+          <span className="w-14 md:w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 xl:gap-16 items-start">
-          {/* Left: amount + terms */}
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 xl:gap-16 items-start">
+          {/* Left: raise + donut */}
           <motion.div
-            className="text-left space-y-6 lg:pt-2"
-            initial={{ opacity: 0, x: -18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75 }}
           >
-            <div className="relative">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.35rem] xl:text-6xl font-extralight text-white/90 leading-[1.05] tracking-tight">
+            <div className="relative mb-6 md:mb-8 w-full max-w-md lg:max-w-none">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.35rem] xl:text-7xl font-extralight text-white/90 leading-tight">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
                   $1,500,000
                 </span>
               </h2>
               <motion.div
-                className="absolute -inset-6 -z-10 blur-3xl opacity-35 rounded-full"
-                style={{ background: 'linear-gradient(90deg, #AC0064, #9B4DCA, #64109A)' }}
-                animate={{ opacity: [0.28, 0.42, 0.28], scale: [1, 1.06, 1] }}
-                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute -inset-6 -z-10 rounded-full opacity-35 blur-3xl pointer-events-none"
+                style={{
+                  background: 'linear-gradient(90deg, #AC0064, #9B4DCA, #64109A)',
+                }}
+                animate={{
+                  opacity: [0.28, 0.42, 0.28],
+                  scale: [1, 1.06, 1],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
               />
+              <p className="text-lg md:text-xl text-white/60 font-extralight mt-3">via SAFE</p>
+              <p className="text-sm md:text-base text-white/48 font-light mt-1">
+                at 20% discount with $15M cap
+              </p>
             </div>
 
-            <div className="space-y-1">
-              <p className="text-lg md:text-xl text-white/60 font-extralight">via SAFE</p>
-              <p className="text-sm md:text-base text-white/48 font-light">20% discount · $15M cap</p>
-            </div>
-
-            <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-sm p-5 md:p-6">
-              <div className="flex items-center gap-2 text-[10px] tracking-[0.22em] uppercase text-[#AC0064]/85 font-medium mb-4">
-                <Sparkles className="w-3.5 h-3.5" />
-                What this round funds
-              </div>
-              <ul className="space-y-3 text-sm md:text-[15px] text-white/55 font-light leading-relaxed">
-                <li className="flex gap-3">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gradient-to-r from-[#AC0064] to-[#9B4DCA]" />
-                  <span>18–24 months of runway to scale founding creators, ship CRM depth, and harden payments.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gradient-to-r from-[#AC0064] to-[#9B4DCA]" />
-                  <span>Incentives and onboarding that compound early liquidity on both sides of the marketplace.</span>
-                </li>
-                <li className="flex gap-3">
-                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gradient-to-r from-[#AC0064] to-[#9B4DCA]" />
-                  <span>Compliance and legal capacity appropriate for regulated payments and adult-adjacent risk.</span>
-                </li>
-              </ul>
+            <p className="text-[11px] tracking-[0.28em] uppercase text-[#AC0064]/75 font-medium mb-4 lg:mb-5 w-full text-center lg:text-left">
+              Use of funds — at a glance
+            </p>
+            <div className="w-full flex justify-center lg:justify-start">
+              <PieChart data={useOfFunds} size={300} />
             </div>
           </motion.div>
 
-          {/* Right: use of funds */}
+          {/* Right: breakdown */}
           <motion.div
-            className="space-y-6"
-            initial={{ opacity: 0, x: 18 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.05 }}
+            className="flex flex-col min-w-0"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.06 }}
           >
-            <div>
-              <h3 className="text-lg md:text-xl font-extralight text-white/85 tracking-wide">Use of funds</h3>
-              <p className="text-xs text-white/40 font-light mt-1">Allocation reflects how we deploy the raise — not a day-by-day budget.</p>
-            </div>
+            <h3 className="text-xl md:text-2xl font-extralight text-white/85 mb-6 md:mb-7">
+              Use of funds
+            </h3>
+            <div className="space-y-3 md:space-y-3.5">
+              {useOfFunds.map((item, index) => {
+                const amount = (item.value / 100) * RAISE_USD;
+                const formattedAmount = new Intl.NumberFormat('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                  maximumFractionDigits: 0,
+                }).format(amount);
+                const barPct = (item.value / MAX_SLICE) * 100;
+                const Icon = item.icon;
 
-            <div className="flex flex-col xl:flex-row items-center xl:items-start gap-8 xl:gap-6 overflow-visible">
-              <div className="shrink-0 w-full max-w-[min(100%,420px)] xl:max-w-none flex justify-center overflow-visible px-1">
-                <PieChart
-                  data={useOfFunds}
-                  size={280}
-                  gapDeg={2.4}
-                  centerTitle="$1.5M"
-                  centerSubtitle="allocated"
-                />
-              </div>
-
-              <div className="w-full max-w-md xl:max-w-none xl:flex-1 space-y-2.5">
-                {useOfFunds.map((item, index) => {
-                  const amount = (item.value / 100) * RAISE_USD;
-                  const formattedAmount = new Intl.NumberFormat('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                    maximumFractionDigits: 0,
-                  }).format(amount);
-                  const Icon = item.icon;
-
-                  return (
-                    <motion.div
-                      key={item.title}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.45, delay: 0.08 * index + 0.2 }}
-                    >
+                return (
+                  <motion.div
+                    key={item.title}
+                    className="group relative rounded-xl bg-white/[0.035] border border-white/[0.07] overflow-hidden hover:border-white/[0.11] transition-colors"
+                    initial={{ opacity: 0, x: 12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.55,
+                      delay: index * 0.07 + 0.15,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                    }}
+                  >
+                    <div className="relative p-3.5 md:p-4 flex gap-3">
                       <div
-                        className="rounded-xl border border-white/[0.07] bg-white/[0.025] overflow-hidden"
-                        style={{
-                          boxShadow: `inset 0 0 0 1px ${item.color}12`,
-                        }}
-                      >
-                        <div className="p-3 md:p-3.5 flex gap-3">
-                          <div
-                            className="w-1 self-stretch rounded-full shrink-0"
-                            style={{
-                              background: `linear-gradient(180deg, ${item.color}, ${shadeForBar(item.color)})`,
-                            }}
-                          />
-                          <div className="min-w-0 flex-1">
-                            <div className="flex items-start justify-between gap-2">
-                              <div className="flex items-center gap-2 min-w-0">
-                                <div className="p-1.5 rounded-lg bg-black/30 border border-white/[0.08] shrink-0">
-                                  <Icon className="w-3.5 h-3.5 opacity-90" style={{ color: item.color }} />
-                                </div>
-                                <h4 className="text-[13px] md:text-sm font-light text-white/90 tracking-wide leading-snug">
-                                  {item.title}
-                                </h4>
-                              </div>
-                              <div className="text-right shrink-0">
-                                <div
-                                  className="text-base md:text-lg font-extralight tabular-nums text-transparent bg-clip-text bg-gradient-to-r from-white/95 to-white/75"
-                                  style={{ fontSize: `${Math.max(14, Math.min(20, 12 + item.value * 0.22))}px` }}
-                                >
-                                  {item.value}%
-                                </div>
-                                <div className="text-[10px] text-white/45 tabular-nums">{formattedAmount}</div>
-                              </div>
-                            </div>
-                            <p className="text-[11px] text-white/42 font-light leading-relaxed mt-2 pl-[2.125rem]">
+                        className="w-1 self-stretch rounded-full shrink-0 opacity-90"
+                        style={{ backgroundColor: item.color }}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-start gap-2.5">
+                          <div className="p-2 rounded-lg bg-black/25 border border-white/[0.08] shrink-0 mt-0.5">
+                            <Icon className="w-3.5 h-3.5 text-white/70" style={{ color: item.color }} />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4
+                              className={`font-light text-white/92 tracking-wide leading-snug ${titleScaleClass(item.value)}`}
+                            >
+                              {item.title}
+                            </h4>
+                            <p className="text-[11px] md:text-xs text-white/45 font-light mt-1.5 leading-relaxed line-clamp-2 md:line-clamp-none">
                               {item.description}
                             </p>
-                            {item.subdivisions?.length ? (
-                              <ul className="mt-2.5 pl-[2.125rem] space-y-1.5 border-t border-white/[0.05] pt-2.5">
-                                {item.subdivisions.map((sub) => {
-                                  const subAmt = (sub.value / 100) * RAISE_USD;
-                                  const subFmt = new Intl.NumberFormat('en-US', {
-                                    style: 'currency',
-                                    currency: 'USD',
-                                    maximumFractionDigits: 0,
-                                  }).format(subAmt);
-                                  return (
-                                    <li
-                                      key={sub.label}
-                                      className="flex items-baseline justify-between gap-2 text-[10px] text-white/48"
-                                    >
-                                      <span className="font-light text-white/55">{sub.label}</span>
-                                      <span className="tabular-nums shrink-0">
-                                        <span className="text-white/40">{sub.value}%</span>
-                                        <span className="text-white/25 mx-1">·</span>
-                                        <span className="text-white/50">{subFmt}</span>
-                                      </span>
-                                    </li>
-                                  );
-                                })}
-                              </ul>
-                            ) : null}
+                            <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 mt-2.5">
+                              <span
+                                className="tabular-nums font-medium text-white/88"
+                                style={{ fontSize: `clamp(0.8rem, 0.65rem + ${item.value * 0.04}vw, 1.05rem)` }}
+                              >
+                                {item.value}%
+                              </span>
+                              <span className="text-white/30 text-xs">·</span>
+                              <span className="text-xs text-white/55 tabular-nums">{formattedAmount}</span>
+                            </div>
+                            <div className="mt-2 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                              <motion.div
+                                className="h-full rounded-full"
+                                style={{ backgroundColor: item.color }}
+                                initial={{ width: 0 }}
+                                animate={{ width: `${barPct}%` }}
+                                transition={{
+                                  duration: 0.9,
+                                  delay: 0.25 + index * 0.07,
+                                  ease: [0.22, 1, 0.36, 1],
+                                }}
+                              />
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </motion.div>
-                  );
-                })}
-              </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         </div>
       </div>
     </section>
   );
-}
-
-function shadeForBar(hex) {
-  return shadeColor(hex, 0.25);
-}
-
-function shadeColor(hex, amount) {
-  const n = hex.replace('#', '');
-  const num = parseInt(n, 16);
-  let r = (num >> 16) & 255;
-  let g = (num >> 8) & 255;
-  let b = num & 255;
-  r = Math.round(r * (1 - amount));
-  g = Math.round(g * (1 - amount));
-  b = Math.round(b * (1 - amount));
-  return `rgb(${r},${g},${b})`;
 }
