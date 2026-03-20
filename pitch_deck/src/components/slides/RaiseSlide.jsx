@@ -62,7 +62,7 @@ function titleScaleClass(pct) {
 
 export default function RaiseSlide() {
   return (
-    <section className="relative w-full h-full max-h-full min-h-0 overflow-y-auto overflow-x-hidden bg-[#18021A] py-5 sm:py-6 md:py-8">
+    <section className="relative w-full h-full min-h-0 overflow-y-auto overflow-x-hidden bg-[#18021A]">
       <div
         className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(100vw,1000px)] h-[min(70vh,600px)] opacity-30"
         style={{
@@ -72,9 +72,10 @@ export default function RaiseSlide() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-24 md:pb-28">
+      <div className="relative z-10 min-h-full flex flex-col justify-center py-12 md:py-14 lg:py-16 px-4 sm:px-6 md:px-8 box-border">
+        <div className="max-w-7xl mx-auto w-full">
         <motion.div
-          className="flex items-center justify-center gap-5 md:gap-6 mb-4 md:mb-5 shrink-0"
+          className="flex items-center justify-center gap-5 md:gap-6 mb-5 md:mb-6 shrink-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
@@ -122,8 +123,8 @@ export default function RaiseSlide() {
             <p className="text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-[#AC0064]/75 font-medium mb-3 w-full text-center lg:text-left shrink-0">
               Use of funds — at a glance
             </p>
-            <div className="w-full flex justify-center lg:justify-start px-1">
-              <PieChart data={useOfFunds} chartSize={398} labelPad={58} />
+            <div className="w-full flex justify-center lg:justify-start px-0 sm:px-1">
+              <PieChart data={useOfFunds} chartSize={348} labelPad={94} />
             </div>
           </motion.div>
 
@@ -213,6 +214,7 @@ export default function RaiseSlide() {
               })}
             </div>
           </motion.div>
+        </div>
         </div>
       </div>
     </section>

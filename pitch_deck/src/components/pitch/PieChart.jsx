@@ -31,12 +31,34 @@ function textAnchorForAngle(midDeg) {
   return 'middle';
 }
 
+/** Word-wrap titles to 1–2 lines for SVG (matches card titles on the slide). */
+function titleLines(title, maxLen = 24) {
+  const words = title.split(/\s+/);
+  const lines = [];
+  let cur = '';
+  for (const w of words) {
+    const next = cur ? `${cur} ${w}` : w;
+    if (next.length <= maxLen) cur = next;
+    else {
+      if (cur) lines.push(cur);
+      cur = w;
+    }
+  }
+  if (cur) lines.push(cur);
+  if (lines.length > 2) {
+    const a = lines[0];
+    let b = lines.slice(1).join(' ');
+    if (b.length > maxLen + 6) b = `${b.slice(0, maxLen + 3).trim()}…`;
+    return [a, b];
+  }
+  return lines;
+}
+
 /**
  * Donut with outside labels + leader lines.
- * @param {number} chartSize — diameter of the donut ring area (larger = bigger pie)
- * @param {number} labelPad — extra SVG margin for outside labels
+ * Expects `data[].title` (same copy as the breakdown list) and `value` (%).
  */
-const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
+const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const dim = chartSize + labelPad * 2;
   const center = dim / 2;
@@ -67,19 +89,27 @@ const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
 
       const rimX = center + (rOuter + 2) * cos;
       const rimY = center + (rOuter + 2) * sin;
-      const lineEndR = rOuter + 26;
+      const lineEndR = rOuter + 28;
       const lineX2 = center + lineEndR * cos;
       const lineY2 = center + lineEndR * sin;
       const anchor = textAnchorForAngle(midAngle);
-      const gapAlong = 7;
+      const gapAlong = 10;
       let tx = lineX2 + gapAlong * cos;
       let ty = lineY2 + gapAlong * sin;
       if (anchor === 'middle') {
-        tx += -sin * 6;
-        ty += cos * 6;
+        tx += -sin * 8;
+        ty += cos * 8;
       }
 
-      const labelFontSize = Math.round((Math.max(10, Math.min(15, 9 + percentage * 0.16)) * 10)) / 10;
+      const titleText = item.title || item.shortLabel || '';
+      const lines = titleLines(titleText);
+      const titleFont = Math.round((Math.max(8.5, Math.min(11.2, 7.4 + percentage * 0.05)) * 10)) / 10;
+      const pctFont = Math.round((titleFont + 1.1) * 10) / 10;
+      const lineHeight = titleFont * 1.22;
+      const pctGap = titleFont * 0.55;
+      const blockH = lines.length * lineHeight + pctGap + pctFont * 1.05;
+      const textBlockTop = ty - blockH / 2;
+      const firstBaseline = textBlockTop + titleFont * 0.88;
 
       return {
         ...item,
@@ -95,7 +125,12 @@ const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
         tx,
         ty,
         anchor,
-        labelFontSize,
+        titleFont,
+        pctFont,
+        lineHeight,
+        pctGap,
+        firstBaseline,
+        titleLines: lines,
       };
     });
   }, [data, total, center, rOuter, rInner, gapDeg, usable]);
@@ -104,7 +139,7 @@ const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
   const defsId = `pie-${uid}`;
 
   return (
-    <div className="relative mx-auto w-full max-w-[min(100%,520px)] aspect-square shrink-0">
+    <div className="relative mx-auto w-full max-w-[min(100%,580px)] aspect-square shrink-0">
       <svg
         width="100%"
         height="100%"
@@ -193,19 +228,31 @@ const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
                 />
                 <motion.text
                   x={segment.tx}
-                  y={segment.ty}
+                  y={segment.firstBaseline}
                   textAnchor={segment.anchor}
-                  dominantBaseline="middle"
                   fill="rgba(255,255,255,0.92)"
-                  fontWeight={600}
-                  fontSize={segment.labelFontSize}
+                  fontFamily='system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+                  fontWeight={300}
+                  letterSpacing="0.02em"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.32 + segment.index * 0.05 }}
                   style={{ textShadow: '0 1px 3px rgba(0,0,0,0.75)' }}
                 >
-                  {segment.shortLabel ? `${segment.shortLabel} · ` : ''}
-                  {segment.percentage}%
+                  {segment.titleLines.map((line, i) => (
+                    <tspan key={i} x={segment.tx} dy={i === 0 ? 0 : segment.lineHeight} fontSize={segment.titleFont}>
+                      {line}
+                    </tspan>
+                  ))}
+                  <tspan
+                    x={segment.tx}
+                    dy={segment.pctGap}
+                    fontSize={segment.pctFont}
+                    fontWeight={500}
+                    fill="rgba(255,255,255,0.72)"
+                  >
+                    {segment.percentage}%
+                  </tspan>
                 </motion.text>
               </g>
             </g>
