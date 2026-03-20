@@ -24,12 +24,24 @@ function donutSegmentPath(cx, cy, rOuter, rInner, startAngle, endAngle) {
   ].join(' ');
 }
 
-const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
+function textAnchorForAngle(midDeg) {
+  const c = Math.cos((midDeg * Math.PI) / 180);
+  if (c > 0.25) return 'start';
+  if (c < -0.25) return 'end';
+  return 'middle';
+}
+
+/**
+ * Donut with outside labels + leader lines.
+ * @param {number} chartSize — diameter of the donut ring area (larger = bigger pie)
+ * @param {number} labelPad — extra SVG margin for outside labels
+ */
+const PieChart = ({ data, chartSize = 380, labelPad = 56, gapDeg = 1.25 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const center = size / 2;
-  const rOuter = size * 0.38;
-  const rInner = size * 0.22;
-  const labelR = (rOuter + rInner) / 2;
+  const dim = chartSize + labelPad * 2;
+  const center = dim / 2;
+  const rOuter = chartSize * 0.38;
+  const rInner = chartSize * 0.22;
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
   const n = data.length;
@@ -47,44 +59,57 @@ const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
 
       const midAngle = (startAngle + endAngle) / 2;
       const midRad = (midAngle * Math.PI) / 180;
-      const labelX = center + labelR * Math.cos(midRad);
-      const labelY = center + labelR * Math.sin(midRad);
+      const cos = Math.cos(midRad);
+      const sin = Math.sin(midRad);
 
       const percentage = share * 100;
-      const angleDeg = sweep;
-      /** Scale typography with slice share; cap for readability */
-      const pctFont = Math.round(Math.max(10, Math.min(22, 8 + percentage * 0.42)));
-      const shortFont = Math.round(Math.max(7, Math.min(12, 5 + percentage * 0.22)));
-      const showShort = Boolean(item.shortLabel) && percentage >= 17 && angleDeg >= 42;
-
       const pathData = donutSegmentPath(center, center, rOuter, rInner, startAngle, endAngle);
+
+      const rimX = center + (rOuter + 2) * cos;
+      const rimY = center + (rOuter + 2) * sin;
+      const lineEndR = rOuter + 26;
+      const lineX2 = center + lineEndR * cos;
+      const lineY2 = center + lineEndR * sin;
+      const anchor = textAnchorForAngle(midAngle);
+      const gapAlong = 7;
+      let tx = lineX2 + gapAlong * cos;
+      let ty = lineY2 + gapAlong * sin;
+      if (anchor === 'middle') {
+        tx += -sin * 6;
+        ty += cos * 6;
+      }
+
+      const labelFontSize = Math.round((Math.max(10, Math.min(15, 9 + percentage * 0.16)) * 10)) / 10;
 
       return {
         ...item,
         percentage: percentage.toFixed(0),
         percentageNum: percentage,
-        angleDeg,
         pathData,
-        labelX,
-        labelY,
         midAngle,
         index,
-        pctFont,
-        shortFont,
-        showShort,
+        rimX,
+        rimY,
+        lineX2,
+        lineY2,
+        tx,
+        ty,
+        anchor,
+        labelFontSize,
       };
     });
-  }, [data, total, center, rOuter, rInner, labelR, gapDeg, usable]);
+  }, [data, total, center, rOuter, rInner, gapDeg, usable]);
 
   const uid = useId().replace(/:/g, '');
   const defsId = `pie-${uid}`;
 
   return (
-    <div className="relative mx-auto" style={{ width: size, height: size }}>
+    <div className="relative mx-auto w-full max-w-[min(100%,520px)] aspect-square shrink-0">
       <svg
-        width={size}
-        height={size}
-        viewBox={`0 0 ${size} ${size}`}
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${dim} ${dim}`}
+        preserveAspectRatio="xMidYMid meet"
         className="overflow-visible"
         aria-hidden
       >
@@ -104,11 +129,10 @@ const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
           ))}
         </defs>
 
-        {/* Subtle outer ring (subdivision guide) */}
         <circle
           cx={center}
           cy={center}
-          r={rOuter + 6}
+          r={rOuter + 5}
           fill="none"
           stroke="rgba(255,255,255,0.06)"
           strokeWidth="1"
@@ -116,7 +140,7 @@ const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
         <circle
           cx={center}
           cy={center}
-          r={rInner - 4}
+          r={rInner - 3}
           fill="none"
           stroke="rgba(255,255,255,0.05)"
           strokeWidth="1"
@@ -141,7 +165,7 @@ const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{
                   opacity: 1,
-                  scale: isHovered ? 1.04 : 1,
+                  scale: isHovered ? 1.03 : 1,
                 }}
                 style={{
                   transformOrigin: `${center}px ${center}px`,
@@ -155,49 +179,35 @@ const PieChart = ({ data, size = 320, gapDeg = 1.25 }) => {
                 }}
               />
 
-              {segment.percentageNum >= 8 && (
-                <g pointerEvents="none">
-                  <motion.text
-                    x={segment.labelX}
-                    y={segment.labelY}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                    fill="rgba(255,255,255,0.95)"
-                    fontWeight={600}
-                    fontSize={segment.pctFont}
-                    letterSpacing="-0.02em"
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{
-                      opacity: 1,
-                      scale: isHovered ? 1.06 : 1,
-                      fontSize: isHovered ? segment.pctFont + 1 : segment.pctFont,
-                    }}
-                    transition={{ duration: 0.35, delay: 0.2 + segment.index * 0.05 }}
-                    style={{
-                      textShadow: '0 1px 3px rgba(0,0,0,0.65), 0 0 12px rgba(0,0,0,0.4)',
-                    }}
-                  >
-                    {segment.percentage}%
-                  </motion.text>
-                  {segment.showShort ? (
-                    <motion.text
-                      x={segment.labelX}
-                      y={segment.labelY + segment.pctFont * 0.55}
-                      textAnchor="middle"
-                      dominantBaseline="middle"
-                      fill="rgba(255,255,255,0.72)"
-                      fontWeight={500}
-                      fontSize={segment.shortFont}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 0.35 + segment.index * 0.05 }}
-                      style={{ textShadow: '0 1px 2px rgba(0,0,0,0.6)' }}
-                    >
-                      {segment.shortLabel}
-                    </motion.text>
-                  ) : null}
-                </g>
-              )}
+              <g pointerEvents="none">
+                <motion.line
+                  x1={segment.rimX}
+                  y1={segment.rimY}
+                  x2={segment.lineX2}
+                  y2={segment.lineY2}
+                  stroke="rgba(255,255,255,0.4)"
+                  strokeWidth={1}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4, delay: 0.22 + segment.index * 0.05 }}
+                />
+                <motion.text
+                  x={segment.tx}
+                  y={segment.ty}
+                  textAnchor={segment.anchor}
+                  dominantBaseline="middle"
+                  fill="rgba(255,255,255,0.92)"
+                  fontWeight={600}
+                  fontSize={segment.labelFontSize}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.32 + segment.index * 0.05 }}
+                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.75)' }}
+                >
+                  {segment.shortLabel ? `${segment.shortLabel} · ` : ''}
+                  {segment.percentage}%
+                </motion.text>
+              </g>
             </g>
           );
         })}

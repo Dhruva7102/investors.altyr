@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Layers, BarChart, Users as UsersIcon, Shield, Target } from 'lucide-react';
 import PieChart from '@/components/pitch/PieChart';
@@ -55,122 +55,89 @@ const useOfFunds = [
 ];
 
 function titleScaleClass(pct) {
-  if (pct >= 28) return 'text-sm sm:text-[15px] md:text-base';
-  if (pct >= 22) return 'text-xs sm:text-sm md:text-[15px]';
-  return 'text-[11px] sm:text-xs md:text-sm';
-}
-
-/** Responsive donut diameter: large on desktop, scales down on narrow viewports */
-function useDonutSize() {
-  const [size, setSize] = useState(360);
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const capByHeight = Math.min(520, Math.max(280, Math.round(h * 0.42)));
-      let s;
-      if (w >= 1536) s = Math.min(480, capByHeight);
-      else if (w >= 1280) s = Math.min(440, capByHeight);
-      else if (w >= 1024) s = Math.min(400, capByHeight);
-      else if (w >= 640) s = Math.min(340, capByHeight);
-      else s = Math.min(300, Math.max(248, w - 40));
-      setSize(s);
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-  return size;
+  if (pct >= 28) return 'text-[15px] sm:text-base md:text-[17px]';
+  if (pct >= 22) return 'text-sm sm:text-[15px]';
+  return 'text-xs sm:text-sm';
 }
 
 export default function RaiseSlide() {
-  const donutSize = useDonutSize();
-
   return (
-    <section className="relative w-full min-h-full bg-[#18021A] py-12 md:py-14 lg:py-16 pb-28 md:pb-32">
+    <section className="relative w-full h-full max-h-full min-h-0 overflow-y-auto overflow-x-hidden bg-[#18021A] py-5 sm:py-6 md:py-8">
       <div
-        className="pointer-events-none absolute top-1/3 left-1/4 w-[min(120vw,900px)] h-[min(80vh,700px)] opacity-25"
+        className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(100vw,1000px)] h-[min(70vh,600px)] opacity-30"
         style={{
           background:
-            'radial-gradient(ellipse at center, rgba(172,0,100,0.45) 0%, rgba(100,16,154,0.25) 45%, transparent 72%)',
-          filter: 'blur(90px)',
+            'radial-gradient(ellipse at center, rgba(172,0,100,0.5) 0%, rgba(100,16,154,0.3) 40%, transparent 70%)',
+          filter: 'blur(100px)',
         }}
       />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 md:px-8 pb-24 md:pb-28">
         <motion.div
-          className="flex items-center justify-center gap-4 md:gap-6 mb-6 md:mb-8"
+          className="flex items-center justify-center gap-5 md:gap-6 mb-4 md:mb-5 shrink-0"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <span className="w-12 md:w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
-          <span className="text-[10px] md:text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">
-            The Ask
-          </span>
-          <span className="w-12 md:w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
+          <span className="w-14 md:w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
+          <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">The Ask</span>
+          <span className="w-14 md:w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
         </motion.div>
 
-        {/* Wider left rail for hero + large donut; tighter right list */}
-        <div className="grid grid-cols-1 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] gap-8 xl:gap-10 2xl:gap-14 items-start">
-          {/* Left: ask + donut — horizontal band on xl saves vertical space */}
+        <div className="grid lg:grid-cols-2 gap-6 lg:gap-8 xl:gap-10 items-stretch min-h-0 lg:min-h-[0]">
+          {/* Left: raise + donut */}
           <motion.div
-            className="flex flex-col items-center xl:items-stretch min-w-0"
-            initial={{ opacity: 0, y: 14 }}
+            className="flex flex-col items-center lg:items-start text-center lg:text-left min-h-0 shrink-0 lg:shrink"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75 }}
           >
-            <div className="w-full flex flex-col xl:flex-row xl:items-center xl:gap-8 2xl:gap-12">
-              <div className="relative text-center xl:text-left shrink-0 xl:max-w-[min(100%,22rem)] 2xl:max-w-md">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl xl:text-[3.25rem] 2xl:text-7xl font-extralight text-white/90 leading-[1.05]">
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                    $1,500,000
-                  </span>
-                </h2>
-                <motion.div
-                  className="absolute -inset-8 -z-10 rounded-full opacity-30 blur-3xl pointer-events-none hidden xl:block"
-                  style={{
-                    background: 'linear-gradient(90deg, #AC0064, #9B4DCA, #64109A)',
-                  }}
-                  animate={{
-                    opacity: [0.22, 0.38, 0.22],
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
-                />
-                <p className="text-base md:text-lg text-white/58 font-extralight mt-2 md:mt-3">via SAFE</p>
-                <p className="text-xs md:text-sm text-white/45 font-light mt-1 leading-snug max-w-xs mx-auto xl:mx-0">
-                  at 20% discount with $15M cap
-                </p>
-              </div>
+            <div className="relative mb-4 md:mb-5 w-full max-w-md lg:max-w-none shrink-0">
+              <h2 className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-[3.5rem] font-extralight text-white/90 leading-tight">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
+                  $1,500,000
+                </span>
+              </h2>
+              <motion.div
+                className="absolute -inset-6 -z-10 rounded-full opacity-35 blur-3xl pointer-events-none"
+                style={{
+                  background: 'linear-gradient(90deg, #AC0064, #9B4DCA, #64109A)',
+                }}
+                animate={{
+                  opacity: [0.28, 0.42, 0.28],
+                  scale: [1, 1.06, 1],
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: 'easeInOut',
+                }}
+              />
+              <p className="text-lg md:text-xl text-white/60 font-extralight mt-3">via SAFE</p>
+              <p className="text-sm md:text-base text-white/48 font-light mt-1">
+                at 20% discount with $15M cap
+              </p>
+            </div>
 
-              <div className="mt-8 xl:mt-0 flex flex-col items-center xl:items-center xl:flex-1 xl:min-w-0 min-w-0 w-full">
-                <p className="text-[10px] tracking-[0.26em] uppercase text-[#AC0064]/70 font-medium mb-3 xl:mb-4 text-center">
-                  Use of funds — at a glance
-                </p>
-                <div
-                  className="flex justify-center xl:justify-center w-full [&_svg]:max-w-full"
-                  style={{ maxWidth: donutSize + 48 }}
-                >
-                  <PieChart data={useOfFunds} size={donutSize} />
-                </div>
-              </div>
+            <p className="text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-[#AC0064]/75 font-medium mb-3 w-full text-center lg:text-left shrink-0">
+              Use of funds — at a glance
+            </p>
+            <div className="w-full flex justify-center lg:justify-start px-1">
+              <PieChart data={useOfFunds} chartSize={398} labelPad={58} />
             </div>
           </motion.div>
 
-          {/* Right: dense breakdown — fits common laptop heights */}
+          {/* Right: breakdown — scroll inside deck viewport */}
           <motion.div
-            className="flex flex-col min-w-0 xl:pt-1"
-            initial={{ opacity: 0, y: 14 }}
+            className="flex flex-col min-h-0 min-w-0 lg:max-h-[calc(100dvh-11rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-1 lg:pb-2 lg:[scrollbar-width:thin] lg:[&::-webkit-scrollbar]:w-1.5 lg:[&::-webkit-scrollbar-thumb]:rounded-full lg:[&::-webkit-scrollbar-thumb]:bg-white/20"
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, delay: 0.06 }}
           >
-            <h3 className="text-lg md:text-xl font-extralight text-white/82 mb-4 md:mb-5">Use of funds</h3>
-            <div className="space-y-2 md:space-y-2.5">
+            <h3 className="text-lg md:text-xl font-extralight text-white/85 mb-3 md:mb-4 shrink-0">
+              Use of funds
+            </h3>
+            <div className="space-y-2 md:space-y-2.5 pb-1">
               {useOfFunds.map((item, index) => {
                 const amount = (item.value / 100) * RAISE_USD;
                 const formattedAmount = new Intl.NumberFormat('en-US', {
@@ -184,63 +151,60 @@ export default function RaiseSlide() {
                 return (
                   <motion.div
                     key={item.title}
-                    className="group rounded-lg md:rounded-xl bg-white/[0.032] border border-white/[0.07] hover:border-white/[0.11] transition-colors"
-                    initial={{ opacity: 0, x: 10 }}
+                    className="group relative rounded-xl bg-white/[0.035] border border-white/[0.07] overflow-hidden hover:border-white/[0.11] transition-colors"
+                    initial={{ opacity: 0, x: 12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{
-                      duration: 0.5,
-                      delay: index * 0.05 + 0.12,
+                      duration: 0.55,
+                      delay: index * 0.07 + 0.15,
                       ease: [0.25, 0.46, 0.45, 0.94],
                     }}
                   >
-                    <div className="flex gap-2 md:gap-2.5 p-2.5 md:p-3">
+                    <div className="relative p-2.5 md:p-3 flex gap-2.5">
                       <div
-                        className="w-0.5 md:w-1 self-stretch rounded-full shrink-0"
+                        className="w-0.5 sm:w-1 self-stretch rounded-full shrink-0 opacity-90"
                         style={{ backgroundColor: item.color }}
                       />
-                      <Icon
-                        className="w-3.5 h-3.5 shrink-0 mt-0.5 opacity-80"
-                        style={{ color: item.color }}
-                        aria-hidden
-                      />
                       <div className="flex-1 min-w-0">
-                        <div className="flex flex-wrap items-baseline justify-between gap-x-2 gap-y-0.5">
-                          <h4
-                            className={`font-light text-white/90 leading-tight pr-1 ${titleScaleClass(item.value)}`}
-                          >
-                            {item.title}
-                          </h4>
-                          <div className="flex items-baseline gap-1.5 shrink-0 tabular-nums">
-                            <span
-                              className="font-medium text-white/88"
-                              style={{
-                                fontSize: `clamp(0.7rem, 0.6rem + ${item.value * 0.035}vw, 0.95rem)`,
-                              }}
-                            >
-                              {item.value}%
-                            </span>
-                            <span className="text-white/28 text-[10px]">·</span>
-                            <span className="text-[10px] md:text-xs text-white/50">{formattedAmount}</span>
+                        <div className="flex items-start gap-2">
+                          <div className="p-1.5 rounded-md bg-black/25 border border-white/[0.08] shrink-0 mt-0.5">
+                            <Icon className="w-3 h-3" style={{ color: item.color }} />
                           </div>
-                        </div>
-                        <p
-                          className="text-[10px] md:text-[11px] text-white/42 font-light mt-1 leading-snug line-clamp-2"
-                          title={item.description}
-                        >
-                          {item.description}
-                        </p>
-                        <div className="mt-1.5 h-0.5 rounded-full bg-white/[0.06] overflow-hidden">
-                          <motion.div
-                            className="h-full rounded-full"
-                            style={{ backgroundColor: item.color }}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${barPct}%` }}
-                            transition={{
-                              duration: 0.85,
-                              delay: 0.2 + index * 0.05,
-                              ease: [0.22, 1, 0.36, 1],
-                            }}
-                          />
+                          <div className="flex-1 min-w-0">
+                            <h4
+                              className={`font-light text-white/92 tracking-wide leading-snug ${titleScaleClass(item.value)}`}
+                            >
+                              {item.title}
+                            </h4>
+                            <p className="text-[10px] sm:text-[11px] text-white/45 font-light mt-1 leading-snug line-clamp-2">
+                              {item.description}
+                            </p>
+                            <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5 mt-1.5">
+                              <span
+                                className="tabular-nums font-medium text-white/88 text-xs sm:text-sm"
+                                style={{
+                                  fontSize: `clamp(0.7rem, 0.62rem + ${item.value * 0.028}vw, 0.95rem)`,
+                                }}
+                              >
+                                {item.value}%
+                              </span>
+                              <span className="text-white/30 text-[10px]">·</span>
+                              <span className="text-[10px] sm:text-xs text-white/55 tabular-nums">{formattedAmount}</span>
+                            </div>
+                            <div className="mt-1.5 h-0.5 sm:h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                              <motion.div
+                                className="h-full rounded-full"
+                                style={{ backgroundColor: item.color }}
+                                initial={{ width: 0 }}
+                                animate={{ width: `${barPct}%` }}
+                                transition={{
+                                  duration: 0.9,
+                                  delay: 0.25 + index * 0.07,
+                                  ease: [0.22, 1, 0.36, 1],
+                                }}
+                              />
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
