@@ -1,20 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
 import { TrendingUp, DollarSign } from 'lucide-react';
-
-function clampNumber(value, min, max) {
-  const n = Number(value);
-  if (Number.isNaN(n)) return min;
-  return Math.min(max, Math.max(min, n));
-}
-
-function formatCurrency(value) {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 0,
-  }).format(value);
-}
+import {
+  COMMISSION_RATE,
+  computeBaseSnapshot,
+  computeForecastRows,
+  clampNumber,
+} from '@/lib/revenueCalculatorModel';
 
 function formatCurrencyCompact(value) {
   return new Intl.NumberFormat('en-US', {
@@ -62,10 +54,6 @@ function SliderRow({
 }
 
 export default function RevenueCalculator() {
-  /** Net take after payment processing (~15% vs headline 20%) */
-  const COMMISSION_RATE = 0.15;
-  const FORECAST_MONTHS = 12;
-
   const [creators, setCreators] = useState(100);
   const [subsPerCreator, setSubsPerCreator] = useState(250);
   const [subscriptionPrice, setSubscriptionPrice] = useState(12);
@@ -73,63 +61,42 @@ export default function RevenueCalculator() {
   const [monthlyGrowthRatePct, setMonthlyGrowthRatePct] = useState(15);
   const [monthlyChurnPct, setMonthlyChurnPct] = useState(10);
 
-  const base = useMemo(() => {
-    const totalSubscribers = creators * subsPerCreator;
-    const subscriptionGMV = totalSubscribers * subscriptionPrice;
-    const ppvGMV = totalSubscribers * ppvSpendPerSubscriberPerMonth;
-    const totalGMV = subscriptionGMV + ppvGMV;
-    const platformRevenue = totalGMV * COMMISSION_RATE;
+  const base = useMemo(
+    () =>
+      computeBaseSnapshot({
+        creators,
+        subsPerCreator,
+        subscriptionPrice,
+        ppvSpendPerSubscriberPerMonth,
+      }),
+    [creators, subsPerCreator, subscriptionPrice, ppvSpendPerSubscriberPerMonth]
+  );
 
-    return {
-      totalSubscribers,
-      subscriptionGMV,
-      ppvGMV,
-      totalGMV,
-      platformRevenue,
-      annualPlatformRevenue: platformRevenue * 12,
-    };
-  }, [creators, subsPerCreator, subscriptionPrice, ppvSpendPerSubscriberPerMonth]);
-
-  const forecast = useMemo(() => {
-    const r = clampNumber(monthlyGrowthRatePct, 0, 50) / 100;
-    const churn = clampNumber(monthlyChurnPct, 0, 40) / 100;
-    const retentionPerMonth = Math.max(0, 1 - churn);
-    const months = Array.from({ length: FORECAST_MONTHS + 1 }, (_, i) => i);
-
-    return months.map((m) => {
-      const growthMultiplier = Math.pow(1 + r, m);
-      const creatorsM = Math.round(creators * growthMultiplier);
-      const rawSubs = creatorsM * subsPerCreator;
-      const totalSubscribersM = Math.round(rawSubs * Math.pow(retentionPerMonth, m));
-
-      const subscriptionGMV = totalSubscribersM * subscriptionPrice;
-      const ppvGMV = totalSubscribersM * ppvSpendPerSubscriberPerMonth;
-      const totalGMV = subscriptionGMV + ppvGMV;
-      const platformRevenue = totalGMV * COMMISSION_RATE;
-
-      return {
-        month: m,
-        creators: creatorsM,
-        totalSubscribers: totalSubscribersM,
-        totalGMV,
-        platformRevenue,
-      };
-    });
-  }, [
-    creators,
-    subsPerCreator,
-    subscriptionPrice,
-    ppvSpendPerSubscriberPerMonth,
-    monthlyGrowthRatePct,
-    monthlyChurnPct,
-  ]);
+  const forecast = useMemo(
+    () =>
+      computeForecastRows({
+        creators,
+        subsPerCreator,
+        subscriptionPrice,
+        ppvSpendPerSubscriberPerMonth,
+        monthlyGrowthRatePct,
+        monthlyChurnPct,
+      }),
+    [
+      creators,
+      subsPerCreator,
+      subscriptionPrice,
+      ppvSpendPerSubscriberPerMonth,
+      monthlyGrowthRatePct,
+      monthlyChurnPct,
+    ]
+  );
 
   const month0 = forecast[0];
   const month12 = forecast[forecast.length - 1];
 
   return (
     <div className="w-full max-w-7xl mx-auto px-5 md:px-8">
-      {/* Section label */}
       <motion.div
         className="flex items-center justify-center gap-6 mb-12"
         initial={{ opacity: 0 }}
@@ -143,7 +110,6 @@ export default function RevenueCalculator() {
         <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
       </motion.div>
 
-      {/* Header */}
       <motion.div
         className="text-center mb-10"
         initial={{ opacity: 0, y: 16 }}
@@ -154,13 +120,13 @@ export default function RevenueCalculator() {
           Revenue forecasting and projections
         </h2>
         <p className="text-lg text-white/60 font-light max-w-3xl mx-auto leading-relaxed">
-          Adjust the inputs to see how quickly platform revenue scales as creators onboard and monetize through subscriptions + pay-per-view.
-          Take rate reflects payment processing; churn compounds monthly on modeled subscribers.
+          Adjust the inputs to see how platform revenue scales. Take rate is net of payment processing.
+          Subscriber count applies <span className="text-white/75">churn to the prior month</span> and adds{' '}
+          <span className="text-white/75">new fans from net-new creators</span> (see appendix for formulas).
         </p>
       </motion.div>
 
       <div className="grid lg:grid-cols-2 gap-8 items-stretch">
-        {/* Controls */}
         <motion.div
           className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm flex flex-col"
           initial={{ opacity: 0, y: 24 }}
@@ -208,7 +174,7 @@ export default function RevenueCalculator() {
               min={5}
               max={30}
               step={1}
-              displayValue={formatCurrency(subscriptionPrice)}
+              displayValue={formatCurrencyCompact(subscriptionPrice)}
               onChange={(v) => setSubscriptionPrice(clampNumber(v, 5, 30))}
             />
 
@@ -218,7 +184,7 @@ export default function RevenueCalculator() {
               min={0}
               max={100}
               step={1}
-              displayValue={formatCurrency(ppvSpendPerSubscriberPerMonth)}
+              displayValue={formatCurrencyCompact(ppvSpendPerSubscriberPerMonth)}
               onChange={(v) => setPpvSpendPerSubscriberPerMonth(clampNumber(v, 0, 100))}
             />
 
@@ -244,7 +210,6 @@ export default function RevenueCalculator() {
           </div>
         </motion.div>
 
-        {/* Outputs */}
         <motion.div
           className="space-y-4 flex flex-col"
           initial={{ opacity: 0, y: 24 }}
@@ -305,12 +270,9 @@ export default function RevenueCalculator() {
             </div>
 
             <div className="mt-3 text-xs text-white/50 font-light leading-relaxed">
-              GMV includes <span className="text-white/75">subscriptions</span> and{' '}
-              <span className="text-white/75">pay-per-view</span>. Platform revenue is{' '}
-              <span className="text-white/80 font-medium">
-                GMV × {(COMMISSION_RATE * 100).toFixed(0)}%
-              </span>{' '}
-              (net of processing). Forecast subscribers compound monthly churn on top of creator growth.
+              GMV = subscriptions + PPV. Platform revenue ={' '}
+              <span className="text-white/80 font-medium">GMV × {(COMMISSION_RATE * 100).toFixed(0)}%</span> net
+              of processing.
             </div>
           </div>
 
@@ -321,7 +283,8 @@ export default function RevenueCalculator() {
                   12-Month Projection
                 </div>
                 <div className="text-xs text-white/50 font-light">
-                  Creators {monthlyGrowthRatePct}% MoM · subscribers {monthlyChurnPct}% monthly churn
+                  Creators {monthlyGrowthRatePct}% MoM · churn {monthlyChurnPct}% on prior subs · +subs from
+                  net-new creators
                 </div>
               </div>
               <div className="text-right">
@@ -345,30 +308,26 @@ export default function RevenueCalculator() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[month0, forecast[3], forecast[6], forecast[9], month12].map(
-                    (row) => (
-                      <tr key={row.month} className="border-t border-white/[0.06]">
-                        <td className="py-1 pr-3 text-white/70 tabular-nums">
-                          {row.month}
-                        </td>
-                        <td className="py-1 pr-3 text-white/70 tabular-nums">
-                          {new Intl.NumberFormat('en-US').format(row.creators)}
-                        </td>
-                        <td className="py-1 pr-3 text-white/70 tabular-nums">
-                          {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
-                        </td>
-                        <td className="py-1 pr-3 text-white/90 tabular-nums">
-                          {formatCurrencyCompact(row.platformRevenue)}
-                        </td>
-                      </tr>
-                    )
-                  )}
+                  {[month0, forecast[3], forecast[6], forecast[9], month12].map((row) => (
+                    <tr key={row.month} className="border-t border-white/[0.06]">
+                      <td className="py-1 pr-3 text-white/70 tabular-nums">{row.month}</td>
+                      <td className="py-1 pr-3 text-white/70 tabular-nums">
+                        {new Intl.NumberFormat('en-US').format(row.creators)}
+                      </td>
+                      <td className="py-1 pr-3 text-white/70 tabular-nums">
+                        {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
+                      </td>
+                      <td className="py-1 pr-3 text-white/90 tabular-nums">
+                        {formatCurrencyCompact(row.platformRevenue)}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
 
             <div className="mt-3 text-xs text-white/45 font-light">
-              This is a simplified investor model (not a promise). Real-world results vary by creator quality, retention, pricing, and PPV cadence.
+              Simplified investor model—not a promise. See appendix for exact formulas.
             </div>
           </div>
         </motion.div>

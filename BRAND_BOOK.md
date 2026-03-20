@@ -746,7 +746,7 @@ system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 1. Logo: "ALTYR" (gradient wordmark)
 2. Headline: "an exclusive content platform that **actually** feels pleasurable"
 3. Feature bullets: Three items with dots
-4. SAFE callout: "$1,200,000 via SAFE • Friends & Family Round"
+4. SAFE callout: "$1,200,000 via SAFE • Pre-seed"
 
 **Feature Bullets**
 - Vertical on mobile, horizontal on desktop

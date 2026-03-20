@@ -10,7 +10,6 @@ import TitleSlide from '@/components/slides/TitleSlide';
 import ProblemSlide1 from '@/components/slides/ProblemSlide1';
 import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
 import ProblemSlide2 from '@/components/slides/ProblemSlide2';
-import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 import AltyrInsightSlide from '@/components/slides/AltyrInsightSlide';
 import AltyrSolutionSlide from '@/components/slides/AltyrSolutionSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
@@ -26,13 +25,14 @@ import ConservativeCaseSlide from '@/components/slides/ConservativeCaseSlide';
 import OptimisticCaseSlide from '@/components/slides/OptimisticCaseSlide';
 import CostBreakdownTableSlide from '@/components/slides/CostBreakdownTableSlide';
 import UseOfFundsSlide from '@/components/slides/UseOfFundsSlide';
+import RevenueCalculatorMethodologySlide from '@/components/slides/RevenueCalculatorMethodologySlide';
+import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 
 const slides = [
   TitleSlide,
   ProblemSlide1,
   RevenueConcentrationSlide,
   ProblemSlide2,
-  V2AdjacentIndustriesSlide,
   AltyrInsightSlide,
   AltyrSolutionSlide,
   GoToMarketSlide,
@@ -42,6 +42,8 @@ const slides = [
   RevenueCalculatorSlide,
   ContactSlide,
   FinancialAssumptionsSlide,
+  RevenueCalculatorMethodologySlide,
+  V2AdjacentIndustriesSlide,
   BaseCaseRunwaySlide,
   ConservativeCaseSlide,
   OptimisticCaseSlide,
