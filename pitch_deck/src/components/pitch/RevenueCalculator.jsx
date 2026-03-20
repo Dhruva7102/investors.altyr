@@ -19,7 +19,7 @@ function formatCurrencyCompact(value) {
 
 function SliderRow({ label, value, min, max, step, displayValue, onChange }) {
   return (
-    <div className="space-y-2 min-w-[148px] max-w-[180px] flex-shrink-0">
+    <div className="space-y-2 w-full">
       <div className="flex items-center justify-between gap-3 text-sm text-white/70 font-light">
         <span className="leading-snug">{label}</span>
         <span className="font-medium text-white/90 tabular-nums shrink-0">{displayValue ?? value}</span>
@@ -125,7 +125,7 @@ export default function RevenueCalculator() {
             </div>
           </div>
 
-          <div className="flex flex-row flex-nowrap gap-3 md:gap-4 overflow-x-auto pb-2 pt-0.5 -mx-1 px-1 [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-white/20">
+          <div className="flex flex-col gap-4 md:gap-5">
             <SliderRow
               label="Creators on platform"
               value={creators}
