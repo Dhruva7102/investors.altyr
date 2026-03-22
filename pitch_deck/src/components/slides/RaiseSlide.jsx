@@ -124,7 +124,7 @@ export default function RaiseSlide() {
               Use of funds — at a glance
             </p>
             <div className="w-full flex justify-center lg:justify-start px-0 sm:px-1">
-              <PieChart data={useOfFunds} chartSize={348} labelPad={94} />
+              <PieChart data={useOfFunds} chartSize={348} labelPad={118} />
             </div>
           </motion.div>
 

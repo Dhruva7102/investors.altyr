@@ -24,15 +24,8 @@ function donutSegmentPath(cx, cy, rOuter, rInner, startAngle, endAngle) {
   ].join(' ');
 }
 
-function textAnchorForAngle(midDeg) {
-  const c = Math.cos((midDeg * Math.PI) / 180);
-  if (c > 0.25) return 'start';
-  if (c < -0.25) return 'end';
-  return 'middle';
-}
-
-/** Word-wrap titles to 1–2 lines for SVG (matches card titles on the slide). */
-function titleLines(title, maxLen = 24) {
+/** Word-wrap titles for SVG (slightly shorter lines = less horizontal sprawl). */
+function titleLines(title, maxLen = 20) {
   const words = title.split(/\s+/);
   const lines = [];
   let cur = '';
@@ -48,22 +41,21 @@ function titleLines(title, maxLen = 24) {
   if (lines.length > 2) {
     const a = lines[0];
     let b = lines.slice(1).join(' ');
-    if (b.length > maxLen + 6) b = `${b.slice(0, maxLen + 3).trim()}…`;
+    if (b.length > maxLen + 8) b = `${b.slice(0, maxLen + 4).trim()}…`;
     return [a, b];
   }
   return lines;
 }
 
 /**
- * Donut with outside labels + leader lines.
- * Expects `data[].title` (same copy as the breakdown list) and `value` (%).
+ * Donut + elbow callouts: % sits at the bend; titles sit past the horizontal/vertical leg.
  */
-const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
+const PieChart = ({ data, chartSize = 348, labelPad = 118, gapDeg = 1.25 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const dim = chartSize + labelPad * 2;
   const center = dim / 2;
-  const rOuter = chartSize * 0.38;
-  const rInner = chartSize * 0.22;
+  const rOuter = chartSize * 0.36;
+  const rInner = chartSize * 0.21;
 
   const total = data.reduce((sum, item) => sum + item.value, 0);
   const n = data.length;
@@ -89,27 +81,61 @@ const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
 
       const rimX = center + (rOuter + 2) * cos;
       const rimY = center + (rOuter + 2) * sin;
-      const lineEndR = rOuter + 28;
-      const lineX2 = center + lineEndR * cos;
-      const lineY2 = center + lineEndR * sin;
-      const anchor = textAnchorForAngle(midAngle);
-      const gapAlong = 10;
-      let tx = lineX2 + gapAlong * cos;
-      let ty = lineY2 + gapAlong * sin;
-      if (anchor === 'middle') {
-        tx += -sin * 8;
-        ty += cos * 8;
-      }
+
+      const radialLeg = 24;
+      const elbowX = center + (rOuter + radialLeg) * cos;
+      const elbowY = center + (rOuter + radialLeg) * sin;
 
       const titleText = item.title || item.shortLabel || '';
       const lines = titleLines(titleText);
-      const titleFont = Math.round((Math.max(8.5, Math.min(11.2, 7.4 + percentage * 0.05)) * 10)) / 10;
-      const pctFont = Math.round((titleFont + 1.1) * 10) / 10;
-      const lineHeight = titleFont * 1.22;
-      const pctGap = titleFont * 0.55;
-      const blockH = lines.length * lineHeight + pctGap + pctFont * 1.05;
-      const textBlockTop = ty - blockH / 2;
-      const firstBaseline = textBlockTop + titleFont * 0.88;
+      const titleFont = Math.round((Math.max(12, Math.min(15.5, 11 + percentage * 0.07)) * 10)) / 10;
+      const lineHeight = titleFont * 1.45;
+      const pctFont = Math.round((Math.max(12.5, Math.min(15, 12 + percentage * 0.05)) * 10)) / 10;
+
+      const hBase = 38 + Math.min(44, titleText.length * 0.45);
+      const isRight = cos > 0.14;
+      const isLeft = cos < -0.14;
+
+      let cornerX;
+      let cornerY;
+      let textAnchor;
+      let titleX;
+      let pctX;
+      let pctY;
+      let pctTextAnchor = 'middle';
+
+      if (isRight) {
+        cornerX = elbowX + hBase;
+        cornerY = elbowY;
+        textAnchor = 'start';
+        titleX = cornerX + 14;
+        pctX = elbowX - sin * 14;
+        pctY = elbowY + cos * 14;
+      } else if (isLeft) {
+        cornerX = elbowX - hBase;
+        cornerY = elbowY;
+        textAnchor = 'end';
+        titleX = cornerX - 14;
+        pctX = elbowX - sin * 14;
+        pctY = elbowY + cos * 14;
+      } else {
+        const vLeg = 40;
+        const down = sin > 0;
+        cornerX = elbowX;
+        cornerY = elbowY + (down ? vLeg : -vLeg);
+        textAnchor = 'middle';
+        titleX = cornerX;
+        pctX = elbowX + cos * 15;
+        pctY = elbowY + sin * 15;
+      }
+
+      const nLines = lines.length;
+      const blockH = (nLines - 1) * lineHeight + titleFont * 0.95;
+      const titleFirstBaseline = cornerY - blockH / 2 + titleFont * 0.82;
+
+      const pctStr = `${percentage.toFixed(0)}%`;
+      const pillW = pctStr.length * (pctFont * 0.58) + 14;
+      const pillH = pctFont + 10;
 
       return {
         ...item,
@@ -120,17 +146,23 @@ const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
         index,
         rimX,
         rimY,
-        lineX2,
-        lineY2,
-        tx,
-        ty,
-        anchor,
+        elbowX,
+        elbowY,
+        cornerX,
+        cornerY,
+        textAnchor,
+        titleX,
+        titleFirstBaseline,
         titleFont,
-        pctFont,
         lineHeight,
-        pctGap,
-        firstBaseline,
         titleLines: lines,
+        pctX,
+        pctY,
+        pctFont,
+        pctStr,
+        pctTextAnchor,
+        pillW,
+        pillH,
       };
     });
   }, [data, total, center, rOuter, rInner, gapDeg, usable]);
@@ -139,7 +171,7 @@ const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
   const defsId = `pie-${uid}`;
 
   return (
-    <div className="relative mx-auto w-full max-w-[min(100%,580px)] aspect-square shrink-0">
+    <div className="relative mx-auto w-full max-w-[min(100%,640px)] aspect-square shrink-0">
       <svg
         width="100%"
         height="100%"
@@ -215,44 +247,67 @@ const PieChart = ({ data, chartSize = 360, labelPad = 92, gapDeg = 1.25 }) => {
               />
 
               <g pointerEvents="none">
-                <motion.line
-                  x1={segment.rimX}
-                  y1={segment.rimY}
-                  x2={segment.lineX2}
-                  y2={segment.lineY2}
-                  stroke="rgba(255,255,255,0.4)"
-                  strokeWidth={1}
+                <motion.path
+                  d={`M ${segment.rimX} ${segment.rimY} L ${segment.elbowX} ${segment.elbowY} L ${segment.cornerX} ${segment.cornerY}`}
+                  fill="none"
+                  stroke="rgba(255,255,255,0.45)"
+                  strokeWidth={1.25}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4, delay: 0.22 + segment.index * 0.05 }}
+                  transition={{ duration: 0.4, delay: 0.2 + segment.index * 0.05 }}
                 />
+
+                {/* % on the elbow — pill + text (no collision with title) */}
+                <g>
+                  <rect
+                    x={segment.pctX - segment.pillW / 2}
+                    y={segment.pctY - segment.pillH / 2}
+                    width={segment.pillW}
+                    height={segment.pillH}
+                    rx={segment.pillH / 2}
+                    fill="rgba(12,4,18,0.92)"
+                    stroke={segment.color}
+                    strokeOpacity={0.55}
+                    strokeWidth={1}
+                  />
+                  <motion.text
+                    x={segment.pctX}
+                    y={segment.pctY}
+                    textAnchor={segment.pctTextAnchor}
+                    dominantBaseline="central"
+                    fill="rgba(255,255,255,0.95)"
+                    fontFamily='system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
+                    fontWeight={600}
+                    fontSize={segment.pctFont}
+                    letterSpacing="-0.02em"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.28 + segment.index * 0.05 }}
+                  >
+                    {segment.pctStr}
+                  </motion.text>
+                </g>
+
                 <motion.text
-                  x={segment.tx}
-                  y={segment.firstBaseline}
-                  textAnchor={segment.anchor}
-                  fill="rgba(255,255,255,0.92)"
+                  x={segment.titleX}
+                  y={segment.titleFirstBaseline}
+                  textAnchor={segment.textAnchor}
+                  fill="rgba(255,255,255,0.93)"
                   fontFamily='system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif'
                   fontWeight={300}
                   letterSpacing="0.02em"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 0.32 + segment.index * 0.05 }}
-                  style={{ textShadow: '0 1px 3px rgba(0,0,0,0.75)' }}
+                  transition={{ delay: 0.34 + segment.index * 0.05 }}
+                  style={{ textShadow: '0 1px 4px rgba(0,0,0,0.85)' }}
                 >
                   {segment.titleLines.map((line, i) => (
-                    <tspan key={i} x={segment.tx} dy={i === 0 ? 0 : segment.lineHeight} fontSize={segment.titleFont}>
+                    <tspan key={i} x={segment.titleX} dy={i === 0 ? 0 : segment.lineHeight} fontSize={segment.titleFont}>
                       {line}
                     </tspan>
                   ))}
-                  <tspan
-                    x={segment.tx}
-                    dy={segment.pctGap}
-                    fontSize={segment.pctFont}
-                    fontWeight={500}
-                    fill="rgba(255,255,255,0.72)"
-                  >
-                    {segment.percentage}%
-                  </tspan>
                 </motion.text>
               </g>
             </g>
