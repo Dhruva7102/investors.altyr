@@ -4,7 +4,6 @@ import {
   ArrowRight,
   ChevronLeft,
   Clock,
-  ExternalLink,
   Flame,
   Gift,
   Heart,
@@ -14,7 +13,6 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import { SHOWCASE_URLS } from '@/config/showcaseUrls';
 
 const spring = { type: 'spring', stiffness: 380, damping: 32 };
 
@@ -386,9 +384,6 @@ function FanMessagesMock() {
   );
 }
 
-const linkBtn =
-  'inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-light border border-white/[0.12] bg-white/[0.04] text-white/80 hover:border-[#AC0064]/45 hover:bg-[#AC0064]/10 transition-all duration-300';
-
 export default function AltyrSolutionSlide() {
   return (
     <section className="relative w-full min-h-screen overflow-y-auto bg-[#18021A] py-10 md:py-14">
@@ -409,7 +404,7 @@ export default function AltyrSolutionSlide() {
 
       <div className="relative z-10 max-w-6xl xl:max-w-7xl mx-auto px-5 md:px-8 pb-10">
         <motion.div
-          className="flex items-center justify-center gap-5 mb-6"
+          className="flex items-center justify-center gap-5 mb-8 md:mb-10"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7 }}
@@ -417,20 +412,6 @@ export default function AltyrSolutionSlide() {
           <span className="w-14 h-px bg-gradient-to-r from-transparent to-[#64109A]/55" />
           <span className="text-xs tracking-[0.35em] text-[#AC0064]/85 uppercase font-medium">Altyr&apos;s solution</span>
           <span className="w-14 h-px bg-gradient-to-l from-transparent to-[#64109A]/55" />
-        </motion.div>
-
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-8 md:mb-10"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75 }}
-        >
-          <h2 className="text-2xl md:text-4xl font-extralight text-white/95 tracking-tight">
-            Show, don&apos;t tell —{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#ff8ec4] to-[#9B4DCA]">
-              product you can feel
-            </span>
-          </h2>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-10 items-start">
@@ -462,26 +443,6 @@ export default function AltyrSolutionSlide() {
             <FanMessagesMock />
           </motion.div>
         </div>
-
-        <motion.div
-          className="mt-10 md:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3"
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.35, duration: 0.6 }}
-        >
-          <a href={SHOWCASE_URLS.productDemo} target="_blank" rel="noopener noreferrer" className={linkBtn}>
-            Open live demo
-            <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-          </a>
-          <a href={SHOWCASE_URLS.crm} target="_blank" rel="noopener noreferrer" className={linkBtn}>
-            CRM showcase
-            <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-          </a>
-          <a href={SHOWCASE_URLS.gamification} target="_blank" rel="noopener noreferrer" className={linkBtn}>
-            Gamification showcase
-            <ExternalLink className="w-3.5 h-3.5 opacity-70" />
-          </a>
-        </motion.div>
       </div>
     </section>
   );
