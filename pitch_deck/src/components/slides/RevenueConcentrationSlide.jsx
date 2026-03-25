@@ -54,19 +54,28 @@ export default function RevenueConcentrationSlide() {
               </span>
               <span className="text-white/60"> of OnlyFans subscribers pay for content</span>
             </div>
-            <div className="text-3xl md:text-4xl font-extralight text-white/90 mb-2">
-              <span className="text-white/60">A tiny </span>
+            <div className="text-3xl md:text-4xl font-extralight text-white/90 mb-2 leading-snug max-w-4xl mx-auto">
+              <span className="text-white/60">The top </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                ~0.01%
+                1%
               </span>
-              <span className="text-white/60"> account for </span>
+              <span className="text-white/60"> of OnlyFans fans drive </span>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                ~20%
+                70%+
               </span>
-              <span className="text-white/60"> of creator revenue</span>
+              <span className="text-white/60"> of revenue</span>
             </div>
-            <p className="text-sm text-white/40 font-light mt-3 italic">
-              (OnlyGuider)
+            <p className="text-sm text-white/40 font-light mt-4">
+              (
+              <a
+                href="https://onlytraffic.com/blog/onlyfans-statistics-and-analytics#heading-0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#AC0064]/85 hover:text-[#ff8ec4] underline underline-offset-2 transition-colors"
+              >
+                OnlyTraffic
+              </a>
+              , 2026)
             </p>
           </div>
         </motion.div>
