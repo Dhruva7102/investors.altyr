@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Building2, ShieldCheck, TrendingUp, Wrench } from 'lucide-react';
+import { ShieldCheck, TrendingUp } from 'lucide-react';
 
 const statusQuo = [
   {
@@ -14,18 +14,6 @@ const statusQuo = [
     title: 'Take-rate economics',
     description:
       '~20% headline platform take is the norm; net to the platform after processing is often ~15%—still high‑margin vs typical marketplaces.',
-  },
-  {
-    icon: Building2,
-    title: 'OnlyFans as anchor',
-    description:
-      'Public estimates put OnlyFans-scale platform revenue around ~$1B+ annually—proof of durable demand and payout velocity at scale.',
-  },
-  {
-    icon: Wrench,
-    title: 'Margins & product gap',
-    description:
-      'Mature players enjoy software-like gross margins at scale; yet UX, CRM, analytics, and monetization design remain first-generation.',
   },
 ];
 

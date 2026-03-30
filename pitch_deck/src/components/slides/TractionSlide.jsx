@@ -1,27 +1,23 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Scale, Code, Target, MessageSquare, UserCheck } from 'lucide-react';
+import { Users, Scale, Code, Target } from 'lucide-react';
 
 const highlights = [
   {
     icon: Users,
     title: 'Industry Legends',
-    description: 'Working with legends in the space like Max Konnor, Sean Ford, Hazel Hoffman',
   },
   {
     icon: Scale,
     title: 'Legal Team',
-    description: 'Specialized Legal Advisor on board from day 1',
   },
   {
     icon: Code,
     title: 'Full Stack Team',
-    description: 'Lean, off-shore dev team with deep experience in the product',
   },
   {
     icon: Target,
-    title: 'Product Progress',
-    description: 'Product 80% completed',
+    title: 'Product 85% completed',
   },
 ];
 
@@ -110,8 +106,7 @@ export default function TractionSlide() {
                   </div>
 
                   {/* Content */}
-                  <h3 className="text-lg font-light text-[#AC0064] mb-2 tracking-wide">{highlight.title}</h3>
-                  <p className="text-sm text-white/60 font-light leading-relaxed">{highlight.description}</p>
+                  <h3 className="text-lg font-light text-[#AC0064] tracking-wide">{highlight.title}</h3>
                 </div>
               </motion.div>
             );

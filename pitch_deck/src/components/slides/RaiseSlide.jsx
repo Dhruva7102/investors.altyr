@@ -115,16 +115,13 @@ export default function RaiseSlide() {
                 }}
               />
               <p className="text-lg md:text-xl text-white/60 font-extralight mt-3">via SAFE</p>
-              <p className="text-sm md:text-base text-white/48 font-light mt-1">
-                at 20% discount with $15M cap
-              </p>
             </div>
 
             <p className="text-[10px] sm:text-[11px] tracking-[0.26em] uppercase text-[#AC0064]/75 font-medium mb-3 w-full text-center lg:text-left shrink-0">
               Use of funds — at a glance
             </p>
             <div className="w-full flex justify-center lg:justify-start px-0 sm:px-1">
-              <PieChart data={useOfFunds} chartSize={348} labelPad={118} />
+              <PieChart data={useOfFunds} chartSize={386} labelPad={142} />
             </div>
           </motion.div>
 

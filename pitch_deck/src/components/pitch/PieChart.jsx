@@ -50,7 +50,7 @@ function titleLines(title, maxLen = 20) {
 /**
  * Donut + elbow callouts: % sits at the bend; titles sit past the horizontal/vertical leg.
  */
-const PieChart = ({ data, chartSize = 348, labelPad = 118, gapDeg = 1.25 }) => {
+const PieChart = ({ data, chartSize = 386, labelPad = 142, gapDeg = 1.35 }) => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const dim = chartSize + labelPad * 2;
   const center = dim / 2;
@@ -82,17 +82,17 @@ const PieChart = ({ data, chartSize = 348, labelPad = 118, gapDeg = 1.25 }) => {
       const rimX = center + (rOuter + 2) * cos;
       const rimY = center + (rOuter + 2) * sin;
 
-      const radialLeg = 24;
+      const radialLeg = 28;
       const elbowX = center + (rOuter + radialLeg) * cos;
       const elbowY = center + (rOuter + radialLeg) * sin;
 
       const titleText = item.title || item.shortLabel || '';
       const lines = titleLines(titleText);
       const titleFont = Math.round((Math.max(12, Math.min(15.5, 11 + percentage * 0.07)) * 10)) / 10;
-      const lineHeight = titleFont * 1.45;
+      const lineHeight = titleFont * 1.5;
       const pctFont = Math.round((Math.max(12.5, Math.min(15, 12 + percentage * 0.05)) * 10)) / 10;
 
-      const hBase = 38 + Math.min(44, titleText.length * 0.45);
+      const hBase = 52 + Math.min(56, titleText.length * 0.5);
       const isRight = cos > 0.14;
       const isLeft = cos < -0.14;
 
@@ -108,25 +108,25 @@ const PieChart = ({ data, chartSize = 348, labelPad = 118, gapDeg = 1.25 }) => {
         cornerX = elbowX + hBase;
         cornerY = elbowY;
         textAnchor = 'start';
-        titleX = cornerX + 14;
-        pctX = elbowX - sin * 14;
-        pctY = elbowY + cos * 14;
+        titleX = cornerX + 18;
+        pctX = elbowX - sin * 18;
+        pctY = elbowY + cos * 18;
       } else if (isLeft) {
         cornerX = elbowX - hBase;
         cornerY = elbowY;
         textAnchor = 'end';
-        titleX = cornerX - 14;
-        pctX = elbowX - sin * 14;
-        pctY = elbowY + cos * 14;
+        titleX = cornerX - 18;
+        pctX = elbowX - sin * 18;
+        pctY = elbowY + cos * 18;
       } else {
-        const vLeg = 40;
+        const vLeg = 52;
         const down = sin > 0;
         cornerX = elbowX;
         cornerY = elbowY + (down ? vLeg : -vLeg);
         textAnchor = 'middle';
         titleX = cornerX;
-        pctX = elbowX + cos * 15;
-        pctY = elbowY + sin * 15;
+        pctX = elbowX + cos * 20;
+        pctY = elbowY + sin * 20;
       }
 
       const nLines = lines.length;
@@ -171,7 +171,7 @@ const PieChart = ({ data, chartSize = 348, labelPad = 118, gapDeg = 1.25 }) => {
   const defsId = `pie-${uid}`;
 
   return (
-    <div className="relative mx-auto w-full max-w-[min(100%,640px)] aspect-square shrink-0">
+    <div className="relative mx-auto w-full max-w-[min(100%,720px)] aspect-square shrink-0">
       <svg
         width="100%"
         height="100%"
