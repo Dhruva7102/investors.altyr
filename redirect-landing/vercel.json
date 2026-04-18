@@ -1,5 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/g/:slug", "destination": "/index.html" }
+  "redirects": [
+    {
+      "source": "/g/:slug",
+      "destination": "https://go.altyr.com/:slug",
+      "statusCode": 301
+    }
   ]
 }
