@@ -1,0 +1,56 @@
+# Builds tempus_presentation/ and deploys to GitHub Pages.
+# Note: GitHub allows only ONE Pages site per repository. If .github/workflows/deploy.yml
+# already deploys investor_site, disable one of the workflows or use a separate repo for Tempus.
+
+name: Deploy Tempus presentation to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tempus_presentation/**'
+      - '.github/workflows/deploy-tempus-presentation-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: tempus_presentation/package-lock.json
+
+      - name: Install and build
+        working-directory: tempus_presentation
+        env:
+          VITE_BASE: /${{ github.event.repository.name }}/
+        run: |
+          npm ci
+          npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: tempus_presentation/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
