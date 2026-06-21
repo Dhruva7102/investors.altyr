@@ -5,33 +5,33 @@ import { AlertTriangle, Shield, TrendingUp, Target, Eye, ScanSearch } from 'luci
 const risks = [
   {
     icon: AlertTriangle,
-    title: "Regulatory Uncertainty",
-    mitigation: "Working with legal and risk advisors from day one. Focused on compliance from the start, modeling after established platforms."
-  },
-  {
-    icon: Shield,
-    title: "Payment Processing Challenges",
-    mitigation: "Partnering with payment providers experienced in high-risk verticals. Exploring multiple redundant solutions."
-  },
-  {
-    icon: TrendingUp,
-    title: "Creator Retention & Competition",
-    mitigation: "Deeply integrating creator feedback into the product roadmap and offering exclusive tools and insights they can't get elsewhere."
-  },
-  {
-    icon: ScanSearch,
-    title: "Content Moderation",
-    mitigation: "Human review and AI review from day one. We are actively seeking a more scalable solution with no trade-offs on safety or quality."
+    title: "Platform & OFAPI Dependency",
+    mitigation: "Altyr Pro is built on OFAPI and OnlyFans' terms of service. We architect around documented, ToS-compliant flows, keep an abstraction layer so we can swap integration providers, and stay close to OFAPI's roadmap to absorb changes quickly."
   },
   {
     icon: Target,
-    title: "Reputational Challenges",
-    mitigation: "Building with transparency, strong moderation policies, and partnerships to manage brand and perception from the outset."
+    title: "Agency Churn & Concentration",
+    mitigation: "Early revenue comes from a few large agencies, modeled at 2%/mo churn. We mitigate with deep operational integration (chatters work inside Altyr daily), multi-seat lock-in, and a land-and-expand motion that grows creator count within each agency."
+  },
+  {
+    icon: Shield,
+    title: "Payment & Chargeback Risk",
+    mitigation: "High-risk MCC category. Modeled at 5.5% processing on whale GMV plus a 1.5% chargeback/fraud reserve. We use high-risk-experienced processors, KYC, and active fraud monitoring, and Altyr (not the creator) bears processing on platform GMV."
+  },
+  {
+    icon: TrendingUp,
+    title: "Whale-Penetration Assumption",
+    mitigation: "Platform upside depends on whale->Altyr penetration (80% upside / 55% base). We treat this as a model input, not a promise: the SaaS wedge is profitable on its own, and the base-case floor still reaches a ~$16M run-rate at lower penetration."
+  },
+  {
+    icon: ScanSearch,
+    title: "Content Moderation & Compliance",
+    mitigation: "Adult category requires rigorous moderation. We pair AI and human review with KYC/age-verification from day one and budget content-moderation cost into the model rather than treating it as optional."
   },
   {
     icon: Eye,
-    title: "Incumbents Copy Gamification Features",
-    mitigation: "Our edge is the entire package—modern UX, deep creator tooling, and fast iteration—not any single feature."
+    title: "Execution & Stability at Scale",
+    mitigation: "Thousands of connected creators and real-time chatter workflows demand reliability. We ship the Pro wedge first (M3), launch Platform only once Pro is stable (~M7), and scale infra per-creator (~$46/mo) so cost tracks usage."
   }
 ];
 

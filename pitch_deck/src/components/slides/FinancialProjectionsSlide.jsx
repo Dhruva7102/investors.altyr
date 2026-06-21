@@ -3,107 +3,77 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Users, DollarSign, TrendingDown } from 'lucide-react';
 import LineChart from '@/components/pitch/LineChart';
 
+// Headline = upside case. Base case shown as the conservative floor.
+// "users" = connected creators; revenue & expenses are monthly USD.
 const scenarios = {
+  upside: {
+    name: 'Upside Case',
+    color: '#FF8C42',
+    description: 'Headline scenario - 80% whale->Altyr penetration. ~$28M annualized run-rate at M18.',
+    users: [
+      { month: 0, value: 0 },
+      { month: 3, value: 300 },
+      { month: 6, value: 700 },
+      { month: 9, value: 1100 },
+      { month: 12, value: 1400 },
+      { month: 15, value: 1600 },
+      { month: 18, value: 1700 },
+    ],
+    revenue: [
+      { month: 0, value: 0 },
+      { month: 3, value: 75000 },
+      { month: 6, value: 260000 },
+      { month: 9, value: 900000 },
+      { month: 12, value: 1500000 },
+      { month: 15, value: 2000000 },
+      { month: 18, value: 2330000 },
+    ],
+    expenses: [
+      { month: 0, value: 40000 },
+      { month: 3, value: 120000 },
+      { month: 6, value: 320000 },
+      { month: 9, value: 760000 },
+      { month: 12, value: 1080000 },
+      { month: 15, value: 1330000 },
+      { month: 18, value: 1484000 },
+    ],
+  },
   base: {
-    name: 'Base Case',
-    color: '#AC0064',
-    description: '~24% CMGR, $15 blended CAC, 10% churn',
-    users: [
-      { month: 0, value: 0 },
-      { month: 3, value: 900 },
-      { month: 6, value: 1800 },
-      { month: 9, value: 3500 },
-      { month: 12, value: 6600 },
-      { month: 15, value: 12500 },
-      { month: 18, value: 25000 },
-    ],
-    revenue: [
-      { month: 0, value: 0 },
-      { month: 3, value: 2500 },
-      { month: 6, value: 5000 },
-      { month: 9, value: 9800 },
-      { month: 12, value: 18500 },
-      { month: 15, value: 35000 },
-      { month: 18, value: 70000 },
-    ],
-    expenses: [
-      { month: 0, value: 0 },
-      { month: 3, value: 22500 },
-      { month: 6, value: 30000 },
-      { month: 9, value: 45000 },
-      { month: 12, value: 68000 },
-      { month: 15, value: 110000 },
-      { month: 18, value: 150000 },
-    ],
-  },
-  conservative: {
-    name: 'Conservative',
+    name: 'Base Case (Floor)',
     color: '#9B4DCA',
-    description: '~24% CMGR, $25 blended CAC, 15% churn',
+    description: 'Conservative floor - 55% whale->Altyr penetration. ~$16M annualized run-rate at M18.',
     users: [
-      { month: 0, value: 500 },
-      { month: 3, value: 1000 },
-      { month: 6, value: 1900 },
-      { month: 9, value: 3400 },
-      { month: 12, value: 5800 },
-      { month: 15, value: 9000 },
-      { month: 18, value: 13500 },
+      { month: 0, value: 0 },
+      { month: 3, value: 250 },
+      { month: 6, value: 600 },
+      { month: 9, value: 900 },
+      { month: 12, value: 1150 },
+      { month: 15, value: 1300 },
+      { month: 18, value: 1400 },
     ],
     revenue: [
       { month: 0, value: 0 },
-      { month: 3, value: 2800 },
-      { month: 6, value: 5300 },
-      { month: 9, value: 9500 },
-      { month: 12, value: 16200 },
-      { month: 15, value: 25200 },
-      { month: 18, value: 37800 },
+      { month: 3, value: 55000 },
+      { month: 6, value: 180000 },
+      { month: 9, value: 560000 },
+      { month: 12, value: 900000 },
+      { month: 15, value: 1180000 },
+      { month: 18, value: 1350000 },
     ],
     expenses: [
-      { month: 0, value: 0 },
-      { month: 3, value: 25000 },
-      { month: 6, value: 35000 },
-      { month: 9, value: 50000 },
-      { month: 12, value: 75000 },
-      { month: 15, value: 110000 },
-      { month: 18, value: 150000 },
-    ],
-  },
-  optimistic: {
-    name: 'Optimistic',
-    color: '#64109A',
-    description: '~30% CMGR, $10 blended CAC, 10% churn',
-    users: [
-      { month: 0, value: 500 },
-      { month: 3, value: 1200 },
-      { month: 6, value: 2800 },
-      { month: 9, value: 6000 },
-      { month: 12, value: 12500 },
-      { month: 15, value: 25000 },
-      { month: 18, value: 50000 },
-    ],
-    revenue: [
-      { month: 0, value: 0 },
-      { month: 3, value: 3300 },
-      { month: 6, value: 7800 },
-      { month: 9, value: 16800 },
-      { month: 12, value: 35000 },
-      { month: 15, value: 70000 },
-      { month: 18, value: 140000 },
-    ],
-    expenses: [
-      { month: 0, value: 0 },
-      { month: 3, value: 30000 },
-      { month: 6, value: 35000 },
-      { month: 9, value: 55000 },
-      { month: 12, value: 45000 },
-      { month: 15, value: 75000 },
-      { month: 18, value: 120000 },
+      { month: 0, value: 40000 },
+      { month: 3, value: 110000 },
+      { month: 6, value: 250000 },
+      { month: 9, value: 560000 },
+      { month: 12, value: 820000 },
+      { month: 15, value: 1010000 },
+      { month: 18, value: 1094000 },
     ],
   },
 };
 
 export default function FinancialProjectionsSlide() {
-  const [activeTab, setActiveTab] = useState('base');
+  const [activeTab, setActiveTab] = useState('upside');
   const scenario = scenarios[activeTab];
 
   const usersData = scenario.users.map(d => ({ x: d.month, y: d.value }));
@@ -142,10 +112,10 @@ export default function FinancialProjectionsSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight text-white/90 tracking-wide mb-4">
-            18-Month <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Growth Scenarios</span>
+18-Month <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Financial Model</span>
           </h2>
           <p className="text-base text-white/60 font-light">
-            User growth, revenue, and expenses across three scenarios
+            Connected creators, revenue, and expenses - upside headline vs base-case floor
           </p>
         </motion.div>
 
@@ -200,13 +170,13 @@ export default function FinancialProjectionsSlide() {
                 <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                   <Users className="w-5 h-5 text-[#AC0064]" />
                 </div>
-                <h3 className="text-lg font-light text-white/90">User Growth</h3>
+                <h3 className="text-lg font-light text-white/90">Connected Creators</h3>
               </div>
               <div className="flex justify-center">
                 <LineChart
                   datasets={[
                     {
-                      label: 'Monthly Active Users',
+                      label: 'Connected Creators',
                       data: usersData,
                       color: scenario.color
                     }
@@ -215,7 +185,7 @@ export default function FinancialProjectionsSlide() {
                     width: 900,
                     height: 300,
                     showGrid: true,
-                    yAxisLabel: 'Users',
+                    yAxisLabel: 'Creators',
                     xAxisLabel: 'Month',
                     formatY: (val) => val >= 1000 ? `${(val / 1000).toFixed(1)}k` : val.toLocaleString(),
                     formatX: (val) => `M${val}`,
@@ -232,13 +202,13 @@ export default function FinancialProjectionsSlide() {
                   <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                     <DollarSign className="w-5 h-5 text-[#AC0064]" />
                   </div>
-                  <h3 className="text-lg font-light text-white/90">Monthly Revenue (Net)</h3>
+                  <h3 className="text-lg font-light text-white/90">Monthly Revenue (Total)</h3>
                 </div>
                 <div className="flex justify-center">
                   <LineChart
                     datasets={[
                       {
-                        label: 'Net Revenue',
+                        label: 'Total Revenue',
                         data: revenueData,
                         color: '#34D399'
                       }
@@ -247,7 +217,7 @@ export default function FinancialProjectionsSlide() {
                       width: 400,
                       height: 250,
                       showGrid: true,
-                      formatY: (val) => `$${(val / 1000).toFixed(0)}k`,
+                      formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
                       formatX: (val) => `M${val}`,
                     }}
                   />
@@ -260,13 +230,13 @@ export default function FinancialProjectionsSlide() {
                   <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                     <TrendingDown className="w-5 h-5 text-[#AC0064]" />
                   </div>
-                  <h3 className="text-lg font-light text-white/90">Monthly Expenses (Burn)</h3>
+                  <h3 className="text-lg font-light text-white/90">Monthly Costs (Total)</h3>
                 </div>
                 <div className="flex justify-center">
                   <LineChart
                     datasets={[
                       {
-                        label: 'Monthly Burn',
+                        label: 'Total Costs',
                         data: expensesData,
                         color: '#EF4444'
                       }
@@ -275,12 +245,45 @@ export default function FinancialProjectionsSlide() {
                       width: 400,
                       height: 250,
                       showGrid: true,
-                      formatY: (val) => `$${(val / 1000).toFixed(0)}k`,
+                      formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
                       formatX: (val) => `M${val}`,
                     }}
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Headline metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {(activeTab === 'upside'
+                ? [
+                    { label: 'Run-rate (M18)', value: '~$28M' },
+                    { label: 'EBITDA Margin', value: '~36%' },
+                    { label: 'Net Income (M18)', value: '~$634K/mo' },
+                    { label: 'Ending Cash', value: '~$6.9M' },
+                  ]
+                : [
+                    { label: 'Run-rate (M18)', value: '~$16M' },
+                    { label: 'EBITDA Margin', value: '~19%' },
+                    { label: 'Net Income (M18)', value: '~$196K/mo' },
+                    { label: 'Ending Cash', value: '~$2.8M' },
+                  ]
+              ).map((m, i) => (
+                <div
+                  key={i}
+                  className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center"
+                >
+                  <div className="text-2xl font-light text-white/90 mb-1">{m.value}</div>
+                  <div className="text-xs text-white/50 font-light">{m.label}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* Profitability note */}
+            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center">
+              <p className="text-sm text-white/70 font-light">
+                <span className="text-white/90 font-medium">Path to profitability:</span> on $1.5M starting cash, the upside case turns cash-flow positive around Month 8. Altyr Pro is live from Month 3; Altyr Platform launches ~Month 7.
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>

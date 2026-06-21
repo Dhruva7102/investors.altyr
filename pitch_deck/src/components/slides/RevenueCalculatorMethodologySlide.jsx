@@ -1,33 +1,34 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { COMMISSION_RATE, FORECAST_MONTHS } from '@/lib/revenueCalculatorModel';
+import { FORECAST_MONTHS } from '@/lib/revenueCalculatorModel';
 
 const formulas = [
   {
-    title: 'GMV (monthly)',
+    title: 'SaaS revenue (Altyr Pro)',
     lines: [
-      'Sub GMV_m = S_m × (avg subscription price)',
-      'PPV GMV_m = S_m × (PPV per subscriber / mo)',
-      'GMV_m = Sub GMV_m + PPV GMV_m',
+      'SaaSRev_m = C_m × $250',
+      'C_m = connected creators in month m',
     ],
   },
   {
-    title: 'Platform revenue',
+    title: 'Whale GMV',
     lines: [
-      `PlatformRev_m = GMV_m × ${(COMMISSION_RATE * 100).toFixed(0)}%`,
-      'Net of payment processing (headline ~20% gross → ~15% net here).',
+      'WhaleGMV_m = C_m × (~$7,800/mo) × penetration',
+      'penetration = whale -> Altyr share (80% upside / 55% base)',
     ],
   },
   {
-    title: 'Creators',
-    lines: ['C_m = round(C_0 × (1 + r)^m)', 'r = monthly creator growth (MoM)'],
+    title: 'Platform commission',
+    lines: [
+      'PlatformRev_m = WhaleGMV_m × 20%',
+      'Creator keeps 80%; Altyr bears processing.',
+    ],
   },
   {
-    title: 'Subscribers (m ≥ 1)',
+    title: 'Net & total revenue',
     lines: [
-      "S' = S_{m-1} × (1 − c)",
-      'NewSubs = max(0, C_m − C_{m-1}) × (avg subs / creator)',
-      'S_m = round(S′ + NewSubs)',
+      'Net = PlatformRev_m − processing(5.5%) − chargeback(1.5%) − infra',
+      'TotalRev_m = SaaSRev_m + PlatformRev_m  (~83% / 17% mix)',
     ],
   },
 ];
@@ -67,13 +68,13 @@ export default function RevenueCalculatorMethodologySlide() {
               </span>
             </h2>
             <p className="text-sm md:text-base text-white/55 font-light max-w-2xl mx-auto leading-relaxed">
-              The interactive slide is a simplified view of this model. Adjust sliders to stress-test platform revenue
-              as creators scale. Take rate is <span className="text-white/75">net of payment processing</span>.
-              Subscriber dynamics apply <span className="text-white/75">churn to the prior month</span> and add{' '}
-              <span className="text-white/75">new fans from net-new creators</span> (see equations below).
+              Revenue stacks two lines per connected creator: a flat <span className="text-white/75">$250/mo Altyr Pro SaaS</span> fee,
+              plus a <span className="text-white/75">20% commission</span> on whale GMV (~$7,800/mo per creator) scaled by
+              whale-to-Altyr penetration. Platform revenue is shown <span className="text-white/75">net of payment processing,
+              chargeback reserve, and infra</span> (see equations below).
             </p>
             <p className="text-xs text-white/40 font-light mt-4 mb-6">
-              Horizon: {FORECAST_MONTHS} months · USD · subscription & PPV inputs are monthly
+              Horizon: {FORECAST_MONTHS} months · USD · all inputs are monthly
             </p>
           </div>
 
@@ -88,12 +89,12 @@ export default function RevenueCalculatorMethodologySlide() {
                 Slider inputs
               </h3>
               <ul className="text-xs md:text-sm text-white/65 font-light grid sm:grid-cols-2 gap-x-6 gap-y-1.5">
-                <li>C_0 — creators at month 0</li>
-                <li>Avg subscribers per creator</li>
-                <li>Average subscription price ($/mo)</li>
-                <li>PPV spend per subscriber ($/mo)</li>
+                <li>C_0 — connected creators at month 0</li>
+                <li>Altyr Pro SaaS fee ($/creator/mo)</li>
+                <li>Whale GMV per creator ($/mo)</li>
+                <li>Whale -> Altyr penetration (%)</li>
+                <li>Platform commission rate (%)</li>
                 <li>r — monthly creator growth (MoM)</li>
-                <li>c — monthly subscriber churn on prior subs</li>
               </ul>
             </motion.div>
 

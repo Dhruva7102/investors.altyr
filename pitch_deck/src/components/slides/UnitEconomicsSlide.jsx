@@ -5,58 +5,59 @@ import { DollarSign, TrendingUp, Users, Target, BarChart, Percent } from 'lucide
 const metrics = [
   {
     icon: DollarSign,
-    title: 'Gross Revenue',
-    value: '$14.00',
-    subtitle: 'per user/month',
-    description: '$10 Subscription + $4 Tips',
-    color: '#34D399'
-  },
-  {
-    icon: BarChart,
-    title: 'Net Revenue',
-    value: '$2.80',
-    subtitle: 'per user/month',
-    description: '20% Platform Take Rate',
-    color: '#AC0064'
-  },
-  {
-    icon: Target,
-    title: 'CAC (Initial)',
-    value: '$25.00',
-    subtitle: 'per acquisition',
-    description: 'Paid acquisition cost',
-    color: '#F59E0B'
-  },
-  {
-    icon: TrendingUp,
-    title: 'CAC (Blended)',
-    value: '$15.00',
-    subtitle: 'per acquisition',
-    description: 'With organic/viral lift',
+    title: 'Altyr Pro SaaS',
+    value: '$250',
+    subtitle: 'per connected creator/mo',
+    description: 'Flat operating-system + chatter-management fee',
     color: '#9B4DCA'
   },
   {
+    icon: TrendingUp,
+    title: 'Platform Commission',
+    value: '$1,248',
+    subtitle: 'per connected creator/mo',
+    description: '20% of ~$7,800/mo whale GMV at 80% penetration',
+    color: '#FF8C42'
+  },
+  {
+    icon: BarChart,
+    title: 'Blended Revenue',
+    value: '$1,498',
+    subtitle: 'per connected creator/mo',
+    description: 'SaaS + platform commission combined',
+    color: '#34D399'
+  },
+  {
+    icon: Target,
+    title: 'Altyr Pro Infra Cost',
+    value: '$46',
+    subtitle: 'per connected creator/mo',
+    description: 'Variable infra; plus ~$2,322/mo fixed baseline',
+    color: '#AC0064'
+  },
+  {
     icon: Percent,
-    title: 'Monthly Churn',
-    value: '10%',
-    subtitle: 'per month',
-    description: 'User retention rate',
-    color: '#EF4444'
+    title: 'Revenue Mix',
+    value: '83 / 17',
+    subtitle: 'platform / SaaS',
+    description: 'At-scale mix once Altyr Platform is live',
+    color: '#64109A'
   },
   {
     icon: Users,
-    title: 'LTV/CAC Ratio',
-    value: '1.9x',
-    subtitle: 'at Month 12',
-    description: 'LTV: $28 / CAC: $15',
-    color: '#64109A'
+    title: 'Acquisition',
+    value: '$0',
+    subtitle: 'paid acquisition',
+    description: 'Agency-led land-and-expand, no ad spend',
+    color: '#FF8C42'
   },
 ];
 
 const ltvCalculation = [
-  { label: 'Net Revenue per User', value: '$2.80/mo' },
-  { label: 'Average Lifetime', value: '~10 months' },
-  { label: 'Customer LTV', value: '$28.00' },
+  { label: 'Altyr Pro SaaS', value: '$250/mo' },
+  { label: 'Whale GMV per creator', value: '~$7,800/mo' },
+  { label: 'Platform commission (20% x 80% penetration)', value: '$1,248/mo' },
+  { label: 'Blended revenue / connected creator', value: '$1,498/mo' },
 ];
 
 export default function UnitEconomicsSlide() {
@@ -95,7 +96,7 @@ export default function UnitEconomicsSlide() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Unit Economics</span> & Model Assumptions
           </h2>
           <p className="text-base text-white/60 font-light">
-            Revenue model and acquisition cost assumptions
+            Two revenue lines per connected creator: SaaS + platform commission
           </p>
         </motion.div>
 
@@ -165,7 +166,7 @@ export default function UnitEconomicsSlide() {
         >
           <div className="p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
             <h3 className="text-xl font-light text-white/90 mb-6 text-center">
-              LTV Calculation
+              Per-Connected-Creator Economics
             </h3>
             <div className="space-y-4">
               {ltvCalculation.map((item, index) => (
@@ -182,9 +183,9 @@ export default function UnitEconomicsSlide() {
             {/* Formula explanation */}
             <div className="mt-8 pt-6 border-t border-white/[0.08]">
               <p className="text-sm text-white/60 font-light text-center leading-relaxed">
-                <span className="text-white/80 font-medium">LTV Formula:</span> Net Revenue per User × Average Lifetime (1 / Churn Rate)
+                <span className="text-white/80 font-medium">Formula:</span> $250 SaaS + (Whale GMV x penetration x 20% commission)
                 <br />
-                <span className="text-xs text-white/40">$2.80 × (1 / 0.10) = $28.00</span>
+                <span className="text-xs text-white/40">$250 + ($7,800 x 80% x 20%) = $250 + $1,248 = $1,498 / creator / mo</span>
               </p>
             </div>
           </div>
@@ -199,7 +200,7 @@ export default function UnitEconomicsSlide() {
         >
           <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
             <p className="text-sm text-white/70 font-light">
-              💡 <span className="text-white/90 font-medium">Key Insight:</span> Blended CAC improves to $15 by Year 1 as gamification drives organic/viral loops
+              <span className="text-white/90 font-medium">Key Insight:</span> ~$1,498 revenue against ~$46 variable infra per connected creator. The SaaS wedge is profitable on its own; the 20% platform commission is the upside that drives the ~83% / 17% mix at scale.
             </p>
           </div>
         </motion.div>

@@ -4,19 +4,19 @@ import { TrendingUp, Users, DollarSign } from 'lucide-react';
 
 const opportunities = [
   {
-    icon: TrendingUp,
-    title: "Advanced monetization design",
-    description: "Current platforms have proven demand but under-invest in systematic revenue optimization."
+    icon: Users,
+    title: "Concentrated, reachable buyers",
+    description: "The top ~15-20 OnlyFans agencies each manage 150+ creators. Sign a handful and you reach thousands of connected creators with no paid acquisition."
   },
   {
-    icon: Users,
-    title: "Modern creator tooling",
-    description: "Serious earners need live-ops-grade analytics, CRM, and business intelligence."
+    icon: TrendingUp,
+    title: "Agencies run on spreadsheets",
+    description: "These agencies coordinate chatters, scheduling, and CRM by hand. Altyr Pro is the operating system they're missing, at $250 / connected creator / month."
   },
   {
     icon: DollarSign,
-    title: "Deep creator partnerships",
-    description: "Building with top creators creates a defensible moat and distribution network."
+    title: "Whale-concentrated GMV",
+    description: "A small share of fans drive most spend. Altyr Platform captures that high-value GMV at a 20% commission, the real upside layered on top of the SaaS wedge."
   }
 ];
 
@@ -55,7 +55,7 @@ export default function MarketSlide() {
           <div className="relative inline-block">
             <h2 className="text-4xl md:text-5xl font-extralight text-white/90 mb-2">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
-                $50+ Billion
+                Agency-Managed GMV
               </span>
             </h2>
             {/* Glow effect */}
@@ -76,7 +76,7 @@ export default function MarketSlide() {
             />
           </div>
           <p className="text-lg text-white/60 font-extralight">
-            combined market value of top 5 platforms
+            top ~15-20 OnlyFans agencies, 150+ creators each
           </p>
         </motion.div>
 
@@ -88,7 +88,7 @@ export default function MarketSlide() {
           transition={{ duration: 0.9, delay: 0.2 }}
         >
           <p>
-            Subscription and adult content represent a massive, high-margin market. OnlyFans generates billions in revenue with 20%+ commission rates—yet operates on outdated infrastructure. We leverage data-driven insights and proven gamification techniques to <span className="text-white/80 font-medium">expand the total addressable market</span> by making spending more engaging and rewarding.
+            We target the OnlyFans agency industry, not individual fans. The serviceable opportunity is concrete: <span className="text-white/80 font-medium">$250 / connected creator / month</span> of SaaS across thousands of agency-managed creators, plus <span className="text-white/80 font-medium">20% of whale GMV</span> on Altyr Platform. Land a small number of large agencies and expand creator-by-creator, with no paid acquisition.
           </p>
         </motion.div>
 

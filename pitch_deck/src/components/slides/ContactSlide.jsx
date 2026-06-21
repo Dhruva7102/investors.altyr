@@ -104,7 +104,10 @@ export default function ContactSlide() {
             Thank You
           </h2>
           <p className="text-lg md:text-xl text-white/60 font-light max-w-2xl mx-auto leading-relaxed">
-            Let&apos;s build the future of creator monetization, together.
+            One company, two products for the OnlyFans agency industry: Altyr Pro, the operating system agencies run on, and Altyr Platform, the premium destination for high-value fans.
+          </p>
+          <p className="text-base md:text-lg text-white/70 font-light max-w-2xl mx-auto leading-relaxed pt-2">
+            We&apos;re raising a <span className="text-white/90 font-medium">$1.5M SAFE (pre-seed)</span> to land the top agencies and ship Altyr Pro, then layer in platform commission.
           </p>
           <p className="text-base md:text-lg text-white/55 font-light pt-2">
             <a
