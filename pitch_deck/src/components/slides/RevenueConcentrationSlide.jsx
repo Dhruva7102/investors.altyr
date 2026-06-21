@@ -134,7 +134,8 @@ export default function RevenueConcentrationSlide() {
         >
           <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
             <p className="text-lg md:text-xl font-extralight text-white/80 leading-relaxed italic">
-              The market exists because people spend on <span className="text-white/90 font-medium">relationship depth</span>, not just content access. Current platforms leave that value on the table.
+              A handful of <span className="text-white/90 font-medium">whales</span> drive the economics. Own the infrastructure that
+              manages those relationships, and you own the most valuable revenue in the category.
             </p>
           </div>
         </motion.div>

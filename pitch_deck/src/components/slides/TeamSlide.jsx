@@ -68,8 +68,8 @@ export default function TeamSlide() {
             Why This Team
           </h2>
           <p className="text-lg md:text-xl text-white/50 font-light max-w-3xl mx-auto">
-            Platforms fail when built for creators instead of with them. Altyr&apos;s founding creators are users,
-            partners, and distribution.
+            Deep technical infrastructure plus native access to the agency world. Altyr is built by an operator who
+            solved stability at scale and a top creator who opens every agency door.
           </p>
         </motion.div>
 

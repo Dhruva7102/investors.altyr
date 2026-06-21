@@ -9,43 +9,50 @@ import SlideIndicator from '@/components/SlideIndicator';
 import TitleSlide from '@/components/slides/TitleSlide';
 import ProblemSlide1 from '@/components/slides/ProblemSlide1';
 import RevenueConcentrationSlide from '@/components/slides/RevenueConcentrationSlide';
-import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import AltyrInsightSlide from '@/components/slides/AltyrInsightSlide';
+import ProblemSlide2 from '@/components/slides/ProblemSlide2';
 import AltyrSolutionSlide from '@/components/slides/AltyrSolutionSlide';
 import GoToMarketSlide from '@/components/slides/GoToMarketSlide';
-import TeamSlide from '@/components/slides/TeamSlide';
+import MarketSlide from '@/components/slides/MarketSlide';
 import TractionSlide from '@/components/slides/TractionSlide';
-import RaiseSlide from '@/components/slides/RaiseSlide';
+import UnitEconomicsSlide from '@/components/slides/UnitEconomicsSlide';
+import FinancialProjectionsSlide from '@/components/slides/FinancialProjectionsSlide';
 import RevenueCalculatorSlide from '@/components/slides/RevenueCalculatorSlide';
+import TeamSlide from '@/components/slides/TeamSlide';
+import RaiseSlide from '@/components/slides/RaiseSlide';
 import RisksSlide from '@/components/slides/RisksSlide';
 import ContactSlide from '@/components/slides/ContactSlide';
+// Appendix
 import FinancialAssumptionsSlide from '@/components/slides/FinancialAssumptionsSlide';
+import RevenueCalculatorMethodologySlide from '@/components/slides/RevenueCalculatorMethodologySlide';
 import CostBreakdownTableSlide from '@/components/slides/CostBreakdownTableSlide';
 import RunwayScenariosSlide from '@/components/slides/RunwayScenariosSlide';
-import UseOfFundsSlide from '@/components/slides/UseOfFundsSlide';
-import RevenueCalculatorMethodologySlide from '@/components/slides/RevenueCalculatorMethodologySlide';
-import V2AdjacentIndustriesSlide from '@/components/slides/V2AdjacentIndustriesSlide';
 
 const slides = [
+  // Story
   TitleSlide,
   ProblemSlide1,
   RevenueConcentrationSlide,
-  ProblemSlide2,
   AltyrInsightSlide,
+  ProblemSlide2,
   AltyrSolutionSlide,
   GoToMarketSlide,
+  MarketSlide,
   TractionSlide,
+  // Numbers
+  UnitEconomicsSlide,
+  FinancialProjectionsSlide,
+  RevenueCalculatorSlide,
+  // Close
   TeamSlide,
   RaiseSlide,
-  RevenueCalculatorSlide,
+  RisksSlide,
   ContactSlide,
+  // Appendix
   FinancialAssumptionsSlide,
   RevenueCalculatorMethodologySlide,
-  V2AdjacentIndustriesSlide,
   CostBreakdownTableSlide,
   RunwayScenariosSlide,
-  UseOfFundsSlide,
-  RisksSlide,
 ];
 
 function App() {
