@@ -81,7 +81,7 @@ export default function FinancialProjectionsSlide() {
   const expensesData = scenario.expenses.map(d => ({ x: d.month, y: d.value }));
 
   return (
-    <section className="relative w-full h-full min-h-screen flex items-center justify-center overflow-y-auto bg-gradient-to-b from-[#18021A] to-[#0d0110] py-20">
+    <section className="relative w-full h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#18021A] to-[#0d0110] py-4">
       {/* Gradient accent */}
       <div 
         className="absolute top-1/3 right-1/4 w-[700px] h-[700px] opacity-15"
@@ -94,34 +94,33 @@ export default function FinancialProjectionsSlide() {
       <div className="relative z-10 max-w-7xl mx-auto px-6">
         {/* Section label */}
         <motion.div
-          className="flex items-center justify-center gap-6 mb-10"
+          className="flex items-center justify-center gap-6 mb-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8 }}
         >
           <span className="w-16 h-px bg-gradient-to-r from-transparent to-[#64109A]/50" />
-          <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">Appendix: Financial Projections</span>
+          <span className="text-xs tracking-[0.35em] text-[#AC0064]/80 uppercase font-medium">Financial Projections</span>
           <span className="w-16 h-px bg-gradient-to-l from-transparent to-[#64109A]/50" />
         </motion.div>
 
-        {/* Title */}
         <motion.div
-          className="text-center mb-8"
+          className="text-center mb-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9 }}
         >
-          <h2 className="text-3xl md:text-4xl font-extralight text-white/90 tracking-wide mb-4">
-18-Month <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Financial Model</span>
+          <h2 className="text-2xl md:text-3xl font-extralight text-white/90 tracking-wide mb-1">
+            18-Month <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Financial Model</span>
           </h2>
-          <p className="text-base text-white/60 font-light">
-            Connected creators, revenue, and expenses - upside headline vs base-case floor
+          <p className="text-sm text-white/60 font-light">
+            Connected creators, revenue, and expenses — upside headline vs base-case floor
           </p>
         </motion.div>
 
         {/* Scenario tabs */}
         <motion.div
-          className="flex items-center justify-center gap-4 mb-12"
+          className="flex items-center justify-center gap-4 mb-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -130,7 +129,7 @@ export default function FinancialProjectionsSlide() {
             <button
               key={key}
               onClick={() => setActiveTab(key)}
-              className={`px-6 py-3 rounded-lg text-sm font-light transition-all duration-300 ${
+              className={`px-4 py-2 rounded-lg text-sm font-light transition-all duration-300 ${
                 activeTab === key
                   ? 'bg-white/[0.08] border-2 border-white/[0.12] text-white'
                   : 'bg-white/[0.03] border border-white/[0.06] text-white/60 hover:bg-white/[0.05]'
@@ -146,44 +145,39 @@ export default function FinancialProjectionsSlide() {
 
         {/* Scenario description */}
         <motion.div
-          className="text-center mb-8"
+          className="text-center mb-3"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-sm text-white/60 font-light">{scenario.description}</p>
+          <p className="text-xs text-white/60 font-light">{scenario.description}</p>
         </motion.div>
 
         {/* Charts */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            className="space-y-8"
+            className="space-y-3"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Users Growth */}
-            <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                  <Users className="w-5 h-5 text-[#AC0064]" />
+            {/* Charts row: creators + revenue + expenses side by side */}
+            <div className="grid md:grid-cols-3 gap-3">
+              {/* Users Growth */}
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                    <Users className="w-3.5 h-3.5 text-[#AC0064]" />
+                  </div>
+                  <h3 className="text-sm font-light text-white/90">Connected Creators</h3>
                 </div>
-                <h3 className="text-lg font-light text-white/90">Connected Creators</h3>
-              </div>
-              <div className="flex justify-center">
                 <LineChart
-                  datasets={[
-                    {
-                      label: 'Connected Creators',
-                      data: usersData,
-                      color: scenario.color
-                    }
-                  ]}
+                  datasets={[{ label: 'Connected Creators', data: usersData, color: scenario.color }]}
                   config={{
-                    width: 900,
-                    height: 300,
+                    width: 340,
+                    height: 180,
                     showGrid: true,
                     yAxisLabel: 'Creators',
                     xAxisLabel: 'Month',
@@ -192,69 +186,50 @@ export default function FinancialProjectionsSlide() {
                   }}
                 />
               </div>
-            </div>
 
-            {/* Revenue & Expenses */}
-            <div className="grid md:grid-cols-2 gap-6">
               {/* Revenue */}
-              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                    <DollarSign className="w-5 h-5 text-[#AC0064]" />
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                    <DollarSign className="w-3.5 h-3.5 text-[#AC0064]" />
                   </div>
-                  <h3 className="text-lg font-light text-white/90">Monthly Revenue (Total)</h3>
+                  <h3 className="text-sm font-light text-white/90">Monthly Revenue</h3>
                 </div>
-                <div className="flex justify-center">
-                  <LineChart
-                    datasets={[
-                      {
-                        label: 'Total Revenue',
-                        data: revenueData,
-                        color: '#34D399'
-                      }
-                    ]}
-                    config={{
-                      width: 400,
-                      height: 250,
-                      showGrid: true,
-                      formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
-                      formatX: (val) => `M${val}`,
-                    }}
-                  />
-                </div>
+                <LineChart
+                  datasets={[{ label: 'Total Revenue', data: revenueData, color: '#34D399' }]}
+                  config={{
+                    width: 340,
+                    height: 180,
+                    showGrid: true,
+                    formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
+                    formatX: (val) => `M${val}`,
+                  }}
+                />
               </div>
 
               {/* Expenses */}
-              <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
-                    <TrendingDown className="w-5 h-5 text-[#AC0064]" />
+              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-1.5 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
+                    <TrendingDown className="w-3.5 h-3.5 text-[#AC0064]" />
                   </div>
-                  <h3 className="text-lg font-light text-white/90">Monthly Costs (Total)</h3>
+                  <h3 className="text-sm font-light text-white/90">Monthly Costs</h3>
                 </div>
-                <div className="flex justify-center">
-                  <LineChart
-                    datasets={[
-                      {
-                        label: 'Total Costs',
-                        data: expensesData,
-                        color: '#EF4444'
-                      }
-                    ]}
-                    config={{
-                      width: 400,
-                      height: 250,
-                      showGrid: true,
-                      formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
-                      formatX: (val) => `M${val}`,
-                    }}
-                  />
-                </div>
+                <LineChart
+                  datasets={[{ label: 'Total Costs', data: expensesData, color: '#EF4444' }]}
+                  config={{
+                    width: 340,
+                    height: 180,
+                    showGrid: true,
+                    formatY: (val) => val >= 1000000 ? `$${(val / 1000000).toFixed(1)}M` : `$${(val / 1000).toFixed(0)}k`,
+                    formatX: (val) => `M${val}`,
+                  }}
+                />
               </div>
             </div>
 
             {/* Headline metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {(activeTab === 'upside'
                 ? [
                     { label: 'Run-rate (M18)', value: '~$28M' },
@@ -271,17 +246,17 @@ export default function FinancialProjectionsSlide() {
               ).map((m, i) => (
                 <div
                   key={i}
-                  className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center"
+                  className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center"
                 >
-                  <div className="text-2xl font-light text-white/90 mb-1">{m.value}</div>
+                  <div className="text-xl font-light text-white/90 mb-0.5">{m.value}</div>
                   <div className="text-xs text-white/50 font-light">{m.label}</div>
                 </div>
               ))}
             </div>
 
             {/* Profitability note */}
-            <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center">
-              <p className="text-sm text-white/70 font-light">
+            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center">
+              <p className="text-xs text-white/70 font-light">
                 <span className="text-white/90 font-medium">Path to profitability:</span> on $1.5M starting cash, the upside case turns cash-flow positive around Month 8. Altyr Pro is live from Month 3; Altyr Platform launches ~Month 7.
               </p>
             </div>
