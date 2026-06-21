@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { TrendingUp, DollarSign } from 'lucide-react';
 import {
   COMMISSION_RATE,
+  SAAS_FEE,
   computeBaseSnapshot,
   computeForecastRows,
   clampNumber,
@@ -38,46 +39,44 @@ function SliderRow({ label, value, min, max, step, displayValue, onChange }) {
 }
 
 export default function RevenueCalculator() {
-  const [creators, setCreators] = useState(100);
-  const [subsPerCreator, setSubsPerCreator] = useState(250);
-  const [subscriptionPrice, setSubscriptionPrice] = useState(12);
-  const [ppvSpendPerSubscriberPerMonth, setPpvSpendPerSubscriberPerMonth] = useState(14);
-  const [monthlyGrowthRatePct, setMonthlyGrowthRatePct] = useState(15);
-  const [monthlyChurnPct, setMonthlyChurnPct] = useState(10);
+  // Defaults reflect the model's upside steady state: 80% whale penetration,
+  // ~$7,800 gross whale GMV/creator/mo, 20% take, $250 SaaS.
+  const [creators, setCreators] = useState(1000);
+  const [whaleGMVPerCreator, setWhaleGMVPerCreator] = useState(7800);
+  const [penetrationPct, setPenetrationPct] = useState(80);
+  const [commissionPct, setCommissionPct] = useState(Math.round(COMMISSION_RATE * 100));
+  const [monthlyGrowthRatePct, setMonthlyGrowthRatePct] = useState(10);
+  const [monthlyChurnPct, setMonthlyChurnPct] = useState(2);
+
+  const commissionRate = commissionPct / 100;
 
   const base = useMemo(
     () =>
       computeBaseSnapshot({
         creators,
-        subsPerCreator,
-        subscriptionPrice,
-        ppvSpendPerSubscriberPerMonth,
+        whaleGMVPerCreator,
+        penetrationPct,
+        commissionRate,
       }),
-    [creators, subsPerCreator, subscriptionPrice, ppvSpendPerSubscriberPerMonth]
+    [creators, whaleGMVPerCreator, penetrationPct, commissionRate]
   );
 
   const forecast = useMemo(
     () =>
       computeForecastRows({
         creators,
-        subsPerCreator,
-        subscriptionPrice,
-        ppvSpendPerSubscriberPerMonth,
+        whaleGMVPerCreator,
+        penetrationPct,
+        commissionRate,
         monthlyGrowthRatePct,
         monthlyChurnPct,
       }),
-    [
-      creators,
-      subsPerCreator,
-      subscriptionPrice,
-      ppvSpendPerSubscriberPerMonth,
-      monthlyGrowthRatePct,
-      monthlyChurnPct,
-    ]
+    [creators, whaleGMVPerCreator, penetrationPct, commissionRate, monthlyGrowthRatePct, monthlyChurnPct]
   );
 
   const month0 = forecast[0];
   const month12 = forecast[forecast.length - 1];
+  const saasMixPct = base.platformRevenue > 0 ? Math.round((base.saasRevenue / base.platformRevenue) * 100) : 0;
 
   return (
     <div className="w-full max-w-7xl mx-auto px-5 md:px-8">
@@ -104,7 +103,8 @@ export default function RevenueCalculator() {
           Revenue forecasting and projections
         </h2>
         <p className="text-sm md:text-base text-white/55 font-light max-w-2xl mx-auto leading-relaxed">
-          Stress-test platform revenue with the sliders. Definitions and formulas are in the appendix.
+          Stress-test ecosystem revenue: ${SAAS_FEE}/creator SaaS plus {commissionPct}% of whale GMV on Altyr.
+          Definitions and formulas are in the appendix.
         </p>
       </motion.div>
 
@@ -127,40 +127,40 @@ export default function RevenueCalculator() {
 
           <div className="flex flex-col gap-4 md:gap-5">
             <SliderRow
-              label="Creators on platform"
+              label="Connected creators (on Altyr Pro)"
               value={creators}
-              min={10}
+              min={50}
               max={5000}
-              step={10}
+              step={50}
               displayValue={new Intl.NumberFormat('en-US').format(creators)}
-              onChange={(v) => setCreators(clampNumber(v, 10, 5000))}
+              onChange={(v) => setCreators(clampNumber(v, 50, 5000))}
             />
             <SliderRow
-              label="Avg subscribers per creator"
-              value={subsPerCreator}
-              min={25}
-              max={2000}
-              step={25}
-              displayValue={new Intl.NumberFormat('en-US').format(subsPerCreator)}
-              onChange={(v) => setSubsPerCreator(clampNumber(v, 25, 2000))}
+              label="Whale GMV per creator / mo (gross)"
+              value={whaleGMVPerCreator}
+              min={1000}
+              max={20000}
+              step={100}
+              displayValue={formatCurrencyCompact(whaleGMVPerCreator)}
+              onChange={(v) => setWhaleGMVPerCreator(clampNumber(v, 1000, 20000))}
             />
             <SliderRow
-              label="Average subscription price"
-              value={subscriptionPrice}
-              min={5}
-              max={30}
-              step={1}
-              displayValue={formatCurrencyCompact(subscriptionPrice)}
-              onChange={(v) => setSubscriptionPrice(clampNumber(v, 5, 30))}
-            />
-            <SliderRow
-              label="PPV spend per subscriber / mo"
-              value={ppvSpendPerSubscriberPerMonth}
+              label="Whale → Altyr penetration"
+              value={penetrationPct}
               min={0}
               max={100}
+              step={5}
+              displayValue={`${penetrationPct}%`}
+              onChange={(v) => setPenetrationPct(clampNumber(v, 0, 100))}
+            />
+            <SliderRow
+              label="Platform commission rate"
+              value={commissionPct}
+              min={10}
+              max={30}
               step={1}
-              displayValue={formatCurrencyCompact(ppvSpendPerSubscriberPerMonth)}
-              onChange={(v) => setPpvSpendPerSubscriberPerMonth(clampNumber(v, 0, 100))}
+              displayValue={`${commissionPct}%`}
+              onChange={(v) => setCommissionPct(clampNumber(v, 10, 30))}
             />
             <SliderRow
               label="Monthly creator growth (MoM)"
@@ -172,13 +172,13 @@ export default function RevenueCalculator() {
               onChange={(v) => setMonthlyGrowthRatePct(clampNumber(v, 0, 50))}
             />
             <SliderRow
-              label="Monthly subscriber churn"
+              label="Monthly agency churn"
               value={monthlyChurnPct}
               min={0}
-              max={40}
+              max={20}
               step={1}
               displayValue={`${monthlyChurnPct}%`}
-              onChange={(v) => setMonthlyChurnPct(clampNumber(v, 0, 40))}
+              onChange={(v) => setMonthlyChurnPct(clampNumber(v, 0, 20))}
             />
           </div>
         </motion.div>
@@ -197,21 +197,21 @@ export default function RevenueCalculator() {
               <div>
                 <div className="text-base font-light text-white/90 tracking-wide">Snapshot (month 0)</div>
                 <div className="text-xs text-white/50 font-light">
-                  Net take {(COMMISSION_RATE * 100).toFixed(0)}% (after processing)
+                  ~{saasMixPct}% SaaS · ~{100 - saasMixPct}% platform commission
                 </div>
               </div>
             </div>
             <div className="grid sm:grid-cols-2 gap-3">
               {[
-                ['Total subscribers', new Intl.NumberFormat('en-US').format(base.totalSubscribers)],
-                ['GMV (monthly)', formatCurrencyCompact(base.totalGMV)],
-                ['Platform rev (monthly)', formatCurrencyCompact(base.platformRevenue)],
-                ['Platform rev (annualized)', formatCurrencyCompact(base.annualPlatformRevenue)],
+                ['Whale GMV on Altyr (mo)', formatCurrencyCompact(base.totalGMV)],
+                ['SaaS revenue (mo)', formatCurrencyCompact(base.saasRevenue)],
+                ['Total revenue (monthly)', formatCurrencyCompact(base.platformRevenue)],
+                ['Total revenue (annualized)', formatCurrencyCompact(base.annualPlatformRevenue)],
               ].map(([k, v]) => (
                 <div key={k} className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.06]">
                   <div className="text-[10px] tracking-[0.18em] text-white/45 uppercase">{k}</div>
                   <div className="mt-1 text-base md:text-lg font-light text-white/90 tabular-nums">
-                    {k.includes('Platform rev (monthly)') ? (
+                    {k.includes('Total revenue (monthly)') ? (
                       <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
                         {v}
                       </span>
@@ -229,7 +229,7 @@ export default function RevenueCalculator() {
               <div>
                 <div className="text-base font-light text-white/90 tracking-wide">12-month projection</div>
                 <div className="text-xs text-white/50 font-light">
-                  Creators {monthlyGrowthRatePct}% MoM · churn {monthlyChurnPct}% · +subs from new creators
+                  Creators {monthlyGrowthRatePct}% MoM · agency churn {monthlyChurnPct}%
                 </div>
               </div>
               <div className="text-right">
@@ -245,8 +245,8 @@ export default function RevenueCalculator() {
                   <tr className="text-white/50">
                     <th className="py-1.5 pr-3 font-light">Month</th>
                     <th className="py-1.5 pr-3 font-light">Creators</th>
-                    <th className="py-1.5 pr-3 font-light">Subscribers</th>
-                    <th className="py-1.5 font-light">Platform rev</th>
+                    <th className="py-1.5 pr-3 font-light">SaaS</th>
+                    <th className="py-1.5 font-light">Total rev</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -257,7 +257,7 @@ export default function RevenueCalculator() {
                         {new Intl.NumberFormat('en-US').format(row.creators)}
                       </td>
                       <td className="py-1.5 pr-3 text-white/70 tabular-nums">
-                        {new Intl.NumberFormat('en-US').format(row.totalSubscribers)}
+                        {formatCurrencyCompact(row.saasRevenue)}
                       </td>
                       <td className="py-1.5 text-white/90 tabular-nums">
                         {formatCurrencyCompact(row.platformRevenue)}
