@@ -1,2 +1,14 @@
 .vercel
 .env*.local
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Build output
+dist/
+**/dist/
+
+# Misc
+.DS_Store
+*.log
