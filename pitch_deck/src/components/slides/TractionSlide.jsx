@@ -1,23 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Scale, Code, Target } from 'lucide-react';
+import { Handshake, FileSignature, Code2, Rocket } from 'lucide-react';
 
 const highlights = [
   {
-    icon: Users,
-    title: 'Industry Legends',
+    icon: Handshake,
+    title: 'Top-10 agency signed',
+    description: 'Co-developing Altyr Pro and helping sell it into their network.',
   },
   {
-    icon: Scale,
-    title: 'Legal Team',
+    icon: FileSignature,
+    title: '3 additional LOIs',
+    description: 'Signed letters of intent from three more agencies ready to onboard.',
   },
   {
-    icon: Code,
-    title: 'Full Stack Team',
+    icon: Code2,
+    title: 'Stability at scale solved',
+    description: 'The hard technical problem — running every creator through OFAPI reliably — is done.',
   },
   {
-    icon: Target,
-    title: 'Product 85% completed',
+    icon: Rocket,
+    title: '~1 month to launch',
+    description: 'Altyr Pro is in final testing; stable-at-scale with the full feature set is weeks away.',
   },
 ];
 
@@ -55,31 +59,31 @@ export default function TractionSlide() {
           transition={{ duration: 0.9 }}
         >
           <h2 className="text-3xl md:text-4xl font-extralight text-white/90 tracking-wide mb-3">
-            Building with <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">Momentum</span>
+            Demand <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">before launch</span>
           </h2>
           <p className="text-base text-white/60 font-light max-w-3xl mx-auto">
-            Early traction demonstrates market validation and execution capability
+            Agencies are signing to co-build the product — the strongest signal of real pull.
           </p>
         </motion.div>
 
         {/* Key metrics */}
         <motion.div
-          className="flex items-center justify-center gap-12 md:gap-16 mb-16"
+          className="flex items-center justify-center gap-12 md:gap-20 mb-16"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.2 }}
         >
           <div className="text-center">
-            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">45</div>
-            <div className="text-sm text-white/50 font-light">Creators</div>
+            <div className="text-5xl md:text-6xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-[#b8860b] mb-2">1</div>
+            <div className="text-sm text-[#d4af37]/70 font-light">Top-10 agency signed</div>
           </div>
           <div className="text-center">
-            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">17.2M</div>
-            <div className="text-sm text-white/50 font-light">Total Followers</div>
+            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">3</div>
+            <div className="text-sm text-white/50 font-light">LOIs from agencies</div>
           </div>
           <div className="text-center">
-            <div className="text-5xl md:text-6xl font-extralight text-transparent bg-clip-text bg-gradient-to-r from-[#d4af37] to-[#b8860b] mb-2">15</div>
-            <div className="text-sm text-[#d4af37]/70 font-light">Inner Circle</div>
+            <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">600+</div>
+            <div className="text-sm text-white/50 font-light">Creators in reach</div>
           </div>
         </motion.div>
 
@@ -93,20 +97,14 @@ export default function TractionSlide() {
                 className="relative group"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.7,
-                  delay: 0.3 + index * 0.08,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
+                transition={{ duration: 0.7, delay: 0.3 + index * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
               >
                 <div className="relative h-full p-6 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm hover:bg-white/[0.05] hover:border-white/[0.12] transition-all duration-500">
-                  {/* Icon */}
                   <div className="mb-4 inline-flex p-3 rounded-lg bg-gradient-to-br from-[#AC0064]/20 to-[#64109A]/20 border border-[#AC0064]/30">
                     <IconComponent className="w-5 h-5 text-[#AC0064]" />
                   </div>
-
-                  {/* Content */}
-                  <h3 className="text-lg font-light text-[#AC0064] tracking-wide">{highlight.title}</h3>
+                  <h3 className="text-lg font-light text-white/90 tracking-wide mb-1.5">{highlight.title}</h3>
+                  <p className="text-sm text-white/50 font-light leading-relaxed">{highlight.description}</p>
                 </div>
               </motion.div>
             );
