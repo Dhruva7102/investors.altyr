@@ -20,7 +20,7 @@ const highlights = [
   },
   {
     icon: Rocket,
-    title: '~1 month to launch',
+    title: 'Launching September 2026',
     description: 'Altyr Pro is in final testing with the full feature set. The signed agency begins onboarding at launch.',
   },
 ];
@@ -79,7 +79,7 @@ export default function TractionSlide() {
           </div>
           <div className="text-center">
             <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">3</div>
-            <div className="text-sm text-white/50 font-light">LOIs from agencies</div>
+            <div className="text-sm text-white/50 font-light">Agency LOIs (non-binding)</div>
           </div>
           <div className="text-center">
             <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">600+</div>
