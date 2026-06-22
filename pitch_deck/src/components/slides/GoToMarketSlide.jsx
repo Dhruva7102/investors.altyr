@@ -22,7 +22,7 @@ const steps = [
     number: '03',
     title: 'Monetize the whales',
     description:
-      'Pro reveals the high-value fans. The Altyr platform monetizes them at 20% of GMV — the high-margin upside, with zero new acquisition spend.',
+      'Pro reveals the high-value fans. Creators direct their whales to Altyr Platform for exclusive content and deeper interactions — creators keep 80% of GMV vs. the cuts they face elsewhere. Altyr earns 20% commission. Zero new acquisition spend.',
   },
 ];
 
@@ -103,17 +103,21 @@ export default function GoToMarketSlide() {
           ))}
         </div>
 
-        {/* Bottom statement */}
+        {/* Bottom statements */}
         <motion.div
-          className="text-center max-w-4xl mx-auto mt-12"
+          className="max-w-4xl mx-auto mt-10 grid md:grid-cols-2 gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.4 }}
         >
-          <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
-            <p className="text-lg md:text-xl font-extralight text-white/80 leading-relaxed">
-              Target: the top <span className="text-white/90 font-medium">15–20 agencies</span>, each managing{' '}
-              <span className="text-white/90 font-medium">150+ creators</span>. A handful of signatures covers thousands of creators.
+          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <p className="text-sm font-light text-white/70 leading-relaxed">
+              <span className="text-white/90 font-medium">Target:</span> top 15–20 agencies, each managing 150+ creators. A handful of signatures covers thousands of creators with no paid acquisition.
+            </p>
+          </div>
+          <div className="p-5 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+            <p className="text-sm font-light text-white/70 leading-relaxed">
+              <span className="text-white/90 font-medium">Why whales move:</span> creators earn more on Altyr Platform (80% of GMV vs. higher cuts elsewhere) and offer exclusive content unavailable on OnlyFans. The creator's incentive drives fan migration.
             </p>
           </div>
         </motion.div>

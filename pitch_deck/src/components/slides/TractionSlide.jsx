@@ -5,23 +5,23 @@ import { Handshake, FileSignature, Code2, Rocket } from 'lucide-react';
 const highlights = [
   {
     icon: Handshake,
-    title: 'Top-10 agency signed',
-    description: 'Co-developing Altyr Pro and helping sell it into their network.',
+    title: 'Top-10 agency signed (under NDA)',
+    description: 'One of the largest OF agencies by creator count — actively co-developing Altyr Pro and committed to onboarding their full roster of 150+ creators at launch.',
   },
   {
     icon: FileSignature,
-    title: '3 additional LOIs',
-    description: 'Signed letters of intent from three more agencies ready to onboard.',
+    title: '3 additional LOIs signed',
+    description: 'Three more agencies with signed letters of intent, representing ~450+ additional creators in the pipeline. All four relationships are agency-initiated.',
   },
   {
     icon: Code2,
-    title: 'Stability at scale solved',
-    description: 'The hard technical problem — running every creator through OFAPI reliably — is done.',
+    title: 'Core infra problem solved',
+    description: 'Real-time OFAPI throughput across hundreds of simultaneous creator accounts was the hard technical challenge. We shipped it and validated it at scale.',
   },
   {
     icon: Rocket,
     title: '~1 month to launch',
-    description: 'Altyr Pro is in final testing; stable-at-scale with the full feature set is weeks away.',
+    description: 'Altyr Pro is in final testing with the full feature set. The signed agency begins onboarding at launch.',
   },
 ];
 
@@ -83,7 +83,7 @@ export default function TractionSlide() {
           </div>
           <div className="text-center">
             <div className="text-5xl md:text-6xl font-extralight text-white/90 mb-2">600+</div>
-            <div className="text-sm text-white/50 font-light">Creators in reach</div>
+            <div className="text-sm text-white/50 font-light">Creators addressable via pipeline</div>
           </div>
         </motion.div>
 

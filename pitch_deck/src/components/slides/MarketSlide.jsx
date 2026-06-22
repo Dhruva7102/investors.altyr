@@ -92,6 +92,19 @@ export default function MarketSlide() {
           </p>
         </motion.div>
 
+        {/* Competitive context */}
+        <motion.div
+          className="max-w-4xl mx-auto mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
+        >
+          <p className="text-sm text-white/55 font-light text-center leading-relaxed">
+            <span className="text-white/80 font-medium">No purpose-built alternative exists.</span>{' '}
+            The closest tools agencies use today — Telegram bots, Notion databases, custom spreadsheets — were built for entirely different problems. No software company has built an agency OS specifically for the OF ecosystem.
+          </p>
+        </motion.div>
+
         {/* Opportunity cards */}
         <div className="grid md:grid-cols-3 gap-6">
           {opportunities.map((item, index) => (

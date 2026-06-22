@@ -257,7 +257,7 @@ export default function FinancialProjectionsSlide() {
             {/* Profitability note */}
             <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.08] backdrop-blur-sm text-center">
               <p className="text-xs text-white/70 font-light">
-                <span className="text-white/90 font-medium">Path to profitability:</span> on $1.5M starting cash, the upside case turns cash-flow positive around Month 8. Altyr Pro is live from Month 3; Altyr Platform launches ~Month 7.
+                <span className="text-white/90 font-medium">Path to profitability:</span> on $1.5M starting cash, the upside case turns cash-flow positive around Month 8. Altyr Pro is live from Month 3; Altyr Platform launches ~Month 7. The ~$6.9M ending cash is $1.5M raised plus cumulative cash-from-operations generated after the M8 breakeven — not additional funding.
               </p>
             </div>
           </motion.div>

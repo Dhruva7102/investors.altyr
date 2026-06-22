@@ -4,43 +4,37 @@ import SpreadsheetTable from '@/components/pitch/SpreadsheetTable';
 
 const columns = [
   { key: 'period', label: 'Period' },
-  { key: 'users', label: 'Users', align: 'right' },
-  { key: 'rev', label: 'Rev', align: 'right' },
-  { key: 'exp', label: 'Exp', align: 'right' },
+  { key: 'users', label: 'Creators', align: 'right' },
+  { key: 'rev', label: 'Revenue', align: 'right' },
+  { key: 'exp', label: 'Costs', align: 'right' },
   { key: 'net', label: 'Net', align: 'right' },
   { key: 'cash', label: 'Cash', align: 'right' },
 ];
 
 const keepPeriods = new Set(['Start', 'Month 6', 'Month 12', 'Month 18']);
 
+// Conservative: single-agency ramp, SaaS-only through M9, platform launches late
 const conservativeFull = [
-  { period: 'Start', users: '500', rev: '$0', exp: '$0', net: '$0', cash: '$1,500,000' },
-  { period: 'Month 3', users: '~1,000', rev: '$2,800', exp: '$25,000', net: '($22,200)', cash: '$1,440,000' },
-  { period: 'Month 6', users: '~1,900', rev: '$5,300', exp: '$35,000', net: '($29,700)', cash: '$1,350,000' },
-  { period: 'Month 9', users: '~3,400', rev: '$9,500', exp: '$50,000', net: '($40,500)', cash: '$1,230,000' },
-  { period: 'Month 12', users: '~5,800', rev: '$16,200', exp: '$75,000', net: '($58,800)', cash: '$1,050,000' },
-  { period: 'Month 15', users: '~9,000', rev: '$25,200', exp: '$110,000', net: '($84,800)', cash: '$800,000' },
-  { period: 'Month 18', users: '~13,500', rev: '$37,800', exp: '$150,000', net: '($112,200)', cash: '$460,000' },
+  { period: 'Start',    users: '0',      rev: '$0',      exp: '$40k',    net: '($40k)',   cash: '$1,500k' },
+  { period: 'Month 6',  users: '~100',   rev: '$25k',    exp: '$75k',    net: '($50k)',   cash: '$1,180k' },
+  { period: 'Month 12', users: '~300',   rev: '$75k',    exp: '$110k',   net: '($35k)',   cash: '$970k'   },
+  { period: 'Month 18', users: '~500',   rev: '$185k',   exp: '$150k',   net: '+$35k',    cash: '$800k'   },
 ];
 
+// Base: matches FinancialProjectionsSlide base case (55% penetration)
 const baseFull = [
-  { period: 'Start', users: '0', rev: '$0', exp: '$0', net: '$0', cash: '$1,500,000' },
-  { period: 'Month 3', users: '~900', rev: '$2,500', exp: '$22,500', net: '($20,000)', cash: '$1,440,000' },
-  { period: 'Month 6', users: '~1,800', rev: '$5,000', exp: '$30,000', net: '($25,000)', cash: '$1,360,000' },
-  { period: 'Month 9', users: '~3,500', rev: '$9,800', exp: '$45,000', net: '($35,200)', cash: '$1,250,000' },
-  { period: 'Month 12', users: '~6,600', rev: '$18,500', exp: '$68,000', net: '($49,500)', cash: '$1,080,000' },
-  { period: 'Month 15', users: '~12,500', rev: '$35,000', exp: '$110,000', net: '($75,000)', cash: '$800,000' },
-  { period: 'Month 18', users: '~25,000', rev: '$70,000', exp: '$150,000', net: '($80,000)', cash: '$580,000' },
+  { period: 'Start',    users: '0',      rev: '$0',      exp: '$40k',    net: '($40k)',   cash: '$1,500k' },
+  { period: 'Month 6',  users: '~600',   rev: '$180k',   exp: '$250k',   net: '($70k)',   cash: '$1,100k' },
+  { period: 'Month 12', users: '~1,150', rev: '$900k',   exp: '$820k',   net: '+$80k',    cash: '$1,500k' },
+  { period: 'Month 18', users: '~1,400', rev: '$1.35M',  exp: '$1.09M',  net: '+$260k',   cash: '$2,400k' },
 ];
 
-const optimisticFull = [
-  { period: 'Start', users: '500', rev: '$0', exp: '$0', net: '$0', cash: '$1,500,000' },
-  { period: 'Month 3', users: '~1,200', rev: '$3,300', exp: '$30,000', net: '($26,700)', cash: '$1,420,000' },
-  { period: 'Month 6', users: '~2,800', rev: '$7,800', exp: '$35,000', net: '($27,200)', cash: '$1,330,000' },
-  { period: 'Month 9', users: '~6,000', rev: '$16,800', exp: '$55,000', net: '($38,200)', cash: '$1,200,000' },
-  { period: 'Month 12', users: '~12,500', rev: '$35,000', exp: '$45,000', net: '($10,000)', cash: '$1,080,000' },
-  { period: 'Month 15', users: '~25,000', rev: '$70,000', exp: '$75,000', net: '($5,000)', cash: '$950,000' },
-  { period: 'Month 18', users: '~50,000', rev: '$140,000', exp: '$120,000', net: '+$20,000', cash: '$850,000' },
+// Upside: matches FinancialProjectionsSlide headline case (80% penetration)
+const upsideFull = [
+  { period: 'Start',    users: '0',      rev: '$0',      exp: '$40k',    net: '($40k)',   cash: '$1,500k' },
+  { period: 'Month 6',  users: '~700',   rev: '$260k',   exp: '$320k',   net: '($60k)',   cash: '$1,100k' },
+  { period: 'Month 12', users: '~1,400', rev: '$1.5M',   exp: '$1.08M',  net: '+$420k',   cash: '$2,800k' },
+  { period: 'Month 18', users: '~1,700', rev: '$2.33M',  exp: '$1.48M',  net: '+$850k',   cash: '$6,900k' },
 ];
 
 function pickRows(full) {
@@ -53,27 +47,27 @@ const scenarios = [
     kicker: 'Scenario B',
     title: 'Conservative',
     accent: 'from-[#9B4DCA]/90 to-[#64109A]/80',
-    subtitle: 'Higher churn (15%) + higher blended CAC ($25)',
+    subtitle: 'Single-agency ramp · SaaS-led · ~500 connected creators at M18',
     rows: pickRows(conservativeFull),
-    note: '~$460k cash at Month 18.',
+    note: '~$800k cash at M18. Altyr Pro SaaS is profitable standalone; platform upside is additive.',
   },
   {
     key: 'a',
     kicker: 'Scenario A',
     title: 'Base',
     accent: 'from-[#AC0064]/90 to-[#9B4DCA]/80',
-    subtitle: 'Base growth toward Series A milestones',
+    subtitle: 'Multi-agency expansion · 55% whale→Altyr penetration · ~1,400 creators at M18',
     rows: pickRows(baseFull),
-    note: '~$580k cash at Month 18; ~25k MAU, ~$70k net monthly rev.',
+    note: '~$2.4M cash at M18; cash-flow positive ~M10. Matches base-case financial model.',
   },
   {
     key: 'c',
     kicker: 'Scenario C',
-    title: 'Optimistic',
+    title: 'Upside',
     accent: 'from-[#64109A]/90 to-[#AC0064]/70',
-    subtitle: 'Lower CAC ($10) + viral loops + ~30% CMGR',
-    rows: pickRows(optimisticFull),
-    note: '~$850k cash at Month 18; profitability by tail.',
+    subtitle: 'Rapid agency ramp · 80% whale→Altyr penetration · ~1,700 creators at M18',
+    rows: pickRows(upsideFull),
+    note: '~$6.9M cash at M18; cash-flow positive ~M8. Matches headline financial model.',
   },
 ];
 
@@ -116,7 +110,7 @@ export default function RunwayScenariosSlide() {
             </span>
           </h2>
           <p className="text-xs md:text-sm text-white/50 font-light max-w-2xl mx-auto">
-            Key checkpoints (Start, Month 6, 12, 18). Full month-by-month tables available in the model.
+            Key checkpoints (Start, M6, M12, M18) across three B2B agency-ramp scenarios. Revenue = SaaS + platform commission. Full monthly model available on request.
           </p>
         </motion.div>
 

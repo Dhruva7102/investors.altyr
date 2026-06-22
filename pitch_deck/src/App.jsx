@@ -36,8 +36,8 @@ const slides = [
   AltyrInsightSlide,
   ProblemSlide2,
   AltyrSolutionSlide,
-  GoToMarketSlide,
   MarketSlide,
+  GoToMarketSlide,
   TractionSlide,
   // Numbers
   UnitEconomicsSlide,
