@@ -114,8 +114,8 @@ export default function MarketSlide() {
           transition={{ duration: 0.8, delay: 0.25 }}
         >
           <p className="text-sm text-white/55 font-light text-center leading-relaxed">
-            <span className="text-white/80 font-medium">No purpose-built alternative exists.</span>{' '}
-            The closest tools agencies use today — Telegram bots, Notion databases, custom spreadsheets — were built for entirely different problems. No software company has built an agency OS specifically for the OF ecosystem.
+            <span className="text-white/80 font-medium">Early-stage competitors exist but fall short.</span>{' '}
+            Tools like Infloww offer basic CRM functionality, but are more expensive, slower, and lack the depth agencies need to manage chatters, coach at scale, and surface high-value fans. Altyr Pro is purpose-built for the full agency operating stack — not a lightweight add-on.
           </p>
         </motion.div>
 
