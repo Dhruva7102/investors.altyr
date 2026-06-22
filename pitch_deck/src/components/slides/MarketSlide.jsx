@@ -92,6 +92,20 @@ export default function MarketSlide() {
           </p>
         </motion.div>
 
+        {/* TAM snapshot */}
+        <motion.div
+          className="text-center mb-6"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+        >
+          <p className="text-sm text-white/45 font-light">
+            Rough addressable SaaS revenue: <span className="text-white/70">~15–20 agencies × 150+ creators × $250/mo</span>
+            {' '}≈ <span className="text-white/80 font-medium">$7–9M/yr</span> — before any platform commission.
+            Platform GMV commission scales on top as whale spend migrates.
+          </p>
+        </motion.div>
+
         {/* Competitive context */}
         <motion.div
           className="max-w-4xl mx-auto mb-6 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]"

@@ -7,10 +7,10 @@ const team = [
     name: 'Dhruva Kolikineni',
     role: 'Chief Executive Officer',
     bullets: [
-      'Graduated Magna Cum Laude, UCSD Machine Learning / AI in 2 years',
-      'Ran AI infra consulting firm with multiple six-figure Fortune 500 contracts',
+      'Built AI infra at scale — multiple six-figure contracts with Fortune 500 clients',
       'Ex-founder, Berkeley SkyDeck 2021 batch',
-      'Full-stack developer',
+      'Full-stack developer; built every layer of Altyr Pro',
+      'UCSD ML/AI, Magna Cum Laude',
     ],
     photo: '/team/dhruva.jpg',
     photoStyle: { objectPosition: 'center left', transform: 'scale(1.3)' },

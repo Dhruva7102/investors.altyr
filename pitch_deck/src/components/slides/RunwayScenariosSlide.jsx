@@ -25,7 +25,7 @@ const conservativeFull = [
 const baseFull = [
   { period: 'Start',    users: '0',      rev: '$0',      exp: '$40k',    net: '($40k)',   cash: '$1,500k' },
   { period: 'Month 6',  users: '~600',   rev: '$180k',   exp: '$250k',   net: '($70k)',   cash: '$1,100k' },
-  { period: 'Month 12', users: '~1,150', rev: '$900k',   exp: '$820k',   net: '+$80k',    cash: '$1,500k' },
+  { period: 'Month 12', users: '~1,150', rev: '$900k',   exp: '$820k',   net: '+$80k',    cash: '$1,100k' },
   { period: 'Month 18', users: '~1,400', rev: '$1.35M',  exp: '$1.09M',  net: '+$260k',   cash: '$2,400k' },
 ];
 
@@ -59,8 +59,7 @@ const scenarios = [
     subtitle: 'Multi-agency expansion · 55% whale→Altyr penetration · ~1,400 creators at M18',
     rows: pickRows(baseFull),
     note: '~$2.4M cash at M18; cash-flow positive ~M10. Matches base-case financial model.',
-  },
-  {
+  },  {
     key: 'c',
     kicker: 'Scenario C',
     title: 'Upside',

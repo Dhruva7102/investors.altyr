@@ -52,7 +52,7 @@ export default function RevenueConcentrationSlide() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
                 ~4.2%
               </span>
-              <span className="text-white/60"> of OnlyFans subscribers pay for content</span>
+              <span className="text-white/60"> of OnlyFans followers ever convert to paying subscribers</span>
             </div>
             <div className="text-3xl md:text-4xl font-extralight text-white/90 mb-2 leading-snug max-w-4xl mx-auto">
               <span className="text-white/60">The top </span>

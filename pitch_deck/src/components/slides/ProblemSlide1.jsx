@@ -69,7 +69,8 @@ export default function ProblemSlide1() {
             />
           </div>
           <p className="text-xs text-white/40 font-light italic mt-1">
-            * paid to creators annually — the top of it run by agencies on tooling that doesn&apos;t exist as software
+            * paid to creators on OnlyFans annually — the top of it run by agencies on tooling that doesn&apos;t exist as software
+            <span className="ml-1 not-italic">(OnlyFans, 2023)</span>
           </p>
         </motion.div>
 
