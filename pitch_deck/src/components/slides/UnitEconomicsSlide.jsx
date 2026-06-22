@@ -16,7 +16,7 @@ const metrics = [
     title: 'Platform Commission',
     value: '$1,248',
     subtitle: 'per connected creator/mo',
-    description: '20% of ~$7,800/mo whale GMV at 80% penetration',
+    description: '20% of ~$7,800/mo whale GMV at 80% penetration (60% of $13k avg agency creator rev)',
     color: '#FF8C42'
   },
   {
@@ -149,6 +149,9 @@ export default function UnitEconomicsSlide() {
               <div className="mt-4 pt-3 border-t border-white/[0.08]">
                 <p className="text-[11px] text-white/50 font-light text-center leading-relaxed">
                   $250 + ($7,800 × 80% × 20%) = <span className="text-white/80">$1,498/creator/mo</span>
+                </p>
+                <p className="text-[10px] text-white/35 font-light text-center leading-relaxed mt-2">
+                  * $7,800 = 60% of ~$13k avg monthly creator GMV with an agency. Whales account for ~60% of creator revenue on the conservative end.
                 </p>
               </div>
             </div>
