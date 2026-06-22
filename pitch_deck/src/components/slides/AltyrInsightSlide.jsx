@@ -15,7 +15,7 @@ const steps = [
     label: 'Step 2 — Data',
     title: 'See every fan relationship',
     description:
-      'Running operations means we see who the whales are, which relationships drive revenue, and where the spend concentrates — data no one else has.',
+      'Running operations means we see who the whales are, which relationships drive revenue, and where the spend concentrates — and we\'re the only tool that turns that data into actionable coaching and a monetization layer in one place.',
   },
   {
     icon: Gem,
