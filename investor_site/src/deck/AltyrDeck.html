@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<title>Altyr — Investor Deck</title>
+<meta name="theme-color" content="#000000" />
+<meta name="description" content="Altyr — the operating system for creator agencies, and the platform they graduate to." />
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   ALTYR DESIGN SYSTEM — "Obsidian Clarity" (v1.0)
+   Tokens & component recipes ported verbatim from
+   altyr-pro-app/styles/altyr-design-system.css
+   ═══════════════════════════════════════════════════════════════════ */
+:root{
+  --altyr-canvas:#000000;
+  --altyr-canvas-wash:radial-gradient(130% 70% at 50% 0%, rgba(52,52,56,0.28) 0%, transparent 55%);
+
+  --altyr-surface-bg:rgba(255,255,255,0.04);
+  --altyr-surface-bg-hover:rgba(255,255,255,0.06);
+  --altyr-surface-bg-active:rgba(255,255,255,0.08);
+  --altyr-surface-border:rgba(255,255,255,0.09);
+  --altyr-surface-border-soft:rgba(255,255,255,0.06);
+  --altyr-surface-inset-bg:rgba(0,0,0,0.28);
+  --altyr-surface-inset-border:rgba(255,255,255,0.05);
+
+  --altyr-elev-highlight:inset 0 1px 0 rgba(255,255,255,0.05);
+  --altyr-elev-lip:0 1px 0 rgba(0,0,0,0.3);
+  --altyr-elev-drop:0 14px 34px -22px rgba(0,0,0,0.8);
+  --altyr-elev:var(--altyr-elev-highlight),var(--altyr-elev-lip),var(--altyr-elev-drop);
+  --altyr-elev-hover-drop:0 20px 48px -22px rgba(0,0,0,0.85);
+  --altyr-elev-hover:var(--altyr-elev-highlight),var(--altyr-elev-lip),var(--altyr-elev-hover-drop);
+
+  --altyr-text-1:#e8eaef;
+  --altyr-text-2:rgba(214,216,221,0.65);
+  --altyr-text-3:rgba(214,216,221,0.45);
+  --altyr-text-placeholder:rgba(214,216,221,0.3);
+
+  --altyr-rose:#c0387a;
+  --altyr-amber:#e08a38;
+  --altyr-rose-fill:rgba(192,56,122,0.08);
+  --altyr-amber-fill:rgba(224,138,56,0.08);
+  --altyr-rose-border:rgba(192,56,122,0.40);
+  --altyr-amber-border:rgba(224,138,56,0.35);
+  --altyr-rose-glow:rgba(192,56,122,0.45);
+  --altyr-amber-glow:rgba(224,138,56,0.25);
+  --altyr-accent-gradient:linear-gradient(90deg,#c0387a 0%,#e08a38 100%);
+  --altyr-platinum-gradient:linear-gradient(180deg,#ffffff 0%,#c9ccd2 60%,#7b7e85 100%);
+
+  --altyr-tier-diamond:#e8eaef;
+  --altyr-tier-platinum:#c5c7cc;
+  --altyr-tier-gold:#c9a961;
+
+  --altyr-border:rgba(255,255,255,0.09);
+  --altyr-border-soft:rgba(255,255,255,0.06);
+  --altyr-border-faint:rgba(255,255,255,0.03);
+
+  --altyr-font-display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --altyr-font-text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+
+  --altyr-track-numeric:-0.03em;
+  --altyr-track-tight:-0.005em;
+  --altyr-track-eyebrow:0.24em;
+  --altyr-track-pill:0.1em;
+
+  --altyr-1:4px;--altyr-2:8px;--altyr-3:12px;--altyr-4:16px;--altyr-5:20px;--altyr-6:24px;
+  --altyr-8:32px;--altyr-10:40px;--altyr-12:48px;--altyr-16:64px;
+
+  --altyr-r-sm:8px;--altyr-r-md:12px;--altyr-r-lg:18px;--altyr-r-xl:22px;--altyr-r-pill:999px;
+
+  --altyr-ease:cubic-bezier(0.32,0.72,0.24,1);
+  --altyr-dur-fast:120ms;--altyr-dur:220ms;--altyr-dur-slow:360ms;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;background:#000;overflow:hidden;}
+body{
+  font-family:var(--altyr-font-text);
+  color:var(--altyr-text-1);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.altyr-page{position:fixed;inset:0;background:var(--altyr-canvas);isolation:isolate;}
+.altyr-page::before{content:'';position:fixed;inset:0;background:var(--altyr-canvas-wash);pointer-events:none;z-index:0;}
+
+/* ── Typography helpers ─────────────────────────────────────────── */
+.altyr-numeric{font-family:var(--altyr-font-display);font-weight:200;letter-spacing:var(--altyr-track-numeric);line-height:.95;color:transparent;background:var(--altyr-platinum-gradient);-webkit-background-clip:text;background-clip:text;margin:0;}
+.altyr-eyebrow{font-family:var(--altyr-font-text);font-size:.66rem;font-weight:400;letter-spacing:var(--altyr-track-eyebrow);text-transform:uppercase;color:var(--altyr-text-3);margin:0;}
+.altyr-display{font-family:var(--altyr-font-display);font-weight:300;letter-spacing:var(--altyr-track-tight);line-height:1.08;color:var(--altyr-text-1);margin:0;}
+.altyr-body{font-family:var(--altyr-font-text);font-weight:300;letter-spacing:var(--altyr-track-tight);line-height:1.55;color:rgba(232,234,239,0.82);margin:0;}
+.altyr-sub{font-family:var(--altyr-font-text);font-size:.78rem;font-weight:300;color:var(--altyr-text-3);}
+.rose{color:var(--altyr-rose);}
+.amber{color:var(--altyr-amber);}
+.t2{color:var(--altyr-text-2);}
+.t3{color:var(--altyr-text-3);}
+
+/* ── Surfaces ───────────────────────────────────────────────────── */
+.altyr-surface{background:var(--altyr-surface-bg);border:1px solid var(--altyr-surface-border);border-radius:var(--altyr-r-lg);box-shadow:var(--altyr-elev);padding:var(--altyr-5) var(--altyr-6);}
+.altyr-surface-inset{background:var(--altyr-surface-inset-bg);border:1px solid var(--altyr-surface-inset-border);border-radius:var(--altyr-r-md);padding:var(--altyr-4);}
+.altyr-chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:var(--altyr-r-pill);border:1px solid var(--altyr-border);background:rgba(255,255,255,0.03);font-size:.68rem;font-weight:400;color:var(--altyr-text-2);white-space:nowrap;}
+.altyr-chip-rose{border-color:var(--altyr-rose-border);background:var(--altyr-rose-fill);color:var(--altyr-rose);}
+.altyr-chip-amber{border-color:var(--altyr-amber-border);background:var(--altyr-amber-fill);color:var(--altyr-amber);font-weight:500;}
+.altyr-progress{height:2px;background:rgba(255,255,255,0.06);border-radius:2px;overflow:hidden;}
+.altyr-progress-fill{height:100%;background:var(--altyr-accent-gradient);box-shadow:0 0 8px rgba(192,56,122,0.45);}
+.divider{height:1px;background:var(--altyr-border);}
+.divider-soft{height:1px;background:var(--altyr-border-soft);}
+
+/* ═══════════════════════════════════════════════════════════════════
+   DECK LAYER
+   ═══════════════════════════════════════════════════════════════════ */
+.deck{position:fixed;inset:0;z-index:1;}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:clamp(28px,5vh,64px) clamp(24px,6vw,96px) clamp(70px,9vh,110px);
+  opacity:0;pointer-events:none;visibility:hidden;
+  transform:translateY(10px) scale(0.994);
+  transition:opacity var(--altyr-dur) var(--altyr-ease),transform var(--altyr-dur-slow) var(--altyr-ease),visibility 0s linear var(--altyr-dur);
+  overflow:hidden;
+}
+.slide.active{opacity:1;pointer-events:auto;visibility:visible;transform:none;transition:opacity var(--altyr-dur-slow) var(--altyr-ease),transform var(--altyr-dur-slow) var(--altyr-ease);}
+.slide-inner{width:100%;max-width:1120px;margin:0 auto;}
+.slide-inner.narrow{max-width:900px;}
+.slide-inner.wide{max-width:1200px;}
+
+/* headings scale */
+.h-hero{font-family:var(--altyr-font-display);font-weight:200;letter-spacing:-0.035em;line-height:0.98;font-size:clamp(3rem,7.5vw,6.4rem);color:transparent;background:var(--altyr-platinum-gradient);-webkit-background-clip:text;background-clip:text;}
+.h-title{font-family:var(--altyr-font-display);font-weight:300;letter-spacing:-0.02em;line-height:1.06;font-size:clamp(1.9rem,4.1vw,3.2rem);color:var(--altyr-text-1);margin:0;}
+.h-sub{font-family:var(--altyr-font-text);font-weight:300;line-height:1.5;font-size:clamp(1rem,1.5vw,1.28rem);color:var(--altyr-text-2);margin:0;}
+.lede{font-size:clamp(.98rem,1.25vw,1.12rem);line-height:1.6;color:var(--altyr-text-2);font-weight:300;}
+.big-metric{font-family:var(--altyr-font-display);font-weight:200;letter-spacing:-0.03em;line-height:.92;font-size:clamp(2.4rem,4.6vw,3.8rem);color:transparent;background:var(--altyr-platinum-gradient);-webkit-background-clip:text;background-clip:text;}
+
+.eyebrow-row{display:flex;align-items:center;gap:14px;margin-bottom:22px;}
+.eyebrow-row .line{height:1px;width:34px;background:var(--altyr-accent-gradient);opacity:.8;}
+
+/* grids */
+.grid{display:grid;gap:var(--altyr-4);}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+.g-5-7{grid-template-columns:5fr 7fr;}
+.g-6-6{grid-template-columns:6fr 6fr;}
+.g-7-5{grid-template-columns:7fr 5fr;}
+@media(max-width:900px){.g2,.g3,.g4,.g-5-7,.g-6-6,.g-7-5{grid-template-columns:1fr;}}
+
+.card{background:var(--altyr-surface-bg);border:1px solid var(--altyr-surface-border);border-radius:var(--altyr-r-lg);box-shadow:var(--altyr-elev);padding:22px 24px;}
+.card h4{font-family:var(--altyr-font-display);font-weight:500;font-size:1.02rem;letter-spacing:-0.01em;margin:0 0 8px;color:var(--altyr-text-1);}
+.card p{margin:0;font-size:.9rem;line-height:1.5;color:var(--altyr-text-2);font-weight:300;}
+.card .ic{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;margin-bottom:14px;background:rgba(255,255,255,0.04);border:1px solid var(--altyr-border);}
+.card .ic svg{width:19px;height:19px;stroke:var(--altyr-text-2);}
+.card.accent .ic{background:var(--altyr-rose-fill);border-color:var(--altyr-rose-border);}
+.card.accent .ic svg{stroke:var(--altyr-rose);}
+.card.accent-a .ic{background:var(--altyr-amber-fill);border-color:var(--altyr-amber-border);}
+.card.accent-a .ic svg{stroke:var(--altyr-amber);}
+
+.stat{padding:20px 22px;}
+.stat .lab{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:10px;}
+.stat .val{font-family:var(--altyr-font-display);font-weight:200;letter-spacing:-.03em;font-size:clamp(1.8rem,3vw,2.5rem);line-height:1;color:transparent;background:var(--altyr-platinum-gradient);-webkit-background-clip:text;background-clip:text;}
+.stat .note{font-size:.78rem;color:var(--altyr-text-3);margin-top:8px;line-height:1.4;font-weight:300;}
+
+ul.clean{list-style:none;margin:0;padding:0;}
+ul.clean li{position:relative;padding-left:20px;margin:9px 0;font-size:.94rem;line-height:1.5;color:var(--altyr-text-2);font-weight:300;}
+ul.clean li::before{content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;background:var(--altyr-accent-gradient);}
+ul.clean li b{color:var(--altyr-text-1);font-weight:500;}
+
+.kick{font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--altyr-text-3);}
+
+/* flywheel */
+.flow{display:flex;align-items:stretch;gap:14px;flex-wrap:wrap;}
+.flow-step{flex:1;min-width:180px;position:relative;}
+.flow-arrow{display:grid;place-items:center;color:var(--altyr-text-3);}
+.flow-arrow svg{width:22px;height:22px;stroke:var(--altyr-rose);}
+@media(max-width:900px){.flow{flex-direction:column;}.flow-arrow{transform:rotate(90deg);}}
+
+/* comparison table */
+table.cmp{width:100%;border-collapse:collapse;font-size:.86rem;}
+table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--altyr-border-soft);}
+table.cmp thead th{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);font-weight:500;}
+table.cmp td{color:var(--altyr-text-2);font-weight:300;}
+table.cmp td.feat{color:var(--altyr-text-1);font-weight:400;}
+table.cmp .yes{color:var(--altyr-rose);}
+table.cmp .no{color:var(--altyr-text-3);}
+table.cmp tr.hl td{background:rgba(192,56,122,0.05);}
+table.cmp tr.hl td.feat{color:#fff;}
+
+/* product mock */
+.mock{background:linear-gradient(160deg,rgba(20,20,22,0.9),rgba(6,6,7,0.95));border:1px solid var(--altyr-border);border-radius:var(--altyr-r-lg);box-shadow:var(--altyr-elev);overflow:hidden;}
+.mock-bar{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--altyr-border-soft);}
+.mock-dot{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,0.12);}
+.mock-body{padding:16px;}
+.row{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;border:1px solid var(--altyr-border-faint);margin-bottom:8px;background:rgba(255,255,255,0.015);}
+.row .av{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#1a1a1c,#0a0a0a);border:1px solid var(--altyr-border);font-size:.62rem;font-weight:600;color:var(--altyr-text-1);flex-shrink:0;}
+.row .nm{font-size:.82rem;color:var(--altyr-text-1);font-weight:400;}
+.row .mt{font-size:.7rem;color:var(--altyr-text-3);}
+
+/* footnote */
+.foot{position:absolute;left:clamp(24px,6vw,96px);bottom:64px;right:clamp(24px,6vw,96px);font-size:.68rem;color:var(--altyr-text-3);font-weight:300;line-height:1.45;}
+.confirm{color:var(--altyr-amber);border-bottom:1px dashed var(--altyr-amber-border);}
+
+/* charts */
+svg.chart{width:100%;height:auto;display:block;overflow:visible;}
+.legend{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;color:var(--altyr-text-2);}
+.legend i{width:11px;height:11px;border-radius:3px;display:inline-block;}
+
+/* ── Deck chrome ────────────────────────────────────────────────── */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:20;height:2px;background:rgba(255,255,255,0.05);}
+.topbar > i{display:block;height:100%;background:var(--altyr-accent-gradient);box-shadow:0 0 10px var(--altyr-rose-glow);width:0;transition:width var(--altyr-dur-slow) var(--altyr-ease);}
+.brandmark{position:fixed;top:20px;left:clamp(24px,6vw,96px);z-index:20;display:flex;align-items:center;gap:9px;}
+.brandmark .word{font-family:var(--altyr-font-display);font-weight:500;letter-spacing:.28em;font-size:.82rem;color:var(--altyr-text-1);}
+.brandmark .pro{font-size:.54rem;letter-spacing:.24em;text-transform:uppercase;color:var(--altyr-text-3);border:1px solid var(--altyr-border);border-radius:5px;padding:2px 5px;}
+.confbadge{position:fixed;top:22px;right:clamp(24px,6vw,96px);z-index:20;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--altyr-text-3);}
+.controls{position:fixed;bottom:26px;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:center;gap:22px;}
+.dots{display:flex;gap:7px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:60vw;}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.18);border:none;padding:0;cursor:pointer;transition:all var(--altyr-dur) var(--altyr-ease);}
+.dot.on{width:22px;border-radius:4px;background:var(--altyr-accent-gradient);box-shadow:0 0 8px var(--altyr-rose-glow);}
+.nav-btn{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:var(--altyr-surface-bg);border:1px solid var(--altyr-border);color:var(--altyr-text-2);cursor:pointer;box-shadow:var(--altyr-elev-highlight);transition:all var(--altyr-dur) var(--altyr-ease);}
+.nav-btn:hover{background:var(--altyr-surface-bg-hover);color:var(--altyr-text-1);border-color:rgba(255,255,255,0.16);}
+.nav-btn svg{width:18px;height:18px;}
+.counter{position:fixed;bottom:30px;right:clamp(24px,6vw,96px);z-index:20;font-size:.74rem;color:var(--altyr-text-3);font-variant-numeric:tabular-nums;letter-spacing:.05em;}
+.hint{position:fixed;bottom:30px;left:clamp(24px,6vw,96px);z-index:20;font-size:.66rem;color:var(--altyr-text-3);letter-spacing:.04em;}
+@media(max-width:760px){.dots{max-width:52vw;}.hint{display:none;}}
+
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;}
+.two-engine{display:flex;gap:10px;align-items:stretch;}
+.eng{flex:1;border-radius:var(--altyr-r-md);padding:16px 18px;border:1px solid var(--altyr-border);}
+.eng.pro{background:var(--altyr-amber-fill);border-color:var(--altyr-amber-border);}
+.eng.core{background:var(--altyr-rose-fill);border-color:var(--altyr-rose-border);}
+.eng .n{font-family:var(--altyr-font-display);font-weight:200;font-size:1.7rem;letter-spacing:-.03em;color:var(--altyr-text-1);}
+</style>
+</head>
+<body>
+<div class="altyr-page">
+
+  <div class="topbar"><i id="topfill"></i></div>
+  <div class="brandmark"><span class="word">ALTYR</span></div>
+  <div class="confbadge">Confidential</div>
+
+  <div class="deck" id="deck">
+
+    <!-- ══════════ 1 · COVER ══════════ -->
+    <section class="slide" data-title="Cover">
+      <div class="slide-inner" style="text-align:center;">
+        <div class="altyr-eyebrow" style="margin-bottom:26px;">Creator monetization infrastructure</div>
+        <div style="width:clamp(240px,36vw,440px);margin:0 auto 28px;">
+          <svg viewBox="0 0 118 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" role="img" aria-label="Altyr">
+            <path d="M22.2129 23.8066H17.8799L15.7383 17.7471H6.375L4.31641 23.8066H0L8.91504 0H13.3643L22.2129 23.8066ZM14.6924 14.5264L11.3887 5.03027C11.2891 4.72038 11.1839 4.22233 11.0732 3.53613H11.0068C10.9072 4.16699 10.7965 4.66504 10.6748 5.03027L7.4043 14.5264H14.6924ZM43.6816 23.8066H30.5V0H34.4512V20.4697H43.6816V23.8066ZM65.3496 3.35352H58.5098V23.8066H54.5586V3.35352H47.7354V0H65.3496V3.35352ZM90.9854 0L83.1826 15.1572V23.8066H79.2314V15.2402L71.6279 0H76.127L80.8086 10.21C80.8639 10.3317 81.0299 10.791 81.3066 11.5879H81.3564C81.4561 11.2337 81.6387 10.7744 81.9043 10.21L86.8018 0H90.9854ZM117.418 23.8066H112.803L109.001 17.4316C108.658 16.8451 108.32 16.347 107.988 15.9375C107.667 15.5169 107.335 15.1738 106.992 14.9082C106.66 14.6426 106.295 14.4489 105.896 14.3271C105.498 14.2054 105.05 14.1445 104.552 14.1445H102.958V23.8066H99.0234V0H106.859C107.977 0 109.007 0.132812 109.947 0.398438C110.888 0.664062 111.707 1.06803 112.404 1.61035C113.102 2.1416 113.644 2.8112 114.031 3.61914C114.43 4.41602 114.629 5.35124 114.629 6.4248C114.629 7.26595 114.502 8.04069 114.247 8.74902C114.004 9.44629 113.649 10.0716 113.185 10.625C112.731 11.1673 112.177 11.6322 111.524 12.0195C110.882 12.4069 110.158 12.7057 109.35 12.916V12.9824C109.781 13.2259 110.158 13.4971 110.479 13.7959C110.799 14.0837 111.104 14.3825 111.392 14.6924C111.679 15.0023 111.962 15.3564 112.238 15.7549C112.526 16.1423 112.841 16.596 113.185 17.1162L117.418 23.8066ZM102.958 3.2041V10.9404H106.245C106.854 10.9404 107.413 10.8464 107.922 10.6582C108.442 10.4701 108.89 10.1989 109.267 9.84473C109.643 9.49056 109.936 9.05892 110.146 8.5498C110.357 8.04069 110.462 7.4707 110.462 6.83984C110.462 5.69987 110.102 4.80892 109.383 4.16699C108.663 3.52507 107.629 3.2041 106.278 3.2041H102.958Z" fill="url(#altyrLogoGrad)"/>
+            <defs>
+              <linearGradient id="altyrLogoGrad" x1="6.16315" y1="23.3161" x2="76.3086" y2="66.4533" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#A74FAE"/>
+                <stop offset="0.540815" stop-color="#E25930"/>
+                <stop offset="1" stop-color="#FC863E"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <p class="h-sub" style="max-width:760px;margin:0 auto 14px;">The operating system creator agencies run on today —<br/>and the platform they graduate to tomorrow.</p>
+        <div class="pillrow" style="justify-content:center;margin:30px 0 34px;">
+          <span class="altyr-chip altyr-chip-amber">Altyr Pro · live &amp; revenue-generating</span>
+          <span class="altyr-chip altyr-chip-rose">Altyr Core · the destination platform</span>
+        </div>
+        <div class="divider-soft" style="max-width:320px;margin:0 auto 22px;"></div>
+        <p class="altyr-sub">Raising <b style="color:var(--altyr-text-1);font-weight:500;">$1,500,000</b> · SAFE · Pre-seed &nbsp;·&nbsp; July 2026</p>
+        <p class="altyr-sub" style="margin-top:12px;font-size:.66rem;color:var(--altyr-text-3);">For discussion purposes only — not an offer of securities.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 2 · MARKET ══════════ -->
+    <section class="slide" data-title="Market">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The category</span></div>
+        <h2 class="h-title" style="max-width:960px;margin-bottom:14px;">A multi-billion-dollar category, still running on first-generation infrastructure.</h2>
+        <p class="lede" style="max-width:850px;margin-bottom:30px;">Creator subscription platforms are large, high-margin, and compounding — yet the tooling around them stopped at uploads, subscriptions, and tips. The businesses on top have professionalized. The infrastructure under them has not.</p>
+        <div class="grid g4" style="gap:14px;">
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Gross payments · FY24</div><div class="val">$7.2B</div><div class="note">OnlyFans gross payments, up 9% year over year.</div></div></div>
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Net revenue · FY24</div><div class="val">$1.41B</div><div class="note">Platform net revenue (+8%) — a ~20% take rate.</div></div></div>
+          <div class="card accent"><div class="stat" style="padding:0;"><div class="lab">Pre-tax profit · FY24</div><div class="val">$684M</div><div class="note">Audited pre-tax profit, up 4% — a real, profitable category.</div></div></div>
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">To creators since 2016</div><div class="val">$25B</div><div class="note">Cumulative creator payouts on the leading platform alone.</div></div></div>
+        </div>
+        <p class="altyr-sub" style="margin-top:24px;max-width:870px;">The revenue is real and the margins are structural. What's missing is the layer every other creator economy already treats as table stakes: analytics, CRM, automation, and monetization design.</p>
+        <p class="foot">Source: OnlyFans / Fenix International FY2024 results; $25B cumulative creator payouts per OnlyFans (2025).</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 3 · PROBLEM ══════════ -->
+    <section class="slide" data-title="Problem">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The problem</span></div>
+        <h2 class="h-title" style="max-width:960px;margin-bottom:14px;">Agencies now run creators like real businesses. Their tools were built for one person.</h2>
+        <p class="lede" style="max-width:860px;margin-bottom:30px;">A modern agency runs a chatter team across dozens of creator accounts. OnlyFans' native dashboard has no concept of an agency, a team, or a roster — so operators stitch together logins, spreadsheets, and guesswork. That's not a competitor to build against; it's an absence to fill.</p>
+        <div class="grid g3">
+          <div class="card accent"><div class="ic">${ICON_inbox}</div><h4>No shared operating layer</h4><p>No cross-account inbox, no team roles, no permissions for who can see or do what across a roster.</p></div>
+          <div class="card accent"><div class="ic">${ICON_gauge}</div><h4>No quality or accountability</h4><p>No chatter QA, no coaching, no response-time SLAs. Team performance is a vibe, not a managed metric.</p></div>
+          <div class="card accent"><div class="ic">${ICON_eye}</div><h4>Flying blind on revenue</h4><p>No fan segmentation, no lifecycle automation, no reusable scripts. The money leaks where nobody's looking.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ · WHY NOW ══════════ -->
+    <section class="slide" data-title="Why now">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Why now</span></div>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:14px;">The window is open — and it closes as the category matures.</h2>
+        <p class="lede" style="max-width:860px;margin-bottom:30px;">Three shifts make this the moment to build the operating layer and the platform underneath it.</p>
+        <div class="grid g3">
+          <div class="card accent"><div class="ic">${ICON_users}</div><h4>Agencies have professionalized</h4><p>Side-hustles are now real businesses running chatter teams across dozens of accounts — and they're actively shopping for an operating system.</p></div>
+          <div class="card accent-a"><div class="ic">${ICON_dollar}</div><h4>Incumbents are complacent &amp; misaligned</h4><p>The category leaders are chat-only and bill against a creator's gross earnings — even at $0. A wider, aligned cockpit is open whitespace.</p></div>
+          <div class="card accent"><div class="ic">${ICON_spark}</div><h4>AI &amp; the aggregator model are proven</h4><p>AI finally makes the quality and automation layer real, and our live Fansly integration proves the aggregator wedge isn't OnlyFans-specific.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 4 · THESIS ══════════ -->
+    <section class="slide" data-title="Thesis">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The thesis</span></div>
+        <h2 class="h-title" style="max-width:1000px;margin-bottom:22px;">Two products. One company. A wedge no competitor can copy.</h2>
+        <div class="grid g-6-6" style="align-items:stretch;gap:18px;">
+          <div class="card accent-a" style="display:flex;flex-direction:column;">
+            <span class="altyr-chip altyr-chip-amber" style="align-self:flex-start;margin-bottom:14px;">Today</span>
+            <h4 style="font-size:1.25rem;">Altyr Pro — the management layer</h4>
+            <p style="margin-top:8px;">The cockpit agencies use to run their business <b style="color:var(--altyr-text-1)">on top of OnlyFans</b>, via a near-real-time API integration. Zero switching cost. Live and generating revenue now.</p>
+          </div>
+          <div class="card accent" style="display:flex;flex-direction:column;">
+            <span class="altyr-chip altyr-chip-rose" style="align-self:flex-start;margin-bottom:14px;">Tomorrow</span>
+            <h4 style="font-size:1.25rem;">Altyr Core — the destination</h4>
+            <p style="margin-top:8px;">Our own creator platform — proprietary auth, chat, livestream, and payments. Where the durable, platform-take-rate economics live.</p>
+          </div>
+        </div>
+        <div class="altyr-surface" style="margin-top:22px;border-color:var(--altyr-rose-border);background:var(--altyr-rose-fill);">
+          <p class="altyr-body" style="font-size:1.18rem;font-weight:300;color:var(--altyr-text-1);text-align:center;">“We don't win agencies away from OnlyFans cold — <span class="rose">we already have them, using their own data, before we ever ask them to switch.</span>”</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 5 · PRO PRODUCT ══════════ -->
+    <section class="slide" data-title="Altyr Pro">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Altyr Pro · the agency cockpit</span></div>
+        <div class="grid g-5-7" style="gap:34px;align-items:center;">
+          <div>
+            <h2 class="h-title" style="margin-bottom:16px;">One pane of glass for the whole roster.</h2>
+            <p class="lede" style="margin-bottom:18px;">Chatters work a single real-time inbox across every creator account, powered by webhook-driven updates with a reconciliation backstop. Everything an agency does in a day lives in one system.</p>
+            <ul class="clean">
+              <li><b>Unified real-time inbox</b> across every creator account</li>
+              <li><b>Mass messaging</b> with delivery/read analytics &amp; auto-unsend</li>
+              <li><b>Vault</b> — nested folders, bulk upload, DRM-aware playback</li>
+              <li><b>“/” scripts</b> — reusable canned messages, RBAC-gated</li>
+              <li><b>Wall scheduler</b> — queue posts &amp; PPV, cron live in production</li>
+              <li><b>Fan lifecycle segmentation</b> — active, at-risk, lapsing, lapsed</li>
+            </ul>
+          </div>
+          <div class="mock">
+            <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span style="margin-left:10px;font-size:.72rem;color:var(--altyr-text-3);">Altyr Pro · Unified Inbox</span></div>
+            <div class="mock-body">
+              <div class="row"><div class="av">JK</div><div style="flex:1;"><div class="nm">Jordan K. <span class="altyr-chip altyr-chip-rose" style="margin-left:6px;">Superfan</span></div><div class="mt">Tip · $50 · high intent · 2m ago</div></div><div class="mt">$2.4k LTV</div></div>
+              <div class="row"><div class="av">MR</div><div style="flex:1;"><div class="nm">Mia R. <span class="altyr-chip" style="margin-left:6px;">VIP</span></div><div class="mt">Unlocked PPV bundle · yesterday</div></div><div class="mt">$890 LTV</div></div>
+              <div class="row"><div class="av">SK</div><div style="flex:1;"><div class="nm">Sasha K.</div><div class="mt">Renewal · at-risk · 4d ago</div></div><div class="mt">$310 LTV</div></div>
+              <div class="altyr-surface-inset" style="margin-top:12px;display:flex;align-items:center;gap:10px;">
+                <span class="altyr-chip altyr-chip-amber">AI</span>
+                <span style="font-size:.78rem;color:var(--altyr-text-2);">Suggested: early access offer to top-10% spender — peak engagement window.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 6 · PRO QUALITY LAYER ══════════ -->
+    <section class="slide" data-title="Quality layer">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The layer no competitor has</span></div>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:14px;">We manage the team, not just the messages.</h2>
+        <p class="lede" style="max-width:840px;margin-bottom:28px;">Every pure chat tool optimizes throughput. Altyr Pro adds the management layer agencies actually lose sleep over — quality, accountability, and coaching — with no equivalent in native OnlyFans or the incumbent CRMs.</p>
+        <div class="grid g3">
+          <div class="card accent"><div class="ic">${ICON_award}</div><h4>Chatter Audit &amp; Feedback</h4><p>AI scores every chat shift out of 100 against a per-creator knowledge base — a real coaching &amp; QA loop, gated by a report-card acknowledgement before the next shift.</p></div>
+          <div class="card accent"><div class="ic">${ICON_clock}</div><h4>Response-SLA monitoring</h4><p>Configurable warn/breach thresholds turn response speed from a feeling into a managed, enforced metric.</p></div>
+          <div class="card accent"><div class="ic">${ICON_layers}</div><h4>Lifecycle segmentation</h4><p>Raw subscription events become a real state machine agencies can build automation and messaging around.</p></div>
+        </div>
+        <div class="altyr-surface" style="margin-top:20px;display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+          <div><div class="kick" style="margin-bottom:6px;">Also shipped &amp; live</div><div class="pillrow"><span class="altyr-chip">Weekly AI stats digest</span><span class="altyr-chip">Consent-aware tagging</span><span class="altyr-chip">Data-driven RBAC</span><span class="altyr-chip">Admin / ops console</span><span class="altyr-chip">Guided onboarding tours</span><span class="altyr-chip">Web push notifications</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 8 · CORE ══════════ -->
+    <section class="slide" data-title="Altyr Core">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Altyr Core · the destination</span></div>
+        <div class="grid g-7-5" style="gap:34px;align-items:center;">
+          <div>
+            <h2 class="h-title" style="margin-bottom:16px;">We don't monetize access. <span class="rose">We monetize engagement.</span></h2>
+            <p class="lede" style="margin-bottom:18px;">Core is our own platform — proprietary auth, chat, livestream, and payments — built around the one thing OnlyFans leaves on the table: the depth of the fan relationship. Game-grade monetization mechanics and business-grade tooling, in one destination.</p>
+            <ul class="clean">
+              <li><b>Fan CRM</b> — relationship intelligence &amp; next-best-action</li>
+              <li><b>Progression &amp; rewards</b> — XP, tiers, streaks fans feel</li>
+              <li><b>Loyalty tiers</b> — Gold · Platinum · Diamond membership</li>
+              <li><b>Proprietary payments</b> — the platform take-rate lives here</li>
+            </ul>
+          </div>
+          <div class="mock">
+            <div class="mock-bar"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span><span style="margin-left:10px;font-size:.72rem;color:var(--altyr-text-3);">Altyr Core · Fan rewards</span></div>
+            <div class="mock-body">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+                <div style="width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#1a1a1c,#0a0a0a);border:1px solid var(--altyr-rose-border);font-family:var(--altyr-font-display);font-weight:200;font-size:1.5rem;color:var(--altyr-text-1);">7</div>
+                <div style="flex:1;"><div class="nm">Level 7 · <span class="amber">Patron</span></div><div class="mt" style="margin:6px 0 4px;">2,840 / 4,000 XP · 12-day streak</div><div class="altyr-progress"><div class="altyr-progress-fill" style="width:71%;"></div></div></div>
+              </div>
+              <div style="display:flex;gap:8px;">
+                <div class="altyr-surface-inset" style="flex:1;text-align:center;"><div class="amber" style="font-weight:600;font-size:.82rem;">+40 XP</div><div class="mt">Tip / unlock</div></div>
+                <div class="altyr-surface-inset" style="flex:1;text-align:center;"><div class="amber" style="font-weight:600;font-size:.82rem;">+25 XP</div><div class="mt">Watch live</div></div>
+                <div class="altyr-surface-inset" style="flex:1;text-align:center;"><div class="amber" style="font-weight:600;font-size:.82rem;">+15 XP</div><div class="mt">DM reply</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 9 · WHALE ECONOMICS ══════════ -->
+    <section class="slide" data-title="Whale economics">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Why Core is where the money is</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:14px;">Revenue concentrates in relationship depth, not transaction volume.</h2>
+        <p class="lede" style="max-width:820px;margin-bottom:28px;">A tiny share of fans drives the overwhelming majority of spend. Capture more of that spend — the “whale” share — onto a platform we own, and the economics change entirely. That migration of whale spend is Core's single most important lever.</p>
+        <div class="grid g3">
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Subscribers who pay</div><div class="val">~4.2%</div><div class="note">Only a fraction of OnlyFans subscribers pay for content at all.</div></div></div>
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Revenue from top 1%</div><div class="val">70%+</div><div class="note">The top 1% of fans drive the overwhelming majority of revenue <span class="t3">(OnlyTraffic, 2026)</span>.</div></div></div>
+          <div class="card accent"><div class="stat" style="padding:0;"><div class="lab">Core commission</div><div class="val">20%</div><div class="note">Platform take on whale GMV migrated onto Core — the durable take-rate line.</div></div></div>
+        </div>
+        <p class="altyr-sub" style="margin-top:24px;max-width:840px;">These fans pay for connection, status, and recognition — exactly what native tooling optimizes away. Core is built to deepen it.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 10 · MOAT / COMPETITION ══════════ -->
+    <section class="slide" data-title="Moat">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The moat</span></div>
+        <h2 class="h-title" style="max-width:1000px;margin-bottom:8px;">Every competitor sells a tool on top of OnlyFans. None of them own the destination.</h2>
+        <p class="lede" style="max-width:900px;margin-bottom:24px;">The moat isn't any single feature inside Pro. It's that Pro and Core are the same company — so the migration mechanic isn't a feature competitors are missing, it's a business model they structurally can't have.</p>
+        <div class="card" style="padding:8px 10px;">
+          <table class="cmp">
+            <thead><tr><th style="width:34%;">Capability</th><th>Infloww</th><th>Supercreator</th><th>CreatorHero</th><th class="yes">Altyr</th></tr></thead>
+            <tbody>
+              <tr><td class="feat">Agency cockpit (inbox, roles, roster)</td><td>Partial</td><td>Partial</td><td>Partial</td><td class="yes">Full</td></tr>
+              <tr><td class="feat">Wall / content scheduler</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">Yes</td></tr>
+              <tr><td class="feat">Chatter QA &amp; SLA enforcement</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">Yes</td></tr>
+              <tr><td class="feat">Enterprise multi-tenancy (RLS + RBAC)</td><td>—</td><td>—</td><td>—</td><td class="yes">Yes</td></tr>
+              <tr class="hl"><td class="feat">Owns a destination platform</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes">Altyr Core</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="altyr-sub" style="margin-top:16px;">Based on public product information, as of July 2026. Infloww is the incumbent to beat (chat-centric); the whitespace is the wider cockpit — and the platform underneath.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 11 · TRACTION ══════════ -->
+    <section class="slide" data-title="Traction">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Traction</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:14px;">This is a live, revenue-generating product — not a prototype.</h2>
+        <p class="lede" style="max-width:840px;margin-bottom:28px;">Altyr Pro has shipped continuously, week over week, for months. It runs real agency operations today on multi-tenant, security-hardened infrastructure.</p>
+        <div class="grid g4" style="gap:14px;">
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Live pilot</div><div class="val">1 agency</div><div class="note">First launch-partner agency running ~70 model accounts in production.</div></div></div>
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Signed LOIs</div><div class="val">3 more</div><div class="note">Additional agencies committed to onboard onto Altyr Pro.</div></div></div>
+          <div class="card accent"><div class="stat" style="padding:0;"><div class="lab">Combined volume</div><div class="val">&gt;$50M</div><div class="note">Annualized gross creator earnings across the live pilot + 3 signed LOIs.</div></div></div>
+          <div class="card"><div class="stat" style="padding:0;"><div class="lab">Cadence &amp; reach</div><div class="val">Weekly</div><div class="note">Months of continuous shipping · OnlyFans live, Fansly in GA (partial parity).</div></div></div>
+        </div>
+        <div class="altyr-surface" style="margin-top:20px;">
+          <div class="kick" style="margin-bottom:10px;">Shipped &amp; live in production</div>
+          <div class="pillrow"><span class="altyr-chip">Real-time inbox</span><span class="altyr-chip">Mass messaging</span><span class="altyr-chip">Vault + bulk upload</span><span class="altyr-chip">Scripts</span><span class="altyr-chip">Wall scheduler</span><span class="altyr-chip">Fan lifecycle</span><span class="altyr-chip">Chatter Audit</span><span class="altyr-chip">SLA monitoring</span><span class="altyr-chip">Stats digest</span><span class="altyr-chip">RBAC</span><span class="altyr-chip">Multi-tenant RLS</span><span class="altyr-chip">Admin console</span><span class="altyr-chip">Guided tours</span></div>
+        </div>
+        <p class="foot">Volume = annualized gross creator earnings across the live pilot + 3 signed LOIs. Per-agency breakdown available for diligence.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 12 · GO-TO-MARKET (consolidated wedge + horizon) ══════════ -->
+    <section class="slide" data-title="Go-to-market">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Go-to-market · the wedge is the growth engine</span></div>
+        <h2 class="h-title" style="max-width:1000px;margin-bottom:12px;">Land the operators. Grow into the platform they can't leave.</h2>
+        <p class="lede" style="max-width:900px;margin-bottom:28px;">A supply-driven marketplace, not a winner-take-all consumer bet — creators bring their own demand. We land agencies at zero switching cost, earn the data and the relationship, then become the destination.</p>
+        <div class="flow">
+          <div class="flow-step card accent-a"><div class="kick" style="margin-bottom:8px;">Land · now</div><h4>Agencies adopt Pro</h4><p>Zero switching cost, zero migration risk. Per-model pricing grows as the agency grows. Live on OnlyFans, with Fansly in GA.</p></div>
+          <div class="flow-arrow">${ICON_arrow}</div>
+          <div class="flow-step card accent"><div class="kick" style="margin-bottom:8px;">Expand · next</div><h4>Core becomes an upgrade</h4><p>Data, trust &amp; the relationship accrue as agencies operate. Founding creators migrate whale spend onto Core — a same-account upgrade, not a cold sale.</p></div>
+          <div class="flow-arrow">${ICON_arrow}</div>
+          <div class="flow-step card"><div class="kick" style="margin-bottom:8px;">Scale · later</div><h4>The category platform</h4><p>Aggregate every creator platform upstream; own the monetization stack downstream. One company, both layers.</p></div>
+        </div>
+        <p class="altyr-sub" style="margin-top:24px;max-width:940px;">The wedge is why this compounds: every agency on Pro is structurally easier to move onto Core — a motion no pure-CRM competitor can run, because none of them own a destination.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 13 · BUSINESS MODEL ══════════ -->
+    <section class="slide" data-title="Business model">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Business model &amp; unit economics</span></div>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:22px;">Two revenue engines that compound on the same customer.</h2>
+        <div class="grid g-6-6" style="gap:30px;align-items:center;">
+          <div>
+            <div class="two-engine" style="margin-bottom:20px;">
+              <div class="eng pro"><div class="kick" style="margin-bottom:6px;">Engine 1 · SaaS</div><div class="n">$250<span style="font-size:.9rem;color:var(--altyr-text-3);"> /model/mo</span></div><div class="altyr-sub" style="margin-top:6px;">List price. Launch partners onboard at <b class="amber">$69</b>/model during the trial.</div></div>
+              <div class="eng core"><div class="kick" style="margin-bottom:6px;">Engine 2 · Take-rate</div><div class="n">20%<span style="font-size:.9rem;color:var(--altyr-text-3);"> whale GMV</span></div><div class="altyr-sub" style="margin-top:6px;">Core commission on high-spender GMV migrated onto the platform.</div></div>
+            </div>
+            <ul class="clean">
+              <li><b>Per-model pricing aligns with the agency's growth</b> — more creators onboarded = more Altyr revenue, not flat seat pricing.</li>
+              <li><b>OFAPI:</b> $299/mo + $15/model → ~$19/model at pilot scale, trending to ~$15 as we grow.</li>
+              <li><b>All-in variable infra ~$46/creator</b> (incl. ~$14 AI/LLM); <b>~67% gross margin at steady state</b>, after processing, infra, moderation &amp; KYC.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kick" style="margin-bottom:6px;">Revenue mix over 18 months · base case</div>
+            <div class="altyr-sub" style="margin-bottom:14px;">Pro SaaS from month 3, Core commission from month 7. Core overtakes as whale penetration ramps.</div>
+            <svg id="chart-mix" class="chart" viewBox="0 0 520 240" preserveAspectRatio="none" aria-label="Stacked revenue mix"></svg>
+            <div class="legend"><span><i style="background:var(--altyr-amber);"></i>Pro SaaS</span><span><i style="background:var(--altyr-rose);"></i>Core commission</span></div>
+          </div>
+        </div>
+        <p class="foot">$250/model is list; launch-partner trial pricing ($69/model) applies only during the initial QA trial and reverts to list at term. The model assumes list pricing from launch (M3), so projected SaaS runs ahead of current trial-rate MRR.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 14 · FINANCIALS ══════════ -->
+    <section class="slide" data-title="Projections">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Financial projections · 18-month model</span></div>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:20px;">The base plan is self-funding on this round. The ceiling is much higher.</h2>
+        <div class="grid g-7-5" style="gap:30px;align-items:center;">
+          <div class="card">
+            <div class="kick" style="margin-bottom:6px;">Total ecosystem revenue · base case ($/mo)</div>
+            <svg id="chart-ramp" class="chart" viewBox="0 0 560 240" aria-label="Revenue ramp"></svg>
+            <div class="altyr-sub" style="margin-top:8px;">Staggered launch (Pro M3, Core M7) → ~$1.0M/mo by month 18 · EBITDA-positive from month 8 · ends with more cash than it started.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px;">
+            <div class="card" style="padding:16px 18px;"><div class="lab" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:6px;">Base — Management case</div><div class="big-metric" style="font-size:2rem;">$12.1M</div><div class="note" style="font-size:.76rem;color:var(--altyr-text-3);margin-top:4px;">ARR run-rate · 10 agencies · ~67% gross margin</div></div>
+            <div class="grid g2" style="gap:12px;">
+              <div class="card" style="padding:14px 16px;"><div class="lab" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:4px;">Upside</div><div class="big-metric" style="font-size:1.5rem;">$22.6M</div><div class="note" style="font-size:.72rem;color:var(--altyr-text-3);">Best · 29% EBITDA</div></div>
+              <div class="card accent" style="padding:14px 16px;"><div class="lab" style="font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:4px;">Ambition</div><div class="big-metric rose" style="font-size:1.5rem;color:var(--altyr-rose);-webkit-text-fill-color:var(--altyr-rose);background:none;">$133M</div><div class="note" style="font-size:.72rem;color:var(--altyr-text-3);">100 agencies · 55% EBITDA</div></div>
+            </div>
+          </div>
+        </div>
+        <p class="foot">Base case is fully funded by this round. The ambition case assumes expansion beyond the ~15–20 agency near-term core — the signed LOI pipeline (&gt;$50M annualized creator volume) and agency-operator advisers are the first proof of that path.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ 15 · THE RAISE ══════════ -->
+    <section class="slide" data-title="The raise">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">The raise · staged</span></div>
+        <h2 class="h-title" style="max-width:1000px;margin-bottom:12px;">Raise to answer the question that drives the valuation — then scale on the answer.</h2>
+        <p class="lede" style="max-width:900px;margin-bottom:24px;">The capital need concentrates in one unproven lever: whale penetration. So Stage 1 is sized to prove it — not to fund the 100-agency plan. Stage 2 gets priced on measured data, not projections.</p>
+        <div class="grid g-6-6" style="gap:18px;align-items:stretch;">
+          <div class="card accent" style="display:flex;flex-direction:column;">
+            <span class="altyr-chip altyr-chip-rose" style="align-self:flex-start;margin-bottom:12px;">Stage 1 · now</span>
+            <div class="big-metric" style="font-size:2.4rem;margin-bottom:6px;">$1.5M</div>
+            <div class="altyr-sub" style="margin-bottom:12px;">SAFE · ~12 months runway at base pace</div>
+            <ul class="clean" style="margin-top:0;">
+              <li>Launch Pro (M3), onboard first 10 agencies, launch Core (M7)</li>
+              <li>Measure real whale penetration in the first cohorts</li>
+              <li>Peak funding need ~$708k @ M9 — buffered</li>
+            </ul>
+          </div>
+          <div class="card" style="display:flex;flex-direction:column;">
+            <span class="altyr-chip altyr-chip-amber" style="align-self:flex-start;margin-bottom:12px;">Stage 2 · on milestones</span>
+            <div class="big-metric" style="font-size:2.4rem;margin-bottom:6px;">$4–6M</div>
+            <div class="altyr-sub" style="margin-bottom:12px;">Priced round · sized to the full plan (~$5.5M)</div>
+            <ul class="clean" style="margin-top:0;">
+              <li>Funds the 100-agency plan &amp; scale-linked team</li>
+              <li>Priced on demonstrated penetration, run-rate, margin &amp; churn</li>
+              <li>Staged dilution ~25–28% vs ~35–45% raising it all cold now</li>
+            </ul>
+          </div>
+        </div>
+        <div class="altyr-surface" style="margin-top:16px;">
+          <div class="kick" style="margin-bottom:10px;">Milestones that gate Stage 2</div>
+          <div class="pillrow"><span class="altyr-chip">Pro GA (M3)</span><span class="altyr-chip">Core live · commission flowing (M7)</span><span class="altyr-chip altyr-chip-amber">≥10 agencies onboarded by M8</span><span class="altyr-chip altyr-chip-amber">3 signed LOIs converted to live</span><span class="altyr-chip altyr-chip-rose">Whale penetration ≥35–40%</span><span class="altyr-chip">Gross margin ≥65%</span><span class="altyr-chip">Agency churn ≤2%/mo</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 16 · USE OF FUNDS ══════════ -->
+    <section class="slide" data-title="Use of funds">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Use of Stage 1 funds · $1.5M</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:26px;">Every dollar buys proof, not overhead.</h2>
+        <div id="uof" class="grid" style="gap:12px;"></div>
+      </div>
+    </section>
+
+    <!-- ══════════ 17 · ENTERPRISE READINESS ══════════ -->
+    <section class="slide" data-title="Enterprise-ready">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Built to grow, not to demo</span></div>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:14px;">Enterprise-grade from the foundation up.</h2>
+        <p class="lede" style="max-width:840px;margin-bottom:26px;">This is infrastructure built to hold real customer financial and PII data at agency scale — proven in production, not aspirational roadmap.</p>
+        <div class="grid g2" style="gap:14px;">
+          <div class="card accent"><div class="ic">${ICON_shield}</div><h4>Proven multi-tenancy</h4><p>Postgres row-level security enforced in production, with verified bidirectional isolation across separate tenants — the live pilot agency and a second onboarded tenant.</p></div>
+          <div class="card accent"><div class="ic">${ICON_lock}</div><h4>Security review, fixes shipped</h4><p>JWT hardening, session revocation, and reverse-proxy trust-hop hardening landed in production from a real internal audit.</p></div>
+          <div class="card accent-a"><div class="ic">${ICON_zap}</div><h4>Resilient real-time pipeline</h4><p>Webhook-driven event stream with a sub-30-minute reconciliation backstop — tolerates transient failures without losing data.</p></div>
+          <div class="card accent-a"><div class="ic">${ICON_layers}</div><h4>Scales in place</h4><p>AWS migration fully defined in Terraform (ECS, RDS, ElastiCache, ALB behind Cloudflare) — from solo-founder sizing to multi-AZ HA by config.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ 18 · TEAM + CLOSE ══════════ -->
+    <section class="slide" data-title="Team">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Team</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:12px;">Built <span class="rose">with</span> the space, not just for it.</h2>
+        <p class="lede" style="max-width:820px;margin-bottom:26px;">Platforms fail when they're built for creators instead of with them. Altyr pairs deep technical execution with real, credible domain relationships.</p>
+        <div class="grid g2" style="gap:16px;">
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1a1a1c,#0a0a0a);border:1px solid var(--altyr-border);display:grid;place-items:center;font-family:var(--altyr-font-display);font-weight:500;color:var(--altyr-text-1);">DK</div>
+              <div><div class="nm" style="font-size:1rem;">Dhruva Kolikineni</div><div class="kick">Founder</div></div>
+            </div>
+            <ul class="clean" style="margin:0;"><li>Magna Cum Laude, UCSD ML/AI — in 2 years</li><li>Ran an AI-infra consulting firm; six-figure Fortune 500 contracts</li><li>Ex-founder, Berkeley SkyDeck 2021 · full-stack developer</li></ul>
+          </div>
+          <div class="card">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+              <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#1a1a1c,#0a0a0a);border:1px solid var(--altyr-rose-border);display:grid;place-items:center;font-family:var(--altyr-font-display);font-weight:500;color:var(--altyr-text-1);">SD</div>
+              <div><div class="nm" style="font-size:1rem;">Solan Dennis</div><div class="kick">Founder</div></div>
+            </div>
+            <ul class="clean" style="margin:0;"><li>Insider credibility as a top-tier creator in the category</li><li>Deep relationships across the largest agencies &amp; studios</li><li>Owns Altyr's creator &amp; agency distribution and domain strategy</li></ul>
+          </div>
+        </div>
+        <div class="altyr-surface" style="margin-top:16px;">
+          <div class="kick" style="margin-bottom:8px;">Advisers &amp; distribution</div>
+          <p class="altyr-body" style="font-size:.96rem;color:var(--altyr-text-2);">Backed by advisers who operate some of the largest agencies in the category — including the largest trans-focused agency — giving Altyr warm, direct distribution into creator rosters from day one.</p>
+        </div>
+        <div class="altyr-surface" style="margin-top:16px;text-align:center;background:var(--altyr-rose-fill);border-color:var(--altyr-rose-border);">
+          <p class="altyr-body" style="color:var(--altyr-text-1);font-size:1.05rem;">Let's build the operating system for the creator economy — <span class="rose">and the platform it graduates to.</span></p>
+          <p class="altyr-sub" style="margin-top:8px;">dhruva@altyr.com &nbsp;·&nbsp; solan@altyr.com &nbsp;·&nbsp; altyr.com &nbsp;·&nbsp; demo at dev.altyr.com</p>
+          <p class="altyr-sub" style="margin-top:10px;font-size:.62rem;color:var(--altyr-text-3);">For discussion purposes only · not an offer of securities · Confidential · July 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ APPENDIX · UNIT ECONOMICS ══════════ -->
+    <section class="slide" data-title="Appendix · Unit economics">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Appendix · Unit economics &amp; key assumptions</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:20px;font-size:clamp(1.6rem,3vw,2.3rem);">What the model is built on.</h2>
+        <div class="card" style="padding:8px 10px;">
+          <table class="cmp">
+            <thead><tr><th style="width:34%;">Driver (base case)</th><th>Value</th><th>Basis / note</th></tr></thead>
+            <tbody>
+              <tr><td class="feat">Gross revenue / creator / mo</td><td>$9,000</td><td>Roster average across a ~150-creator agency</td></tr>
+              <tr><td class="feat">Whale share of revenue</td><td>60%</td><td>Share of creator revenue from top spenders</td></tr>
+              <tr class="hl"><td class="feat">Steady-state whale penetration</td><td>55%</td><td>% of whale spend migrating onto Core — the core lever</td></tr>
+              <tr><td class="feat">Core commission</td><td>20%</td><td>Platform take on whale GMV migrated onto Altyr</td></tr>
+              <tr><td class="feat">Altyr Pro SaaS</td><td>$250 / model / mo</td><td>List; launch partners at $69 during trial</td></tr>
+              <tr><td class="feat">OFAPI variable cost</td><td>$299/mo + $15/model</td><td>~$19/model at pilot, trending to ~$15 at scale</td></tr>
+              <tr><td class="feat">Per-creator infra (all-in)</td><td>$46 / mo</td><td>Includes ~$14 AI/LLM + OFAPI per-model; fixed baseline ~$2,322/mo</td></tr>
+              <tr><td class="feat">Gross margin</td><td>~67%</td><td>Steady state (66.4% at M18); higher in early SaaS-only months</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="foot">Staggered launch: Pro month 3, Core month 7 · agency churn 2%/mo. Revenue-per-creator and whale penetration are the key assumptions the pilot is designed to validate.</p>
+      </div>
+    </section>
+
+    <!-- ══════════ APPENDIX · SCENARIOS ══════════ -->
+    <section class="slide" data-title="Appendix · Scenarios">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Appendix · 18-month scenarios &amp; capital</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:20px;font-size:clamp(1.6rem,3vw,2.3rem);">Four cases, one round that survives all of them.</h2>
+        <div class="card" style="padding:8px 10px;">
+          <table class="cmp">
+            <thead><tr><th style="width:24%;">Metric (month 18)</th><th>Worst</th><th>Base</th><th>Best</th><th class="yes">Ambition</th></tr></thead>
+            <tbody>
+              <tr><td class="feat">Agencies (gross)</td><td>6</td><td>10</td><td>13</td><td class="yes">100</td></tr>
+              <tr><td class="feat">Creators on platform</td><td>737</td><td>1,193</td><td>1,554</td><td class="yes">13,141</td></tr>
+              <tr class="hl"><td class="feat">ARR run-rate</td><td>$4.8M</td><td>$12.1M</td><td>$22.6M</td><td class="yes">$133M</td></tr>
+              <tr><td class="feat">EBITDA margin</td><td>−54%</td><td>4%</td><td>29%</td><td class="yes">55%</td></tr>
+              <tr><td class="feat">Solvent on $1.5M?</td><td class="no">No</td><td class="yes">Yes</td><td class="yes">Yes</td><td>Needs Stage 2</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="grid g3" style="margin-top:16px;gap:12px;">
+          <div class="card" style="padding:14px 18px;"><div class="kick" style="margin-bottom:4px;">Base peak funding need</div><div class="big-metric" style="font-size:1.5rem;">$708K</div><div class="note" style="font-size:.74rem;color:var(--altyr-text-3);">at month 9 — covered by the $1.5M round</div></div>
+          <div class="card" style="padding:14px 18px;"><div class="kick" style="margin-bottom:4px;">Full 18-mo plan cost</div><div class="big-metric" style="font-size:1.5rem;">~$5.5M</div><div class="note" style="font-size:.74rem;color:var(--altyr-text-3);">funds ambition + survives downside → Stage 2</div></div>
+          <div class="card" style="padding:14px 18px;"><div class="kick" style="margin-bottom:4px;">Staged dilution</div><div class="big-metric" style="font-size:1.5rem;">~25–28%</div><div class="note" style="font-size:.74rem;color:var(--altyr-text-3);">vs ~35–45% raising it all cold today</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ APPENDIX · COST STRUCTURE ══════════ -->
+    <section class="slide" data-title="Appendix · Cost structure">
+      <div class="slide-inner">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Appendix · Cost structure &amp; headcount</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:22px;font-size:clamp(1.6rem,3vw,2.3rem);">Asset-light, with cost that scales behind revenue.</h2>
+        <div class="grid g2" style="gap:16px;">
+          <div class="card"><div class="kick" style="margin-bottom:12px;">Cost of revenue (COGS)</div>
+            <ul class="clean" style="margin:0;">
+              <li>Payment processing — <b>~5.5%</b> of whale GMV (high-risk MCC)</li>
+              <li>Chargeback / fraud reserve — <b>~1.5%</b> of whale GMV</li>
+              <li>Content moderation — 115 items / creator / mo</li>
+              <li>KYC — $3.70 per new creator (one-time)</li>
+              <li>Infra — $46 / creator / mo + fixed baseline</li>
+            </ul>
+          </div>
+          <div class="card"><div class="kick" style="margin-bottom:12px;">Operating expense &amp; team</div>
+            <ul class="clean" style="margin:0;">
+              <li>Base plan reaches <b>~45 FTE by month 18</b></li>
+              <li>Loaded cost ~1.35× base salary</li>
+              <li>Ambition adds <b>scale-linked people cost</b> that grows with creators (CS, onboarding, risk / T&amp;S)</li>
+              <li>Capex asset-light (~$1,500 / mo)</li>
+              <li>20-day DSO on receivables</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ APPENDIX · RISKS ══════════ -->
+    <section class="slide" data-title="Appendix · Risks">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Appendix · Risks &amp; mitigations</span></div>
+        <h2 class="h-title" style="max-width:900px;margin-bottom:20px;font-size:clamp(1.6rem,3vw,2.3rem);">We're transparent about the challenges.</h2>
+        <div class="grid g3" style="gap:12px;">
+          <div class="card"><h4 style="font-size:.92rem;">Regulatory uncertainty</h4><p style="font-size:.82rem;">Legal &amp; risk advisers from day one; compliance-first, modeled on established platforms.</p></div>
+          <div class="card"><h4 style="font-size:.92rem;">Payments &amp; high-risk MCC</h4><p style="font-size:.82rem;">Partners experienced in high-risk verticals; redundant processors; reserves modeled in.</p></div>
+          <div class="card"><h4 style="font-size:.92rem;">Creator retention &amp; competition</h4><p style="font-size:.82rem;">Deeper tooling &amp; QA competitors can't match; creators co-build the roadmap.</p></div>
+          <div class="card"><h4 style="font-size:.92rem;">Content moderation</h4><p style="font-size:.82rem;">Human + AI review from day one; scaling toward no trade-off on safety.</p></div>
+          <div class="card"><h4 style="font-size:.92rem;">OFAPI vendor dependency</h4><p style="font-size:.82rem;">Single-vendor concentration on the Pro layer — Core removes it; second-source under review.</p></div>
+          <div class="card"><h4 style="font-size:.92rem;">Incumbents copy features</h4><p style="font-size:.82rem;">The edge is the whole package + owning the destination — not any single feature.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════ APPENDIX · PRECEDENT ══════════ -->
+    <section class="slide" data-title="Appendix · Precedent">
+      <div class="slide-inner wide">
+        <div class="eyebrow-row"><span class="line"></span><span class="kick">Appendix · Industry precedent</span></div>
+        <h2 class="h-title" style="max-width:1000px;margin-bottom:14px;font-size:clamp(1.6rem,3vw,2.3rem);">Every platform evolves into a business platform — or gets displaced.</h2>
+        <p class="lede" style="max-width:900px;margin-bottom:26px;">The same pattern across categories: distribution first, then operations, trust, and monetization depth win.</p>
+        <div class="grid g4" style="gap:12px;">
+          <div class="card"><div class="kick" style="margin-bottom:8px;">Listings → marketplace</div><h4 style="font-size:.95rem;">Craigslist → Airbnb</h4><p style="font-size:.8rem;">Design, trust systems &amp; aligned monetization turned hosts into businesses.</p></div>
+          <div class="card"><div class="kick" style="margin-bottom:8px;">Hosting → monetization</div><h4 style="font-size:.95rem;">YouTube</h4><p style="font-size:.8rem;">Analytics, Creator Studio &amp; revenue predictability made creators pros.</p></div>
+          <div class="card accent"><div class="kick" style="margin-bottom:8px;">Entertainment → design</div><h4 style="font-size:.95rem;">Twitch</h4><p style="font-size:.8rem;">Subs, bits, badges &amp; status — the playbook adult platforms never adopted.</p></div>
+          <div class="card"><div class="kick" style="margin-bottom:8px;">Plugins → enablement</div><h4 style="font-size:.95rem;">Shopify</h4><p style="font-size:.8rem;">Dashboards, funnels &amp; automation turned fragmented selling into a platform.</p></div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- controls -->
+  <div class="controls">
+    <button class="nav-btn" id="prev" aria-label="Previous slide">${ICON_chevL}</button>
+    <div class="dots" id="dots"></div>
+    <button class="nav-btn" id="next" aria-label="Next slide">${ICON_chevR}</button>
+  </div>
+  <div class="hint">← → to navigate</div>
+  <div class="counter"><span id="cur">1</span> / <span id="tot">23</span></div>
+
+</div>
+
+<script>
+/* ── icon injection (lucide-style inline SVG) ───────────────────── */
+const ICONS = {
+  inbox:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>',
+  gauge:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>',
+  eye:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>',
+  award:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+  layers:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></svg>',
+  arrow:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>',
+  lock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+  zap:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  trend:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+  spark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3 1.9 5.8a2 2 0 0 0 1.3 1.3L21 12l-5.8 1.9a2 2 0 0 0-1.3 1.3L12 21l-1.9-5.8a2 2 0 0 0-1.3-1.3L3 12l5.8-1.9a2 2 0 0 0 1.3-1.3z"/></svg>',
+  dollar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>',
+  chevL:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>',
+  chevR:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>'
+};
+document.body.innerHTML = document.body.innerHTML.replace(/\$\{ICON_(\w+)\}/g,(m,k)=>ICONS[k]||'');
+
+/* ── use of funds ───────────────────────────────────────────────── */
+(function(){
+  const uof=[
+    {p:30,a:'$450,000',t:'Customer acquisition & incentives',d:'Drive early agency growth and network effects.'},
+    {p:25,a:'$375,000',t:'Payments, compliance, legal & risk',d:'Category-appropriate infrastructure and controls.'},
+    {p:15,a:'$225,000',t:'Analytics, CRM & gamification',d:'Deepen the creator-facing intelligence layer.'},
+    {p:15,a:'$225,000',t:'Onboard founding creators',d:'White-glove the Inner Circle and early agencies.'},
+    {p:15,a:'$225,000',t:'Finalize Core platform',d:'UX, discovery and payout infrastructure.'}
+  ];
+  const el=document.getElementById('uof'); if(!el) return;
+  el.innerHTML=uof.map(u=>`<div class="card" style="display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:16px 22px;">
+    <div class="big-metric" style="font-size:1.9rem;min-width:78px;">${u.p}%</div>
+    <div><div class="nm" style="font-size:.98rem;">${u.t}</div><div class="mt" style="font-size:.8rem;margin-top:2px;">${u.d}</div>
+      <div class="altyr-progress" style="margin-top:10px;"><div class="altyr-progress-fill" style="width:${u.p*3.3}%;"></div></div></div>
+    <div class="altyr-sub" style="font-weight:500;color:var(--altyr-text-1);">${u.a}</div>
+  </div>`).join('');
+})();
+
+/* ── charts ─────────────────────────────────────────────────────── */
+function drawMix(){
+  const svg=document.getElementById('chart-mix'); if(!svg) return;
+  const W=520,H=240,pad={l:6,r:6,t:10,b:20};
+  const pro=[0,0,75000,111000,146280,180854,214737,247943,280484,312374,343627,336754,330019,323419,316950,310611,304399,298311];
+  const core=[0,0,0,0,0,0,85036,196371,333215,494801,680381,800128,784125,768443,753074,738012,723252,708787];
+  const n=pro.length, maxY=1250000;
+  const x=i=>pad.l+(i/(n-1))*(W-pad.l-pad.r);
+  const y=v=>H-pad.b-(v/maxY)*(H-pad.t-pad.b);
+  const proPts=pro.map((v,i)=>[x(i),y(v)]);
+  const totPts=pro.map((v,i)=>[x(i),y(v+core[i])]);
+  const areaPro='M'+x(0)+','+y(0)+' '+proPts.map(p=>p.join(',')).join(' ')+' L'+x(n-1)+','+y(0)+' Z';
+  const areaCore='M'+proPts.map(p=>p.join(',')).join(' L')+' L'+[...totPts].reverse().map(p=>p.join(',')).join(' L')+' Z';
+  let g='';
+  [0.25,0.5,0.75,1].forEach(f=>{g+=`<line x1="${pad.l}" y1="${y(maxY*f)}" x2="${W-pad.r}" y2="${y(maxY*f)}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;});
+  g+=`<path d="${areaPro}" fill="rgba(224,138,56,0.28)" stroke="var(--altyr-amber)" stroke-width="1.5"/>`;
+  g+=`<path d="${areaCore}" fill="rgba(192,56,122,0.30)" stroke="var(--altyr-rose)" stroke-width="1.5"/>`;
+  ['M3','M7','M12','M18'].forEach((lb,k)=>{const idx=[2,6,11,17][k];g+=`<text x="${x(idx)}" y="${H-6}" fill="rgba(214,216,221,0.4)" font-size="9" text-anchor="middle" font-family="system-ui">${lb}</text>`;});
+  svg.innerHTML=g;
+}
+function drawRamp(){
+  const svg=document.getElementById('chart-ramp'); if(!svg) return;
+  const W=560,H=240,pad={l:8,r:10,t:14,b:22};
+  const rev=[0,0,75000,111000,146280,180854,299773,444313,613698,807175,1024007,1136882,1114144,1091861,1070024,1048623,1027651,1007098];
+  const n=rev.length,maxY=1200000;
+  const x=i=>pad.l+(i/(n-1))*(W-pad.l-pad.r);
+  const y=v=>H-pad.b-(v/maxY)*(H-pad.t-pad.b);
+  const pts=rev.map((v,i)=>[x(i),y(v)]);
+  let g='';
+  [0,0.25,0.5,0.75,1].forEach(f=>{g+=`<line x1="${pad.l}" y1="${y(maxY*f)}" x2="${W-pad.r}" y2="${y(maxY*f)}" stroke="rgba(255,255,255,0.05)"/>`;
+    g+=`<text x="${W-pad.r+2}" y="${y(maxY*f)+3}" fill="rgba(214,216,221,0.35)" font-size="8.5" font-family="system-ui">$${(maxY*f/1000000).toFixed(1)}M</text>`;});
+  const area='M'+x(0)+','+y(0)+' L'+pts.map(p=>p.join(',')).join(' L')+' L'+x(n-1)+','+y(0)+' Z';
+  g+=`<defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#c0387a"/><stop offset="1" stop-color="#e08a38"/></linearGradient></defs>`;
+  g+=`<path d="${area}" fill="rgba(192,56,122,0.10)"/>`;
+  g+=`<path d="M${pts.map(p=>p.join(',')).join(' L')}" fill="none" stroke="url(#rg)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>`;
+  // markers for launch points
+  [[2,'Pro'],[6,'Core']].forEach(([idx,lb])=>{g+=`<circle cx="${x(idx)}" cy="${y(rev[idx])}" r="3.2" fill="#000" stroke="var(--altyr-rose)" stroke-width="1.5"/><text x="${x(idx)}" y="${y(rev[idx])-8}" fill="rgba(214,216,221,0.55)" font-size="8.5" text-anchor="middle" font-family="system-ui">${lb}</text>`;});
+  ['M1','M6','M12','M18'].forEach((lb,k)=>{const idx=[0,5,11,17][k];g+=`<text x="${x(idx)}" y="${H-6}" fill="rgba(214,216,221,0.4)" font-size="9" text-anchor="middle" font-family="system-ui">${lb}</text>`;});
+  svg.innerHTML=g;
+}
+
+/* ── deck navigation ────────────────────────────────────────────── */
+const slides=[...document.querySelectorAll('.slide')];
+const dotsWrap=document.getElementById('dots');
+const total=slides.length;
+document.getElementById('tot').textContent=total;
+let idx=0, drawn=false;
+slides.forEach((s,i)=>{const b=document.createElement('button');b.className='dot';b.setAttribute('aria-label','Go to slide '+(i+1));b.addEventListener('click',()=>go(i));dotsWrap.appendChild(b);});
+const dots=[...dotsWrap.children];
+function go(i){
+  idx=Math.max(0,Math.min(total-1,i));
+  slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+  dots.forEach((d,k)=>d.classList.toggle('on',k===idx));
+  document.getElementById('cur').textContent=idx+1;
+  document.getElementById('topfill').style.width=((idx+1)/total*100)+'%';
+  if(!drawn){drawMix();drawRamp();drawn=true;}
+}
+document.getElementById('prev').addEventListener('click',()=>go(idx-1));
+document.getElementById('next').addEventListener('click',()=>go(idx+1));
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(idx+1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(idx-1);}
+  else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(total-1);}
+});
+let sx=null;
+window.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});
+window.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>50)go(idx+(dx<0?1:-1));sx=null;},{passive:true});
+window.addEventListener('resize',()=>{if(drawn){drawMix();drawRamp();}});
+go(0);
+</script>
+</body>
+</html>
