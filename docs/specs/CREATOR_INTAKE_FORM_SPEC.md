@@ -67,7 +67,9 @@ PageAccount            (repeating — one per page)
 └── login_region                (audit "VPN Location")
 
 PersonaProfile
-├── archetypes[]                (enum + freeform: bubbly, luxury, gnd, dom, sub, alt, milf, other)
+├── persona_description         (free text — NO preset archetype enum; the roster includes male
+│                                and female creators, so creators describe their own vibe and the
+│                                SOP compiler normalizes it into KB traits)
 ├── backstory { stated_age, stated_location, day_job, relationship_story, hobbies, pets, other }
 ├── voice_rules { emojis[], pet_names[], slang, capitalization, msg_length, typo_tolerance }
 ├── never_say[]                 (chat-audit auto-deduction list)
@@ -77,7 +79,7 @@ PersonaProfile
 
 PricingMatrix
 ├── sub_price, promo_rules
-├── ppv_bounds[] { category: solo|bg|gg|anal|fetish|sexting, min, max, explicitness_ceiling }
+├── ppv_bounds[] { category: solo|bg|gg|bb|anal|fetish|sexting, min, max, explicitness_ceiling }
 ├── tip_menu[], bundles[], vip_offers[]
 └── customs { offered, rate, turnaround_days }
 
@@ -117,7 +119,7 @@ of day-0 audit auto-derivation (open decision; see internal blocking doc).
 | # | Step | Writes | Gate to advance |
 |---|---|---|---|
 | 1 | Identity & Legal | CreatorIntake basics, VerificationReference, DocumentSlots | legal name, stage name, DOB, contact, country/tz; OF-verified flag confirmed; agreement + tax e-sign started |
-| 2 | Persona & Voice | PersonaProfile | archetype, backstory, voice rules, never-say list |
+| 2 | Persona & Voice | PersonaProfile | persona description, backstory, voice rules, never-say list |
 | 3 | Content & Pricing | PricingMatrix, categories, hard limits, vault snapshot, collab names | categories, hard limits, sub price, PPV bounds |
 | 4 | Fans & History | SalesBaseline, TopSpenderDossiers | earnings + sub counts (or explicit "derive from audit") |
 | 5 | Accounts & Access | PageAccounts (+ vault refs) | ≥1 page fully connected incl. 2FA + login region |
