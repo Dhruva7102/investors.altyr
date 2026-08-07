@@ -93,8 +93,9 @@ DocumentSlot           (repeating — the "document locker")
 └── esign_status                (agreement + tax form use embedded e-sign)
 
 VerificationReference  (on CreatorIntake — replaces ID uploads)
-├── of_identity_verified: bool, confirmed_by, confirmed_at
-└── collab_releases { partner_names[], confirmed_on_of: bool, confirmed_at }
+└── of_identity_verified: bool, confirmed_by, confirmed_at
+    (co-performer release forms live natively on OnlyFans — nothing about
+     collaborators is collected in the intake, per Solan)
 
 OpsProfile
 ├── availability, preferred_channel, response_expectation
@@ -105,8 +106,8 @@ OpsProfile
 PermissionGrant        (repeating, versioned, logged)
 ├── key: message_as_persona | run_automated_audits | adjust_pricing_in_matrix |
 │        unsend_and_clear_queues | crosspost_socials.<platform>
-├── granted: bool, granted_at, signature_ref
-└── escalation_contacts[]
+└── granted: bool, granted_at, signature_ref
+    (no escalation/emergency contact collection — cut per Solan)
 ```
 
 Baseline self-reported numbers (earnings 30/90d, sub counts, chargebacks 30d,
@@ -120,7 +121,7 @@ of day-0 audit auto-derivation (open decision; see internal blocking doc).
 |---|---|---|---|
 | 1 | Identity & Legal | CreatorIntake basics, VerificationReference, DocumentSlots | legal name, stage name, DOB, contact, country/tz; OF-verified flag confirmed; agreement + tax e-sign started |
 | 2 | Persona & Voice | PersonaProfile | persona description, backstory, voice rules, never-say list |
-| 3 | Content & Pricing | PricingMatrix, categories, hard limits, vault snapshot, collab names | categories, hard limits, sub price, PPV bounds |
+| 3 | Content & Pricing | PricingMatrix, categories, hard limits, vault snapshot | categories, hard limits, sub price, PPV bounds |
 | 4 | Fans & History | SalesBaseline, TopSpenderDossiers | earnings + sub counts (or explicit "derive from audit") |
 | 5 | Accounts & Access | PageAccounts (+ vault refs) | ≥1 page fully connected incl. 2FA + login region |
 | 6 | Ops & Availability | OpsProfile | availability, channel, check-in cadence |
