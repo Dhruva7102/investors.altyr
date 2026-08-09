@@ -52,7 +52,7 @@ export default function RevenueConcentrationSlide() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AC0064] via-[#9B4DCA] to-[#64109A]">
                 ~4.2%
               </span>
-              <span className="text-white/60"> of OnlyFans subscribers pay for content</span>
+              <span className="text-white/60"> of OnlyFans followers ever convert to paying subscribers</span>
             </div>
             <div className="text-3xl md:text-4xl font-extralight text-white/90 mb-2 leading-snug max-w-4xl mx-auto">
               <span className="text-white/60">The top </span>
@@ -134,7 +134,8 @@ export default function RevenueConcentrationSlide() {
         >
           <div className="p-6 rounded-xl bg-white/[0.03] border border-white/[0.08]">
             <p className="text-lg md:text-xl font-extralight text-white/80 leading-relaxed italic">
-              The market exists because people spend on <span className="text-white/90 font-medium">relationship depth</span>, not just content access. Current platforms leave that value on the table.
+              A handful of <span className="text-white/90 font-medium">whales</span> drive the economics. Own the infrastructure that
+              manages those relationships, and you own the most valuable revenue in the category.
             </p>
           </div>
         </motion.div>

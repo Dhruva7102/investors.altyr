@@ -410,7 +410,7 @@ export default function AltyrSolutionSlide() {
           transition={{ duration: 0.7 }}
         >
           <span className="w-14 h-px bg-gradient-to-r from-transparent to-[#64109A]/55" />
-          <span className="text-xs tracking-[0.35em] text-[#AC0064]/85 uppercase font-medium">Altyr&apos;s solution</span>
+          <span className="text-xs tracking-[0.35em] text-[#AC0064]/85 uppercase font-medium">The Product</span>
           <span className="w-14 h-px bg-gradient-to-l from-transparent to-[#64109A]/55" />
         </motion.div>
 
@@ -421,9 +421,12 @@ export default function AltyrSolutionSlide() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.05 }}
           >
-            <div className="flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase text-[#AC0064]/90 font-medium">
-              <Users className="w-4 h-4" />
-              Creators
+            <div>
+              <div className="flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase text-[#AC0064]/90 font-medium">
+                <Users className="w-4 h-4" />
+                Altyr Pro — agency operating system
+              </div>
+              <p className="text-[10px] text-white/35 mt-1 font-light tracking-wide">What the agency and creator team sees</p>
             </div>
             <CreatorCrmMock />
             <CreatorTimelineActionsMock />
@@ -435,9 +438,12 @@ export default function AltyrSolutionSlide() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.1 }}
           >
-            <div className="flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase text-[#AC0064]/90 font-medium">
-              <Sparkles className="w-4 h-4" />
-              Fans
+            <div>
+              <div className="flex items-center gap-2 text-[11px] tracking-[0.28em] uppercase text-[#FF8C42]/90 font-medium">
+                <Sparkles className="w-4 h-4" />
+                Altyr Platform — premium fan experience
+              </div>
+              <p className="text-[10px] text-white/35 mt-1 font-light tracking-wide">What the fan sees</p>
             </div>
             <FanRewardsMock />
             <FanMessagesMock />

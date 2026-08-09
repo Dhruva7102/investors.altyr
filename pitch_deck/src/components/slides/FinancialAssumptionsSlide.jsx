@@ -9,27 +9,32 @@ const unitEconomicsColumns = [
 ];
 
 const unitEconomicsRows = [
-  { item: 'Gross Revenue', value: '$14.00 / user', notes: '($10 Sub + $4 Tips)' },
-  { item: 'Net Revenue', value: '$2.80 / user', notes: '20% Platform Take Rate' },
-  { item: 'CAC (Initial)', value: '$25.00', notes: 'Paid acquisition cost' },
-  { item: 'CAC (Blended)', value: '$15.00', notes: 'Targets organic/viral lift by Year 1' },
-  { item: 'Churn', value: '10%', notes: 'Monthly user churn' },
+  { item: 'Altyr Pro SaaS', value: '$250 / creator / mo', notes: 'Per connected creator' },
+  { item: 'Platform commission', value: '20% of whale GMV', notes: 'Creator keeps 80%; Altyr bears processing' },
+  { item: 'Gross revenue / creator', value: '~$13,000 / mo', notes: 'Roster average (model input)' },
+  { item: 'Whale share of revenue', value: '60%', notes: 'Model input' },
+  { item: 'Whale GMV / creator', value: '~$7,800 / mo', notes: 'Gross, before commission' },
+  { item: 'Altyr Pro infra cost', value: '$46 / creator / mo', notes: 'Plus ~$2,322/mo fixed baseline' },
+  { item: 'Revenue mix at scale', value: '~83% / 17%', notes: 'Platform commission / SaaS' },
 ];
 
 const growthColumns = [
-  { key: 'item', label: 'Item' },
-  { key: 'base', label: 'Base Case', align: 'right' },
-  { key: 'conservative', label: 'Conservative', align: 'right' },
-  { key: 'optimistic', label: 'Optimistic', align: 'right' },
+  { key: 'item', label: 'Assumption' },
+  { key: 'upside', label: 'Upside', align: 'right' },
+  { key: 'base', label: 'Base (Floor)', align: 'right' },
   { key: 'notes', label: 'Notes' },
 ];
 
 const growthRows = [
-  { item: 'Start Users', base: '500', conservative: '500', optimistic: '500', notes: 'Starting point' },
-  { item: 'CAC (Initial)', base: '$25.00', conservative: '$50.00', optimistic: '$20.00', notes: 'Paid acquisition' },
-  { item: 'CAC (Blended)', base: '$15.00', conservative: '$25.00', optimistic: '$10.00', notes: 'Organic lift' },
-  { item: 'Churn', base: '10%', conservative: '15%', optimistic: '10%', notes: 'Monthly' },
-  { item: 'CMGR', base: '~24%', conservative: '~24%', optimistic: '~30%', notes: 'Monthly growth' },
+  { item: 'Whale -> Altyr penetration', upside: '80%', base: '55%', notes: 'Ramps to steady state over ~6 months' },
+  { item: 'Creators per agency', upside: '150+', base: '150+', notes: 'Top ~15-20 agencies' },
+  { item: 'Agency churn', upside: '2% / mo', base: '2% / mo', notes: 'Monthly' },
+  { item: 'Payment processing', upside: '5.5%', base: '5.5%', notes: 'Of whale GMV (high-risk MCC)' },
+  { item: 'Chargeback / fraud reserve', upside: '1.5%', base: '1.5%', notes: 'Of whale GMV' },
+  { item: 'SaaS processing', upside: '3%', base: '3%', notes: 'Of SaaS revenue' },
+  { item: 'Starting cash', upside: '$1.5M', base: '$1.5M', notes: 'Pre-seed SAFE' },
+  { item: 'Tax rate', upside: '25%', base: '25%', notes: 'C-corp basis' },
+  { item: 'DSO', upside: '20 days', base: '20 days', notes: 'Collections lag' },
 ];
 
 export default function FinancialAssumptionsSlide() {
@@ -76,10 +81,10 @@ export default function FinancialAssumptionsSlide() {
             transition={{ duration: 0.7, delay: 0.15 }}
           >
             <SpreadsheetTable
-              title="Revenue & Unit Economics"
+              title="Revenue & Unit Economics (per connected creator)"
               columns={unitEconomicsColumns}
               rows={unitEconomicsRows}
-              note="Net Revenue is per user after applying platform take rate."
+              note="Two revenue lines: $250/mo SaaS + 20% of whale GMV. Whale figures are model inputs."
             />
           </motion.div>
 
@@ -89,7 +94,7 @@ export default function FinancialAssumptionsSlide() {
             transition={{ duration: 0.7, delay: 0.25 }}
           >
             <SpreadsheetTable
-              title="Growth Assumptions (Scenarios)"
+              title="Model Assumptions (Upside vs Base Floor)"
               columns={growthColumns}
               rows={growthRows}
             />

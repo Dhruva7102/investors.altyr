@@ -8,47 +8,47 @@ const MAX_SLICE = 30;
 
 const useOfFunds = [
   {
-    icon: Target,
-    shortLabel: 'Growth',
-    title: 'Customer Acquisition Incentives',
+    icon: BarChart,
+    shortLabel: 'Pro',
+    title: 'Scale Altyr Pro to stable-at-scale',
     description:
-      'Incentives for users and creators to drive early growth and network effects.',
+      'Engineering and product to harden the OFAPI infrastructure, ship the full feature set, and run every connected creator reliably.',
     value: 30,
     color: '#AC0064',
   },
   {
-    icon: Shield,
-    shortLabel: 'Trust',
-    title: 'Payments, Compliance, Legal & Risk',
+    icon: UsersIcon,
+    shortLabel: 'Agencies',
+    title: 'Onboard signed & LOI agencies',
     description:
-      'Invest in robust payment infrastructure, compliance, legal, and risk systems appropriate for the category.',
-    value: 25,
+      'White-glove onboarding and customer success to bring the signed top-10 agency and three LOI agencies onto Altyr Pro.',
+    value: 20,
     color: '#9B4DCA',
   },
   {
-    icon: BarChart,
-    shortLabel: 'Product',
-    title: 'Build Analytics, CRM & Gamification',
+    icon: Shield,
+    shortLabel: 'Trust',
+    title: 'Payments, compliance & risk',
     description:
-      'Develop creator-facing analytics dashboard, high-value fan CRM, and full gamification engine.',
-    value: 15,
+      'High-risk payment processing, chargeback / fraud reserves, KYC, content moderation, and legal for the platform.',
+    value: 20,
     color: '#64109A',
-  },
-  {
-    icon: UsersIcon,
-    shortLabel: 'Creators',
-    title: 'Onboard Founding Creators',
-    description:
-      'Deeply support an Inner Circle of founding creators and early agency partners with white-glove service.',
-    value: 15,
-    color: '#7C3AED',
   },
   {
     icon: Layers,
     shortLabel: 'Platform',
-    title: 'Finalize Core Platform',
+    title: 'Launch the Altyr platform',
     description:
-      'Complete UX, discovery, and payout infrastructure for seamless creator and fan experience.',
+      'Build the premium whale destination and payout infrastructure that monetizes the relationships Pro reveals (~M7).',
+    value: 15,
+    color: '#7C3AED',
+  },
+  {
+    icon: Target,
+    shortLabel: 'Team',
+    title: 'Team & operations',
+    description:
+      'Key engineering, success, and operations hires plus corporate G&A to support the agency-led rollout.',
     value: 15,
     color: '#A855F7',
   },

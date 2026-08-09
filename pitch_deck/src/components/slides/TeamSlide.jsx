@@ -7,10 +7,10 @@ const team = [
     name: 'Dhruva Kolikineni',
     role: 'Chief Executive Officer',
     bullets: [
-      'Graduated Magna Cum Laude, UCSD Machine Learning / AI in 2 years',
-      'Ran AI infra consulting firm with multiple six-figure Fortune 500 contracts',
+      'Built AI infra at scale — multiple six-figure contracts with Fortune 500 clients',
       'Ex-founder, Berkeley SkyDeck 2021 batch',
-      'Full-stack developer',
+      'Full-stack developer; built every layer of Altyr Pro',
+      'UCSD ML/AI, Magna Cum Laude',
     ],
     photo: '/team/dhruva.jpg',
     photoStyle: { objectPosition: 'center left', transform: 'scale(1.3)' },
@@ -68,8 +68,8 @@ export default function TeamSlide() {
             Why This Team
           </h2>
           <p className="text-lg md:text-xl text-white/50 font-light max-w-3xl mx-auto">
-            Platforms fail when built for creators instead of with them. Altyr&apos;s founding creators are users,
-            partners, and distribution.
+            Deep technical infrastructure plus native access to the agency world. Altyr is built by an operator who
+            solved stability at scale and a top creator who opens every agency door.
           </p>
         </motion.div>
 

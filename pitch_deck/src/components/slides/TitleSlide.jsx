@@ -57,7 +57,7 @@ export default function TitleSlide() {
           transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="relative inline-block">
-            <h1 
+            <h1
               className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-[0.12em]"
               style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
             >
@@ -91,33 +91,28 @@ export default function TitleSlide() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
-          <span className="text-white/90">an exclusive content platform that </span>
-          <span className="text-white/90 italic">actually</span>
-          <span className="text-white/90"> feels</span>
-          <br />
+          <span className="text-white/90">The operating system for </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white/80 via-[#AC0064] to-[#64109A]">
-            pleasurable
+            OnlyFans agencies
           </span>
+          <br />
+          <span className="text-white/90">— and the platform for their biggest fans</span>
         </motion.h2>
 
-        {/* Feature bullets */}
+        {/* Two-product bullets */}
         <motion.div
-          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-12 mb-8 max-w-4xl mx-auto"
+          className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-10 mb-8 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="flex items-center gap-3 text-white/70 font-light">
             <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
-            <span className="text-base md:text-lg">Beautiful, premium user experience</span>
+            <span className="text-base md:text-lg">Altyr Pro — the agency operating system</span>
           </div>
           <div className="flex items-center gap-3 text-white/70 font-light">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
-            <span className="text-base md:text-lg">Modern creator tools + revenue ops</span>
-          </div>
-          <div className="flex items-center gap-3 text-white/70 font-light">
-            <div className="w-1.5 h-1.5 rounded-full bg-[#AC0064]" />
-            <span className="text-base md:text-lg">Rewarding, gamified fan experiences</span>
+            <div className="w-1.5 h-1.5 rounded-full bg-[#FF8C42]" />
+            <span className="text-base md:text-lg">Altyr Platform — premium destination for whales</span>
           </div>
         </motion.div>
 
