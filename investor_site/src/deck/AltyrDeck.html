@@ -567,11 +567,11 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible;}
     <section class="slide" data-title="Use of funds">
       <div class="slide-inner">
         <div class="eyebrow-row"><span class="line"></span><span class="kick">Use of funds · $500K</span></div>
-        <h2 class="h-title" style="max-width:940px;margin-bottom:14px;">More than half the raise never leaves the account.</h2>
-        <p class="lede" style="max-width:940px;margin-bottom:26px;">Peak deployment is $217K, in month 7 — mostly working-capital float on revenue already earned. EBITDA-positive from month 5 of the plan's deliberately conservative ramp — at 10 agencies, it's month one.</p>
+        <h2 class="h-title" style="max-width:960px;margin-bottom:14px;">Sized to scale aggressively — and survive the slowest case.</h2>
+        <p class="lede" style="max-width:940px;margin-bottom:26px;">The $500K funds speed: team, agency onboarding, and operations running ahead of revenue. It's sized against the worst case — so scaling never depends on another check.</p>
         <div id="uof" class="grid" style="gap:12px;"></div>
-        <p class="altyr-sub" style="margin-top:16px;font-size:16.5px;color:var(--altyr-text-2);">Even the worst case bottoms at <b style="color:var(--altyr-text-1);font-weight:500;">$149K of cash</b> — solvent throughout, with investors still repaid in full by month 24.</p>
-        <p class="foot">Base case of the 3-year single-raise operating model.</p>
+        <p class="altyr-sub" style="margin-top:16px;font-size:16.5px;color:var(--altyr-text-2);">In the base case, deployment peaks at just <b style="color:var(--altyr-text-1);font-weight:500;">$217K</b> and the business is EBITDA-positive from month 5 — at 10 agencies, it's month one. The same raise then simply pays back faster.</p>
+        <p class="foot">Worst case of the 3-year single-raise model: slow onboarding, 30% whale penetration — solvent throughout on the single raise, investors repaid in full by month 24.</p>
       </div>
     </section>
 
@@ -745,9 +745,10 @@ document.body.innerHTML = document.body.innerHTML.replace(/\$\{ICON_(\w+)\}/g,(m
 /* ── use of funds ───────────────────────────────────────────────── */
 (function(){
   const uof=[
-    {p:40,a:'$200,000',t:'Receivables float',d:'Working capital — revenue already earned, on a ~20-day platform collection lag.'},
-    {p:3,a:'$17,000',t:'Launch burn & capex',d:'Total net operating investment to EBITDA-positive (month 5).'},
-    {p:57,a:'$283,000',t:'Operating reserve',d:'Never drawn, even at the cash trough (month 7). Safety, not survival.'}
+    {p:38,a:'$189,000',t:'Scaling ahead of revenue',d:'Team, agency onboarding & operations funded before collections catch up — the aggressive part.'},
+    {p:30,a:'$148,000',t:'Receivables float',d:'Working capital — revenue already earned, on a ~20-day platform collection lag.'},
+    {p:3,a:'$14,000',t:'Capex & tooling',d:'Equipment and setup through the ramp.'},
+    {p:29,a:'$149,000',t:'Rolling reserve',d:'Still untouched at the worst case’s cash trough (month 9) — scaling continues through any miss.'}
   ];
   const el=document.getElementById('uof'); if(!el) return;
   el.innerHTML=uof.map(u=>`<div class="card" style="display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:16px 22px;">
