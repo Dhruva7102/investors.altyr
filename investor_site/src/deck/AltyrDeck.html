@@ -523,7 +523,7 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible;}
           <div style="display:flex;flex-direction:column;gap:12px;">
             <div class="card" style="padding:16px 18px;"><div class="lab" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:6px;">Profitability</div><div class="big-metric" style="font-size:2rem;">Month one</div><div class="note" style="font-size:.76rem;color:var(--altyr-text-3);margin-top:4px;">Profitable at 10 agencies, from the first month of operation.</div></div>
             <div class="card" style="padding:16px 18px;"><div class="lab" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:6px;">Additional capital</div><div class="big-metric" style="font-size:2rem;">$0</div><div class="note" style="font-size:.76rem;color:var(--altyr-text-3);margin-top:4px;">Growth is funded by profits.</div></div>
-            <div class="card accent" style="padding:16px 18px;"><div class="lab" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:6px;">Investors</div><div class="big-metric" style="font-size:2rem;">Paid back first</div><div class="note" style="font-size:.76rem;color:var(--altyr-text-3);margin-top:4px;">Distributions until the $500K is returned, then pro-rata forever.</div></div>
+            <div class="card accent" style="padding:16px 18px;"><div class="lab" style="font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--altyr-text-3);margin-bottom:6px;">Investors</div><div class="big-metric" style="font-size:2rem;">Paid back first</div><div class="note" style="font-size:.76rem;color:var(--altyr-text-3);margin-top:4px;">Repaid in full by month 18 in the base case — by month 24 even in the worst.</div></div>
           </div>
         </div>
         <p class="foot">Management case · sustained onboarding, 2% monthly agency churn, commission ramp from month 7. Steady-state whale penetration (55%) is the key assumption the pilots validate.</p>
@@ -556,6 +556,7 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible;}
               <li>Thereafter, all holders share pro-rata — forever.</li>
               <li>Units sit in the parent company: Pro software revenue and Core platform commission feed the same pool.</li>
               <li>Management defines distributable cash, so the priority never becomes a covenant.</li>
+              <li><b>Modeled payback:</b> repaid in full by month 18 (base) — month 24 even in the worst case; ~1.8× cumulative by month 36.</li>
             </ul>
           </div>
         </div>
@@ -566,8 +567,10 @@ svg.chart{width:100%;height:auto;display:block;overflow:visible;}
     <section class="slide" data-title="Use of funds">
       <div class="slide-inner">
         <div class="eyebrow-row"><span class="line"></span><span class="kick">Use of funds · $500K</span></div>
-        <h2 class="h-title" style="max-width:900px;margin-bottom:26px;">Every dollar buys capacity, not survival.</h2>
+        <h2 class="h-title" style="max-width:940px;margin-bottom:14px;">More than half the raise never leaves the account.</h2>
+        <p class="lede" style="max-width:900px;margin-bottom:26px;">Peak deployment is $217K, in month 7 — and most of that is working-capital float on revenue already earned. The business is EBITDA-positive from month 5.</p>
         <div id="uof" class="grid" style="gap:12px;"></div>
+        <p class="foot">Base case of the 3-year single-raise operating model. The worst case bottoms at $149K of cash — still solvent, and still repays investors in full by month 24.</p>
       </div>
     </section>
 
@@ -741,25 +744,23 @@ document.body.innerHTML = document.body.innerHTML.replace(/\$\{ICON_(\w+)\}/g,(m
 /* ── use of funds ───────────────────────────────────────────────── */
 (function(){
   const uof=[
-    {p:30,a:'$150,000',t:'Agency onboarding & incentives',d:'White-glove migration off the incumbent, through partner-led distribution.'},
-    {p:25,a:'$125,000',t:'Payments, compliance, legal & risk',d:'Category-appropriate infrastructure and controls.'},
-    {p:15,a:'$75,000',t:'Pro product depth',d:'The analytics, CRM & automation the incumbent never built.'},
-    {p:15,a:'$75,000',t:'Core launch',d:'UX, discovery and payout infrastructure.'},
-    {p:15,a:'$75,000',t:'Operating reserve',d:'Safety buffer — growth is funded by profits.'}
+    {p:40,a:'$200,000',t:'Receivables float',d:'Working capital — revenue already earned, on a ~20-day platform collection lag.'},
+    {p:3,a:'$17,000',t:'Launch burn & capex',d:'Total net operating investment to EBITDA-positive (month 5).'},
+    {p:57,a:'$283,000',t:'Operating reserve',d:'Never drawn, even at the cash trough (month 7). Safety, not survival.'}
   ];
   const el=document.getElementById('uof'); if(!el) return;
   el.innerHTML=uof.map(u=>`<div class="card" style="display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:16px 22px;">
     <div class="big-metric" style="font-size:1.9rem;min-width:78px;">${u.p}%</div>
     <div><div class="nm" style="font-size:.98rem;">${u.t}</div><div class="mt" style="font-size:.8rem;margin-top:2px;">${u.d}</div>
-      <div class="altyr-progress" style="margin-top:10px;"><div class="altyr-progress-fill" style="width:${u.p*3.3}%;"></div></div></div>
+      <div class="altyr-progress" style="margin-top:10px;"><div class="altyr-progress-fill" style="width:${u.p*1.75}%;"></div></div></div>
     <div class="altyr-sub" style="font-weight:500;color:var(--altyr-text-1);">${u.a}</div>
   </div>`).join('');
 })();
 
-/* ── 36-month operating model (interim, management case) ────────── */
-/* Sustained onboarding: 2 agencies at M3, then 1/mo; 2% monthly churn.
-   SaaS from M3; platform commission ramps M7–M12. The series must rise
-   every month — asserted below before any chart renders. */
+/* ── 36-month operating model (Base Case, 3-year single-raise model) ── */
+/* Matches the workbook month-for-month: 2 agencies at M3, then 1/mo;
+   2% monthly churn; SaaS from M3; commission ramps M7–M12. The series
+   must rise every month — asserted below before any chart renders. */
 const MODEL=(function(){
   const N=36,saas=[],comm=[],total=[];
   let cum=0;
