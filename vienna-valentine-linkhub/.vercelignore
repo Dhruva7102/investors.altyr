@@ -1,0 +1,4 @@
+# Keep documentation out of the deployment. A static host serves every file it
+# is given, and README.md names the destination in plain text.
+README.md
+img/README.md
